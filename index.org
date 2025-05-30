@@ -11,18 +11,38 @@
 
 -----
 
-#+BEGIN_SRC python
-  #!/usr/bin/env python3
-  import random
+# #+BEGIN_SRC python
+#   #!/usr/bin/env python3
+#   import random
 
-  wearer_of_many_hats = [
-      'DevOps Engineer',             #          _##_
-      'DevSecOps Engineer',          #          (^^)
-      'Site Reliability Engineer',   #         --  --
-      'Systems Sorcerer',            #          /  \
-      'Cloud Whisperer',
-  ]
-  print(f"Today, I'm your: {random.choice(wearer_of_many_hats)}")
+#   wearer_of_many_hats = [
+#       'DevOps Engineer',             #          _##_
+#       'DevSecOps Engineer',          #          (^^)
+#       'Site Reliability Engineer',   #         --  --
+#       'Systems Sorcerer',            #          /  \
+#       'Cloud Whisperer',
+#   ]
+#   print(f"Today, I'm your: {random.choice(wearer_of_many_hats)}")
+# #+END_SRC
+
+#+BEGIN_SRC scheme
+(define (desert-hacker location mood activity link)
+  (display
+   (string-append
+
+    (symbol->string mood)
+    " "
+    (symbol->string (car activity))
+    " (and "
+    (symbol->string (cadr activity))
+    " at "
+    link
+    ") from the desert in "
+    (symbol->string location)
+    ", USA.\n")))
+
+;; WAT DOING:
+(desert-hacker 'New-Mexico 'happily '(hacking podcasting) "https://www.youtube.com/@sudoshred")
 #+END_SRC
 
 ** Contact
@@ -75,28 +95,6 @@ After experiencing a burnout period -- I am "retired," [for now] -- to refine my
 I'm studying C, Scheme, and Lua, among other things.
 
 [[https://stallman.org/articles/happy-hacking.html][Happily hacking]] (and [[https://www.youtube.com/@sudoshred][podcasting)]] from the desert in New Mexico, USA.
-
-#+BEGIN_SRC scheme
-  (define (desert-hacker)
-  (let ((location 'New-Mexico)
-        (mood 'happily)
-        (activity '(hacking podcasting))
-        (link "https://www.youtube.com/@sudoshred"))
-    (display
-     (string-append
-      (symbol->string mood)
-      " "
-      (symbol->string (car activity))
-      " (and "
-      (symbol->string (cadr activity))
-      " at "
-      link
-      ") from the desert in "
-      (symbol->string location)
-      ", USA.\n"))))
-
-(desert-hacker)
-#+END_SRC
 
 ** CV
 

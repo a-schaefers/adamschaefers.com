@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2025-05-30 Fri 15:23 -->
+<!-- 2025-05-30 Fri 15:40 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Adam Schaefers - Devops Engineer</title>
@@ -196,29 +196,35 @@
 <body>
 <div id="content" class="content">
 <h1 class="title">Adam Schaefers - Devops Engineer</h1>
-<div id="outline-container-orgb838928" class="outline-2">
-<h2 id="orgb838928">About</h2>
-<div class="outline-text-2" id="text-orgb838928">
+<div id="outline-container-org5bd654d" class="outline-2">
+<h2 id="org5bd654d">About</h2>
+<div class="outline-text-2" id="text-org5bd654d">
 <hr>
 
 <div class="org-src-container">
-<pre class="src src-python">#!/usr/bin/env python3
-import random
+<pre class="src src-scheme">(define (desert-hacker location mood activity link)
+  (display
+   (string-append
 
-wearer_of_many_hats = [
-    'DevOps Engineer',             #          _##_
-    'DevSecOps Engineer',          #          (^^)
-    'Site Reliability Engineer',   #         --  --
-    'Systems Sorcerer',            #          /  \
-    'Cloud Whisperer',
-]
-print(f"Today, I'm your: {random.choice(wearer_of_many_hats)}")
+    (symbol-&gt;string mood)
+    " "
+    (symbol-&gt;string (car activity))
+    " (and "
+    (symbol-&gt;string (cadr activity))
+    " at "
+    link
+    ") from the desert in "
+    (symbol-&gt;string location)
+    ", USA.\n")))
+
+;; WAT DOING:
+(desert-hacker 'New-Mexico 'happily '(hacking podcasting) "https://www.youtube.com/@sudoshred")
 </pre>
 </div>
 </div>
-<div id="outline-container-org9c1d27d" class="outline-3">
-<h3 id="org9c1d27d">Contact</h3>
-<div class="outline-text-3" id="text-org9c1d27d">
+<div id="outline-container-orgafa3358" class="outline-3">
+<h3 id="orgafa3358">Contact</h3>
+<div class="outline-text-3" id="text-orgafa3358">
 <hr>
 
 <p><img loading="lazy" src="me.jpeg" style="width: 15%;" class="img-fluid rounded-circle mb-3 hello-profile" alt="Avatar"></p>
@@ -231,9 +237,9 @@ print(f"Today, I'm your: {random.choice(wearer_of_many_hats)}")
 </ul>
 </div>
 </div>
-<div id="outline-container-orgbc9a0da" class="outline-3">
-<h3 id="orgbc9a0da">Summary</h3>
-<div class="outline-text-3" id="text-orgbc9a0da">
+<div id="outline-container-orgb10196d" class="outline-3">
+<h3 id="orgb10196d">Summary</h3>
+<div class="outline-text-3" id="text-orgb10196d">
 <hr>
 
 <p>
@@ -261,9 +267,9 @@ the future.
 </p>
 </div>
 </div>
-<div id="outline-container-orgf1c7e3a" class="outline-3">
-<h3 id="orgf1c7e3a">Currently</h3>
-<div class="outline-text-3" id="text-orgf1c7e3a">
+<div id="outline-container-orga21a2f5" class="outline-3">
+<h3 id="orga21a2f5">Currently</h3>
+<div class="outline-text-3" id="text-orga21a2f5">
 <hr>
 
 <p>
@@ -277,34 +283,11 @@ I'm studying C, Scheme, and Lua, among other things.
 <p>
 <a href="https://stallman.org/articles/happy-hacking.html">Happily hacking</a> (and <a href="https://www.youtube.com/@sudoshred">podcasting)</a> from the desert in New Mexico, USA.
 </p>
-
-<div class="org-src-container">
-<pre class="src src-scheme">  (define (desert-hacker)
-  (let ((location 'New-Mexico)
-        (mood 'happily)
-        (activity '(hacking podcasting))
-        (link "https://www.youtube.com/@sudoshred"))
-    (display
-     (string-append
-      (symbol-&gt;string mood)
-      " "
-      (symbol-&gt;string (car activity))
-      " (and "
-      (symbol-&gt;string (cadr activity))
-      " at "
-      link
-      ") from the desert in "
-      (symbol-&gt;string location)
-      ", USA.\n"))))
-
-(desert-hacker)
-</pre>
 </div>
 </div>
-</div>
-<div id="outline-container-org0ae7af1" class="outline-3">
-<h3 id="org0ae7af1">CV</h3>
-<div class="outline-text-3" id="text-org0ae7af1">
+<div id="outline-container-orga11811e" class="outline-3">
+<h3 id="orga11811e">CV</h3>
+<div class="outline-text-3" id="text-orga11811e">
 <hr>
 
 <p>
