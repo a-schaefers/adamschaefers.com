@@ -1,204 +1,236 @@
-<!doctype html>
-<html lang=en>
-  <head>
-    <title>Adam Schaefers Portfolio</title>
-    <meta charset=utf-8>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
-  <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2025-05-30 Fri 14:43 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Adam Schaefers - Devops Engineer</title>
+<meta name="author" content="Adam Schaefers" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
-    <div class="container">
-      <div class="row">
-        <div class="col-sm col-md-3">
-          <div class="card small">
-            <h1><small>Portfolio</small></h1>
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Adam Schaefers - Devops Engineer</h1>
+<div id="outline-container-org2fd4189" class="outline-2">
+<h2 id="org2fd4189">About</h2>
+<div class="outline-text-2" id="text-org2fd4189">
+<hr>
 
-            <p><small>Adam Schaefers, DevOps</small></p>
+<div class="org-src-container">
+<pre class="src src-python">#!/usr/bin/env python3
+import random
 
-            <img src="assets/wedding.jpg" alt="Profile picture" />
+wearer_of_many_hats = [
+    'DevOps Engineer',             #          _##_
+    'DevSecOps Engineer',          #          (^^)
+    'Site Reliability Engineer',   #         --  --
+    'Systems Sorcerer',            #          /  \
+    'Cloud Whisperer',
+]
+print(f"Today, I'm your: {random.choice(wearer_of_many_hats)}")
+</pre>
+</div>
+</div>
+<div id="outline-container-org3c74cee" class="outline-3">
+<h3 id="org3c74cee">Contact</h3>
+<div class="outline-text-3" id="text-org3c74cee">
+<hr>
+<p><img loading="lazy" src="me.jpeg" style="width: 15%;" class="img-fluid rounded-circle mb-3 hello-profile" alt="Avatar"></p>
 
-            <h5><small>Site last updated: Wed Feb 10 06:08:56 PM PST 2021</small></h5>
-          </div>
-        </div>
-
-        <div class="col-sm col-md-9">
-          <h2>About</h2>
-          <blockquote cite="Will&nbsp;Durant">We are what we repeatedly do. Excellence, then, is not an act, but a habit.</blockquote>
-
-          <blockquote cite="Bl.&nbsp;John&nbsp;Henry&nbsp;Newman">To live is to change.</blockquote>
-          <!-- <p><a href="https://homepage.cs.uri.edu/~thenry/resources/unix_art/ch01s06.html">Unix Philosophy</a></p> -->
-
-          <p>This page is a living document and tells the story of my journey in professional computing.</p>
-
-          <h3>Education</h3>
-          <ol>
-            <li>General Courses, Southwestern Oregon Community College</li>
-            <li>Self-learner</li>
-          </ol>
-
-          <h3>Experience</h3>
-          <ol>
-            <li>Devops Consulting, 2020&#8212;present</li>
-            <li><a href="https://k1ss.org">KISS Linux</a> - <a href="https://github.com/kisslinux/community/issues/1165">(GNU stack package maintainer)</a>, 2019&#8212;2020</li>
-            <li>Self-imposed devops bootcamp - Perfecting my craft, 2016&#8212;2019</li>
-            <li>My first Linux distro - Ubuntu 8.04 Hardy Heron, &#8212;2008</li>
-          </ol>
-
-          <h3>Interests</h3>
-          <ul>
-            <li>Linux</li>
-            <li>DevOps</li>
-            <li>Debugging and problem solving</li>
-            <li>Simple performant fault-tolerant systems</li>
-            <li>Task automation</li>
-            <li>Security & privacy</li>
-          </ul>
-
-          <h3>Technology I use</h3>
-          <ul>
-            <li>GNU / Linux (Redhat, Ubuntu, Arch, NixOS...)</li>
-            <li>Emacs</li>
-            <li>Git</li>
-            <li>SSH</li>
-            <li>GPG</li>
-            <li>Posix Shell / Bash</li>
-            <li>MySQL</li>
-            <li>ZFS</li>
-            <li>Php</li>
-            <li>Python</li>
-            <li>Drupal</li>
-            <li>Civicrm</li>
-            <li>Docker</li>
-            <li>Ansible</li>
-            <li>AWS (Route53, Cloudfront, S3, EC2, SES, aws-cli, etc.)</li>
-          </ul>
-
-          <h3>Current research</h3>
-          <ul>
-            <li>Python. I want to use Python to replace Posix sh and Bash, especially in MySQL administration.</li>
-            <li>MySQL database administration at scale. I'm researching how to make databases with millions of records and insane JOIN queries faster.</li>
-          </ul>
-
-          <h3>Current reading list</h3>
-          <ol>
-            <li><a href="https://www.amazon.com/gp/product/1593279280/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1">Python Crash Course</a></li>
-            <li><a href="https://www.amazon.com/gp/product/1617295507/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1">Python Workout: 50 ten-minute exercises</a></li>
-            <li><a href="https://www.amazon.com/gp/product/1491938617/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1">Getting Started with SQL</a></li>
-            <li><a href="https://www.amazon.com/gp/product/1520807635/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1">SQL Practice Problems</a></li>
-            <li><a href="https://www.amazon.com/gp/product/1484255836/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1">High Performance MySQL</a></li>
-            <li><a href="https://www.amazon.com/gp/product/1449314287/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1">Introducing InnoDB Cluster</a></li>
-            <li><a href="https://www.amazon.com/gp/product/1484238842/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1">MySQL 8 Query Performance Tuning</a></li>
-          </ol>
-
-          <h3>Talks I have given</h3>
-          <p>Techsoup / NetSquared North Texas Meetup: <a href="https://skvare.com/blog/cybersecurity-nonprofits">Cybersecurity for Nonprofits</a></p>
-
-          <h3>Work responsibilities</h3>
-          <ul>
-            <li>Find, report and fix bugs</li>
-            <li>Collaborate with a team using version control</li>
-            <li>Documentation writing</li>
-            <li>Implement an effective CI/CD pipeline</li>
-            <li>Evaluate various DevOps solutions and make recommendations</li>
-            <li>Migrate and deploy large Drupal and Civicrm websites</li>
-            <li>Monitor and maintain public and private dev, staging and production servers</li>
-            <li>Monitor and maintain high volume mail servers</li>
-            <li>Research performance optimization issues</li>
-            <li>Assist devs and project managers to better serve our clients</li>
-          </ul>
-
-          <h3>Work projects</h3>
-          <p>Sometimes I get assigned fun little coding projects,</p>
-          <ul>
-            <li>Redmine uploader - Using the Redmine API, pipe content to my redmine uploader script to update internal redmine issues</li>
-            <li>Hosting stats - Gather monthly hosting statistics and post them to redmine</li>
-            <li>Slow-site checker - Alert us if sites are loading "slow"</li>
-            <li>Uptime checker - Alert us if sites are down</li>
-            <li>Misc. ZFS dataset management and maintenance scripts</li>
-            <li>Create a local docker-compose environment that imitates what we use in production for our dev team</li>
-          </ul>
-
-          <h3>Side projects</h3>
-          <ul>
-            <li><a href="https://github.com/cooslug">Cooslug</a> was founded in 2018, which consisted of only Zeb and I, but we made it awesome</li>
-            <li><a href="https://github.com/grandfoobah/systemE">SystemE</a> (using Emacs to init my operating system) made the <a href="https://news.ycombinator.com/item?id=22120510">top 10 on Hacker News</a> for a day</li>
-            <li><a href="https://github.com/grandfoobah/spartan-emacs">Spartan Emacs distro</a></li>
-            <li><a href="https://github.com/grandfoobah/themelios">Themelios</a> (a NixOS on ZFS installer)</li>
-            <li>I'm interested in creating a relatively decentralized, secure and private communication platform similar to <a href="https://riseup.net">https://riseup.net</a></li>
-          </ul>
-
-          <h3>Open source contributions</h3>
-          <ul>
-            <li><a href="https://bugzilla.kernel.org/show_bug.cgi?id=206741">[PATCH] libcap 2.33 use sched_yield instead of pthread_yield</a></li>
-            <li><a href="https://www.funtoo.org/Libvirt">Funtoo Linux Libvirt documentation</a></li>
-            <li><a href="https://github.com/kisslinux/kiss/commits?author=grandfoobah">Commits to the KISS Linux package manager</a></li>
-            <li><a href="https://github.com/kisslinux/init/commits?author=grandfoobah">Commits to the KISS Linux init scripts</a></li>
-            <li><a href="https://github.com/kisslinux/community/commits?author=grandfoobah">Commits to KISS Linux community packages</a></li>
-            <li>Misc. Bug Reports</li>
-          </ul>
-
-          <h3>Mentors (THANK YOU!)</h3>
-          <p>I have had numerous mentors who have been invaluable on my learning path,</p>
-          <ul>
-            <li><a href="https://github.com/bayprogrammer">Zeb</a> of the CoosLug local user group and spreedly.com</li>
-            <li><a href="https://github.com/TemptorSent">Chris Giorgi</a> of #gentoo / #funtoo, awk-programmer extraordinaire on Freenode</li>
-            <li><a href="https://github.com/dylanaraps">Dylanaraps</a>, creator of the pure-bash-bible and the <a href="https://k1ss.org">KISS Linux distro</a></li>
-            <li>asx, all-around hardware nerd, old school unix hacker at #commanduser on Freenode</li>
-            <li>John Ramsden, DevOps at <a href="https://skvare.com">Skvare</a></li>
-          </ul>
-
-          <h3>Contact</h3>
-          <p><a href="mailto:schaefers@riseup.net">schaefers@riseup.net</a></p>
-
-          <pre>
-            -----BEGIN <a href="schaefers@riseup.net-public.asc">PGP PUBLIC KEY</a> BLOCK-----
-
-            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
-            yiVjf7Zx32oqc6eeX3MWx74bWOSntsWjaKIafig=
-            =grub
-            -----END PGP PUBLIC KEY BLOCK-----
-          </pre>
-        </div>
-      </div>
-    </div>
-  </body>
+<ul class="org-ul">
+<li>Email: <a href="mailto:adam@schaefers.dev">adam@schaefers.dev</a></li>
+<li>LinkedIn: <a href="https://www.linkedin.com/in/adam-schaefers">in/adam-schaefers</a></li>
+<li>Github: <a href="https://github.com/a-schaefers">a-schaefers</a></li>
+<li>Youtube: <a href="https://www.youtube.com/@sudoshred">@sudoshred</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</body>
 </html>
