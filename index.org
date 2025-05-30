@@ -11,37 +11,22 @@
 
 -----
 
-# #+BEGIN_SRC python
-#   #!/usr/bin/env python3
-#   import random
-
-#   wearer_of_many_hats = [
-#       'DevOps Engineer',             #          _##_
-#       'DevSecOps Engineer',          #          (^^)
-#       'Site Reliability Engineer',   #         --  --
-#       'Systems Sorcerer',            #          /  \
-#       'Cloud Whisperer',
-#   ]
-#   print(f"Today, I'm your: {random.choice(wearer_of_many_hats)}")
-# #+END_SRC
-
 #+BEGIN_SRC scheme
 (define (desert-hacker location mood activity link)
   (display
    (string-append
-
-    (symbol->string mood)
-    " "
-    (symbol->string (car activity))
-    " (and "
-    (symbol->string (cadr activity))
+    (symbol->string mood)                 ;          _##_
+    " "                                   ;          (^^)
+    (symbol->string (car activity))       ;         --  --
+    " (and "                              ;          /  \
+    (symbol->string (cadr activity))      ;      Happy Hacker
     " at "
     link
     ") from the desert in "
     (symbol->string location)
     ", USA.\n")))
 
-;; WAT DOING:
+; WAT DOING
 (desert-hacker 'New-Mexico 'happily '(hacking podcasting) "https://www.youtube.com/@sudoshred")
 #+END_SRC
 
