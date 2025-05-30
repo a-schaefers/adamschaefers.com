@@ -7,10 +7,6 @@
 #+OPTIONS: num:nil
 #+OPTIONS: toc:nil
 
-* About
-
------
-
 #+BEGIN_SRC scheme
 (define (desert-hacker location mood activity link)
   (display
@@ -45,7 +41,7 @@
 - Github: [[https://github.com/a-schaefers][a-schaefers]]
 - Youtube: [[https://www.youtube.com/@sudoshred][@sudoshred]]
 
-** Summary
+** About
 
 -----
 
@@ -68,8 +64,6 @@ solutions. I have no problem supervising and overseeing
 production operations, writing detailed documentation, and
 making strategic recommendations to guide companies into
 the future.
-
-# Currently, I am studying to obtain my Certified Kubernetes Application Developer (CKAD) certificate from the Linux Foundation.
 
 ** Currently
 
