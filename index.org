@@ -42,6 +42,7 @@
 - Youtube: [[https://www.youtube.com/@sudoshred][@sudoshred]]
 
 ** Summary
+
 #+BEGIN_EXPORT html
 <hr>
 #+END_EXPORT
@@ -103,4 +104,4 @@ I'm studying C, Scheme, and Lua, among other things.
 
 ** CV
 
-[[./Adam_Schaefers_Shortened_Resume.pdf][Adam_Schaefers_Shortened_Resume.pdf]]
+[[./Adam_Schaefers_Shortened_Resume.pdf][View Resume.]]
