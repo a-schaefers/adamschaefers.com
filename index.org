@@ -9,9 +9,7 @@
 
 * About
 
-#+BEGIN_EXPORT html
-<hr>
-#+END_EXPORT
+-----
 
 #+BEGIN_SRC python
   #!/usr/bin/env python3
@@ -29,8 +27,9 @@
 
 ** Contact
 
+-----
+
 #+BEGIN_EXPORT html
-<hr>
 <p><img loading="lazy" src="me.jpeg" style="width: 15%;" class="img-fluid rounded-circle mb-3 hello-profile" alt="Avatar"></p>
 #+END_EXPORT
 
@@ -43,9 +42,7 @@
 
 ** Summary
 
-#+BEGIN_EXPORT html
-<hr>
-#+END_EXPORT
+-----
 
 I am a Devops engineer with ~7 years of professional
 experience specializing in AWS and Terraform Infrastructure
@@ -70,9 +67,8 @@ the future.
 # Currently, I am studying to obtain my Certified Kubernetes Application Developer (CKAD) certificate from the Linux Foundation.
 
 ** Currently
-# #+BEGIN_EXPORT html
-# <hr>
-# #+END_EXPORT
+
+-----
 
 After experiencing a burnout period -- I am "retired," [for now] -- to refine my craft and get back to my roots.
 
@@ -103,5 +99,7 @@ I'm studying C, Scheme, and Lua, among other things.
 #+END_SRC
 
 ** CV
+
+-----
 
 [[./Adam_Schaefers_Shortened_Resume.pdf][View Resume.]]
