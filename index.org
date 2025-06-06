@@ -1,6 +1,6 @@
 #+HTML_HEAD_EXTRA: <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-#+TITLE: Adam Schaefers - Devops Engineer
+#+TITLE: Adam Schaefers - Devops Artiste
 #+AUTHOR: Adam Schaefers
 #+HTML_DOCTYPE: html5
 #+OPTIONS: html-postamble:nil
@@ -28,6 +28,14 @@
 (desert-hacker 'New-Mexico 'happily '(hacking podcasting) "https://www.youtube.com/@sudoshred")
 #+END_SRC
 
+-----
+
+** About
+
+Devops artiste with a track record in automating infrastructure, scaling systems, and keeping production boring.
+
+-----
+
 ** Contact
 
 -----
@@ -43,42 +51,10 @@
 - Github: [[https://github.com/a-schaefers][a-schaefers]]
 - Youtube: [[https://www.youtube.com/@sudoshred][@sudoshred]]
 
-** Summary
-
 -----
-
-I am a Devops engineer with ~7 years of professional
-experience specializing in AWS and Terraform Infrastructure
-as Code (IAC), with an open-source background in Linux
-distro development and package maintenance. While my recent
-professional experience has been heavily focused on AWS and
-Terraform, I'm also comfortable diving into alternative
-cloud platforms, Ansible codebases, writing Python scripts,
-and handling traditional Linux system administration. My
-passion for automation drives me to create efficient CI/CD
-pipelines to support teams in delivering their products to
-market.
-
-Troubleshooting complex issues is my niche, where I excel
-by applying the KISS (Keep It Simple, Stupid) principle and
-embracing the Unix philosophy, while crafting creative
-solutions. I have no problem supervising and overseeing
-production operations, writing detailed documentation, and
-making strategic recommendations to guide companies into
-the future.
-
-** Currently
-
------
-
-After experiencing a burnout period -- I am "retired," [for now] -- to refine my craft and get back to my roots.
-
-I'm studying C, Scheme, and Lua, among other things.
-
-[[https://stallman.org/articles/happy-hacking.html][Happily hacking]] (and [[https://www.youtube.com/@sudoshred][podcasting)]] from the desert in New Mexico, USA.
 
 ** CV
 
 -----
 
-[[./Adam_Schaefers_Shortened_Resume.pdf][View Resume.]]
+[[./Adam_Schaefers_Shortened_Resume.pdf][See Resume.]]
