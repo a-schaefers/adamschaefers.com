@@ -36,9 +36,56 @@ Devops artiste with a track record in automating infrastructure, scaling systems
 
 -----
 
-** Contact
+** 🚀 The Grand Pivot — 2026 and Beyond
+
+In Q4 2025, I chose to pivot toward more creatively demanding domains - most notably game development.
+
+This shift lets me carry forward what I do best:
+
+- Systems thinking
+- Tooling and automation
+- Performance, stability, and scalability
+- Shipping real things, not demos
+
+All of this may still apply in the new context, the client and server-side of the game instead of some web framework, but should still be solid.
+
+...while moving into areas that challenge me both creatively and technically:
+
+- English story composition
+- Music / Sound effects composition
+- Graphics / Sprite design and 3d modeling
+- New, low-level programming languages
+
+I’m interested in building games worth playing, with messages worth hearing, without predatory mechanics or disposable design.
 
 -----
+
+** 🎮 Enter: Land of Enchantment Games
+
+Out of my own pocket, I’m taking what I call my first retirement and stepping away from traditional employment to work full-time as a self-employed creator.
+
+This effort is focused on the creation of a new indie studio:
+
+**Land of Enchantment Games**
+[[https://enchant.games][https://enchant.games]]
+
+The goal over the coming years is to grow this into a positive force within the indie game movement — ideally more than a solo venture, and grounded in strong values:
+
+Human-made games, not algorithmic sludge
+
+No ads, no spyware, no dark patterns
+
+No pay-to-win, no microtransactions
+
+Buy once, own forever
+
+Respect for the player’s time, intelligence, and attention
+
+This is a long-term bet on craft, integrity, and sustainability over hype.
+
+-----
+
+** Contact
 
 #+BEGIN_EXPORT html
 <p><img loading="lazy" src="me.jpeg" style="width: 15%;" class="img-fluid rounded-circle mb-3 hello-profile" alt="Avatar"></p>
@@ -46,7 +93,7 @@ Devops artiste with a track record in automating infrastructure, scaling systems
 
 # - Address: [redacted]
 # - Phone: [redacted]
-- Email: [[mailto:adam@schaefers.dev][adam@schaefers.dev]]
+- Email: [[mailto:adam.schaefers@icloud.com][adam.schaefers@icloud.com]]
 - LinkedIn: [[https://www.linkedin.com/in/adam-schaefers][in/adam-schaefers]]
 - Github: [[https://github.com/a-schaefers][a-schaefers]]
 - Youtube: [[https://www.youtube.com/@sudoshred][@sudoshred]]
