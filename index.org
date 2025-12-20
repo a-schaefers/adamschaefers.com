@@ -72,7 +72,7 @@ This effort is focused on the creation of a new indie studio:
 
 The goal over the coming years is to grow this into a positive force within the indie game movement - ideally more than a solo venture, and grounded in strong values:
 
-Land of Enchantment Games is an indie gamedev ~spaceship~ studio proudly based in New Mexico, the Land of Enchantment, USA.
+Land of Enchantment Games is an indie gamedev +spaceship+ studio proudly based in New Mexico, the Land of Enchantment, USA.
 
 *** Values
 
