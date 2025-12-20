@@ -36,9 +36,9 @@ Devops artiste with a track record in automating infrastructure, scaling systems
 
 -----
 
-** 🚀 The Grand Pivot — 2026 and Beyond
+** 🚀 The Grand Pivot: 2026 and Beyond
 
-In Q4 2025, I chose to pivot toward more creatively demanding domains - most notably game development.
+In Q4 2025 after a 9 month sabbatical, I chose to pivot toward more creatively demanding domains - most notably game development.
 
 This shift lets me carry forward what I do best:
 
@@ -67,21 +67,53 @@ Out of my own pocket, I’m taking what I call my first retirement and stepping 
 This effort is focused on the creation of a new indie studio:
 
 **Land of Enchantment Games**
+
 [[https://enchant.games][https://enchant.games]]
 
-The goal over the coming years is to grow this into a positive force within the indie game movement — ideally more than a solo venture, and grounded in strong values:
+The goal over the coming years is to grow this into a positive force within the indie game movement - ideally more than a solo venture, and grounded in strong values:
 
-Human-made games, not algorithmic sludge
+Land of Enchantment Games is an indie gamedev ~spaceship~ studio proudly based in New Mexico, the Land of Enchantment, USA.
 
-No ads, no spyware, no dark patterns
+*** Values
 
-No pay-to-win, no microtransactions
+**** Homegrown
+Built here.
+Certified non-GMO organic.
+Made with ❤️.
 
-Buy once, own forever
+**** Handmade
+Handmade code.
+Handmade pixels.
+Handmade music.
+Handmade stories.
 
-Respect for the player’s time, intelligence, and attention
+By humans, for humans.
 
-This is a long-term bet on craft, integrity, and sustainability over hype.
+**** Libre
+Built on free and open-source software.
+
+**** What We Don’t Do
+- *NO AI slop*
+- *NO pay-to-win*
+- *NO microtransactions*
+- *NO advertisements*
+- *NO spyware or invasive anti-cheat*
+
+**** Ownership
+Not for rent.
+You buy it *once* → You own it *forever*.
+
+**** Respect
+We respect the player’s:
+- Time
+- Freedom
+- Intelligence
+- Attention
+
+We do *not* manipulate, addict, or extract.
+
+**** Principle
+*Integrity wins.*
 
 -----
 
@@ -93,6 +125,7 @@ This is a long-term bet on craft, integrity, and sustainability over hype.
 
 # - Address: [redacted]
 # - Phone: [redacted]
+- Latest Work: [[https://enchant.games][@LandOfEnchantment]]
 - Email: [[mailto:adam.schaefers@icloud.com][adam.schaefers@icloud.com]]
 - LinkedIn: [[https://www.linkedin.com/in/adam-schaefers][in/adam-schaefers]]
 - Github: [[https://github.com/a-schaefers][a-schaefers]]
