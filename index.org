@@ -9,24 +9,16 @@
 
 -----
 
-#+BEGIN_SRC scheme
-(define (desert-hacker location mood activity link)
-  (display
-   (string-append
-    (symbol->string mood)                 ;          _##_
-    " "                                   ;          (^^)
-    (symbol->string (car activity))       ;         --  --
-    " (and "                              ;          /  \
-    (symbol->string (cadr activity))      ;      Happy Hacker
-    " at "
-    link
-    ") from the desert in "
-    (symbol->string location)
-    ", USA.\n")))
+** Contact
 
-; WAT DOING
-(desert-hacker 'New-Mexico 'happily '(hacking podcasting) "https://www.youtube.com/@sudoshred")
-#+END_SRC
+#+BEGIN_EXPORT html
+<p><img loading="lazy" src="me.jpeg" style="width: 15%;" class="img-fluid rounded-circle mb-3 hello-profile" alt="Avatar"></p>
+#+END_EXPORT
+
+- Latest Work: [[https://enchant.games][@LandOfEnchantment]]
+- Email: [[mailto:adam.schaefers@icloud.com][adam.schaefers@icloud.com]]
+- LinkedIn: [[https://www.linkedin.com/in/adam-schaefers][in/adam-schaefers]]
+- Github: [[https://github.com/a-schaefers][a-schaefers]]
 
 -----
 
@@ -114,19 +106,3 @@ We do *not* manipulate, addict, or extract.
 
 **** Principle
 *Integrity wins.*
-
------
-
-** Contact
-
-#+BEGIN_EXPORT html
-<p><img loading="lazy" src="me.jpeg" style="width: 15%;" class="img-fluid rounded-circle mb-3 hello-profile" alt="Avatar"></p>
-#+END_EXPORT
-
-# - Address: [redacted]
-# - Phone: [redacted]
-- Latest Work: [[https://enchant.games][@LandOfEnchantment]]
-- Email: [[mailto:adam.schaefers@icloud.com][adam.schaefers@icloud.com]]
-- LinkedIn: [[https://www.linkedin.com/in/adam-schaefers][in/adam-schaefers]]
-- Github: [[https://github.com/a-schaefers][a-schaefers]]
-- Youtube: [[https://www.youtube.com/@sudoshred][@sudoshred]]
