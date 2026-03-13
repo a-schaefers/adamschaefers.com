@@ -16,7 +16,7 @@
 #+END_EXPORT
 
 - Latest Work: [[https://enchant.games][@LandOfEnchantment]]
-- Email: [[mailto:adam.schaefers@icloud.com][aschaefers@enchant.games]]
+- Email: [[mailto:aschaefers@enchant.games][aschaefers@enchant.games]]
 - LinkedIn: [[https://www.linkedin.com/in/adam-schaefers][in/adam-schaefers]]
 - Github: [[https://github.com/a-schaefers][a-schaefers]]
 - Twitch: [[https://www.twitch.tv/enchantdev][@enchantdev]]
