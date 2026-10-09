@@ -40,7 +40,7 @@
   - *[[https://stasislinux.org][stasislinux.org]]*: my own Linux distro, the natural follow-through of my years as a package maintainer on KISS Linux with Dylan Araps.
   - *[[https://github.com/a-schaefers/backseat-driver][backseat-driver]]*: my tutor for keeping AI-era programmers' fundamentals sharp.
   - *[[https://github.com/a-schaefers/.emacs.d][.emacs.d]]*: my Emacs config. It starts in about 0.2s, with everything deferred through use-package. It prefers built-ins (eglot, flymake), runs on vertico/corfu/tree-sitter, and binds the same SLIME-style keys in every language.
-- *2020 – 2025 · ☁️ DevOps @ Upgrade, Immaculata Studios, Skvare* \\
+- *2020 – 2025 · ☁️ DevOps @ Upgrade, Inc. · Immaculata Studios, LLC · Skvare, LLC* \\
   Herded Kubernetes, Terraform (5k+ lines of homegrown modules), AWS, CI/CD pipelines, monitoring, and a Postfix server that sent a million emails a month without landing in spam.
 - *2017 – 2020 · 🐧 Open Source Hermit* \\
   Spent 10+ hours a day learning Linux from the kernel up. Maintained packages for KISS Linux, wrote docs for Funtoo, and built [[https://github.com/a-schaefers/themelios][Themelios]] (a NixOS ZFS-on-root installer) and [[https://github.com/a-schaefers/spartan-emacs][Spartan Emacs]]. Got commits merged upstream ([[https://bugzilla.kernel.org/show_bug.cgi?id=206741][e.g. the kernel]]). Also went viral on Hacker News by booting my Linux distro with Emacs as init ([[https://news.ycombinator.com/item?id=28439275][systemE]]).
