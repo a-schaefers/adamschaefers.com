@@ -1,6 +1,6 @@
 #+HTML_HEAD_EXTRA: <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-#+TITLE: Adam Schaefers - Devops Artiste
+#+TITLE: Adam Schaefers
 #+AUTHOR: Adam Schaefers
 #+HTML_DOCTYPE: html5
 #+OPTIONS: html-postamble:nil
@@ -27,4 +27,26 @@
 
 ** About
 
-devops pivoting -> indie gamedev
+*TL;DR:* Linux nerd → DevOps wrangler → indie gamedev. 🐧 → ☁️ → 🎮
+
+-----
+
+** 🗺️ The Quest Log
+
+- *2025 – now · 🎮 Founder, [[https://enchant.games][Land of Enchantment Games]]* \\
+  My personal indie game studio, based in New Mexico.
+- *Also cooking 🍳: my side projects*
+  - *[[https://merecatholicity.com][merecatholicity.com]]*: my eclectic ecumenical project, gathering the shared heritage of East and West, Catholic, Orthodox and Protestant. I built it headless and serverless, in PureScript, lit-js, Tailwind and Terraform. For the community side I borrowed the best bits of the old internet: 4chan-style auth, Snapchat-style DMs, Signal-style end-to-end encryption, and Facebook-style profiles and walls.
+  - *[[https://stasislinux.org][stasislinux.org]]*: my own Linux distro, the natural follow-through of my years as a package maintainer on KISS Linux with Dylan Araps.
+  - *[[https://github.com/a-schaefers/backseat-driver][backseat-driver]]*: my tutor for keeping AI-era programmers' fundamentals sharp.
+  - *[[https://github.com/a-schaefers/.emacs.d][.emacs.d]]*: my Emacs config. It starts in about 0.2s, with everything deferred through use-package. It prefers built-ins (eglot, flymake), runs on vertico/corfu/tree-sitter, and binds the same SLIME-style keys in every language.
+- *2020 – 2025 · ☁️ DevOps @ Upgrade, Immaculata Studios, Skvare* \\
+  Herded Kubernetes, Terraform (5k+ lines of homegrown modules), AWS, CI/CD pipelines, monitoring, and a Postfix server that sent a million emails a month without landing in spam.
+- *2017 – 2020 · 🐧 Open Source Hermit* \\
+  Spent 10+ hours a day learning Linux from the kernel up. Maintained packages for KISS Linux, wrote docs for Funtoo, and built [[https://github.com/a-schaefers/themelios][Themelios]] (a NixOS ZFS-on-root installer) and [[https://github.com/a-schaefers/spartan-emacs][Spartan Emacs]]. Got commits merged upstream ([[https://bugzilla.kernel.org/show_bug.cgi?id=206741][e.g. the kernel]]). Also went viral on Hacker News by booting my Linux distro with Emacs as init ([[https://news.ycombinator.com/item?id=28439275][systemE]]).
+
+-----
+
+** 🎧 Off the clock
+
+Professional music recording, aspiring DJ, and I play guitar. 🎸 Big fan of house music. I love traveling in Europe, especially Greece. 🇬🇷 Born and raised in the Pacific Northwest, and an avid fly fisherman. 🎣
