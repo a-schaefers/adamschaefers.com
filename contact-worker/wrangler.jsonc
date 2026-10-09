@@ -1,0 +1,18 @@
+// Contact form handler for adamschaefers.com.
+// Deploy: make worker. One-time secret: wrangler secret put TURNSTILE_SECRET
+{
+  "name": "adamschaefers-contact",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-01",
+  "observability": { "enabled": true },
+  "send_email": [{ "name": "EMAIL", "destination_address": "adam.schaefers@icloud.com" }],
+  // 3 sends per minute per IP. Turnstile is the first gate in front of it.
+  "ratelimits": [
+    { "name": "SEND_LIMIT", "namespace_id": "3001", "simple": { "limit": 3, "period": 60 } }
+  ],
+  "vars": {
+    "CONTACT_TO": "adam.schaefers@icloud.com",
+    "TURNSTILE_HOSTNAMES": "adamschaefers.com"
+  },
+  "routes": [{ "pattern": "contact-api.adamschaefers.com", "custom_domain": true }]
+}

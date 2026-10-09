@@ -62,3 +62,24 @@ My secondary GitHub, [[https://github.com/el-sloppo][@el-sloppo]], is where I pu
 - *[[https://github.com/emacs-os/jellyfin-emms-mpv.el][jellyfin-emms-mpv.el]]*: browse and play your Jellyfin library from Emacs. Music goes through EMMS and video through mpv, with poster galleries, and playback position syncs back so "Continue Watching" stays accurate.
 - *[[https://github.com/emacs-os/elcava][elcava]]*: a cava clone in pure Emacs Lisp. It captures system audio from PipeWire, runs the FFT in Elisp, and draws a live Unicode spectrum in a buffer.
 - *[[https://github.com/emacs-os/el-init][el-init]]*: Emacs as PID 1, for real this time. It's a systemd-inspired service supervisor written in Emacs Lisp, with a dependency graph, targets, an ~M-x elinit~ dashboard and an ~elinitctl~ CLI, plus an optional static-build patchset that turns Emacs into an actual init. It's the spiritual sequel to systemE and the core of Emacs-OS.
+
+-----
+
+** ✉️ Inquiries
+
+#+BEGIN_EXPORT html
+<form id="contact-form" action="https://contact-api.adamschaefers.com/" method="POST" style="max-width: 36em;">
+  <div class="mb-3"><label class="form-label" for="cf-name">Name</label>
+    <input class="form-control" id="cf-name" type="text" name="name" maxlength="200" autocomplete="name"></div>
+  <div class="mb-3"><label class="form-label" for="cf-email">Email, if you want a reply</label>
+    <input class="form-control" id="cf-email" type="email" name="email" maxlength="200" autocomplete="email"></div>
+  <div class="mb-3"><label class="form-label" for="cf-message">Message</label>
+    <textarea class="form-control" id="cf-message" name="message" maxlength="5000" rows="6" required></textarea></div>
+  <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;">
+  <div class="cf-turnstile mb-3" data-sitekey="0x4AAAAAAFSCqQ6GlpqWfqoi"></div>
+  <button type="submit" class="btn btn-primary">Send</button>
+  <p id="contact-status" class="mt-2" role="status"></p>
+</form>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script src="contact.js" defer></script>
+#+END_EXPORT
