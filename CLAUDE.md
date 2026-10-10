@@ -23,6 +23,18 @@ written once and frame every view.
 `nav.css` styles the menu (top on desktop, bottom tab bar on phones),
 `blog.css` the blog views.
 
+The Off the clock travelogs are plain `<video>` tags on MP4s in `videos/`,
+committed to git and served by GitHub Pages, which answers range requests,
+so they stream and seek with no server code. Encode new ones with ffmpeg as
+H.264 High + AAC, yuv420p, `-movflags +faststart` (index first, so playback
+starts while downloading) and `-map_metadata -1`; several clips meant to
+play as one get joined into one file. Keep each well under GitHub's 50 MB
+warning, and give each a JPEG poster. iPhone uploads are often HEVC `.mov`,
+which many desktop browsers can't play, so always re-encode.
+
+`fonts/TwemojiCountryFlags.woff2` draws flag emoji, which Windows lacks; see
+`fonts/README.md`.
+
 Blog posts are `blog/YYYY-MM-DD-slug.org`: date from the file name, title
 from `#+TITLE`, listing excerpt from `#+DESCRIPTION` or the first
 paragraph. Their HTML is shown from the site root, so link images and
