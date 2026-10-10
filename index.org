@@ -421,3 +421,25 @@ My secondary GitHub, [[https://github.com/el-sloppo][@el-sloppo]], is where I pu
 })();
 </script>
 #+END_EXPORT
+
+** Development :noexport:
+
+This section is left out of the website build.
+
+Clone with the [[https://github.com/a-schaefers/a-schaefers][a-schaefers]] profile README as a submodule:
+
+#+BEGIN_SRC sh
+git clone --recursive https://github.com/a-schaefers/adamschaefers.com.git
+#+END_SRC
+
+Or, in an existing clone, fetch the submodule if it is missing:
+
+#+BEGIN_SRC sh
+make submodule
+#+END_SRC
+
+Then:
+
+- =make build= regenerates =index.html= from =index.org= (needs Emacs).
+- =make run= serves the site at http://localhost:8000.
+- =make worker= deploys the contact form's Cloudflare Worker.
