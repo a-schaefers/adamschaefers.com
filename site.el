@@ -24,6 +24,12 @@
 (defconst site-post-re
   "\\`\\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\)-\\(.+\\)\\.org\\'")
 (defconst site-default-per-page 10)
+(defconst site-module-imports
+  '("js/lit/lit-html/lit-html.js"
+    "js/lit/lit-html/directives/unsafe-html.js"
+    "js/lit/lit-html/directive.js"
+    "js/contact.js")
+  "Every module js/app.js imports, directly or not, preloaded with it.")
 
 (defmacro site--with-export-settings (&rest body)
   `(let ((user-full-name "Adam Schaefers")
@@ -150,7 +156,12 @@ Org's heading ids are random; SEED keeps them the same from build to build."
                        "<script type=\"application/json\" id=\"site-data\">"
                        (site--json data)
                        "</script>\n"
-                       (format "<script type=\"module\" src=\"%s\"></script>" (site--asset "js/app.js"))))
+                       (format "<script type=\"module\" src=\"%s\"></script>\n" (site--asset "js/app.js"))
+                       ;; Fetch app.js's imports alongside it rather than one level at a time.
+                       (mapconcat (lambda (m) (format "<link rel=\"modulepreload\" href=\"%s\">\n" m))
+                                  site-module-imports "")
+                       ;; The Contact view's Turnstile check loads on first visit; connect early.
+                       "<link rel=\"preconnect\" href=\"https://challenges.cloudflare.com\">"))
               (org-html-preamble
                (lambda (_) "<nav id=\"site-nav\" class=\"site-nav\" aria-label=\"Main\"></nav>"))
               ;; js/app.js keeps the year current; the build year is the fallback.

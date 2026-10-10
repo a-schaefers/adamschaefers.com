@@ -16,6 +16,8 @@ switching on hash routes (`#quest-log`, `#off-the-clock`, `#inquiries`,
 A section is shown by tagging it `:view:` and listing it under a tab in
 `TABS` in `js/app.js` (Projects shows About, the Quest Log and the slop
 shelf), which also holds the menu's labels and icons.
+If `js/app.js` gains or loses an import, update `site-module-imports` in
+`site.el`, which preloads them all with it.
 The sidebar (index.org's Contact section) and the footer (`site.el`) are
 written once and frame every view.
 `nav.css` styles the menu (top on desktop, bottom tab bar on phones),

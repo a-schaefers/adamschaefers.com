@@ -255,7 +255,6 @@
     <li><button type="button" data-id="JNpNge1cRhw" data-title="Crash Course PT. 3, org-mode, ediff, Magit, Projectile and more." data-len="33:32" title="Crash Course PT. 3, org-mode, ediff, Magit, Projectile and more." aria-label="Episode 03: Crash Course PT. 3, org-mode, ediff, Magit, Projectile and more.">03</button></li>
     <li><button type="button" data-id="AI3y15hJtKA" data-title="Emacs TRAMP Crash Course PT. 4" data-len="3:30" title="Emacs TRAMP Crash Course PT. 4" aria-label="Episode 04: Emacs TRAMP Crash Course PT. 4">04</button></li>
     <li><button type="button" data-id="Rk8vngeJZOk" data-title="More CRUX goodies - Emacs Crash Course PT. 5" data-len="3:07" title="More CRUX goodies - Emacs Crash Course PT. 5" aria-label="Episode 05: More CRUX goodies - Emacs Crash Course PT. 5">05</button></li>
-    <li><button type="button" data-id="ijS1pAcUIaQ" data-title="Spartan Emacs - Crash Course PT. 6" data-len="19:24" title="Spartan Emacs - Crash Course PT. 6" aria-label="Episode 06: Spartan Emacs - Crash Course PT. 6">06</button></li>
   </ol>
 </div>
 <script>
