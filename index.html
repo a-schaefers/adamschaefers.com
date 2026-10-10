@@ -1,213 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2026-10-09 Fri 12:37 -->
+<!-- 2026-10-09 Fri 19:42 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Adam Schaefers</title>
 <meta name="author" content="Adam Schaefers" />
 <meta name="generator" content="Org Mode" />
-<style type="text/css">
-  #content { max-width: 60em; margin: auto; }
-  .title  { text-align: center;
-             margin-bottom: .2em; }
-  .subtitle { text-align: center;
-              font-size: medium;
-              font-weight: bold;
-              margin-top:0; }
-  .todo   { font-family: monospace; color: red; }
-  .done   { font-family: monospace; color: green; }
-  .priority { font-family: monospace; color: orange; }
-  .tag    { background-color: #eee; font-family: monospace;
-            padding: 2px; font-size: 80%; font-weight: normal; }
-  .timestamp { color: #bebebe; }
-  .timestamp-kwd { color: #5f9ea0; }
-  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
-  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
-  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
-  .underline { text-decoration: underline; }
-  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
-  p.verse { margin-left: 3%; }
-  pre {
-    border: 1px solid #e6e6e6;
-    border-radius: 3px;
-    background-color: #f2f2f2;
-    padding: 8pt;
-    font-family: monospace;
-    overflow: auto;
-    margin: 1.2em;
-  }
-  pre.src {
-    position: relative;
-    overflow: auto;
-  }
-  pre.src:before {
-    display: none;
-    position: absolute;
-    top: -8px;
-    right: 12px;
-    padding: 3px;
-    color: #555;
-    background-color: #f2f2f299;
-  }
-  pre.src:hover:before { display: inline; margin-top: 14px;}
-  /* Languages per Org manual */
-  pre.src-asymptote:before { content: 'Asymptote'; }
-  pre.src-awk:before { content: 'Awk'; }
-  pre.src-authinfo::before { content: 'Authinfo'; }
-  pre.src-C:before { content: 'C'; }
-  /* pre.src-C++ doesn't work in CSS */
-  pre.src-clojure:before { content: 'Clojure'; }
-  pre.src-css:before { content: 'CSS'; }
-  pre.src-D:before { content: 'D'; }
-  pre.src-ditaa:before { content: 'ditaa'; }
-  pre.src-dot:before { content: 'Graphviz'; }
-  pre.src-calc:before { content: 'Emacs Calc'; }
-  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-fortran:before { content: 'Fortran'; }
-  pre.src-gnuplot:before { content: 'gnuplot'; }
-  pre.src-haskell:before { content: 'Haskell'; }
-  pre.src-hledger:before { content: 'hledger'; }
-  pre.src-java:before { content: 'Java'; }
-  pre.src-js:before { content: 'Javascript'; }
-  pre.src-latex:before { content: 'LaTeX'; }
-  pre.src-ledger:before { content: 'Ledger'; }
-  pre.src-lisp:before { content: 'Lisp'; }
-  pre.src-lilypond:before { content: 'Lilypond'; }
-  pre.src-lua:before { content: 'Lua'; }
-  pre.src-matlab:before { content: 'MATLAB'; }
-  pre.src-mscgen:before { content: 'Mscgen'; }
-  pre.src-ocaml:before { content: 'Objective Caml'; }
-  pre.src-octave:before { content: 'Octave'; }
-  pre.src-org:before { content: 'Org mode'; }
-  pre.src-oz:before { content: 'OZ'; }
-  pre.src-plantuml:before { content: 'Plantuml'; }
-  pre.src-processing:before { content: 'Processing.js'; }
-  pre.src-python:before { content: 'Python'; }
-  pre.src-R:before { content: 'R'; }
-  pre.src-ruby:before { content: 'Ruby'; }
-  pre.src-sass:before { content: 'Sass'; }
-  pre.src-scheme:before { content: 'Scheme'; }
-  pre.src-screen:before { content: 'Gnu Screen'; }
-  pre.src-sed:before { content: 'Sed'; }
-  pre.src-sh:before { content: 'shell'; }
-  pre.src-sql:before { content: 'SQL'; }
-  pre.src-sqlite:before { content: 'SQLite'; }
-  /* additional languages in org.el's org-babel-load-languages alist */
-  pre.src-forth:before { content: 'Forth'; }
-  pre.src-io:before { content: 'IO'; }
-  pre.src-J:before { content: 'J'; }
-  pre.src-makefile:before { content: 'Makefile'; }
-  pre.src-maxima:before { content: 'Maxima'; }
-  pre.src-perl:before { content: 'Perl'; }
-  pre.src-picolisp:before { content: 'Pico Lisp'; }
-  pre.src-scala:before { content: 'Scala'; }
-  pre.src-shell:before { content: 'Shell Script'; }
-  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
-  /* additional language identifiers per "defun org-babel-execute"
-       in ob-*.el */
-  pre.src-cpp:before  { content: 'C++'; }
-  pre.src-abc:before  { content: 'ABC'; }
-  pre.src-coq:before  { content: 'Coq'; }
-  pre.src-groovy:before  { content: 'Groovy'; }
-  /* additional language identifiers from org-babel-shell-names in
-     ob-shell.el: ob-shell is the only babel language using a lambda to put
-     the execution function name together. */
-  pre.src-bash:before  { content: 'bash'; }
-  pre.src-csh:before  { content: 'csh'; }
-  pre.src-ash:before  { content: 'ash'; }
-  pre.src-dash:before  { content: 'dash'; }
-  pre.src-ksh:before  { content: 'ksh'; }
-  pre.src-mksh:before  { content: 'mksh'; }
-  pre.src-posh:before  { content: 'posh'; }
-  /* Additional Emacs modes also supported by the LaTeX listings package */
-  pre.src-ada:before { content: 'Ada'; }
-  pre.src-asm:before { content: 'Assembler'; }
-  pre.src-caml:before { content: 'Caml'; }
-  pre.src-delphi:before { content: 'Delphi'; }
-  pre.src-html:before { content: 'HTML'; }
-  pre.src-idl:before { content: 'IDL'; }
-  pre.src-mercury:before { content: 'Mercury'; }
-  pre.src-metapost:before { content: 'MetaPost'; }
-  pre.src-modula-2:before { content: 'Modula-2'; }
-  pre.src-pascal:before { content: 'Pascal'; }
-  pre.src-ps:before { content: 'PostScript'; }
-  pre.src-prolog:before { content: 'Prolog'; }
-  pre.src-simula:before { content: 'Simula'; }
-  pre.src-tcl:before { content: 'tcl'; }
-  pre.src-tex:before { content: 'TeX'; }
-  pre.src-plain-tex:before { content: 'Plain TeX'; }
-  pre.src-verilog:before { content: 'Verilog'; }
-  pre.src-vhdl:before { content: 'VHDL'; }
-  pre.src-xml:before { content: 'XML'; }
-  pre.src-nxml:before { content: 'XML'; }
-  /* add a generic configuration mode; LaTeX export needs an additional
-     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
-  pre.src-conf:before { content: 'Configuration File'; }
-
-  table { border-collapse:collapse; }
-  caption.t-above { caption-side: top; }
-  caption.t-bottom { caption-side: bottom; }
-  td, th { vertical-align:top;  }
-  th.org-right  { text-align: center;  }
-  th.org-left   { text-align: center;   }
-  th.org-center { text-align: center; }
-  td.org-right  { text-align: right;  }
-  td.org-left   { text-align: left;   }
-  td.org-center { text-align: center; }
-  dt { font-weight: bold; }
-  .footpara { display: inline; }
-  .footdef  { margin-bottom: 1em; }
-  .figure { padding: 1em; }
-  .figure p { text-align: center; }
-  .equation-container {
-    display: table;
-    text-align: center;
-    width: 100%;
-  }
-  .equation {
-    vertical-align: middle;
-  }
-  .equation-label {
-    display: table-cell;
-    text-align: right;
-    vertical-align: middle;
-  }
-  .inlinetask {
-    padding: 10px;
-    border: 2px solid gray;
-    margin: 10px;
-    background: #ffffcc;
-  }
-  #org-div-home-and-up
-   { text-align: right; font-size: 70%; white-space: nowrap; }
-  textarea { overflow-x: auto; }
-  .linenr { font-size: smaller }
-  .code-highlighted { background-color: #ffff00; }
-  .org-info-js_info-navigation { border-style: none; }
-  #org-info-js_console-label
-    { font-size: 10px; font-weight: bold; white-space: nowrap; }
-  .org-info-js_search-highlight
-    { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
+<meta name="theme-color" content="#161A33">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap" rel="stylesheet">
+<style>
+:root { --sky: #161A33; --mesa: #1F2445; --ridge: #2C3260; --sand: #EEE7D7; --dust: #A8A6BE; --turq: #46D3C3; --chile: #E5533D; }
+html { background: radial-gradient(70rem 45rem at 0% -15%, #262B5C 0%, transparent 70%) var(--sky); color: var(--sand); }
+body { margin: 0; font: 400 1.0625rem/1.6 "Bricolage Grotesque", system-ui, sans-serif; font-optical-sizing: auto; -webkit-font-smoothing: antialiased; }
+::selection { background: var(--turq); color: var(--sky); }
+a { color: var(--turq); text-decoration: underline 1px rgba(70, 211, 195, .4); text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--turq); outline-offset: 3px; border-radius: 3px; }
+b, strong { font-weight: 700; }
+code { font: .85em ui-monospace, monospace; background: var(--mesa); padding: .1em .35em; border-radius: 4px; }
+h2 { font-size: 1.6rem; font-weight: 750; font-stretch: 85%; line-height: 1.15; letter-spacing: -.01em; margin: 0 0 1.25rem; }
+.sr-only, #contact, #about { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* Layout: sticky identity column on the left, content on the right */
+#content { max-width: 70rem; margin: 0 auto; padding: 4rem 2rem 6rem; display: grid; grid-template-columns: 17rem minmax(0, 44rem); column-gap: clamp(3rem, 7vw, 6.5rem); justify-content: center; }
+#content hr { display: none; }
+#inquiries { scroll-margin-top: 2rem; }
+.outline-2 { grid-column: 2; margin-bottom: 5rem; }
+.outline-2:last-child { margin-bottom: 0; }
+#outline-container-contact { grid-column: 1; grid-row: 1 / span 12; align-self: start; margin: 0; }
+@media (min-height: 56rem) { #outline-container-contact { position: sticky; top: 4rem; } }
+/* Identity */
+.hello-profile { display: block; width: 8.5rem; height: 8.5rem; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px var(--sky), 0 0 0 5px var(--turq); }
+.name { font-size: 2.75rem; font-weight: 800; font-stretch: 75%; line-height: .95; letter-spacing: -.02em; margin: 1.75rem 0 .6rem; }
+.roles { color: var(--dust); font-size: .95rem; margin: 0 0 1.75rem; }
+.roles span { white-space: nowrap; }
+/* Contact list: latest work as a featured link, socials as an icon row (labels stay for screen readers) */
+#text-contact > ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .6rem; }
+#text-contact > ul > li { font-size: 0; }
+#text-contact > ul > li:nth-child(-n+2) { flex-basis: 100%; font-size: .85rem; color: var(--dust); padding: .9rem 0; border-top: 1px solid var(--ridge); }
+#text-contact > ul > li:nth-child(2) { border-bottom: 1px solid var(--ridge); margin: -.6rem 0 .5rem; }
+#text-contact > ul > li:nth-child(-n+2) a { display: block; color: var(--sand); font-size: 1.1rem; font-weight: 600; text-decoration: none; }
+#text-contact > ul > li:nth-child(n+3) a { display: flex; align-items: center; justify-content: center; width: 2.6rem; height: 2.6rem; border-radius: 50%; color: var(--sand); background: var(--mesa); box-shadow: inset 0 0 0 1px var(--ridge); text-decoration: none; }
+#text-contact > ul > li:nth-child(n+3) a::before { content: ""; width: 1.1rem; height: 1.1rem; background: currentColor; mask: var(--icon) center / contain no-repeat; }
+#text-contact > ul > li a:hover { color: var(--turq); }
+#text-contact > ul > li:nth-child(n+3) a:hover { box-shadow: inset 0 0 0 1px var(--turq); }
+#text-contact > ul a[href*="linkedin.com"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z'/%3E%3C/svg%3E"); }
+#text-contact > ul a[href*="github.com"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8'/%3E%3C/svg%3E"); }
+#text-contact > ul a[href*="twitch.tv"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.857 0 1 2.857v10.286h3.429V16l2.857-2.857H9.57L14.714 8V0zm9.714 7.429-2.285 2.285H9l-2 2v-2H4.429V1.143h9.142z'/%3E%3Cpath d='M11.857 3.143h-1.143V6.57h1.143zm-3.143 0H7.571V6.57h1.143z'/%3E%3C/svg%3E"); }
+#text-contact > ul a[href*="youtube.com"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z'/%3E%3C/svg%3E"); }
+#text-contact > ul a[href*="x.com"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z'/%3E%3C/svg%3E"); }
+/* Emacs course player */
+.course { margin-top: 2rem; }
+.course-title { margin: 0 0 .75rem; font-size: 1.05rem; font-weight: 700; }
+.course-title a { color: var(--sand); text-decoration: none; }
+.course-title a:hover { color: var(--turq); }
+.course-player { aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: var(--mesa); }
+.course-player iframe { display: block; width: 100%; height: 100%; border: 0; }
+.course-play { all: unset; position: relative; display: block; width: 100%; height: 100%; cursor: pointer; }
+.course-play:focus-visible { outline: 3px solid var(--turq); outline-offset: -3px; }
+.course-play img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.course-play::after { content: ""; position: absolute; inset: 0; margin: auto; width: 3.25rem; height: 3.25rem; border-radius: 50%; box-shadow: 0 0 0 6px rgba(22, 26, 51, .45); background: var(--turq) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23161A33' d='M4.5 2.5v11l9-5.5z'/%3E%3C/svg%3E") 58% 50% / 1.2rem no-repeat; }
+.course-play:hover::after { background-color: #7BE3D7; }
+.course-now { margin: .65rem 0; min-height: 2.8em; font-size: .85rem; line-height: 1.4; color: #D9D3C6; }
+.course-now b { color: var(--turq); margin-right: .2rem; font-variant-numeric: tabular-nums; }
+.course-now .len { color: var(--dust); white-space: nowrap; }
+.course-episodes { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .35rem; }
+.course-episodes button { width: 2.1rem; height: 2.1rem; border: 0; border-radius: 8px; font-family: inherit; font-size: .8rem; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--dust); background: var(--mesa); box-shadow: inset 0 0 0 1px var(--ridge); cursor: pointer; }
+.course-episodes button:hover { color: var(--sand); box-shadow: inset 0 0 0 1px var(--turq); }
+.course-episodes button[aria-current] { color: var(--sky); background: var(--turq); box-shadow: none; }
+/* TL;DR as the headline of the content column */
+#text-about p { margin: 0; font-size: clamp(2rem, 4.6vw, 3.25rem); font-weight: 750; font-stretch: 80%; line-height: 1.08; letter-spacing: -.02em; }
+#text-about p b { display: block; color: var(--dust); font-size: 1rem; font-weight: 500; font-stretch: 100%; letter-spacing: 0; margin-bottom: .75rem; }
+#outline-container-about { margin-bottom: 4.5rem; }
+/* Quest log timeline: chile = active quest, turquoise = side quests, dust = completed */
+#text-quest-log > ul { list-style: none; margin: 0; padding: 0; }
+#text-quest-log > ul > li { position: relative; margin-left: .45rem; padding: 0 0 2.5rem 2rem; border-left: 2px solid var(--ridge); }
+#text-quest-log > ul > li:last-child { border-left-color: transparent; padding-bottom: 0; }
+#text-quest-log > ul > li::before { content: ""; position: absolute; left: -8px; top: .35rem; width: 10px; height: 10px; border-radius: 50%; background: var(--dust); border: 2px solid var(--sky); box-shadow: 0 0 0 2px var(--dust); }
+#text-quest-log > ul > li:first-child::before { background: var(--chile); box-shadow: 0 0 0 2px var(--chile), 0 0 0 7px rgba(229, 83, 61, .25); }
+#text-quest-log > ul > li:nth-child(2)::before { background: var(--sky); box-shadow: 0 0 0 2px var(--turq); }
+#text-quest-log > ul > li > b:first-child { display: block; font-size: 1.15rem; line-height: 1.3; margin-bottom: .35rem; }
+#text-quest-log > ul > li > br { display: none; }
+#text-quest-log ul ul { list-style: none; margin: .75rem 0 0; padding: 0; }
+#text-quest-log ul ul li { padding: .9rem 0; border-top: 1px solid var(--ridge); color: #D9D3C6; font-size: 1rem; }
+#text-quest-log ul ul li:last-child { padding-bottom: 0; }
+@media (prefers-reduced-motion: no-preference) {
+#text-quest-log > ul > li:first-child::before { animation: active-quest 2.4s ease-in-out infinite; }
+@keyframes active-quest { 50% { box-shadow: 0 0 0 2px var(--chile), 0 0 0 10px rgba(229, 83, 61, .08); } }
+html { scroll-behavior: smooth; }
+a, button { transition: color .15s, background-color .15s, text-decoration-color .15s; }
+}
+/* Slop shelf */
+#text-slop-shelf ul { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+#text-slop-shelf li { background: var(--mesa); border-radius: 12px; padding: 1.1rem 1.25rem 1.25rem; font-size: .95rem; color: #D9D3C6; }
+/* Inquiries form */
+#contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem 1.25rem; }
+#contact-form .wide { grid-column: 1 / -1; }
+#contact-form label { display: block; color: var(--dust); font-size: .9rem; margin-bottom: .35rem; }
+#contact-form input, #contact-form textarea { box-sizing: border-box; width: 100%; font: inherit; color: var(--sand); background: var(--mesa); border: 1px solid var(--ridge); border-radius: 10px; padding: .7rem .85rem; }
+#contact-form textarea { resize: vertical; min-height: 9rem; }
+#contact-form input:focus-visible, #contact-form textarea:focus-visible { outline: 2px solid var(--turq); outline-offset: 1px; border-color: transparent; }
+#contact-form button { justify-self: start; font: inherit; font-weight: 700; color: var(--sky); background: var(--turq); border: 0; border-radius: 999px; padding: .75rem 2rem; cursor: pointer; }
+#contact-form button:hover { background: #7BE3D7; }
+#contact-form button:disabled { opacity: .6; cursor: progress; }
+#contact-status { margin: 0; color: var(--dust); }
+#contact-status:empty { display: none; }
+/* Mobile: identity becomes a compact header, then one column */
+@media (max-width: 56rem) {
+#content { display: block; padding: 2rem 1.25rem 4rem; }
+#outline-container-contact { position: static; margin-bottom: 3.5rem; }
+.contact-head { display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; align-items: center; margin-bottom: 1.5rem; }
+.hello-profile { width: 5.5rem; height: 5.5rem; }
+.name { font-size: 2.25rem; margin: 0 0 .35rem; }
+.roles { margin: 0; font-size: .9rem; }
+.outline-2 { margin-bottom: 4rem; }
+#outline-container-about { margin-bottom: 3.5rem; }
+#contact-form { grid-template-columns: 1fr; }
+}
 </style>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
 <div id="content" class="content">
-<h1 class="title">Adam Schaefers
-<br>
-<span class="subtitle">Devops | Full stack dev | Gamedev | Founder</span>
-</h1>
 <hr>
-<div id="outline-container-org3167c3d" class="outline-2">
-<h2 id="org3167c3d">Contact</h2>
-<div class="outline-text-2" id="text-org3167c3d">
-<p><img loading="lazy" src="me.jpeg" style="width: 15%;" class="img-fluid rounded-circle mb-3 hello-profile" alt="Avatar"></p>
+<div id="outline-container-contact" class="outline-2">
+<h2 id="contact">Contact</h2>
+<div class="outline-text-2" id="text-contact">
+<div class="contact-head">
+  <img src="me.jpeg" width="800" height="800" class="hello-profile" alt="Adam Schaefers">
+  <div>
+    <h1 class="name">Adam Schaefers</h1>
+    <p class="roles"><span>Devops |</span> <span>Full stack dev |</span> <span>Gamedev |</span> <span>Founder</span></p>
+  </div>
+</div>
 
 <ul class="org-ul">
 <li>Latest Work: <a href="https://enchant.games">@LandOfEnchantment</a></li>
-<li>Email: <a href="mailto:aschaefers@enchant.games">aschaefers@enchant.games</a></li>
+<li>Contact: <a href="#inquiries">Send me an email</a></li>
 <li>LinkedIn: <a href="https://www.linkedin.com/in/adam-schaefers">in/adam-schaefers</a></li>
 <li>Github: <a href="https://github.com/a-schaefers">a-schaefers</a></li>
 <li>Twitch: <a href="https://www.twitch.tv/enchantdev">@enchantdev</a></li>
@@ -215,12 +145,68 @@
 <li>X: <a href="https://x.com/enchantdev575">@enchantdev575</a></li>
 </ul>
 
+<div class="course">
+  <p class="course-title"><a href="https://www.youtube.com/playlist?list=PLFf4Ibrb-mjTcoaVv6orVtH93K47GPrwl">Watch my free Emacs course!</a></p>
+  <div class="course-player">
+    <button type="button" class="course-play" aria-label="Play episode 00">
+      <img src="https://i.ytimg.com/vi/n9gJxKchkRw/hqdefault.jpg" width="480" height="360" alt="">
+    </button>
+  </div>
+  <p class="course-now" aria-live="polite"><b>00</b> Avoid RSI and &quot;emacs pinky&quot; once and for all. <span class="len">5:04</span></p>
+  <ol class="course-episodes">
+    <li><button type="button" data-id="n9gJxKchkRw" data-title="Avoid RSI and &quot;emacs pinky&quot; once and for all." data-len="5:04" title="Avoid RSI and &quot;emacs pinky&quot; once and for all." aria-label="Episode 00: Avoid RSI and &quot;emacs pinky&quot; once and for all." aria-current="true">00</button></li>
+    <li><button type="button" data-id="dCdoyDeR_rI" data-title="Vanilla Emacs Crash Course" data-len="42:39" title="Vanilla Emacs Crash Course" aria-label="Episode 01: Vanilla Emacs Crash Course">01</button></li>
+    <li><button type="button" data-id="SEPlByrobAI" data-title="Vanilla Emacs Crash Course PT. 2" data-len="52:37" title="Vanilla Emacs Crash Course PT. 2" aria-label="Episode 02: Vanilla Emacs Crash Course PT. 2">02</button></li>
+    <li><button type="button" data-id="JNpNge1cRhw" data-title="Crash Course PT. 3, org-mode, ediff, Magit, Projectile and more." data-len="33:32" title="Crash Course PT. 3, org-mode, ediff, Magit, Projectile and more." aria-label="Episode 03: Crash Course PT. 3, org-mode, ediff, Magit, Projectile and more.">03</button></li>
+    <li><button type="button" data-id="AI3y15hJtKA" data-title="Emacs TRAMP Crash Course PT. 4" data-len="3:30" title="Emacs TRAMP Crash Course PT. 4" aria-label="Episode 04: Emacs TRAMP Crash Course PT. 4">04</button></li>
+    <li><button type="button" data-id="Rk8vngeJZOk" data-title="More CRUX goodies - Emacs Crash Course PT. 5" data-len="3:07" title="More CRUX goodies - Emacs Crash Course PT. 5" aria-label="Episode 05: More CRUX goodies - Emacs Crash Course PT. 5">05</button></li>
+    <li><button type="button" data-id="ijS1pAcUIaQ" data-title="Spartan Emacs - Crash Course PT. 6" data-len="19:24" title="Spartan Emacs - Crash Course PT. 6" aria-label="Episode 06: Spartan Emacs - Crash Course PT. 6">06</button></li>
+  </ol>
+</div>
+<script>
+// Emacs course: thumbnail until played, then a YouTube embed. Episode buttons swap the video.
+(function () {
+  var course = document.querySelector('.course');
+  var player = course.querySelector('.course-player');
+  var now = course.querySelector('.course-now');
+  var current = course.querySelector('.course-episodes [aria-current]');
+  function embed(btn) {
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + btn.dataset.id + '?autoplay=1&rel=0';
+    f.title = 'Episode ' + btn.textContent + ': ' + btn.dataset.title;
+    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    f.allowFullscreen = true;
+    player.replaceChildren(f);
+  }
+  function select(btn) {
+    current.removeAttribute('aria-current');
+    btn.setAttribute('aria-current', 'true');
+    current = btn;
+    now.children[0].textContent = btn.textContent;
+    now.childNodes[1].textContent = ' ' + btn.dataset.title + ' ';
+    now.children[1].textContent = btn.dataset.len;
+    var play = player.querySelector('.course-play');
+    if (play) {
+      play.querySelector('img').src = 'https://i.ytimg.com/vi/' + btn.dataset.id + '/hqdefault.jpg';
+      play.setAttribute('aria-label', 'Play episode ' + btn.textContent);
+    } else {
+      embed(btn);
+    }
+  }
+  player.addEventListener('click', function (e) { if (e.target.closest('.course-play')) embed(current); });
+  course.querySelector('.course-episodes').addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (btn && btn !== current) select(btn);
+  });
+})();
+</script>
+
 <hr>
 </div>
 </div>
-<div id="outline-container-org3444454" class="outline-2">
-<h2 id="org3444454">About</h2>
-<div class="outline-text-2" id="text-org3444454">
+<div id="outline-container-about" class="outline-2">
+<h2 id="about">About</h2>
+<div class="outline-text-2" id="text-about">
 <p>
 <b>TL;DR:</b> Linux nerd → DevOps wrangler → indie gamedev. 🐧 → ☁️ → 🎮
 </p>
@@ -228,9 +214,9 @@
 <hr>
 </div>
 </div>
-<div id="outline-container-orgdfb5fa5" class="outline-2">
-<h2 id="orgdfb5fa5">🗺️ The Quest Log</h2>
-<div class="outline-text-2" id="text-orgdfb5fa5">
+<div id="outline-container-quest-log" class="outline-2">
+<h2 id="quest-log">🗺️ The Quest Log</h2>
+<div class="outline-text-2" id="text-quest-log">
 <ul class="org-ul">
 <li><b>2025 – now · 🎮 Founder, <a href="https://enchant.games">Land of Enchantment Games</a></b> <br>
 My personal indie game studio, based in New Mexico.</li>
@@ -250,9 +236,9 @@ Spent 10+ hours a day learning Linux from the kernel up. Maintained packages for
 <hr>
 </div>
 </div>
-<div id="outline-container-org350fbd8" class="outline-2">
-<h2 id="org350fbd8">🎧 Off the clock</h2>
-<div class="outline-text-2" id="text-org350fbd8">
+<div id="outline-container-off-the-clock" class="outline-2">
+<h2 id="off-the-clock">🎧 Off the clock</h2>
+<div class="outline-text-2" id="text-off-the-clock">
 <p>
 Professional music recording, aspiring DJ, and I play guitar. 🎸 Big fan of electronic music, house and techno. I love traveling in Europe, especially Greece. 🇬🇷 Born and raised in the Pacific Northwest, and an avid fly fisherman. 🎣
 </p>
@@ -260,9 +246,9 @@ Professional music recording, aspiring DJ, and I play guitar. 🎸 Big fan of el
 <hr>
 </div>
 </div>
-<div id="outline-container-org8c22ceb" class="outline-2">
-<h2 id="org8c22ceb">🤖 The slop shelf</h2>
-<div class="outline-text-2" id="text-org8c22ceb">
+<div id="outline-container-slop-shelf" class="outline-2">
+<h2 id="slop-shelf">🤖 The slop shelf</h2>
+<div class="outline-text-2" id="text-slop-shelf">
 <p>
 My secondary GitHub, <a href="https://github.com/el-sloppo">@el-sloppo</a>, is where I push my favorite AI slop projects. Most of them live under <a href="https://github.com/emacs-os">Emacs-OS</a>:
 </p>
@@ -277,20 +263,20 @@ My secondary GitHub, <a href="https://github.com/el-sloppo">@el-sloppo</a>, is w
 <hr>
 </div>
 </div>
-<div id="outline-container-org3a9fef5" class="outline-2">
-<h2 id="org3a9fef5">✉️ Inquiries</h2>
-<div class="outline-text-2" id="text-org3a9fef5">
-<form id="contact-form" action="https://contact-api.adamschaefers.com/" method="POST" style="max-width: 36em;">
-  <div class="mb-3"><label class="form-label" for="cf-name">Name</label>
-    <input class="form-control" id="cf-name" type="text" name="name" maxlength="200" autocomplete="name"></div>
-  <div class="mb-3"><label class="form-label" for="cf-email">Email, if you want a reply</label>
-    <input class="form-control" id="cf-email" type="email" name="email" maxlength="200" autocomplete="email"></div>
-  <div class="mb-3"><label class="form-label" for="cf-message">Message</label>
-    <textarea class="form-control" id="cf-message" name="message" maxlength="5000" rows="6" required></textarea></div>
+<div id="outline-container-inquiries" class="outline-2">
+<h2 id="inquiries">✉️ Inquiries</h2>
+<div class="outline-text-2" id="text-inquiries">
+<form id="contact-form" action="https://contact-api.adamschaefers.com/" method="POST">
+  <div><label for="cf-name">Name</label>
+    <input id="cf-name" type="text" name="name" maxlength="200" autocomplete="name"></div>
+  <div><label for="cf-email">Email</label>
+    <input id="cf-email" type="email" name="email" maxlength="200" autocomplete="email" required></div>
+  <div class="wide"><label for="cf-message">Message</label>
+    <textarea id="cf-message" name="message" maxlength="5000" rows="6" required></textarea></div>
   <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;">
-  <div class="cf-turnstile mb-3" data-sitekey="0x4AAAAAAFSCqQ6GlpqWfqoi"></div>
-  <button type="submit" class="btn btn-primary">Send</button>
-  <p id="contact-status" class="mt-2" role="status"></p>
+  <div class="cf-turnstile wide" data-sitekey="0x4AAAAAAFSCqQ6GlpqWfqoi" data-theme="dark"></div>
+  <button type="submit">Send</button>
+  <p id="contact-status" class="wide" role="status"></p>
 </form>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script src="contact.js" defer></script>
