@@ -1,0 +1,3 @@
+[submodule "a-schaefers"]
+	path = a-schaefers
+	url = https://github.com/a-schaefers/a-schaefers.git
