@@ -14,7 +14,9 @@
 .entry h3 a:hover { color: var(--turq); }
 .entry p { margin: 0 0 .75rem; color: #D9D3C6; }
 .entry-more { font-size: .95rem; font-weight: 600; }
-.entries-empty { color: var(--dust); }
+.entries-empty { margin-top: 1.5rem; padding: 1.5rem 1.75rem; border-radius: 16px; background: var(--mesa); box-shadow: inset 0 0 0 1px var(--ridge); color: var(--dust); }
+.entries-empty p { margin: 0; }
+.entries-empty .entries-empty-title { margin-bottom: .25rem; color: var(--sand); font-size: 1.35rem; font-weight: 750; font-stretch: 85%; }
 
 /* Post */
 .post-head { margin-bottom: 2.5rem; }

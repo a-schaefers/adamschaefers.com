@@ -1,8 +1,5 @@
 #+TITLE: Blog
 #+POSTS_PER_PAGE: 10
 
-# The blog's listing page. `make build' (blog.el) exports it to blog.html,
-# adding the posts in blog/ below this text, newest first, POSTS_PER_PAGE to a
-# page. Later pages go to blog-2.html, blog-3.html, ...
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Placeholder intro until the real posts land.
+# The blog's listing page. site.el puts this text above the posts in
+# blog/YYYY-MM-DD-slug.org, newest first, POSTS_PER_PAGE to a page.

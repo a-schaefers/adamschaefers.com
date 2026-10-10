@@ -94,7 +94,8 @@ Org's heading ids are random; SEED keeps them the same from build to build."
 (defun site--posts ()
   "Every post in `site-blog-dir', newest first."
   (let (posts)
-    (dolist (file (directory-files site-blog-dir nil site-post-re))
+    (dolist (file (and (file-directory-p site-blog-dir)
+                       (directory-files site-blog-dir nil site-post-re)))
       (string-match site-post-re file)
       (let ((date (match-string 1 file))
             (name (match-string 2 file))

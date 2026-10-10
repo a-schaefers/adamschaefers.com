@@ -79,7 +79,10 @@ function blogPage(page) {
         <p class="blog-rss"><a href="rss.xml">${icon(RSS_ICON)}RSS feed</a></p>
         ${shown.length
             ? html`<ol class="entries">${shown.map(entry)}</ol>`
-            : html`<p class="entries-empty">No posts yet.</p>`}
+            : html`<div class="entries-empty">
+                <p class="entries-empty-title">Nothing here yet.</p>
+                <p>Watch this space. The RSS feed will tell you when the first post lands.</p>
+              </div>`}
         ${pages > 1 ? html`
         <nav class="pager" aria-label="Blog pages">
             ${page > 1 ? html`<a href=${pageHref(page - 1)} rel="prev">← Newer</a>` : html`<span></span>`}
