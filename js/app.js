@@ -27,6 +27,7 @@ const TABS = [
       icon: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>' },
 ];
 const DEFAULT = 'quest-log';
+const RSS_ICON = '<path d="M5 11a8 8 0 0 1 8 8M5 5a14 14 0 0 1 14 14"/><circle cx="6" cy="18" r="1.2"/>';
 
 // The view for the current hash, or null when the hash isn't a route.
 function parseRoute() {
@@ -75,6 +76,7 @@ function blogPage(page) {
     <div class="outline-2 blog">
         <h2>${data.blog.title}</h2>
         ${unsafeHTML(data.blog.intro)}
+        <p class="blog-rss"><a href="rss.xml">${icon(RSS_ICON)}RSS feed</a></p>
         ${shown.length
             ? html`<ol class="entries">${shown.map(entry)}</ol>`
             : html`<p class="entries-empty">No posts yet.</p>`}

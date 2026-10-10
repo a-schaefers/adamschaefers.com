@@ -28,6 +28,11 @@ from `#+TITLE`, listing excerpt from `#+DESCRIPTION` or the first
 paragraph. Their HTML is shown from the site root, so link images and
 files as `blog/...`. `blog.org` holds the blog's title, intro and
 `#+POSTS_PER_PAGE`.
+The build also writes `rss.xml`, every post in full (site-relative links made
+absolute against https://adamschaefers.com/); commit it with `index.html`.
+`scripts/pre-commit` (installed as `.git/hooks/pre-commit`) rebuilds and
+stages both on every commit; if you change what the build generates, update
+the hook and reinstall it.
 
 The Inquiries (Contact) view's form is mounted by `js/contact.js`, the same
 module as `js/contact.js` in ../enchant.games. It posts to `contact-worker/`, a

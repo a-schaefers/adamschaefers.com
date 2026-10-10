@@ -2,6 +2,10 @@
    Uses the palette variables index.org defines. */
 
 /* Listing */
+.blog-rss { margin: 0; }
+.blog-rss a { display: inline-flex; align-items: center; gap: .4rem; color: var(--dust); font-size: .9rem; font-weight: 600; text-decoration: none; }
+.blog-rss a:hover { color: var(--turq); }
+.blog-rss svg { width: 1rem; height: 1rem; }
 .entries { list-style: none; margin: 1.5rem 0 0; padding: 0; }
 .entry { padding: 1.75rem 0; border-top: 1px solid var(--ridge); }
 .entry time { color: var(--dust); font-size: .9rem; }

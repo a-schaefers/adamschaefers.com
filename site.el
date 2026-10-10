@@ -14,16 +14,20 @@
 ;; title from #+TITLE (or the slug), and the listing excerpt from #+DESCRIPTION
 ;; (or the post's first paragraph).  blog.org holds the blog's title, intro
 ;; text and #+POSTS_PER_PAGE.
+;;
+;; The build also writes rss.xml, a feed of every post in full.
 
 (require 'cl-lib)
 (require 'json)
 (require 'ox-html)
 (require 'subr-x)
+(require 'xml)
 
 (defconst site-blog-dir "blog/")
 (defconst site-post-re
   "\\`\\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\)-\\(.+\\)\\.org\\'")
 (defconst site-default-per-page 10)
+(defconst site-url "https://adamschaefers.com/")
 (defconst site-module-imports
   '("js/lit/lit-html/lit-html.js"
     "js/lit/lit-html/directives/unsafe-html.js"
@@ -124,6 +128,52 @@ Org's heading ids are random; SEED keeps them the same from build to build."
         (intro . ,(site--body-html "blog"))
         (perPage . ,(if (> per-page 0) per-page site-default-per-page))))))
 
+;;; RSS
+
+(defun site--absolute-urls (html)
+  "HTML with its site-relative href and src attributes made absolute."
+  (replace-regexp-in-string
+   "\\(\\(?:href\\|src\\)=\"\\)/?\\([^\"#/][^\":]*\"\\)"
+   (lambda (m) (concat (match-string 1 m) site-url (match-string 2 m)))
+   html t t))
+
+(defun site--rss-date (date)
+  "\"2026-10-03\" -> \"Sat, 03 Oct 2026 12:00:00 +0000\"."
+  (let ((system-time-locale "C"))
+    (format-time-string "%a, %d %b %Y 12:00:00 +0000"
+                        (date-to-time (concat date "T12:00:00Z")) t)))
+
+(defun site--cdata (s)
+  (concat "<![CDATA[" (string-replace "]]>" "]]]]><![CDATA[>" s) "]]>"))
+
+(defun site--write-rss (blog posts)
+  "Write rss.xml: every post, newest first, with its full text."
+  (let ((title (concat (alist-get 'title blog) " · Adam Schaefers"))
+        (link (concat site-url "#blog")))
+    (with-temp-file "rss.xml"
+      (insert "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+              "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:content=\"http://purl.org/rss/1.0/modules/content/\">\n"
+              "<channel>\n"
+              "  <title>" (xml-escape-string title) "</title>\n"
+              "  <link>" link "</link>\n"
+              "  <description>Posts by Adam Schaefers</description>\n"
+              "  <language>en</language>\n"
+              "  <atom:link href=\"" site-url "rss.xml\" rel=\"self\" type=\"application/rss+xml\"/>\n")
+      ;; The newest post's date rather than the clock, so rebuilds are identical.
+      (when posts
+        (insert "  <lastBuildDate>" (site--rss-date (alist-get 'date (car posts))) "</lastBuildDate>\n"))
+      (dolist (post posts)
+        (let ((url (concat site-url "#blog/" (alist-get 'slug post))))
+          (insert "  <item>\n"
+                  "    <title>" (xml-escape-string (alist-get 'title post)) "</title>\n"
+                  "    <link>" url "</link>\n"
+                  "    <guid isPermaLink=\"true\">" url "</guid>\n"
+                  "    <pubDate>" (site--rss-date (alist-get 'date post)) "</pubDate>\n"
+                  "    <description>" (site--cdata (site--absolute-urls (alist-get 'excerpt post))) "</description>\n"
+                  "    <content:encoded>" (site--cdata (site--absolute-urls (alist-get 'html post))) "</content:encoded>\n"
+                  "  </item>\n")))
+      (insert "</channel>\n</rss>\n"))))
+
 ;;; The page
 
 (defun site--asset (file)
@@ -151,7 +201,8 @@ Org's heading ids are random; SEED keeps them the same from build to build."
                       (posts . ,(vconcat posts))))
               (org-export-exclude-tags '("noexport" "view"))
               (org-html-head-extra
-               (concat (format "<link rel=\"stylesheet\" href=\"%s\">\n" (site--asset "nav.css"))
+               (concat "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Adam Schaefers · Blog\" href=\"rss.xml\">\n"
+                       (format "<link rel=\"stylesheet\" href=\"%s\">\n" (site--asset "nav.css"))
                        (format "<link rel=\"stylesheet\" href=\"%s\">\n" (site--asset "blog.css"))
                        "<script type=\"application/json\" id=\"site-data\">"
                        (site--json data)
@@ -171,6 +222,7 @@ Org's heading ids are random; SEED keeps them the same from build to build."
                          (format-time-string "%Y")))))
          (random "index")
          (org-export-to-file 'html "index.html")
+         (site--write-rss blog posts)
          (message "site: %d views, %d posts"
                   (length (alist-get 'views data)) (length posts)))))))
 

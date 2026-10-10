@@ -18,7 +18,14 @@ make submodule
 
 Then:
 
-- `make build` regenerates `index.html` from `index.org`, `blog.org` and
-  `blog/*.org` (needs Emacs).
+- `make build` regenerates `index.html` and `rss.xml` from `index.org`,
+  `blog.org` and `blog/*.org` (needs Emacs).
 - `make run` serves the site at http://localhost:8000.
 - `make worker` deploys the contact form's Cloudflare Worker.
+
+Install the git hook that runs `make build` before each commit and stages
+the generated `index.html` and `rss.xml`:
+
+```sh
+cp scripts/pre-commit .git/hooks/pre-commit
+```
