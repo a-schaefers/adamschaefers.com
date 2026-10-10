@@ -6,7 +6,29 @@ After editing, regenerate the HTML with:
 
     make build
 
-The Inquiries form at the bottom of the page posts to `contact-worker/`, a
+The site is one page, built by `site.el`. `index.html` is `index.org`
+exported without its `:view:` sections; those sections, `blog.org` and the
+blog posts go into a JSON blob in the page head (`#site-data`), so the
+first load carries everything. `js/app.js` (lit-html, vendored in `js/lit/`
+from ../enchant.games) renders the menu and one view at a time from it,
+switching on hash routes (`#quest-log`, `#off-the-clock`, `#inquiries`,
+`#blog`, `#blog/2`, `#blog/<post slug>`) without page loads.
+A section is shown by tagging it `:view:` and listing it under a tab in
+`TABS` in `js/app.js` (Projects shows About, the Quest Log and the slop
+shelf), which also holds the menu's labels and icons.
+The sidebar (index.org's Contact section) and the footer (`site.el`) are
+written once and frame every view.
+`nav.css` styles the menu (top on desktop, bottom tab bar on phones),
+`blog.css` the blog views.
+
+Blog posts are `blog/YYYY-MM-DD-slug.org`: date from the file name, title
+from `#+TITLE`, listing excerpt from `#+DESCRIPTION` or the first
+paragraph. Their HTML is shown from the site root, so link images and
+files as `blog/...`. `blog.org` holds the blog's title, intro and
+`#+POSTS_PER_PAGE`.
+
+The Inquiries (Contact) view's form is mounted by `js/contact.js`, the same
+module as `js/contact.js` in ../enchant.games. It posts to `contact-worker/`, a
 Cloudflare Worker (`adamschaefers-contact`) at contact-api.adamschaefers.com.
 It checks Turnstile and emails the message to adam.schaefers@icloud.com
 through Email Routing, with Reply-To set to the sender. The sender's email

@@ -1,0 +1,55 @@
+/* Blog views (js/app.js): the post listing with its pager, and posts.
+   Uses the palette variables index.org defines. */
+
+/* Listing */
+.entries { list-style: none; margin: 1.5rem 0 0; padding: 0; }
+.entry { padding: 1.75rem 0; border-top: 1px solid var(--ridge); }
+.entry time { color: var(--dust); font-size: .9rem; }
+.entry h3 { margin: .25rem 0 .6rem; font-size: 1.45rem; font-weight: 750; font-stretch: 85%; line-height: 1.2; letter-spacing: -.01em; }
+.entry h3 a { color: var(--sand); text-decoration: none; }
+.entry h3 a:hover { color: var(--turq); }
+.entry p { margin: 0 0 .75rem; color: #D9D3C6; }
+.entry-more { font-size: .95rem; font-weight: 600; }
+.entries-empty { color: var(--dust); }
+
+/* Post */
+.post-head { margin-bottom: 2.5rem; }
+.post-back { display: inline-block; margin-bottom: 1.25rem; color: var(--dust); font-size: .9rem; font-weight: 600; text-decoration: none; }
+.post-back:hover { color: var(--turq); }
+.post-head h2 { margin: 0 0 .9rem; font-size: clamp(2rem, 4.6vw, 3rem); font-weight: 800; font-stretch: 75%; line-height: 1.02; letter-spacing: -.02em; }
+.post-head time { display: block; color: var(--dust); }
+.post { line-height: 1.7; }
+.post h3, .post h4, .post h5 { font-weight: 750; font-stretch: 85%; line-height: 1.2; letter-spacing: -.01em; margin: 2.5rem 0 .9rem; }
+.post h3 { font-size: 1.45rem; }
+.post h4 { font-size: 1.2rem; }
+.post h5 { font-size: 1.05rem; }
+.post :is(p, ul, ol, dl, blockquote, pre, table, figure) { margin: 0 0 1.25rem; }
+.post li + li { margin-top: .35rem; }
+.post blockquote { margin-left: 0; padding-left: 1.25rem; border-left: 3px solid var(--turq); color: #D9D3C6; }
+.post pre { font: .9rem/1.55 ui-monospace, monospace; background: var(--mesa); box-shadow: inset 0 0 0 1px var(--ridge); border-radius: 12px; padding: 1rem 1.25rem; overflow-x: auto; }
+.post :is(img, video) { max-width: 100%; height: auto; border-radius: 12px; }
+.post figure { margin-left: 0; margin-right: 0; }
+.post figcaption { margin-top: .5rem; color: var(--dust); font-size: .9rem; }
+#app .post hr { display: block; border: 0; border-top: 1px solid var(--ridge); margin: 2.5rem 0; }
+.post table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+.post :is(th, td) { text-align: left; padding: .55rem .75rem; border-bottom: 1px solid var(--ridge); }
+.post th { color: var(--dust); font-weight: 600; }
+.post #footnotes { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--ridge); color: #D9D3C6; font-size: .9rem; }
+.post #footnotes h3 { margin: 0 0 1rem; font-size: 1rem; color: var(--dust); }
+.post .footdef { display: flex; gap: .5rem; }
+
+/* Pager (listing) and newer/older links (post) */
+.pager { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem; margin-top: .5rem; padding-top: 1.5rem; border-top: 1px solid var(--ridge); }
+.pager > :last-child { justify-self: end; }
+.pager-count { color: var(--dust); font-size: .9rem; font-variant-numeric: tabular-nums; }
+.pager a { color: var(--sand); font-weight: 600; text-decoration: none; padding: .6rem 1.2rem; border-radius: 999px; background: var(--mesa); box-shadow: inset 0 0 0 1px var(--ridge); white-space: nowrap; }
+.post-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--ridge); }
+.post-nav a { display: block; padding: 1rem 1.25rem; border-radius: 12px; background: var(--mesa); box-shadow: inset 0 0 0 1px var(--ridge); color: var(--sand); font-weight: 600; line-height: 1.35; text-decoration: none; }
+.post-nav a span { display: block; margin-bottom: .25rem; color: var(--dust); font-size: .85rem; font-weight: 500; }
+.post-nav .older { grid-column: 2; text-align: right; }
+.pager a:hover, .post-nav a:hover { color: var(--turq); box-shadow: inset 0 0 0 1px var(--turq); }
+
+@media (max-width: 40rem) {
+  .post-nav { grid-template-columns: 1fr; }
+  .post-nav .older { grid-column: auto; }
+}

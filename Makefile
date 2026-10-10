@@ -3,7 +3,7 @@
 PORT ?= 8000
 
 build:
-	emacs -Q --batch index.org -f org-html-export-to-html
+	emacs -Q --batch -l site.el -f site-build
 
 run:
 	python3 -m http.server $(PORT)

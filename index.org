@@ -1,7 +1,7 @@
 #+TITLE: Adam Schaefers
 #+AUTHOR: Adam Schaefers
 #+HTML_DOCTYPE: html5
-#+OPTIONS: html-postamble:nil html-style:nil
+#+OPTIONS: html-style:nil
 #+OPTIONS: num:nil
 #+OPTIONS: toc:nil
 #+OPTIONS: title:nil
@@ -21,11 +21,12 @@
 #+HTML_HEAD: b, strong { font-weight: 700; }
 #+HTML_HEAD: code { font: .85em ui-monospace, monospace; background: var(--mesa); padding: .1em .35em; border-radius: 4px; }
 #+HTML_HEAD: h2 { font-size: 1.6rem; font-weight: 750; font-stretch: 85%; line-height: 1.15; letter-spacing: -.01em; margin: 0 0 1.25rem; }
-#+HTML_HEAD: .sr-only, #contact, #about { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+#+HTML_HEAD: .sr-only, #contact, #outline-container-about > h2 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 #+HTML_HEAD: /* Layout: sticky identity column on the left, content on the right */
 #+HTML_HEAD: #content { max-width: 70rem; margin: 0 auto; padding: 4rem 2rem 6rem; display: grid; grid-template-columns: 17rem minmax(0, 44rem); column-gap: clamp(3rem, 7vw, 6.5rem); justify-content: center; }
 #+HTML_HEAD: #content hr { display: none; }
-#+HTML_HEAD: #inquiries { scroll-margin-top: 2rem; }
+#+HTML_HEAD: .site-footer { max-width: 70rem; margin: 0 auto; padding: 0 2rem 3rem; color: var(--dust); font-size: .85rem; text-align: center; }
+#+HTML_HEAD: #app { grid-column: 2; grid-row: 1; min-width: 0; }
 #+HTML_HEAD: .outline-2 { grid-column: 2; margin-bottom: 5rem; }
 #+HTML_HEAD: .outline-2:last-child { margin-bottom: 0; }
 #+HTML_HEAD: #outline-container-contact { grid-column: 1; grid-row: 1 / span 12; align-self: start; margin: 0; }
@@ -61,11 +62,8 @@
 #+HTML_HEAD: #text-contact > ul > li:nth-child(n+3) a::before { content: ""; width: 1.1rem; height: 1.1rem; background: currentColor; mask: var(--icon) center / contain no-repeat; }
 #+HTML_HEAD: #text-contact > ul > li a:hover { color: var(--turq); }
 #+HTML_HEAD: #text-contact > ul > li:nth-child(n+3) a:hover { box-shadow: inset 0 0 0 1px var(--turq); }
-#+HTML_HEAD: #text-contact > ul a[href*="linkedin.com"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z'/%3E%3C/svg%3E"); }
 #+HTML_HEAD: #text-contact > ul a[href*="github.com"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8'/%3E%3C/svg%3E"); }
 #+HTML_HEAD: #text-contact > ul a[href*="twitch.tv"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.857 0 1 2.857v10.286h3.429V16l2.857-2.857H9.57L14.714 8V0zm9.714 7.429-2.285 2.285H9l-2 2v-2H4.429V1.143h9.142z'/%3E%3Cpath d='M11.857 3.143h-1.143V6.57h1.143zm-3.143 0H7.571V6.57h1.143z'/%3E%3C/svg%3E"); }
-#+HTML_HEAD: #text-contact > ul a[href*="youtube.com"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z'/%3E%3C/svg%3E"); }
-#+HTML_HEAD: #text-contact > ul a[href*="x.com"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z'/%3E%3C/svg%3E"); }
 #+HTML_HEAD: /* Emacs course player */
 #+HTML_HEAD: .course { margin-top: 2rem; }
 #+HTML_HEAD: .course-title { margin: 0 0 .75rem; font-size: 1.05rem; font-weight: 700; }
@@ -141,17 +139,40 @@
 #+HTML_HEAD: .sent-note { margin: .2rem 0 0; color: var(--dust); }
 #+HTML_HEAD: /* Mobile: identity becomes a compact header, then one column */
 #+HTML_HEAD: @media (max-width: 56rem) {
-#+HTML_HEAD:   #content { display: block; padding: 2rem 1.25rem 4rem; }
-#+HTML_HEAD:   #outline-container-contact { position: static; margin-bottom: 3.5rem; }
+#+HTML_HEAD:   /* The sidebar splits: name through socials on top, then the view, then the course */
+#+HTML_HEAD:   #content { display: flex; flex-direction: column; padding: 2rem 1.25rem 4rem; }
+#+HTML_HEAD:   #outline-container-contact, #text-contact { display: contents; }
+#+HTML_HEAD:   #app { order: 1; margin-top: 3.5rem; }
+#+HTML_HEAD:   .course { order: 2; margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--ridge); }
 #+HTML_HEAD:   .contact-head { display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; align-items: center; margin-bottom: 1.5rem; }
 #+HTML_HEAD:   .hello-profile { width: 5.5rem; height: 5.5rem; }
 #+HTML_HEAD:   .name { font-size: 2.25rem; margin: 0 0 .35rem; }
 #+HTML_HEAD:   .roles { margin: 0; font-size: .9rem; }
+#+HTML_HEAD:   /* Latest Work and Contact side by side, sized like the roles line */
+#+HTML_HEAD:   #text-contact > ul { gap: 0; }
+#+HTML_HEAD:   #text-contact > ul > li:nth-child(-n+2) { flex: 1 1 0; min-width: 0; margin: 0; padding: .6rem 0; font-size: .8rem; border-top: 1px solid var(--ridge); border-bottom: 1px solid var(--ridge); }
+#+HTML_HEAD:   #text-contact > ul > li:nth-child(2) { padding-left: .9rem; border-left: 1px solid var(--ridge); }
+#+HTML_HEAD:   #text-contact > ul > li:nth-child(-n+2) a { font-size: .9rem; overflow-wrap: anywhere; }
+#+HTML_HEAD:   /* Socials sit small in the page's top-right corner, above the name and out of the flow; they scroll away with the page */
+#+HTML_HEAD:   #content { position: relative; }
+#+HTML_HEAD:   #text-contact > ul > li:nth-child(n+3) { position: absolute; top: .3rem; right: calc(.5rem + var(--k) * 2.25rem); }
+#+HTML_HEAD:   #text-contact > ul > li:nth-child(n+3) a { width: 1.9rem; height: 1.9rem; }
+#+HTML_HEAD:   #text-contact > ul > li:nth-child(n+3) a::before { width: .9rem; height: .9rem; }
+#+HTML_HEAD:   #text-contact > ul > li:nth-child(n+3):nth-last-child(1) { --k: 0; }
+#+HTML_HEAD:   #text-contact > ul > li:nth-child(n+3):nth-last-child(2) { --k: 1; }
+#+HTML_HEAD:   #text-contact > ul > li:nth-child(n+3):nth-last-child(3) { --k: 2; }
+#+HTML_HEAD:   #text-contact > ul > li:nth-child(n+3):nth-last-child(4) { --k: 3; }
 #+HTML_HEAD:   .outline-2 { margin-bottom: 4rem; }
 #+HTML_HEAD:   #outline-container-about { margin-bottom: 3.5rem; }
 #+HTML_HEAD:   #contact-form { grid-template-columns: 1fr; }
 #+HTML_HEAD: }
 #+HTML_HEAD: </style>
+
+# The sections tagged :view: aren't in index.html: site.el puts them in the
+# page's data and js/app.js shows one at a time here, picked from the menu.
+#+BEGIN_EXPORT html
+<main id="app"></main>
+#+END_EXPORT
 
 -----
 
@@ -214,12 +235,9 @@
 #+END_EXPORT
 
 - Latest Work: [[https://enchant.games][@LandOfEnchantment]]
-- Contact: [[#inquiries][Send me an email]]
-- LinkedIn: [[https://www.linkedin.com/in/adam-schaefers][in/adam-schaefers]]
+- Contact: @@html:<a href="#inquiries">Send me an email</a>@@
 - Github: [[https://github.com/a-schaefers][a-schaefers]]
 - Twitch: [[https://www.twitch.tv/enchantdev][@enchantdev]]
-- Youtube: [[https://www.youtube.com/@enchantdev][@enchantdev]]
-- X: [[https://x.com/enchantdev575][@enchantdev575]]
 
 #+BEGIN_EXPORT html
 <div class="course">
@@ -281,7 +299,7 @@
 
 -----
 
-** About
+** About :view:
 :PROPERTIES:
 :CUSTOM_ID: about
 :END:
@@ -290,7 +308,7 @@
 
 -----
 
-** 🗺️ The Quest Log
+** 🗺️ The Quest Log :view:
 :PROPERTIES:
 :CUSTOM_ID: quest-log
 :END:
@@ -309,7 +327,7 @@
 
 -----
 
-** 🎧 Off the clock
+** 🎧 Off the clock :view:
 :PROPERTIES:
 :CUSTOM_ID: off-the-clock
 :END:
@@ -318,7 +336,7 @@ Professional music recording, and I play guitar. 🎸 Big fan of electronic musi
 
 -----
 
-** 🤖 The slop shelf
+** 🤖 The slop shelf :view:
 :PROPERTIES:
 :CUSTOM_ID: slop-shelf
 :END:
@@ -332,92 +350,11 @@ My secondary GitHub, [[https://github.com/el-sloppo][@el-sloppo]], is where I pu
 
 -----
 
-** ✉️ Inquiries
+** ✉️ Inquiries :view:
 :PROPERTIES:
 :CUSTOM_ID: inquiries
 :END:
 
 #+BEGIN_EXPORT html
-<div class="inquiry-card">
-<form id="contact-form" action="https://contact-api.adamschaefers.com/" method="POST">
-  <div><label for="cf-name">Name</label>
-    <input id="cf-name" type="text" name="name" maxlength="200" autocomplete="name"></div>
-  <div><label for="cf-email">Email</label>
-    <input id="cf-email" type="email" name="email" maxlength="200" autocomplete="email" required></div>
-  <div class="wide"><label for="cf-message">Message</label>
-    <textarea id="cf-message" name="message" maxlength="5000" rows="6" required></textarea></div>
-  <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;">
-  <div class="cf-turnstile wide" data-sitekey="0x4AAAAAAFSCqQ6GlpqWfqoi" data-theme="dark"></div>
-  <button type="submit">Send</button>
-  <p id="contact-status" class="wide" role="status"></p>
-</form>
-<div class="inquiry-sent" tabindex="-1" hidden>
-  <svg class="sent-check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="23"/><path d="M15.5 27.5l7 7 14-15"/></svg>
-  <div><p class="sent-title">Sent. Thank you!</p><p class="sent-note">I'll get back to you by email.</p></div>
-</div>
-</div>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<script src="contact.js" defer></script>
-<script>
-// Keep an unsent draft in this browser so a failed check, refresh or closed tab doesn't lose it.
-// contact.js resets the form after a successful send, which clears the draft.
-(function () {
-  var form = document.getElementById('contact-form');
-  var key = 'contact-draft';
-  var fields = ['name', 'email', 'message'];
-  var maxAge = 30 * 24 * 60 * 60 * 1000;
-  try {
-    var draft = JSON.parse(localStorage.getItem(key) || 'null');
-    if (draft && Date.now() - draft.savedAt < maxAge) {
-      fields.forEach(function (f) { if (draft[f] && !form.elements[f].value) form.elements[f].value = draft[f]; });
-    } else if (draft) {
-      localStorage.removeItem(key);
-    }
-  } catch (e) {}
-  form.addEventListener('input', function () {
-    var draft = { savedAt: Date.now() };
-    fields.forEach(function (f) { draft[f] = form.elements[f].value; });
-    try {
-      if (draft.name || draft.email || draft.message.trim()) localStorage.setItem(key, JSON.stringify(draft));
-      else localStorage.removeItem(key);
-    } catch (e) {}
-  });
-  form.addEventListener('reset', function () {
-    try { localStorage.removeItem(key); } catch (e) {}
-  });
-})();
-</script>
-<script>
-// After a successful send (contact.js resets the form), flip the form away and show the sent card in its place.
-(function () {
-  var card = document.querySelector('.inquiry-card');
-  var form = document.getElementById('contact-form');
-  var sent = card.querySelector('.inquiry-sent');
-  function clear() {
-    ['name', 'email', 'message'].forEach(function (f) { form.elements[f].value = ''; });
-  }
-  form.addEventListener('reset', function (e) {
-    // Keep the typed text on the card while it flips away; clear it once hidden.
-    e.preventDefault();
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      clear();
-      form.hidden = true;
-      sent.hidden = false;
-      sent.focus({ preventScroll: true });
-      return;
-    }
-    card.style.height = card.offsetHeight + 'px';
-    form.classList.add('is-leaving');
-    form.addEventListener('animationend', function () {
-      clear();
-      form.hidden = true;
-      sent.hidden = false;
-      sent.classList.add('is-arriving');
-      card.style.height = sent.offsetHeight + 'px';
-      card.addEventListener('transitionend', function () { card.style.height = ''; }, { once: true });
-      sent.focus({ preventScroll: true });
-    }, { once: true });
-  });
-})();
-</script>
+<div id="contact-mount"></div>
 #+END_EXPORT
