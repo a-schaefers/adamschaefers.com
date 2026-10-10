@@ -136,6 +136,15 @@ function show() {
     shown = true;
 }
 
+// Phones: tapping the highlighted button for the page you're on jumps back to the top.
+const phone = matchMedia('(max-width: 56rem)');
+nav.addEventListener('click', e => {
+    if (phone.matches && e.target.closest('a[aria-current]')) {
+        e.preventDefault();
+        scrollTo({ top: 0, behavior: 'instant' });
+    }
+});
+
 document.getElementById('year').textContent = new Date().getFullYear();
 addEventListener('hashchange', show);
 show();

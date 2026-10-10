@@ -151,7 +151,7 @@
 #+HTML_HEAD:   /* Latest Work and Contact side by side, sized like the roles line */
 #+HTML_HEAD:   #text-contact > ul { gap: 0; }
 #+HTML_HEAD:   #text-contact > ul > li:nth-child(-n+2) { flex: 1 1 0; min-width: 0; margin: 0; padding: .6rem 0; font-size: .8rem; border-top: 1px solid var(--ridge); border-bottom: 1px solid var(--ridge); }
-#+HTML_HEAD:   #text-contact > ul > li:nth-child(2) { padding-left: .9rem; border-left: 1px solid var(--ridge); }
+#+HTML_HEAD:   #text-contact > ul > li:nth-child(2) { padding-left: .9rem; }
 #+HTML_HEAD:   #text-contact > ul > li:nth-child(-n+2) a { font-size: .9rem; overflow-wrap: anywhere; }
 #+HTML_HEAD:   /* Socials sit small in the page's top-right corner, above the name and out of the flow; they scroll away with the page */
 #+HTML_HEAD:   #content { position: relative; }
