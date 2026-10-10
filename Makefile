@@ -1,10 +1,12 @@
 .PHONY: build run submodule worker
 
+PORT ?= 8000
+
 build:
 	emacs -Q --batch index.org -f org-html-export-to-html
 
 run:
-	python3 -m http.server 8000
+	python3 -m http.server $(PORT)
 
 # Clone the a-schaefers profile README into ./a-schaefers if it isn't there yet.
 submodule:

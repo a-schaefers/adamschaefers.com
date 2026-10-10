@@ -57,6 +57,9 @@ export default {
     const email = String(form.get('email') || '').replace(/[\r\n\t]+/g, '').slice(0, 200).trim();
     const message = String(form.get('message') || '').slice(0, 5000).trim();
     if (!message) return json({ ok: false, error: 'The message is empty.' }, 400, request);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return json({ ok: false, error: 'Please enter a valid email address.' }, 400, request);
+    }
 
     const verify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method: 'POST',
@@ -77,10 +80,9 @@ export default {
       to: env.CONTACT_TO,
       from: { email: FROM_EMAIL, name: site + ' contact form' },
       subject: site + ': message from ' + (name || 'anonymous'),
-      text: 'Name: ' + (name || '(none given)') + '\nEmail: ' + (email || '(none given)') + '\n\n' + message + '\n',
+      text: 'Name: ' + (name || '(none given)') + '\nEmail: ' + email + '\n\n' + message + '\n',
+      replyTo: { email, name: name || undefined },
     };
-    // Reply-To the sender when the address looks plausible, so answering is one click.
-    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) send.replyTo = { email, name: name || undefined };
 
     try {
       await env.EMAIL.send(send);
