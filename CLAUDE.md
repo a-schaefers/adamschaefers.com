@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Edit `index.org`, never `index.html`. `README.org` is a symlink to `index.org`.
+Edit `index.org`, never `index.html`. `README.md` covers repo setup only.
 
 After editing, regenerate the HTML with:
 
