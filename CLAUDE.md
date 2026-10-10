@@ -26,11 +26,13 @@ through the Cloudflare API instead and keep the existing secret
 (`wrangler secret put TURNSTILE_SECRET`), not in the repo.
 
 `a-schaefers/` is a git submodule holding the GitHub profile README
-(github.com/a-schaefers/a-schaefers). `make submodule` clones it if missing.
-Keep it in sync with this site: when you change the core content of
-`index.org` (bio, projects, links), make the matching change in
-`a-schaefers/README.md`, commit and push it in the submodule, then commit
-the updated submodule pointer here.
+(github.com/a-schaefers/a-schaefers), tracking its `main` branch.
+`make submodule` clones it if missing. This site and the profile README are
+kept in sync: whenever the core content of `index.org` changes (bio,
+projects, links), make the matching change in `a-schaefers/README.md` in
+the same pass. Commit and push the submodule first (on `main`, not a
+detached HEAD), then commit `index.org`, `index.html` and the updated
+submodule pointer here together.
 
 `make run` serves the site locally at http://localhost:8000 (`PORT=` to
 change it).
