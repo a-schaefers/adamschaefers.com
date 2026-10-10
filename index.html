@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2026-10-09 Fri 19:42 -->
+<!-- 2026-10-09 Fri 20:01 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Adam Schaefers</title>
@@ -36,6 +36,22 @@ h2 { font-size: 1.6rem; font-weight: 750; font-stretch: 85%; line-height: 1.15; 
 .name { font-size: 2.75rem; font-weight: 800; font-stretch: 75%; line-height: .95; letter-spacing: -.02em; margin: 1.75rem 0 .6rem; }
 .roles { color: var(--dust); font-size: .95rem; margin: 0 0 1.75rem; }
 .roles span { white-space: nowrap; }
+/* Avatar zoom and name-as-home link */
+.profile-zoom { all: unset; display: block; width: fit-content; border-radius: 50%; cursor: zoom-in; }
+.profile-zoom:focus-visible { outline: 2px solid var(--turq); outline-offset: 6px; }
+.profile-zoom.is-open img { visibility: hidden; }
+.home-link { display: block; color: inherit; text-decoration: none; }
+.home-link:hover .name { color: var(--turq); }
+.photo-dialog { padding: 0; border: 0; background: none; overflow: visible; max-width: none; max-height: none; cursor: zoom-out; }
+.photo-dialog:focus { outline: none; }
+.photo-dialog img { display: block; width: min(86vmin, 640px); height: auto; border-radius: 24px; box-shadow: 0 0 0 4px var(--turq), 0 30px 80px rgba(0, 0, 0, .55); }
+.photo-dialog::backdrop { background: rgba(14, 16, 36, .82); backdrop-filter: blur(6px); }
+.photo-dialog.is-closing::backdrop { opacity: 0; transition: opacity .35s; }
+@media (prefers-reduced-motion: no-preference) {
+.photo-dialog[open]::backdrop { animation: backdrop-in .35s ease-out; }
+@keyframes backdrop-in { from { opacity: 0; } }
+.name { transition: color .15s; }
+}
 /* Contact list: latest work as a featured link, socials as an icon row (labels stay for screen readers) */
 #text-contact > ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .6rem; }
 #text-contact > ul > li { font-size: 0; }
@@ -107,6 +123,23 @@ a, button { transition: color .15s, background-color .15s, text-decoration-color
 #contact-form button:disabled { opacity: .6; cursor: progress; }
 #contact-status { margin: 0; color: var(--dust); }
 #contact-status:empty { display: none; }
+/* Sent: the form flips away and the sent card swings in */
+.inquiry-card { perspective: 1100px; perspective-origin: 50% 0; transition: height .45s cubic-bezier(.3, .7, .2, 1); }
+#contact-form[hidden], .inquiry-sent[hidden] { display: none; }
+#contact-form.is-leaving { transform-origin: 50% 100%; animation: form-leave .75s cubic-bezier(.55, 0, .75, .1) forwards; pointer-events: none; }
+@keyframes form-leave { 0% { transform: none; } 18% { transform: rotateX(-7deg) translateY(-.5rem); opacity: 1; } 100% { transform: rotateX(88deg) translateY(1.5rem) scale(.92); opacity: 0; } }
+.inquiry-sent { display: flex; align-items: center; gap: 1.25rem; padding: 1.5rem 1.75rem; border-radius: 16px; background: var(--mesa); box-shadow: inset 0 0 0 1px var(--ridge); transform-origin: 50% 0; }
+.inquiry-sent:focus { outline: none; }
+.inquiry-sent.is-arriving { animation: sent-arrive .7s cubic-bezier(.2, 1.35, .4, 1) both; }
+@keyframes sent-arrive { from { transform: rotateX(-80deg); opacity: 0; } 40% { opacity: 1; } to { transform: none; } }
+.sent-check { flex: none; width: 3.25rem; height: 3.25rem; fill: none; stroke: var(--turq); stroke-linecap: round; stroke-linejoin: round; }
+.sent-check circle { stroke-width: 2.5; stroke-dasharray: 145; }
+.sent-check path { stroke-width: 4; stroke-dasharray: 34; }
+.is-arriving .sent-check circle { animation: draw .6s .25s ease-out both; --len: 145; }
+.is-arriving .sent-check path { animation: draw .35s .7s ease-out both; --len: 34; }
+@keyframes draw { from { stroke-dashoffset: var(--len); } to { stroke-dashoffset: 0; } }
+.sent-title { margin: 0; font-size: 1.35rem; font-weight: 750; font-stretch: 85%; line-height: 1.2; }
+.sent-note { margin: .2rem 0 0; color: var(--dust); }
 /* Mobile: identity becomes a compact header, then one column */
 @media (max-width: 56rem) {
 #content { display: block; padding: 2rem 1.25rem 4rem; }
@@ -128,12 +161,55 @@ a, button { transition: color .15s, background-color .15s, text-decoration-color
 <h2 id="contact">Contact</h2>
 <div class="outline-text-2" id="text-contact">
 <div class="contact-head">
-  <img src="me.jpeg" width="800" height="800" class="hello-profile" alt="Adam Schaefers">
-  <div>
+  <button type="button" class="profile-zoom" aria-label="Enlarge photo of Adam Schaefers">
+    <img src="me.jpeg" width="800" height="800" class="hello-profile" alt="">
+  </button>
+  <a class="home-link" href="#" aria-label="Adam Schaefers, back to top">
     <h1 class="name">Adam Schaefers</h1>
     <p class="roles"><span>Devops |</span> <span>Full stack dev |</span> <span>Gamedev |</span> <span>Founder</span></p>
-  </div>
+  </a>
 </div>
+<dialog class="photo-dialog" aria-label="Photo of Adam Schaefers">
+  <img src="me.jpeg" width="800" height="800" alt="Adam Schaefers">
+</dialog>
+<script>
+// Profile photo: grows out of the avatar into a large view; click anywhere or Esc shrinks it back.
+(function () {
+  var thumb = document.querySelector('.profile-zoom');
+  var dialog = document.querySelector('.photo-dialog');
+  var big = dialog.querySelector('img');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  function morph(reverse) {
+    var a = thumb.getBoundingClientRect(), b = big.getBoundingClientRect();
+    var dx = a.left + a.width / 2 - (b.left + b.width / 2);
+    var dy = a.top + a.height / 2 - (b.top + b.height / 2);
+    var frames = [
+      { transform: 'translate(' + dx + 'px, ' + dy + 'px) scale(' + a.width / b.width + ')', borderRadius: '50%' },
+      { transform: 'none', borderRadius: '24px' }
+    ];
+    if (reverse) frames.reverse();
+    return big.animate(frames, { duration: reduce.matches ? 0 : 450, easing: 'cubic-bezier(.2, .9, .25, 1)' });
+  }
+  thumb.addEventListener('click', function () {
+    dialog.classList.remove('is-closing');
+    dialog.showModal();
+    thumb.classList.add('is-open');
+    morph(false);
+  });
+  function close() {
+    if (dialog.classList.contains('is-closing')) return;
+    dialog.classList.add('is-closing');
+    morph(true).onfinish = function () {
+      dialog.close();
+      dialog.classList.remove('is-closing');
+      thumb.classList.remove('is-open');
+      thumb.focus({ preventScroll: true });
+    };
+  }
+  dialog.addEventListener('click', close);
+  dialog.addEventListener('cancel', function (e) { e.preventDefault(); close(); });
+})();
+</script>
 
 <ul class="org-ul">
 <li>Latest Work: <a href="https://enchant.games">@LandOfEnchantment</a></li>
@@ -266,6 +342,7 @@ My secondary GitHub, <a href="https://github.com/el-sloppo">@el-sloppo</a>, is w
 <div id="outline-container-inquiries" class="outline-2">
 <h2 id="inquiries">✉️ Inquiries</h2>
 <div class="outline-text-2" id="text-inquiries">
+<div class="inquiry-card">
 <form id="contact-form" action="https://contact-api.adamschaefers.com/" method="POST">
   <div><label for="cf-name">Name</label>
     <input id="cf-name" type="text" name="name" maxlength="200" autocomplete="name"></div>
@@ -278,8 +355,75 @@ My secondary GitHub, <a href="https://github.com/el-sloppo">@el-sloppo</a>, is w
   <button type="submit">Send</button>
   <p id="contact-status" class="wide" role="status"></p>
 </form>
+<div class="inquiry-sent" tabindex="-1" hidden>
+  <svg class="sent-check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="23"/><path d="M15.5 27.5l7 7 14-15"/></svg>
+  <div><p class="sent-title">Sent. Thank you!</p><p class="sent-note">I'll get back to you by email.</p></div>
+</div>
+</div>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script src="contact.js" defer></script>
+<script>
+// Keep an unsent draft in this browser so a failed check, refresh or closed tab doesn't lose it.
+// contact.js resets the form after a successful send, which clears the draft.
+(function () {
+  var form = document.getElementById('contact-form');
+  var key = 'contact-draft';
+  var fields = ['name', 'email', 'message'];
+  var maxAge = 30 * 24 * 60 * 60 * 1000;
+  try {
+    var draft = JSON.parse(localStorage.getItem(key) || 'null');
+    if (draft && Date.now() - draft.savedAt < maxAge) {
+      fields.forEach(function (f) { if (draft[f] && !form.elements[f].value) form.elements[f].value = draft[f]; });
+    } else if (draft) {
+      localStorage.removeItem(key);
+    }
+  } catch (e) {}
+  form.addEventListener('input', function () {
+    var draft = { savedAt: Date.now() };
+    fields.forEach(function (f) { draft[f] = form.elements[f].value; });
+    try {
+      if (draft.name || draft.email || draft.message.trim()) localStorage.setItem(key, JSON.stringify(draft));
+      else localStorage.removeItem(key);
+    } catch (e) {}
+  });
+  form.addEventListener('reset', function () {
+    try { localStorage.removeItem(key); } catch (e) {}
+  });
+})();
+</script>
+<script>
+// After a successful send (contact.js resets the form), flip the form away and show the sent card in its place.
+(function () {
+  var card = document.querySelector('.inquiry-card');
+  var form = document.getElementById('contact-form');
+  var sent = card.querySelector('.inquiry-sent');
+  function clear() {
+    ['name', 'email', 'message'].forEach(function (f) { form.elements[f].value = ''; });
+  }
+  form.addEventListener('reset', function (e) {
+    // Keep the typed text on the card while it flips away; clear it once hidden.
+    e.preventDefault();
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      clear();
+      form.hidden = true;
+      sent.hidden = false;
+      sent.focus({ preventScroll: true });
+      return;
+    }
+    card.style.height = card.offsetHeight + 'px';
+    form.classList.add('is-leaving');
+    form.addEventListener('animationend', function () {
+      clear();
+      form.hidden = true;
+      sent.hidden = false;
+      sent.classList.add('is-arriving');
+      card.style.height = sent.offsetHeight + 'px';
+      card.addEventListener('transitionend', function () { card.style.height = ''; }, { once: true });
+      sent.focus({ preventScroll: true });
+    }, { once: true });
+  });
+})();
+</script>
 </div>
 </div>
 </div>
