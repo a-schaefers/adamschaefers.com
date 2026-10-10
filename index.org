@@ -234,7 +234,7 @@
 </script>
 #+END_EXPORT
 
-- Latest Work: [[https://enchant.games][@LandOfEnchantment]]
+- Latest Work: @@html:<a href="https://enchant.games" target="_blank" rel="noopener">@LandOfEnchantment</a>@@
 - Contact: @@html:<a href="#inquiries">Send me an email</a>@@
 - Github: [[https://github.com/a-schaefers][a-schaefers]]
 - Twitch: [[https://www.twitch.tv/enchantdev][@enchantdev]]
