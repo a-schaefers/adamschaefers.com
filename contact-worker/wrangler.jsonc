@@ -1,4 +1,4 @@
-// Contact form handler for adamschaefers.com.
+// Contact form handler for adamschaefers.com and enchant.games.
 // Deploy: make worker. One-time secret: wrangler secret put TURNSTILE_SECRET
 {
   "name": "adamschaefers-contact",
@@ -12,7 +12,7 @@
   ],
   "vars": {
     "CONTACT_TO": "adam.schaefers@icloud.com",
-    "TURNSTILE_HOSTNAMES": "adamschaefers.com"
+    "TURNSTILE_HOSTNAMES": "adamschaefers.com,enchant.games"
   },
   "routes": [{ "pattern": "contact-api.adamschaefers.com", "custom_domain": true }]
 }

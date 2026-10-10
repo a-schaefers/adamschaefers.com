@@ -1,10 +1,17 @@
-/* Contact form handler for adamschaefers.com. POST only.
+/* Contact form handler for adamschaefers.com and enchant.games. POST only.
    Rate limits per IP, verifies the Turnstile token, then emails the message
    to CONTACT_TO (a verified Email Routing destination). TURNSTILE_SECRET is a
    Worker secret; everything else is in wrangler.jsonc. */
 
-const ALLOWED_ORIGINS = ['https://adamschaefers.com'];
-const FROM = { email: 'contact-form@adamschaefers.com', name: 'adamschaefers.com contact form' };
+// Each site that may post here. The Origin header picks the site, which labels the email
+// so you can tell where a message came from. The sender address stays on adamschaefers.com,
+// the zone with Email Routing.
+const SITES = {
+  'https://adamschaefers.com': 'adamschaefers.com',
+  'https://enchant.games': 'enchant.games',
+};
+const ALLOWED_ORIGINS = Object.keys(SITES);
+const FROM_EMAIL = 'contact-form@adamschaefers.com';
 
 function cors(request) {
   const origin = request.headers.get('Origin');
@@ -65,10 +72,11 @@ export default {
       return json({ ok: false, error: 'Verification failed. Reload the page and try again.' }, 403, request);
     }
 
+    const site = SITES[origin] || SITES[ALLOWED_ORIGINS[0]];
     const send = {
       to: env.CONTACT_TO,
-      from: FROM,
-      subject: 'adamschaefers.com: message from ' + (name || 'anonymous'),
+      from: { email: FROM_EMAIL, name: site + ' contact form' },
+      subject: site + ': message from ' + (name || 'anonymous'),
       text: 'Name: ' + (name || '(none given)') + '\nEmail: ' + (email || '(none given)') + '\n\n' + message + '\n',
     };
     // Reply-To the sender when the address looks plausible, so answering is one click.

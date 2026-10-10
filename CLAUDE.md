@@ -9,8 +9,12 @@ After editing, regenerate the HTML with:
 The Inquiries form at the bottom of the page posts to `contact-worker/`, a
 Cloudflare Worker at contact-api.adamschaefers.com. It checks Turnstile and
 emails the message to adam.schaefers@icloud.com through Email Routing.
-Deploy it with `make worker`. Its Turnstile secret is a Worker secret
-(`wrangler secret put TURNSTILE_SECRET`), not in the repo.
+The enchant.games Press page posts to the same Worker; its origin is in
+`SITES` in `contact-worker/src/index.js`, which also labels each email with
+the site it came from. Both sites share one Turnstile widget, so a new site
+needs its hostname added to the widget in the Cloudflare dashboard and to
+`TURNSTILE_HOSTNAMES`. Deploy it with `make worker`. Its Turnstile secret
+is a Worker secret (`wrangler secret put TURNSTILE_SECRET`), not in the repo.
 
 `a-schaefers/` is a git submodule holding the GitHub profile README
 (github.com/a-schaefers/a-schaefers). `make submodule` clones it if missing.
