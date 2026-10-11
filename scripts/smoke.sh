@@ -37,7 +37,8 @@ if [ -n "$video" ]; then
     echo "smoke: note: $video's second read was $(header "$again" cf-cache-status || echo 'not cached'), not a HIT"
 fi
 
-k=$(curl -fsSI https://licenses.adamschaefers.com/v1/public-keys) || fail "the license server doesn't answer"
+# GET, not HEAD: the license server answers its routes' methods only.
+k=$(curl -fsS -D - -o /dev/null https://licenses.adamschaefers.com/v1/public-keys) || fail "the license server doesn't answer"
 header "$k" cache-control | grep -qi no-store || fail "licenses /v1/public-keys isn't no-store"
 header "$k" cf-cache-status | grep -qi hit && fail "licenses /v1/public-keys came from a cache"
 echo "smoke: ok ($want live; pages revalidate; video seeks; license answers uncached)"
