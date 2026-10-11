@@ -14,5 +14,8 @@
     "CONTACT_TO": "adam.schaefers@icloud.com",
     "TURNSTILE_HOSTNAMES": "adamschaefers.com,enchant.games"
   },
-  "routes": [{ "pattern": "contact-api.adamschaefers.com", "custom_domain": true }]
+  "routes": [{ "pattern": "contact-api.adamschaefers.com", "custom_domain": true }],
+  // Only at contact-api.adamschaefers.com: no workers.dev or preview addresses.
+  "workers_dev": false,
+  "preview_urls": false
 }

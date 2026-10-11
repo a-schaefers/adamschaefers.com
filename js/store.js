@@ -470,6 +470,9 @@ export function mountLicense(root) {
             }
             // Asked too often: wait a little longer, then ask again.
             if (r.status === 429 && tries++ < 30) return setTimeout(load, 6000);
+            // The page shows a key for a week after the purchase (the license server's KEY_SHOWN_FOR).
+            if (r.status === 410) return say(`<p class="license-lead">This page showed your key for a week after your purchase.</p>
+<p>It's in the email we sent you from licenses@adamschaefers.com. Can't find it? Have every key on file emailed to you from the <a href="/store/">store</a> ("Lost your key?"), or <a href="/inquiries/">use the contact form</a>.</p>`);
             const data = await r.json().catch(() => ({}));
             if (!r.ok || !data.key) throw new Error(data.error || 'not found');
             say(keyCard(data));
