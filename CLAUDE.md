@@ -154,6 +154,18 @@ the same pass. Commit and push the submodule first (on `main`, not a
 detached HEAD), then commit `index.org`, `index.html` and the updated
 submodule pointer here together.
 
+Checks and where they run (owner, 2026-10-11: no slow suites on this old
+machine when CI already runs them). This repo has no CI: GitHub Pages
+publishes whatever is pushed, so its quick local checks are the only ones.
+`make build` runs in the pre-commit hook; `make licenses-test` (seconds,
+offline) runs before every `make licenses` deploy. A headless-browser look is
+worth it after changing `js/` or the CSS, not after editing words. In
+../backseat-driver, don't run its whole suite locally (`npm run check`,
+`npm test`): its pull requests' required `check` runs it on GitHub. Run there
+only the tests of what you changed and its quick checks; the exceptions (CI
+down, a CI failure the logs can't explain, a change to its test kit, or the
+owner asks) are in its CLAUDE.md.
+
 `make run` serves the site locally at http://localhost:8000 (`PORT=` to
 change it).
 
