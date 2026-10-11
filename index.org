@@ -7,14 +7,13 @@
 #+OPTIONS: title:nil
 
 #+HTML_HEAD: <meta name="theme-color" content="#161A33">
-#+HTML_HEAD: <link rel="preconnect" href="https://fonts.googleapis.com">
-#+HTML_HEAD: <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-#+HTML_HEAD: <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap" rel="stylesheet">
 # The page's styles are site.css (Tailwind): the classes in the HTML blocks below
-# are styled there, by name.
+# are styled there, by name. The fonts are site.css's too, served from here.
 
 # The sections tagged :view: aren't in index.html: site.el puts them in the
 # page's data and js/app.ts shows one at a time here, picked from the menu.
+# Each page's address has its own view, and the build draws that one in here too,
+# so it's on screen before the script runs.
 #+BEGIN_EXPORT html
 <main id="app"></main>
 #+END_EXPORT
@@ -29,7 +28,7 @@
 #+BEGIN_EXPORT html
 <div class="contact-head">
   <button type="button" class="profile-zoom" aria-label="Enlarge photo of Adam Schaefers">
-    <img src="me.jpeg" width="1080" height="1920" class="hello-profile" alt="">
+    <img src="images/me-thumb.webp" width="480" height="480" class="hello-profile" alt="">
   </button>
   <a class="home-link" href="/" aria-label="Adam Schaefers, back to top">
     <h1 class="name">Adam Schaefers</h1>
@@ -37,7 +36,7 @@
   </a>
 </div>
 <dialog class="photo-dialog" aria-label="Photo of Adam Schaefers">
-  <img src="me.jpeg" width="1080" height="1920" alt="Adam Schaefers">
+  <img src="me.jpeg" width="1080" height="1920" alt="Adam Schaefers" loading="lazy">
 </dialog>
 #+END_EXPORT
 
@@ -51,7 +50,7 @@
   <p class="course-title"><a href="https://www.youtube.com/playlist?list=PLFf4Ibrb-mjTcoaVv6orVtH93K47GPrwl">Watch my free Emacs course!</a></p>
   <div class="course-player">
     <button type="button" class="course-play" aria-label="Play episode 00">
-      <img src="https://i.ytimg.com/vi/n9gJxKchkRw/hqdefault.jpg" width="480" height="360" alt="">
+      <img src="images/course/n9gJxKchkRw.jpg" width="480" height="360" alt="" loading="lazy" decoding="async">
     </button>
   </div>
   <p class="course-now" aria-live="polite"><b>00</b> Avoid RSI and &quot;emacs pinky&quot; once and for all. <span class="len">5:04</span></p>

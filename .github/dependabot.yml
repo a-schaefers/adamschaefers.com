@@ -1,7 +1,7 @@
 # Keeps the SHA-pinned actions current: the repository requires every `uses:` to name a
 # commit, so a bump is a pull request that changes a hash and its version comment. And the
 # npm packages (package.json): the toolchain (wrangler, which CI deploys with, TypeScript,
-# esbuild, Tailwind, the types) and the site's own (lit-html, the flag font). Dependabot's
+# esbuild, Tailwind, the types) and the site's own (lit-html, the fonts). Dependabot's
 # pull requests are not the owner's: each waits for the owner's approval (owner-merge.yml
 # approves only the owner's), and a merged bump redeploys every Worker (the lockfile).
 # Pull requests carry no secrets, so a Dependabot branch reaches nothing.

@@ -52,7 +52,21 @@ line, for make dist to publish under those names.")
 by scripts/build.ts (make build runs it first).  Published as js/app.<hash>.js.")
 (defconst site-style "build/site.css"
   "The page's styles: site.css and the Tailwind utilities the templates use (here,
-in js/), compiled by scripts/build.ts.  Published as site.<hash>.css.")
+in js/), compiled by scripts/build.ts.  Published as site.<hash>.css, from
+`site-style-out'.")
+(defconst site-style-out "build/site.hashed.css"
+  "`site-style' with its fonts at their hashed names (`site--style').")
+(defconst site-fonts
+  '(("node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-standard-normal.woff2"
+     . "fonts/bricolage-grotesque-latin.woff2")
+    ("node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-ext-standard-normal.woff2"
+     . "fonts/bricolage-grotesque-latin-ext.woff2")
+    ("node_modules/country-flag-emoji-polyfill/dist/TwemojiCountryFlags.woff2"
+     . "fonts/TwemojiCountryFlags.woff2"))
+  "The fonts (FILE . NAME), each from its npm package (fonts/README.md): site.css
+names it /NAME, and `site--style' publishes it under a hashed name instead.")
+(defconst site-font-preload "fonts/bricolage-grotesque-latin.woff2"
+  "The font every page needs (its NAME in `site-fonts'), fetched along with the page.")
 
 (defmacro site--with-export-settings (&rest body)
   `(let ((user-full-name "Adam Schaefers")
@@ -287,6 +301,23 @@ Missing is an error in CI; a local build without the network writes 0."
 ;; travelog's poster, and `site-share-image'.
 
 (defconst site-name "Adam Schaefers")
+(defconst site-tabs
+  '(("quest-log" "/" "Projects" "<path d=\"M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z\"/><path d=\"M9 4v14M15 6v14\"/>")
+    ("blog" "/blog/" "Blog" "<path d=\"M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z\"/><path d=\"M4 21V5M8 7h6M8 11h6\"/>")
+    ("off-the-clock" "/off-the-clock/" "Off the clock" "<path d=\"M4 15v-3a8 8 0 0 1 16 0v3\"/><rect x=\"3\" y=\"14\" width=\"4\" height=\"7\" rx=\"1.5\"/><rect x=\"17\" y=\"14\" width=\"4\" height=\"7\" rx=\"1.5\"/>")
+    ("store" "/store/" "Store" "<path d=\"M5 8h14l-1 12H6z\"/><path d=\"M9 8V6a3 3 0 0 1 6 0v2\"/>")
+    ("inquiries" "/inquiries/" "Contact" "<rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"m3 7 9 6 9-6\"/>"))
+  "The menu, in order: each tab's route (TABS in js/app.ts says what it shows),
+address, label and icon (24x24 paths drawn with currentColor; phones show it over
+the label in the bottom bar).  The first is the home page's.  The labels reach
+js/app.ts in #site-data.")
+(defconst site-tab-class
+  (concat "flex items-center rounded-full px-[.9rem] py-[.45rem] text-[.95rem] font-semibold text-dust no-underline "
+          "hover:bg-mesa hover:text-sand aria-[current]:bg-mesa aria-[current]:text-turq aria-[current]:inset-ring aria-[current]:inset-ring-ridge [&>svg]:hidden "
+          "phone:flex-1 phone:flex-col phone:gap-[.2rem] phone:rounded-none phone:px-0 phone:py-[.3rem] phone:text-[.75rem] phone:font-medium "
+          "phone:font-stretch-85% phone:whitespace-nowrap phone:hover:bg-transparent phone:aria-[current]:bg-transparent phone:aria-[current]:inset-ring-0 phone:[&>svg]:block")
+  "A tab's classes (Tailwind's utilities, site.css, which reads this file for them):
+a pill at the top on desktop; on phones, an icon over its label in the bottom bar.")
 (defconst site-share-image "images/og.jpg"
   "The preview picture (1200x630): the profile photo, name and roles.")
 (defconst site-home-views '("about" "quest-log" "slop-shelf")
@@ -405,13 +436,62 @@ page, its preview naming ADDRESS, and not in the sitemap."
                    (append (alist-get 'entries col) nil)))))
       collections))))
 
-(defun site--page (template title tags)
-  "TEMPLATE (index.org's export) with TITLE and TAGS, a page's preview tags."
+(defun site--page (template title tags &optional path)
+  "TEMPLATE (index.org's export) with TITLE and TAGS, a page's preview tags, framed
+for the page at PATH (`site--frame')."
   (unless (and (string-match "<title>[^<]*</title>" template)
                (string-search site-page-tags template))
     (error "site: no <title> or %s in the exported page" site-page-tags))
-  (string-replace site-page-tags tags
-                  (replace-match (concat "<title>" (site--attr title) "</title>") t t template)))
+  (site--frame (string-replace site-page-tags tags
+                               (replace-match (concat "<title>" (site--attr title) "</title>") t t template))
+               path))
+
+;;; The frame: the menu, and the view drawn before the script runs
+
+(defun site--nav ()
+  "The menu, static HTML on every page: there before the script runs, and crawlers
+read it.  js/app.ts marks the open tab (aria-current), and `site--frame' marks it
+first for a page that has one.  The classes are Tailwind's (site.css)."
+  (concat "<nav id=\"site-nav\" class=\"site-nav mx-auto box-border max-w-[70rem] px-8 pt-6 pb-0 phone:p-0\" aria-label=\"Main\">"
+          "<div class=\"site-tabs flex justify-end gap-1 phone:fixed phone:inset-x-0 phone:bottom-0 phone:z-10 phone:justify-around phone:gap-0 phone:border-t phone:border-t-ridge phone:bg-sky/95 phone:px-0 phone:pt-[.4rem] phone:pb-[calc(.4rem+env(safe-area-inset-bottom))] phone:backdrop-blur-[8px]\">"
+          (mapconcat (pcase-lambda (`(,route ,href ,label ,icon))
+                       (format "<a class=\"%s\" href=\"%s\" data-route=\"%s\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\">%s</svg><span>%s</span></a>"
+                               site-tab-class href route icon label))
+                     site-tabs "")
+          "</div></nav>"))
+
+(defvar site--sections nil
+  "This build's :view: sections as js/app.ts draws them: (ID . HTML).")
+
+(defun site--section-html (view)
+  "VIEW (one of `site--views') as js/app.ts's `section' draws it: wrapped the way
+Org exports a section, so site.css's rules apply."
+  (let ((id (alist-get 'id view)))
+    (format "<div id=\"outline-container-%s\" class=\"outline-2\"><h2>%s</h2><div class=\"outline-text-2\" id=\"text-%s\">%s</div></div>"
+            id (site--attr (alist-get 'title view)) id (alist-get 'html view))))
+
+(defun site--frame (template path)
+  "TEMPLATE framed for the page at PATH, its address under the site root (\"\" for
+the home page): the tab it is under marked open, and the sections it shows drawn
+into <main>, so the first paint doesn't wait for the script (which draws the same
+again, then takes over).  A collection's listings and entries and the sitemap are
+the script's alone: their <main> stays empty, as does every page's with PATH nil
+(404.html)."
+  (let* ((first (and path (car (split-string path "/"))))
+         (ids (cond ((null path) nil)
+                    ((equal path "") site-home-views)
+                    ((assoc first site--sections) (list first))))
+         (empty "<main id=\"app\"></main>")
+         (tab (format "data-route=\"%s\"" (if (equal path "") (caar site-tabs) first))))
+    (unless (string-search empty template)
+      (error "site: no %s in the exported page" empty))
+    (setq template (string-replace empty (concat "<main id=\"app\">"
+                                                 (mapconcat (lambda (id) (cdr (assoc id site--sections))) ids "")
+                                                 "</main>")
+                                   template))
+    (if (and path (string-search tab template))
+        (string-replace tab (concat tab " aria-current=\"page\"") template)
+      template)))
 
 (defun site--write (file text)
   "Write TEXT to FILE as UTF-8."
@@ -431,7 +511,8 @@ tags, drop the ones an earlier build made that are gone, and list them in
             (full (format "%s · %s" title site-name)))
         (make-directory path t)
         (site--write file (site--page template full
-                                      (site--meta full description url image (if (equal type "article") "article" "website"))))
+                                      (site--meta full description url image (if (equal type "article") "article" "website"))
+                                      (or address path)))
         (push file made)))
     (setq made (sort made #'string<))
     (dolist (gone (seq-difference old made))
@@ -483,6 +564,19 @@ change is a new name."
                           (sort (copy-sequence site--assets) (lambda (a b) (string< (car a) (car b))))
                           "")))
 
+(defun site--style ()
+  "The compiled styles (`site-style') with each font of `site-fonts' at the hashed
+name it is published under, written as `site-style-out', and that file's own
+hashed name.  So browsers keep the fonts for good, a new version of one is a new
+name, and the styles' hash follows."
+  (let ((css (with-temp-buffer (insert-file-contents site-style) (buffer-string))))
+    (pcase-dolist (`(,file . ,name) site-fonts)
+      (unless (string-search (concat "/" name) css)
+        (error "site: %s names no font /%s" site-style name))
+      (setq css (string-replace (concat "/" name) (concat "/" (site--asset file name)) css)))
+    (site--write site-style-out css)
+    (site--asset site-style-out "site.css")))
+
 (defun site--json (data)
   "DATA as JSON that is safe inside a <script> element."
   (let ((json-encoding-pretty-print nil))
@@ -496,9 +590,13 @@ same page at every view's address."
                               site-collections)))
      (with-current-buffer (find-file-noselect "index.org")
        (let* ((views (site--views))
+              (site--sections (mapcar (lambda (v) (cons (alist-get 'id v) (site--section-html v))) views))
               (data `((views . ,(vconcat views))
                       (collections . ,collections)
+                      (tabs . ,(mapcar (lambda (tab) (cons (intern (car tab)) (nth 2 tab))) site-tabs))
                       (feed . ,site-feed)))
+              (style (site--style))
+              (preload (cdr (assoc (car (rassoc site-font-preload site-fonts)) site--assets)))
               (pages (site--share-pages views collections))
               (home (site--summary (alist-get 'html (seq-find (lambda (v) (equal (alist-get 'id v) "about")) views))))
               (org-export-exclude-tags '("noexport" "view"))
@@ -506,17 +604,16 @@ same page at every view's address."
                (concat ;; Each page's link preview goes here (site--page).
                        site-page-tags "\n"
                        (format "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Adam Schaefers\" href=\"%s\">\n" site-feed)
-                       (format "<link rel=\"stylesheet\" href=\"%s\">\n" (site--asset site-style "site.css"))
+                       ;; The typeface starts downloading with the page, not once the styles ask.
+                       (format "<link rel=\"preload\" href=\"%s\" as=\"font\" type=\"font/woff2\" crossorigin>\n" preload)
+                       (format "<link rel=\"stylesheet\" href=\"%s\">\n" style)
                        "<script type=\"application/json\" id=\"site-data\">"
                        (site--json data)
                        "</script>\n"
-                       (format "<script type=\"module\" src=\"%s\"></script>\n" (site--asset site-script "js/app.js"))
-                       ;; The Contact view's Turnstile check loads on first visit; connect early.
-                       "<link rel=\"preconnect\" href=\"https://challenges.cloudflare.com\">"))
-              ;; The menu (js/app.ts draws its tabs) and the footer frame every view.  Their
-              ;; classes are Tailwind's (site.css): it reads this file for them.
-              (org-html-preamble
-               (lambda (_) "<nav id=\"site-nav\" class=\"site-nav mx-auto box-border max-w-[70rem] px-8 pt-6 pb-0 phone:p-0\" aria-label=\"Main\"></nav>"))
+                       (format "<script type=\"module\" src=\"%s\"></script>\n" (site--asset site-script "js/app.js"))))
+              ;; The menu (`site--nav') and the footer frame every view.  Their classes are
+              ;; Tailwind's (site.css): it reads this file for them.
+              (org-html-preamble (lambda (_) (site--nav)))
               ;; js/app.ts keeps the year current; the build year is the fallback.
               (org-html-postamble
                (lambda (_)
@@ -531,7 +628,7 @@ same page at every view's address."
                 (home-tags (site--meta site-name home site-url site-share-image)))
            (when (equal template export)
              (error "site: no <meta charset> in the exported page to put <base> after"))
-           (site--write "index.html" (site--page template site-name home-tags))
+           (site--write "index.html" (site--page template site-name home-tags ""))
            ;; Any other path (a mistyped address, an entry since removed): js/app.ts
            ;; shows Page not found.  Not a page for search engines to keep.
            (site--write "404.html" (site--page template (format "Page not found · %s" site-name)

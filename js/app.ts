@@ -1,8 +1,9 @@
-// The site is one page. The sidebar is static HTML from index.org; this renders the menu
-// and one view at a time beside it from the #site-data JSON that site.el builds, so every
-// view is already loaded and switching never loads a page. Each view has its own address,
-// where site.el writes the same page with that view's link preview, so the address bar
-// always holds a link that shares as the view on screen:
+// The site is one page. The sidebar and the menu are static HTML (index.org, site.el);
+// this marks the open tab and renders one view at a time beside them from the #site-data
+// JSON that site.el builds, so every view is already loaded and switching never loads a
+// page. Each view has its own address, where site.el writes the same page with that
+// view's link preview (and the view itself drawn, so it shows before this script runs),
+// so the address bar always holds a link that shares as the view on screen:
 //   / (Projects)  /store/  /store/backseat-driver/ (the store at that product)
 //   /inquiries/  /sitemap/
 //   /privacy-policy/  /terms-of-service/ (linked from the footer)
@@ -27,10 +28,10 @@ interface Entry {
     video?: string; poster?: string; image?: string;
 }
 interface Collection { title: string; description: string; image: string; intro: string; perPage: number; entries: Entry[] }
-interface SiteData { views: Section[]; collections: Record<string, Collection>; feed: string }
+interface SiteData { views: Section[]; collections: Record<string, Collection>; tabs: Record<string, string>; feed: string }
 // A view in the menu (TABS) or off it (PAGES).
 interface View {
-    route: string; label: string; icon?: string;
+    route: string; label: string;
     sections?: string[]; collection?: string; under?: string; product?: boolean;
 }
 // What an address names: a view (its tab), and in a collection a page of its listing or an
@@ -45,20 +46,17 @@ const sections = Object.fromEntries(data.views.map(v => [v.id, v]));
 // One RSS feed (data.feed) carries every collection.
 const collections = data.collections;
 
-// Menu tabs: the route each opens, what it shows (index.org sections by CUSTOM_ID, or a
-// collection by name), and its tab bar icon (24x24, drawn with currentColor).
-const TABS: View[] = [
-    { route: 'quest-log', label: 'Projects', sections: ['about', 'quest-log', 'slop-shelf'],
-      icon: '<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>' },
-    { route: 'blog', label: 'Blog', collection: 'blog',
-      icon: '<path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M8 7h6M8 11h6"/>' },
-    { route: 'off-the-clock', label: 'Off the clock', collection: 'off-the-clock',
-      icon: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4" height="7" rx="1.5"/><rect x="17" y="14" width="4" height="7" rx="1.5"/>' },
-    { route: 'store', label: 'Store', sections: ['store'],
-      icon: '<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>' },
-    { route: 'inquiries', label: 'Contact', sections: ['inquiries'],
-      icon: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>' },
+// Menu tabs, in the menu's order (site-tabs in site.el draws the menu: each tab's address,
+// label and icon; the labels come here in #site-data): the route each opens and what it
+// shows (index.org sections by CUSTOM_ID, or a collection by name).
+const SHOWS: Omit<View, 'label'>[] = [
+    { route: 'quest-log', sections: ['about', 'quest-log', 'slop-shelf'] },
+    { route: 'blog', collection: 'blog' },
+    { route: 'off-the-clock', collection: 'off-the-clock' },
+    { route: 'store', sections: ['store'] },
+    { route: 'inquiries', sections: ['inquiries'] },
 ];
+const TABS: View[] = SHOWS.map(t => ({ ...t, label: data.tabs[t.route] }));
 // Views that aren't in the menu; while one is open, the tab it hangs off is highlighted. A
 // product's route shows the store at that product (its <article id="product-<route>">), at
 // /store/<route>/; its old /<route>/ still leads there.
@@ -133,23 +131,13 @@ function routeAt(url: URL | Location, exactly?: boolean): Route | null {
 const icon = (paths: string) => unsafeHTML(`<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`);
 
 // The styles of the elements drawn here are Tailwind's utilities (site.css). Some repeat:
-// a menu tab (a pill at the top on desktop; on phones, an icon over its label in the bottom
-// bar), an entry's title link, the cards that say there's nothing here, and the pager's and a
+// an entry's title link, the cards that say there's nothing here, and the pager's and a
 // post's newer/older links.
-const TAB = 'flex items-center rounded-full px-[.9rem] py-[.45rem] text-[.95rem] font-semibold text-dust no-underline '
-    + 'hover:bg-mesa hover:text-sand aria-[current]:bg-mesa aria-[current]:text-turq aria-[current]:inset-ring aria-[current]:inset-ring-ridge [&>svg]:hidden '
-    + 'phone:flex-1 phone:flex-col phone:gap-[.2rem] phone:rounded-none phone:px-0 phone:py-[.3rem] phone:text-[.75rem] phone:font-medium '
-    + 'phone:font-stretch-85% phone:whitespace-nowrap phone:hover:bg-transparent phone:aria-[current]:bg-transparent phone:aria-[current]:inset-ring-0 phone:[&>svg]:block';
 const TITLE_LINK = 'text-sand no-underline hover:text-turq';
 const NOTE_CARD = 'mt-6 rounded-2xl bg-mesa px-7 py-6 text-dust inset-ring inset-ring-ridge';
 const PAGER_LINK = 'whitespace-nowrap rounded-full bg-mesa px-[1.2rem] py-[.6rem] font-semibold text-sand no-underline inset-ring inset-ring-ridge hover:text-turq hover:inset-ring-turq';
 const POST_LINK = 'block rounded-xl bg-mesa px-5 py-4 leading-[1.35] font-semibold text-sand no-underline inset-ring inset-ring-ridge hover:text-turq hover:inset-ring-turq';
 const POST_LINK_LABEL = 'mb-1 block text-[.85rem] font-medium text-dust';
-
-const menu = (active: string) => html`
-    <div class="site-tabs flex justify-end gap-1 phone:fixed phone:inset-x-0 phone:bottom-0 phone:z-10 phone:justify-around phone:gap-0 phone:border-t phone:border-t-ridge phone:bg-sky/95 phone:px-0 phone:pt-[.4rem] phone:pb-[calc(.4rem+env(safe-area-inset-bottom))] phone:backdrop-blur-[8px]">
-        ${TABS.map(t => html`<a class=${TAB} href=${address(t.route)} aria-current=${t.route === active ? 'page' : nothing}>${icon(t.icon!)}<span>${t.label}</span></a>`)}
-    </div>`;
 
 // An index.org section, wrapped the way Org exports it so index.org's styles apply.
 const section = (s: Section) => html`
@@ -290,6 +278,15 @@ const nav = document.getElementById('site-nav')!;
 const app = document.getElementById('app')!;
 let shown: string | null = null; // the address of the view on screen
 
+// The menu is site.el's static HTML (each tab's link carries its route); the open tab is
+// marked here.
+function menu(active: string) {
+    for (const a of nav.querySelectorAll<HTMLAnchorElement>('a[data-route]')) {
+        if (a.dataset.route === active) a.setAttribute('aria-current', 'page');
+        else a.removeAttribute('aria-current');
+    }
+}
+
 // A new view starts at the top of the page, or at its product.
 function toStart(r: Route, first?: boolean) {
     const product = PAGES.find(p => p.route === r.tab && p.product) && document.getElementById(`product-${r.tab}`);
@@ -308,7 +305,10 @@ function show() {
         history.replaceState(history.state, '', want.replace(/#|$/, `${location.search}$&`));
     }
     if (at === shown) return;
-    render(menu(PAGES.find(p => p.route === r.tab)?.under || r.tab), nav);
+    menu(PAGES.find(p => p.route === r.tab)?.under || r.tab);
+    // The page came with its view drawn (site.el); lit draws beside what's there, so clear
+    // it the first time.
+    if (shown === null) app.replaceChildren();
     render(view(r), app);
     mountContactForms(app);
     mountStore(app);

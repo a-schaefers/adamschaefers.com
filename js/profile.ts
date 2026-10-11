@@ -1,5 +1,7 @@
 // Profile photo (index.org's Contact section, the sidebar): grows out of the avatar into a
-// large view; click anywhere or Esc shrinks it back.
+// large view; click anywhere or Esc shrinks it back. The avatar is a small picture; the
+// large one (me.jpeg, lazy in index.org, so a closed dialog doesn't fetch it) loads once
+// the avatar is pointed at or focused, ahead of the click.
 
 export function mountProfileZoom() {
     const thumb = document.querySelector<HTMLButtonElement>('.profile-zoom')!;
@@ -17,6 +19,9 @@ export function mountProfileZoom() {
         if (reverse) frames.reverse();
         return big.animate(frames, { duration: reduce.matches ? 0 : 450, easing: 'cubic-bezier(.2, .9, .25, 1)' });
     }
+    const fetchBig = () => { big.loading = 'eager'; };
+    thumb.addEventListener('pointerenter', fetchBig, { once: true });
+    thumb.addEventListener('focus', fetchBig, { once: true });
     thumb.addEventListener('click', function () {
         dialog.classList.remove('is-closing');
         dialog.showModal();

@@ -1,5 +1,6 @@
-// The Emacs course (index.org's Contact section, the sidebar): a thumbnail until played, then
-// a YouTube embed. Episode buttons swap the video.
+// The Emacs course (index.org's Contact section, the sidebar): a thumbnail (images/course/,
+// each episode's, served from here so no page view reaches YouTube) until played, then a
+// YouTube embed. Episode buttons swap the video.
 
 export function mountCourse() {
     const course = document.querySelector<HTMLElement>('.course')!;
@@ -23,7 +24,7 @@ export function mountCourse() {
         now.children[1].textContent = btn.dataset.len!;
         const play = player.querySelector('.course-play');
         if (play) {
-            play.querySelector('img')!.src = 'https://i.ytimg.com/vi/' + btn.dataset.id + '/hqdefault.jpg';
+            play.querySelector('img')!.src = 'images/course/' + btn.dataset.id + '.jpg';
             play.setAttribute('aria-label', 'Play episode ' + btn.textContent);
         } else {
             embed(btn);

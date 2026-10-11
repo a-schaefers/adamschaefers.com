@@ -4,9 +4,9 @@
 #
 # What the build wrote (index.html, 404.html, the feed, the sitemap, and every page in
 # share-pages.txt); the styles and scripts scripts/build.ts compiled into build/, under the
-# hashed names pages load them by (assets.txt), the script with its source map; the flag
-# font, from its npm package; and the tracked files pages link to: images, posters, an
-# entry's own files. Nothing else: the TypeScript, node_modules, the Org sources, the
+# hashed names pages load them by (assets.txt: the script with its source map, and the
+# fonts, from their npm packages); and the tracked files pages link to: images, posters,
+# an entry's own files. Nothing else: the TypeScript, node_modules, the Org sources, the
 # Workers, the scripts and the docs stay out. Videos and uploads live in R2
 # (media.adamschaefers.com), not here. Then _redirects, and a _headers that keeps every
 # hashed file for good. scripts/check-dist.ts fails on any link this leaves dangling.
@@ -27,8 +27,6 @@ copy() { # copy FILE [NAME]: FILE into public/ as NAME (default FILE)
 for f in index.html 404.html rss.xml sitemap.xml $(cat share-pages.txt); do copy "$f"; done
 git ls-files -- robots.txt me.jpeg images 'videos/*.jpg' blog off-the-clock ':(exclude)*.org' |
   while read -r f; do copy "$f"; done
-# The flag font (fonts/README.md): its npm package's copy, at the address the styles name.
-copy node_modules/country-flag-emoji-polyfill/dist/TwemojiCountryFlags.woff2 fonts/TwemojiCountryFlags.woff2
 while read -r file hashed; do
   copy "$file" "$hashed"
   # A source map keeps its plain name beside the hashed file (the name the file gives it).

@@ -12,8 +12,12 @@ the merge is the deploy: `.claude/rules/cicd.md` is the pipeline.
 The site is one page, built by `site.el`. `index.html` is `index.org`
 exported without its `:view:` sections; those sections and the collections
 (below) go into a JSON blob in the page head (`#site-data`), so the first
-load carries everything. `js/app.ts` (lit-html, from npm) renders the menu
-and one view at a time from it. Each view
+load carries everything. The menu is static HTML (`site-tabs` in `site.el`:
+each tab's route, address, label and icon); `js/app.ts` (lit-html, from npm)
+marks the open tab and renders one view at a time from it. The build also draws
+each page's own view into its `<main>` (the home's three sections, a view's
+section; the collections' listings and the sitemap only app.ts draws), so it is
+on screen before the script runs, which clears and redraws it. Each view
 has a real address (`/` for Projects, `/inquiries/`, `/sitemap/`, and for
 each collection `/blog/`, `/blog/2/`, `/blog/<entry slug>/`), and the build
 writes the page at each: `index.html` again, with that view's title and
@@ -28,7 +32,7 @@ and app.ts follows bare `#anchors` on the page they're on. Old hash routes
 address. Link views by address (`<a href="/inquiries/">`), not `#inquiries`.
 A section is shown by tagging it `:view:` and listing it under a tab
 in `TABS` in `js/app.ts` (Projects shows About, the Quest Log and the slop
-shelf), which also holds the menu's labels and icons.
+shelf); the tab itself is in `site-tabs` in `site.el`.
 All the code is TypeScript, and npm manages everything from outside
 (`package.json`, pinned; nothing vendored). `make build` compiles first
 (`scripts/build.ts`): esbuild bundles `js/app.ts` and all it imports (lit-html,
@@ -41,6 +45,10 @@ Node runs the tests and scripts as they are (`node scripts/check-dist.ts`), and
 wrangler compiles the Workers.
 The sidebar (index.org's Contact section) and the footer (`site.el`, with
 the Sitemap, Privacy and Terms links) are written once and frame every view.
+The sidebar's avatar is `images/me-thumb.webp`, a 480px crop of `me.jpeg`,
+which only the zoom loads (lazy; fetched when the avatar is pointed at); the
+course's thumbnails are `images/course/<video id>.jpg`, served from here so a
+page view reaches no YouTube server.
 The privacy policy and terms of service (`/privacy-policy/`,
 `/terms-of-service/`) are `:view:` sections in index.org, routed through
 `PAGES` in `js/app.ts`; keep the policy in step with what the site and
@@ -95,9 +103,9 @@ git ignores every page's `index.html`, `404.html`, `rss.xml`, `sitemap.xml`,
 `share-pages.txt`, `assets.txt`, `build/` (the compiled script and styles),
 the Workers' `src/admin-page.gen.ts` (below) and `public/`. `make build` ends
 with `scripts/dist.sh`, which assembles `public/`: exactly what the site serves
-(the pages, the hashed styles and script with its source map, the flag font,
-and the tracked files pages link to; not the TypeScript, `node_modules`, the
-Org sources or the Workers), plus `_headers` and `_redirects` from
+(the pages, the hashed styles, script (with its source map) and fonts, and the
+tracked files pages link to; not the TypeScript, `node_modules`, the Org
+sources or the Workers), plus `_headers` and `_redirects` from
 `site-worker/`.
 
 Hosting (2026-10-11; before it, GitHub Pages served the repository as it was):
@@ -134,9 +142,11 @@ several clips meant to play as one get joined into one file. Give each a JPEG
 poster. iPhone uploads are often HEVC `.mov`, which many desktop browsers
 can't play, so always re-encode.
 
-The flag font, `fonts/TwemojiCountryFlags.woff2` on the site, draws flag
-emoji, which Windows lacks: it is the npm package
-country-flag-emoji-polyfill's, copied by `scripts/dist.sh`; see
+The fonts are npm packages, listed in `site-fonts` in `site.el`: Bricolage
+Grotesque (Fontsource's variable font, latin and latin-ext subsets; the latin
+one is preloaded) and the flag font, which draws flag emoji Windows lacks.
+The build publishes each under a hashed name in `fonts/` and points `site.css`
+at it, so browsers keep them for good. Nothing loads from Google Fonts. See
 `fonts/README.md`.
 
 Each Worker's admin page (the assets at `/admin/` here, the licenses below)
