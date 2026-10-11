@@ -122,10 +122,12 @@ family, and the old keys keep working. A family is the license: it stands
 while any of its keys does, so refunding only an add-on never withdraws it.
 Apps check a key at `GET /v1/keys/<id>` (rate limited) with an anonymous
 install id; the server keeps at most max(50, 3 × seats) installs per license
-and counts those seen in 14 days. Never a false alarm for a customer who paid:
-nobody using the app is shown anything about seats, and the buyer gets one
-polite email only when installs are more than twice the seats and 5 over for
-two weeks running, at most every 90 days. `/admin` (behind Cloudflare Access,
+and counts those seen in 14 days. Seats are on the honor system and nothing is
+ever locked. Installs can't tell people from machines, so nothing is said
+until installs are more than twice the seats and 5 over for two weeks running;
+then the check answers `outgrown: true`, the app shows everyone using the
+license a small note asking for more seats (owner, 2026-10-11), and the buyer
+gets one polite email, at most every 90 days. `/admin` (behind Cloudflare Access,
 adam.schaefers@icloud.com) lists every license and email, and withdraws,
 restores (whole licenses), resends and issues by hand. Its per-request logs are
 off (no IP addresses kept). Secrets are Worker secrets only (`wrangler secret

@@ -103,8 +103,9 @@ ${blocks.map(({ product, l, seats }) => `<p><b>${escape(product.license)}</b><br
 
 /**
  * The one reminder about seats, to the license's latest buyer, sent only when its installs
- * have clearly outnumbered its seats for two weeks (src/index.js). Nobody on their team sees
- * anything; the key keeps working; the likely harmless reason comes first.
+ * have clearly outnumbered its seats for two weeks (src/index.js), while the app shows its
+ * users a small note asking the same. The key keeps working; the likely harmless reason
+ * comes first.
  */
 export function seatsEmail({ product: id, licensee, seats, installs }) {
   const product = productOf(id) ?? productOf('backseat-driver');
@@ -114,7 +115,7 @@ export function seatsEmail({ product: id, licensee, seats, installs }) {
 
 Your ${product.license} for ${licensee} covers ${covers}. Over the last two weeks, about ${installs} installs have checked in with its key.
 
-That can simply be people using it on more than one machine, a laptop and a desktop say, and then there's nothing to do. If more people use it now than when you bought it, you can add seats any time: paste your key at ${page}. Your key keeps working either way, and nobody on your team sees a message about it.
+That can simply be people using it on more than one machine, a laptop and a desktop say, and then there's nothing to do. If more people use it now than when you bought it, you can add seats any time: paste your key at ${page}. Your key keeps working either way. Until there are seats enough, ${product.name} shows the people using it a small note asking for them, which goes away once they are added.
 
 Installs are counted by an anonymous number each one picks at random, nothing else, and we won't write about this more than once every three months. Questions, or think we've got it wrong? ${SUPPORT}
 

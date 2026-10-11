@@ -13,7 +13,7 @@
                                     (ADMIN_EMAIL) of the sale; a full refund or a
                                     lost chargeback revokes it; a paid Checkout with no key emails the owner
    For the apps (any origin); key ids are unique across products:
-     GET  /v1/keys/<id>[?install=]  { status: "active" | "revoked" | "unknown", seats, installs };
+     GET  /v1/keys/<id>[?install=]  { status: "active" | "revoked" | "unknown", seats, installs, outgrown };
                                     install is the plugin's anonymous id, counted for seats
      GET  /v1/public-keys           the public keys that check its signatures
      POST /v1/verify                { key } -> its signature check and status
@@ -31,10 +31,11 @@
    older keys keep working. A family is the license: it stands while any of its keys
    does (so refunding only an add-on never withdraws the seats paid before it), has the
    seats of its biggest unrevoked key, and counts the installs that checked any of its
-   keys in the last 14 days. Installs can't tell people from machines, so the plugin
-   shows nobody anything about seats; when a family's installs clearly outnumber its
-   seats for two weeks, its latest buyer gets one polite email, at most every 90 days
-   (seatsCheck). Nothing is ever locked. */
+   keys in the last 14 days. Installs can't tell people from machines, so nothing is
+   said until a family's installs clearly outnumber its seats for two weeks running
+   (seatsCheck). Then, on the honor system, the apps using it show a small note asking
+   for more seats (outgrown: true) until there are enough, and its latest buyer gets one
+   polite email, at most every 90 days. Nothing is ever locked. */
 
 import { checkKey, loadSigningKey, newLicenseId, signKey } from './keys.js';
 import { stripe, webhookEvent } from './stripe.js';
@@ -54,9 +55,9 @@ const RECOVERY_PER_DAY = 40;
 // Distinct installs kept per license, so one leaked key can't flood the table (and the
 // account's daily D1 writes): plenty above any honest count.
 const installCap = (seats) => Math.max(50, seats * 3);
-// The seats email: only when installs are more than twice the seats and at least 5 over
-// (one person on a laptop, a desktop and WSL is three installs), for 14 days running, and
-// at most every 90 days.
+// Outgrown, the apps' note and the seats email: only when installs are more than twice the
+// seats and at least 5 over (one person on a laptop, a desktop and WSL is three installs),
+// for 14 days running; the email at most every 90 days.
 const clearlyOver = (seats, installs) => installs > 2 * seats && installs - seats >= 5;
 const OVER_FOR = 14 * DAY;
 const NUDGE_EVERY = 90 * DAY;
@@ -195,6 +196,17 @@ async function seatsCheck(env, fam) {
   } catch (error) {
     console.log(JSON.stringify({ event: 'seats_check_failed', error: String(error) }));
   }
+}
+
+/**
+ * Whether a live family has outgrown its seats: its installs clearly outnumber them now, and
+ * have for 14 days running (over_since, kept by seatsCheck). Asked fresh on every check, so
+ * adding seats ends it at once. Reads the database only when the family is over.
+ */
+async function outgrown(env, fam) {
+  if (!fam.live || !clearlyOver(fam.seats, fam.installs)) return false;
+  const root = await env.DB.prepare('SELECT over_since FROM licenses WHERE id = ?').bind(fam.root).first();
+  return Boolean(root?.over_since) && Date.now() - root.over_since >= OVER_FOR;
 }
 
 /** Tells the owner something needs a person. Never throws: an alert that can't be sent is only logged. */
@@ -492,8 +504,8 @@ async function webhook(request, env) {
 
 /**
  * The plugin's weekly check. The status is the license's (its family's): revoked only once
- * every key of it is. The plugin shows the seats and never the installs, which are counted
- * for seatsCheck.
+ * every key of it is. Installs are counted for seatsCheck; the plugin shows the seats, never
+ * the installs, and a small note asking for more seats while the license has outgrown them.
  */
 async function keyStatus(env, ctx, id, install) {
   const license = id ? await byId(env, id) : null;
@@ -503,7 +515,7 @@ async function keyStatus(env, ctx, id, install) {
   if (counted) await sawInstall(env, root, install, installCap(license.seats));
   const fam = await family(env, license);
   if (counted) ctx.waitUntil(seatsCheck(env, fam));
-  return json({ status: fam.live ? 'active' : 'revoked', seats: fam.seats, installs: fam.installs }, 200, ANY_ORIGIN);
+  return json({ status: fam.live ? 'active' : 'revoked', seats: fam.seats, installs: fam.installs, outgrown: await outgrown(env, fam) }, 200, ANY_ORIGIN);
 }
 
 async function verify(request, env) {
