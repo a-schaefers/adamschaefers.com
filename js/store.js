@@ -136,7 +136,8 @@ function mountKey(mount) {
     const p = pricing(mount);
     mount.innerHTML = `
 <form class="key-card" novalidate>
-  <label for="key-${p.product}">Already have a key? Paste it to see your seats, or add more.</label>
+  <h4 class="key-title">Add seats to your license</h4>
+  <label for="key-${p.product}">Growing team? Paste your license key, pick how many more seats, and pay for just those. ${money(p.price)} a seat, 25% off every seat once your license has ${p.volumeSeats} or more. You get one new key covering them all.</label>
   <textarea id="key-${p.product}" rows="3" spellcheck="false" autocomplete="off" placeholder="Paste your license key"></textarea>
   <div class="key-result" aria-live="polite"></div>
 </form>`;
@@ -204,14 +205,17 @@ function mountKey(mount) {
 }
 
 // Lost keys: every key on file for an address is emailed to it. The answer never says
-// whether there were any, so the box can't tell anyone who bought. A send turns the box
-// into the contact form's "sent" card, with a Send again that waits out the server's
-// 30 seconds between emails to one address.
+// whether there were any, so the box can't tell anyone who bought. It starts folded away
+// behind a "Lost your license key?" link: the form, and its Turnstile check, appear only
+// when that's clicked. A send turns it into the contact form's "sent" card, with a Send
+// again that waits out the server's 30 seconds between emails to one address.
 const RESEND_AFTER = 30;
 
 function mountRecover(mount) {
     mount.innerHTML = `
 <div class="recover-card">
+  <button type="button" class="recover-open" aria-expanded="false">Lost your license key?</button>
+  <div class="recover-body" hidden>
   <h3>Lost your key?</h3>
   <form novalidate>
     <p>Enter the email you bought with, and we'll email it every license key on file for it.</p>
@@ -230,6 +234,7 @@ function mountRecover(mount) {
       <p class="recover-again"><button type="button" disabled></button> <a href="#inquiries">Contact form</a></p>
     </div>
   </div>
+  </div>
 </div>`;
     const form = mount.querySelector('form');
     const input = form.querySelector('input');
@@ -237,8 +242,18 @@ function mountRecover(mount) {
     const status = form.querySelector('.buy-status');
     const sent = mount.querySelector('.inquiry-sent');
     const again = sent.querySelector('.recover-again button');
-    const human = botCheck(form.querySelector('.cf-turnstile'));
+    const opener = mount.querySelector('.recover-open');
+    const body = mount.querySelector('.recover-body');
+    // The Turnstile check renders only once the box is opened.
+    let human = null;
     let countdown = null;
+    opener.addEventListener('click', () => {
+        opener.hidden = true;
+        opener.setAttribute('aria-expanded', 'true');
+        body.hidden = false;
+        human ??= botCheck(form.querySelector('.cf-turnstile'));
+        input.focus();
+    });
 
     const showSent = email => {
         sent.querySelector('.sent-note').innerHTML = `If <b>${esc(email)}</b> has license keys on file, they're on their way from licenses@adamschaefers.com. Give it a minute, and check your spam folder.`;
@@ -265,7 +280,7 @@ function mountRecover(mount) {
         sent.hidden = true;
         form.hidden = false;
         status.textContent = '';
-        human.reset();
+        human?.reset();
         input.focus();
     });
 
@@ -273,7 +288,7 @@ function mountRecover(mount) {
         e.preventDefault();
         const email = input.value.trim();
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return void (status.textContent = 'Please enter a valid email address.');
-        const turnstile = human.token();
+        const turnstile = human?.token();
         if (!turnstile) return void (status.textContent = WAIT);
         button.disabled = true;
         status.textContent = 'Sending…';
@@ -285,7 +300,7 @@ function mountRecover(mount) {
             status.innerHTML = `${esc(err.message)} You can also <a href="#inquiries">use the contact form</a>.`;
         }
         button.disabled = false;
-        human.reset();
+        human?.reset();
     });
 }
 

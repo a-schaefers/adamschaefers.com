@@ -39,8 +39,9 @@
 .buy-status:empty { display: none; }
 
 /* Already have a key */
-.key-card { margin-top: 1rem; padding: 1.25rem 1.75rem; border-radius: 16px; box-shadow: inset 0 0 0 1px var(--ridge); }
-.key-card label { display: block; color: var(--dust); font-size: .9rem; margin-bottom: .5rem; }
+.key-card { margin-top: 1rem; padding: 1.5rem 1.75rem; border-radius: 16px; background: var(--mesa); box-shadow: inset 0 0 0 1px var(--ridge); }
+.key-title { margin: 0 0 .4rem; color: var(--sand); font-size: 1.15rem; font-weight: 750; font-stretch: 85%; }
+.key-card label { display: block; color: var(--dust); font-size: .9rem; margin-bottom: .75rem; }
 .key-card textarea { box-sizing: border-box; width: 100%; resize: vertical; font: .85rem/1.5 ui-monospace, monospace; color: var(--sand); background: var(--sky); border: 1px solid var(--ridge); border-radius: 10px; padding: .6rem .85rem; word-break: break-all; }
 .key-card textarea:focus-visible { outline: 2px solid var(--turq); outline-offset: 1px; border-color: transparent; }
 .key-result:empty { display: none; }
@@ -52,6 +53,9 @@
 
 /* Lost your key */
 .recover-card { margin-top: 2.5rem; padding-top: 1.75rem; border-top: 1px solid var(--ridge); }
+.recover-open { font: inherit; font-size: .95rem; color: var(--dust); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline 1px rgba(168, 166, 190, .4); text-underline-offset: 3px; }
+.recover-open:hover, .recover-open:focus-visible { color: var(--turq); }
+.recover-open[hidden], .recover-body[hidden] { display: none; }
 .recover-card form[hidden] { display: none; }
 .recover-card .inquiry-sent { margin-top: .5rem; }
 .recover-card .sent-title { margin: 0; color: var(--sand); }
