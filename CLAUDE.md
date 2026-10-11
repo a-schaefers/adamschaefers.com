@@ -27,6 +27,18 @@ The privacy policy and terms of service (`#privacy-policy`,
 `#terms-of-service`) are `:view:` sections in index.org, routed through
 `PAGES` in `js/app.js`; keep the policy in step with what the site and
 `license-worker/` actually collect and who they send it to.
+Link previews (social media, chat apps) and crawlers read HTML without running
+JavaScript and drop everything after `#`, so the build also writes a small
+share page at a real path for every view, product and entry
+(`store/index.html`, `backseat-driver/index.html`,
+`off-the-clock/<slug>/index.html`; listed in `share-pages.txt`, which the
+build and the hook use to drop pages that are gone). Each carries its title,
+a description from its first paragraph or excerpt (`site-share-descriptions`
+when there is none), and a picture (a travelog's poster, else
+`images/og.jpg`, the 1200x630 card of the profile photo, name and roles), and
+sends people on to its `#route`. Share those addresses (the store's copy-link
+icon does); `sitemap.xml` lists them. `index.html` carries the home page's
+preview tags.
 `nav.css` styles the menu (top on desktop, bottom tab bar on phones),
 `blog.css` the collection views and the sitemap.
 
