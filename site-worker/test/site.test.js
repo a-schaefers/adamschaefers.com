@@ -148,7 +148,7 @@ test('wrangler.jsonc: no Workers caching, and only /admin runs the script', () =
 });
 
 test('only types that cannot run as a page: no HTML, no SVG, nothing unknown', async () => {
-  for (const name of ['page.html', 'logo.svg', 'tool.exe', 'notes.htm']) {
+  for (const name of ['page.html', 'logo.svg', 'tool.exe', 'notes.htm', 'x.constructor', 'x.tostring']) {
     const r = await call('PUT', `/admin/api/media/${name}`, { body: '<script>alert(1)</script>' });
     assert.equal(r.status, 400, name);
   }
