@@ -1,13 +1,13 @@
 #!/bin/sh
 
 # Rebuild the generated files from their org sources and stage them with
-# every commit, so index.html and rss.xml never lag behind.
+# every commit, so the page, feeds and sitemap never lag behind.
 
 set -e
 
 make build
 
-git add index.html rss.xml
+git add index.html rss.xml off-the-clock.xml sitemap.xml
 
 echo "Pre-commit hook completed successfully"
 
