@@ -8,7 +8,9 @@
 ;; sections tagged :view:.  Those sections and the collections (below) go
 ;; into a JSON blob in the page head instead, and js/app.js renders the menu
 ;; and one view at a time from it.  Everything arrives with the first load,
-;; so switching views never loads a page.
+;; so switching views never loads a page.  Each view still has an address of
+;; its own (/store/, /blog/<slug>/), where the build writes the same page
+;; with that view's title and link preview (see "Pages" below).
 ;;
 ;; A collection is a folder of dated entries with an index file, listed and
 ;; paginated like a blog: the Blog (blog/, blog.org) and Off the clock
@@ -209,12 +211,15 @@ Org's heading ids are random; SEED keeps them the same from build to build."
       (when items
         (insert "  <lastBuildDate>" (site--rss-date (alist-get 'date (cadr (car items)))) "</lastBuildDate>\n"))
       (pcase-dolist (`(,route ,entry) items)
-        (let ((url (format "%s#%s/%s" site-url route (alist-get 'slug entry)))
+        (let ((url (format "%s%s/%s/" site-url route (alist-get 'slug entry)))
+              ;; The address an entry had when views were #routes: readers know
+              ;; entries by it, and would show them all again were it to change.
+              (guid (format "%s#%s/%s" site-url route (alist-get 'slug entry)))
               (video (alist-get 'video entry)))
           (insert "  <item>\n"
                   "    <title>" (xml-escape-string (alist-get 'title entry)) "</title>\n"
                   "    <link>" url "</link>\n"
-                  "    <guid isPermaLink=\"true\">" url "</guid>\n"
+                  "    <guid isPermaLink=\"false\">" guid "</guid>\n"
                   "    <pubDate>" (site--rss-date (alist-get 'date entry)) "</pubDate>\n"
                   "    <category>" (plist-get (alist-get route site-collections) :name) "</category>\n"
                   "    <description>" (site--cdata (site--absolute-urls (alist-get 'excerpt entry))) "</description>\n"
@@ -225,15 +230,20 @@ Org's heading ids are random; SEED keeps them the same from build to build."
           (insert "  </item>\n")))
       (insert "</channel>\n</rss>\n"))))
 
-;;; Share pages and link previews
+;;; Pages and link previews
 
 ;; Link previews (social media, chat apps) and search crawlers read a page's
 ;; HTML without running its JavaScript, and drop everything after #.  So every
-;; view, product and entry also gets a small page at a real path
-;; (store/index.html, off-the-clock/<slug>/index.html, ...) carrying its title,
-;; description and picture, which sends people on to its #route.  The pages
-;; made are listed in share-pages.txt, so the next build (and the pre-commit
-;; hook) can drop the ones that are gone.
+;; view, product, entry and page of a listing has an address of its own, and
+;; the build writes the page there (store/index.html,
+;; off-the-clock/<slug>/index.html, ...): index.html again, with that view's
+;; title, description and picture.  js/app.js shows the view an address names,
+;; and links between views switch in place, so the address bar always holds
+;; an address that previews right.  The page has <base href="/">, so its
+;; relative links reach the same files from every address.  404.html, the same
+;; again, catches any other path.  The pages made are listed in
+;; share-pages.txt, so the next build (and the pre-commit hook) can drop the
+;; ones that are gone.
 ;;
 ;; The words and pictures come from the Org sources: a view's DESCRIPTION and
 ;; IMAGE properties, #+DESCRIPTION and #+IMAGE in blog.org, off-the-clock.org and
@@ -246,7 +256,11 @@ Org's heading ids are random; SEED keeps them the same from build to build."
   "The preview picture (1200x630): the profile photo, name and roles.")
 (defconst site-home-views '("about" "quest-log" "slop-shelf")
   "Views shown together as the home page: no page of their own.")
+(defconst site-sitemap-description "Every page and post on adamschaefers.com."
+  "The sitemap view's preview text (js/app.js draws the view; no Org section).")
 (defconst site-share-list "share-pages.txt")
+(defconst site-page-tags "<!-- site: preview tags -->"
+  "Stands in the exported page for each page's preview tags.")
 (defun site--decode (text)
   "TEXT with the few HTML entities Org writes turned back into characters."
   (let ((case-fold-search nil))
@@ -298,7 +312,8 @@ Org's heading ids are random; SEED keeps them the same from build to build."
      "\n")))
 
 (defun site--share-pages (views collections)
-  "Every page to make: (PATH ROUTE TITLE DESCRIPTION IMAGE TYPE), PATH under the site root."
+  "Every page to make: (PATH TITLE DESCRIPTION IMAGE TYPE), PATH under the site
+root and the view's address in js/app.js."
   (let ((fallback (site--summary (alist-get 'html (seq-find (lambda (v) (equal (alist-get 'id v) "about")) views)))))
     (append
      ;; Views, and the products in them.
@@ -308,7 +323,7 @@ Org's heading ids are random; SEED keeps them the same from build to build."
           (unless (member id site-home-views)
             (let ((summary (site--summary (site--first-paragraph-html html)))
                   (described (alist-get 'description v)))
-              (cons (list id id (site--plain-title (alist-get 'title v))
+              (cons (list id (site--plain-title (alist-get 'title v))
                           (cond ((not (string-empty-p described)) described)
                                 ((not (string-empty-p summary)) summary)
                                 (t fallback))
@@ -320,54 +335,65 @@ Org's heading ids are random; SEED keeps them the same from build to build."
                                (next (match-end 0))
                                (picture (if (string-match "data-share-image=\"\\([^\"]+\\)\"" attrs) (match-string 1 attrs) site-share-image)))
                           (setq start next)
-                          (push (list pid pid
+                          (push (list pid
                                       (site--plain-title (if (string-match "<h3>\\(\\(?:.\\|\n\\)*?\\)</h3>" body) (match-string 1 body) pid))
                                       (site--summary (if (string-match "</h3>\\(\\(?:.\\|\n\\)*?\\)</p>" body) (match-string 1 body) html))
                                       picture "product")
                                 products)))
                       (nreverse products)))))))
       views)
-     ;; Collections, and their entries.
+     ;; The sitemap, which js/app.js draws.
+     (list (list "sitemap" "Sitemap" site-sitemap-description site-share-image "website"))
+     ;; Collections, the later pages of their listings, and their entries.
      (mapcan
       (lambda (c)
-        (let* ((route (symbol-name (car c))) (col (cdr c)) (intro (site--summary (alist-get 'intro col))))
-          (cons (list route route (site--plain-title (alist-get 'title col))
-                      (cond ((not (string-empty-p (alist-get 'description col))) (alist-get 'description col))
-                            ((not (string-empty-p intro)) intro)
-                            (t fallback))
-                      (if (string-empty-p (alist-get 'image col)) site-share-image (alist-get 'image col))
-                      "website")
-                (mapcar (lambda (e)
-                          (let ((excerpt (site--summary (alist-get 'excerpt e))))
-                            (list (concat route "/" (alist-get 'slug e)) (concat route "/" (alist-get 'slug e))
-                                  (site--plain-title (alist-get 'title e))
-                                  (if (string-empty-p excerpt) fallback excerpt)
-                                  (or (alist-get 'image e) (alist-get 'poster e) site-share-image) "article")))
-                        (append (alist-get 'entries col) nil)))))
+        (let* ((route (symbol-name (car c))) (col (cdr c)) (intro (site--summary (alist-get 'intro col)))
+               (title (site--plain-title (alist-get 'title col)))
+               (description (cond ((not (string-empty-p (alist-get 'description col))) (alist-get 'description col))
+                                  ((not (string-empty-p intro)) intro)
+                                  (t fallback)))
+               (image (if (string-empty-p (alist-get 'image col)) site-share-image (alist-get 'image col)))
+               (pages (max 1 (ceiling (length (alist-get 'entries col)) (float (alist-get 'perPage col))))))
+          (append
+           (list (list route title description image "website"))
+           (mapcar (lambda (n) (list (format "%s/%d" route n) (format "%s, page %d" title n) description image "website"))
+                   (number-sequence 2 pages))
+           (mapcar (lambda (e)
+                     (let ((excerpt (site--summary (alist-get 'excerpt e))))
+                       (list (concat route "/" (alist-get 'slug e))
+                             (site--plain-title (alist-get 'title e))
+                             (if (string-empty-p excerpt) fallback excerpt)
+                             (or (alist-get 'image e) (alist-get 'poster e) site-share-image) "article")))
+                   (append (alist-get 'entries col) nil)))))
       collections))))
 
-(defun site--write-share-pages (pages)
-  "Write PAGES as PATH/index.html, drop the ones an earlier build made that are gone,
-and list them in `site-share-list'."
+(defun site--page (template title tags)
+  "TEMPLATE (index.org's export) with TITLE and TAGS, a page's preview tags."
+  (unless (and (string-match "<title>[^<]*</title>" template)
+               (string-search site-page-tags template))
+    (error "site: no <title> or %s in the exported page" site-page-tags))
+  (string-replace site-page-tags tags
+                  (replace-match (concat "<title>" (site--attr title) "</title>") t t template)))
+
+(defun site--write (file text)
+  "Write TEXT to FILE as UTF-8."
+  (let ((coding-system-for-write 'utf-8-unix))
+    (with-temp-file file (insert text))))
+
+(defun site--write-share-pages (pages template)
+  "Write PAGES as PATH/index.html, each TEMPLATE with its own title and preview
+tags, drop the ones an earlier build made that are gone, and list them in
+`site-share-list'."
   (let ((old (and (file-exists-p site-share-list)
                   (split-string (with-temp-buffer (insert-file-contents site-share-list) (buffer-string)) "\n" t)))
         made)
-    (pcase-dolist (`(,path ,route ,title ,description ,image ,type) pages)
+    (pcase-dolist (`(,path ,title ,description ,image ,type) pages)
       (let ((file (concat path "/index.html"))
             (url (concat site-url path "/"))
             (full (format "%s · %s" title site-name)))
         (make-directory path t)
-        (with-temp-file file
-          (insert "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n"
-                  "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
-                  "<title>" (site--attr full) "</title>\n"
-                  (site--meta full description url image (if (equal type "article") "article" "website")) "\n"
-                  ;; People go on to the page itself; previews and crawlers stop here.
-                  (format "<meta http-equiv=\"refresh\" content=\"0; url=/#%s\">\n" route)
-                  (format "<script>location.replace('/#%s')</script>\n" route)
-                  "</head>\n<body>\n"
-                  (format "<p><a href=\"/#%s\">%s</a></p>\n" route (site--attr full))
-                  "</body>\n</html>\n"))
+        (site--write file (site--page template full
+                                      (site--meta full description url image (if (equal type "article") "article" "website"))))
         (push file made)))
     (setq made (sort made #'string<))
     (dolist (gone (seq-difference old made))
@@ -417,7 +443,8 @@ could pair a new module with an old cached one that lacks what it imports."
     (string-replace "</" "<\\/" (json-encode data))))
 
 (defun site-build ()
-  "Export index.org to index.html, carrying every view's content."
+  "Export index.org to index.html, carrying every view's content, and the
+same page at every view's address."
   (site--with-export-settings
    (let ((collections (mapcar (lambda (c) (cons (car c) (site--collection (car c) (cdr c))))
                               site-collections)))
@@ -432,8 +459,8 @@ could pair a new module with an old cached one that lacks what it imports."
               (org-html-head-extra
                (concat ;; Before any module loads: browsers ignore an import map that comes later.
                        "<script type=\"importmap\">" (site--import-map) "</script>\n"
-                       ;; The home page's link preview; other pages have their own (site--share-pages).
-                       (site--meta site-name home site-url site-share-image) "\n"
+                       ;; Each page's link preview goes here (site--page).
+                       site-page-tags "\n"
                        (format "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Adam Schaefers\" href=\"%s\">\n" site-feed)
                        (format "<link rel=\"stylesheet\" href=\"%s\">\n" (site--asset "nav.css"))
                        (format "<link rel=\"stylesheet\" href=\"%s\">\n" (site--asset "blog.css"))
@@ -453,12 +480,24 @@ could pair a new module with an old cached one that lacks what it imports."
               ;; js/app.js keeps the year current; the build year is the fallback.
               (org-html-postamble
                (lambda (_)
-                 (format "<footer class=\"site-footer\">© <span id=\"year\">%s</span> adamschaefers.com · <a href=\"#sitemap\">Sitemap</a> · <a href=\"#privacy-policy\">Privacy</a> · <a href=\"#terms-of-service\">Terms</a></footer>"
+                 (format "<footer class=\"site-footer\">© <span id=\"year\">%s</span> adamschaefers.com · <a href=\"/sitemap/\">Sitemap</a> · <a href=\"/privacy-policy/\">Privacy</a> · <a href=\"/terms-of-service/\">Terms</a></footer>"
                          (format-time-string "%Y")))))
          (random "index")
-         (org-export-to-file 'html "index.html")
+         (let* ((export (org-export-as 'html))
+                ;; First in the head, before anything with a relative URL (the font in
+                ;; index.org's style): from every page's address, relative URLs start at
+                ;; the site root.
+                (template (replace-regexp-in-string "<meta charset=\"utf-8\" />\n" "\\&<base href=\"/\">\n" export t))
+                (home-tags (site--meta site-name home site-url site-share-image)))
+           (when (equal template export)
+             (error "site: no <meta charset> in the exported page to put <base> after"))
+           (site--write "index.html" (site--page template site-name home-tags))
+           ;; Any other path (a mistyped address, an entry since removed): js/app.js
+           ;; shows the nearest view.  Not a page for search engines to keep.
+           (site--write "404.html" (site--page template site-name
+                                               (concat "<meta name=\"robots\" content=\"noindex\">\n" home-tags)))
+           (site--write-share-pages pages template))
          (site--write-feed collections)
-         (site--write-share-pages pages)
          (site--write-sitemap pages)
          (message "site: %d views, %s"
                   (length (alist-get 'views data))

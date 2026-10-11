@@ -1,9 +1,9 @@
 #!/bin/sh
 
-# Rebuild the generated files (index.html, rss.xml, sitemap.xml, and the share
-# pages listed in share-pages.txt) from what is being committed, and commit
-# them with it, so they never lag behind. Share pages the build no longer makes
-# are removed.
+# Rebuild the generated files (index.html, 404.html, rss.xml, sitemap.xml, and
+# the pages at every view's address, listed in share-pages.txt) from what is
+# being committed, and commit them with it, so they never lag behind. Pages the
+# build no longer makes are removed.
 #
 # The build runs on a copy of the index (the staged files), not the working
 # tree: unstaged edits, such as another session's work in progress, never end
@@ -18,16 +18,16 @@ trap 'rm -rf "$tmp"' EXIT
 git checkout-index --all --prefix="$tmp/"
 make -s -C "$tmp" build
 
-generated="index.html rss.xml sitemap.xml share-pages.txt $(cat "$tmp/share-pages.txt")"
+generated="index.html 404.html rss.xml sitemap.xml share-pages.txt $(cat "$tmp/share-pages.txt")"
 for f in $generated; do
     blob=$(git hash-object -w "$tmp/$f")
     git update-index --add --cacheinfo 100644,"$blob","$f"
 done
-# Share pages an earlier commit had and this build didn't make.
+# Pages an earlier commit had and this build didn't make.
 gone=$(git show HEAD:share-pages.txt 2>/dev/null | grep -vxF -f "$tmp/share-pages.txt" || true)
 for f in $gone; do git rm --cached --quiet --ignore-unmatch -- "$f"; done
 
-if git diff --quiet -- . ':(exclude)index.html' ':(exclude)rss.xml' ':(exclude)sitemap.xml' ':(exclude)share-pages.txt' ':(exclude)*/index.html'; then
+if git diff --quiet -- . ':(exclude)index.html' ':(exclude)404.html' ':(exclude)rss.xml' ':(exclude)sitemap.xml' ':(exclude)share-pages.txt' ':(exclude)*/index.html'; then
     for f in $generated; do mkdir -p "$(dirname "$f")"; cp "$tmp/$f" "$f"; done
     for f in $gone; do rm -f "$f"; rmdir "$(dirname "$f")" 2>/dev/null || true; done
 fi
