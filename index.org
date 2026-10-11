@@ -33,7 +33,7 @@
 #+HTML_HEAD: #outline-container-contact { grid-column: 1; grid-row: 1 / span 12; align-self: start; margin: 0; }
 #+HTML_HEAD: @media (min-height: 56rem) { #outline-container-contact { position: sticky; top: 4rem; } }
 #+HTML_HEAD: /* Identity */
-#+HTML_HEAD: .hello-profile { display: block; width: 8.5rem; height: 8.5rem; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px var(--sky), 0 0 0 5px var(--turq); }
+#+HTML_HEAD: .hello-profile { display: block; width: 8.5rem; height: 8.5rem; border-radius: 50%; object-fit: cover; object-position: 50% 30%; box-shadow: 0 0 0 3px var(--sky), 0 0 0 5px var(--turq); }
 #+HTML_HEAD: .name { font-size: 2.75rem; font-weight: 800; font-stretch: 75%; line-height: .95; letter-spacing: -.02em; margin: 1.75rem 0 .6rem; }
 #+HTML_HEAD: .roles { color: var(--dust); font-size: .95rem; margin: 0 0 1.75rem; }
 #+HTML_HEAD: .roles span { white-space: nowrap; }
@@ -45,7 +45,7 @@
 #+HTML_HEAD: .home-link:hover .name { color: var(--turq); }
 #+HTML_HEAD: .photo-dialog { padding: 0; border: 0; background: none; overflow: visible; max-width: none; max-height: none; cursor: zoom-out; }
 #+HTML_HEAD: .photo-dialog:focus { outline: none; }
-#+HTML_HEAD: .photo-dialog img { display: block; width: min(86vmin, 640px); height: auto; border-radius: 24px; box-shadow: 0 0 0 4px var(--turq), 0 30px 80px rgba(0, 0, 0, .55); }
+#+HTML_HEAD: .photo-dialog img { display: block; width: auto; height: auto; max-width: min(86vw, 640px); max-height: 86vh; border-radius: 24px; box-shadow: 0 0 0 4px var(--turq), 0 30px 80px rgba(0, 0, 0, .55); }
 #+HTML_HEAD: .photo-dialog::backdrop { background: rgba(14, 16, 36, .82); backdrop-filter: blur(6px); }
 #+HTML_HEAD: .photo-dialog.is-closing::backdrop { opacity: 0; transition: opacity .35s; }
 #+HTML_HEAD: @media (prefers-reduced-motion: no-preference) {
@@ -185,7 +185,7 @@
 #+BEGIN_EXPORT html
 <div class="contact-head">
   <button type="button" class="profile-zoom" aria-label="Enlarge photo of Adam Schaefers">
-    <img src="me.jpeg" width="800" height="800" class="hello-profile" alt="">
+    <img src="me.jpeg" width="1080" height="1920" class="hello-profile" alt="">
   </button>
   <a class="home-link" href="#" aria-label="Adam Schaefers, back to top">
     <h1 class="name">Adam Schaefers</h1>
@@ -193,7 +193,7 @@
   </a>
 </div>
 <dialog class="photo-dialog" aria-label="Photo of Adam Schaefers">
-  <img src="me.jpeg" width="800" height="800" alt="Adam Schaefers">
+  <img src="me.jpeg" width="1080" height="1920" alt="Adam Schaefers">
 </dialog>
 <script>
 // Profile photo: grows out of the avatar into a large view; click anywhere or Esc shrinks it back.
