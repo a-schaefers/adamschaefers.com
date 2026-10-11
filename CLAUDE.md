@@ -33,10 +33,13 @@ share page at a real path for every view, product and entry
 (`store/index.html`, `backseat-driver/index.html`,
 `off-the-clock/<slug>/index.html`; listed in `share-pages.txt`, which the
 build and the hook use to drop pages that are gone). Each carries its title,
-a description from its first paragraph or excerpt (`site-share-descriptions`
-when there is none), and a picture (a travelog's poster, else
-`images/og.jpg`, the 1200x630 card of the profile photo, name and roles), and
-sends people on to its `#route`. Share those addresses (the store's copy-link
+a description and a picture, and sends people on to its `#route`. Set them in
+the Org sources: `:DESCRIPTION:` and `:IMAGE:` properties on a view's heading,
+`#+DESCRIPTION` and `#+IMAGE` in `blog.org`, `off-the-clock.org` and each
+entry, `data-share-image` on a product's `<article>` (previews want PNG or
+JPEG, not WebP). Without them: the first paragraph or excerpt, a travelog's
+poster, and `images/og.jpg` (the 1200x630 card of the profile photo, name and
+roles). Share those addresses (the store's copy-link
 icon does); `sitemap.xml` lists them. `index.html` carries the home page's
 preview tags.
 `nav.css` styles the menu (top on desktop, bottom tab bar on phones),

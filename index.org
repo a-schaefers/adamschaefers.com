@@ -348,13 +348,14 @@ My secondary GitHub, [[https://github.com/el-sloppo][@el-sloppo]], is where I pu
 
 Things I make and sell. Payment is through Stripe; keys arrive the moment you've paid, and by email.
 
-# Each product is an <article class="product"> (js/store.js finds them): its
-# image, its words in Org, then the buy form and the "already have a key" box,
+# Each product is an <article class="product"> (js/store.js finds them, and its
+# image zooms on a click like the profile photo; data-share-image is its link-preview
+# picture, a PNG or JPEG): its image, its words in Org, then the buy form and the "already have a key" box,
 # mounted from the data-* attributes (prices must match license-worker's Stripe
 # prices). id="product-<id>" is where #<id> lands (PAGES in js/app.js).
 #+BEGIN_EXPORT html
-<article class="product" id="product-backseat-driver">
-<img class="product-image" src="images/store/placeholder.svg" alt="" width="640" height="360">
+<article class="product" id="product-backseat-driver" data-share-image="images/store/backseat-driver.png">
+<img class="product-image" src="images/store/backseat-driver.webp" width="1220" height="680" alt="Backseat Driver beside Claude Code: its play-by-play pane, with a note on a bug in the code just saved">
 <div class="product-body">
 <h3>Backseat Driver commercial license</h3>
 #+END_EXPORT
@@ -383,6 +384,7 @@ If a business uses Backseat Driver or has its people use it, training included, 
 ** ✉️ Inquiries :view:
 :PROPERTIES:
 :CUSTOM_ID: inquiries
+:DESCRIPTION: Get in touch with Adam Schaefers: work, licenses, or just to say hi.
 :END:
 
 #+BEGIN_EXPORT html

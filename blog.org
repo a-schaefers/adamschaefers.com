@@ -1,5 +1,6 @@
 #+TITLE: Blog
 #+POSTS_PER_PAGE: 10
+#+DESCRIPTION: Posts by Adam Schaefers.
 
 # The blog's listing page. site.el puts this text above the posts in
 # blog/YYYY-MM-DD-slug.org, newest first, POSTS_PER_PAGE to a page.
