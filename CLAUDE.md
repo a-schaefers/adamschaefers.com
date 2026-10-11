@@ -22,7 +22,11 @@ URLs and writes an import map sending every import there, so a browser never
 pairs a new module with an old cached one. A module missing from the list
 still loads, unversioned.
 The sidebar (index.org's Contact section) and the footer (`site.el`, with
-the Sitemap link) are written once and frame every view.
+the Sitemap, Privacy and Terms links) are written once and frame every view.
+The privacy policy and terms of service (`#privacy-policy`,
+`#terms-of-service`) are `:view:` sections in index.org, routed through
+`PAGES` in `js/app.js`; keep the policy in step with what the site and
+`license-worker/` actually collect and who they send it to.
 `nav.css` styles the menu (top on desktop, bottom tab bar on phones),
 `blog.css` the collection views and the sitemap.
 
