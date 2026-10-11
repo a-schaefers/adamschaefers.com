@@ -22,12 +22,16 @@
 ;; #+POSTS_PER_PAGE.
 ;;
 ;; The build also writes rss.xml, one feed of every collection's entries in
-;; full, and sitemap.xml.
+;; full, and sitemap.xml.  Videos aren't in git: they are uploaded at /admin
+;; to R2 and named by their address there (#+VIDEO:
+;; https://media.adamschaefers.com/evia.mp4), which also gives the feed their
+;; size.
 
 (require 'cl-lib)
 (require 'json)
 (require 'ox-html)
 (require 'subr-x)
+(require 'url)
 (require 'xml)
 
 (defconst site-collections
@@ -40,6 +44,9 @@
   "\\`\\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\)-\\(.+\\)\\.org\\'")
 (defconst site-default-per-page 10)
 (defconst site-url "https://adamschaefers.com/")
+(defconst site-asset-list "assets.txt"
+  "The styles and scripts given hashed names this build, one \"FILE HASHED\" a
+line, for make dist to publish under those names.")
 (defconst site-module-imports
   '("js/lit/lit-html/lit-html.js"
     "js/lit/lit-html/directives/unsafe-html.js"
@@ -189,6 +196,36 @@ Org's heading ids are random; SEED keeps them the same from build to build."
               "")
             (alist-get 'html entry))))
 
+(defun site--url (path)
+  "PATH as an address: itself when it already is one, else under `site-url'."
+  (if (string-match-p "\\`https?://" path) path (concat site-url path)))
+
+(defun site--remote-size (url)
+  "URL's size in bytes, asked of the server with a HEAD request; nil when it
+doesn't answer 200."
+  (let ((url-request-method "HEAD")
+        (url-show-status nil)
+        (case-fold-search t))
+    (condition-case nil
+        (let ((buffer (url-retrieve-synchronously url t t 30)))
+          (when buffer
+            (with-current-buffer buffer
+              (goto-char (point-min))
+              (prog1 (and (looking-at "HTTP/[0-9.]+ 200")
+                          (re-search-forward "^content-length: *\\([0-9]+\\)" nil t)
+                          (string-to-number (match-string 1)))
+                (kill-buffer)))))
+      (error nil))))
+
+(defun site--video-size (video)
+  "VIDEO's size in bytes, from wherever it is served (an upload at /admin).
+Missing is an error in CI; a local build without the network writes 0."
+  (or (site--remote-size (site--url video))
+      (if (getenv "CI")
+          (error "site: %s doesn't answer; upload it at https://adamschaefers.com/admin/" (site--url video))
+        (message "site: %s doesn't answer, so the feed gives it length 0" (site--url video))
+        0)))
+
 (defun site--write-feed (collections)
   "Write `site-feed': every entry of COLLECTIONS, newest first, in full."
   (let ((items (sort (mapcan (lambda (c)
@@ -225,8 +262,8 @@ Org's heading ids are random; SEED keeps them the same from build to build."
                   "    <description>" (site--cdata (site--absolute-urls (alist-get 'excerpt entry))) "</description>\n"
                   "    <content:encoded>" (site--cdata (site--absolute-urls (site--entry-full-html entry))) "</content:encoded>\n")
           (when video
-            (insert (format "    <enclosure url=\"%s%s\" length=\"%d\" type=\"video/mp4\"/>\n"
-                            site-url video (file-attribute-size (file-attributes video)))))
+            (insert (format "    <enclosure url=\"%s\" length=\"%d\" type=\"video/mp4\"/>\n"
+                            (site--url video) (site--video-size video))))
           (insert "  </item>\n")))
       (insert "</channel>\n</rss>\n"))))
 
@@ -293,7 +330,7 @@ Org's heading ids are random; SEED keeps them the same from build to build."
 
 (defun site--meta (title description url image &optional type)
   "The tags a link preview reads."
-  (let ((image (concat site-url image)))
+  (let ((image (site--url image)))
     (mapconcat
      #'identity
      (list (format "<meta name=\"description\" content=\"%s\">" (site--attr description))
@@ -423,19 +460,34 @@ entries at real paths, which crawlers can read)."
 
 ;;; The page
 
+(defvar site--assets nil
+  "The files given hashed names this build: (FILE . HASHED).")
+
 (defun site--asset (file)
-  "FILE's URL with a hash of its contents, so browsers refetch it when it changes."
-  (format "%s?v=%s" file
-          (substring (with-temp-buffer
-                       (set-buffer-multibyte nil)
-                       (insert-file-contents-literally file)
-                       (secure-hash 'sha1 (current-buffer)))
-                     0 10)))
+  "FILE's name with a hash of its contents in it: js/app.js -> js/app.1a2b3c4d5e.js.
+make dist publishes the file under that name (`site-asset-list'), so browsers
+keep it for good and a change is a new name; in the same folder, so a module's
+relative imports resolve as before (to the keys of the import map)."
+  (let* ((hash (substring (with-temp-buffer
+                            (set-buffer-multibyte nil)
+                            (insert-file-contents-literally file)
+                            (secure-hash 'sha1 (current-buffer)))
+                          0 10))
+         (hashed (format "%s.%s.%s" (file-name-sans-extension file) hash (file-name-extension file))))
+    (cl-pushnew (cons file hashed) site--assets :test #'equal)
+    hashed))
+
+(defun site--write-asset-list ()
+  "Write `site-asset-list' from `site--assets'."
+  (site--write site-asset-list
+               (mapconcat (lambda (a) (format "%s %s\n" (car a) (cdr a)))
+                          (sort (copy-sequence site--assets) (lambda (a b) (string< (car a) (car b))))
+                          "")))
 
 (defun site--import-map ()
-  "An import map sending each of `site-module-imports' to its hashed URL.
-Only app.js's own URL carries a hash otherwise, so after a change a browser
-could pair a new module with an old cached one that lacks what it imports."
+  "An import map sending each of `site-module-imports' to its hashed name.
+A module imports another by its plain name (./contact.js); this sends that to
+the copy of this build, so a browser never pairs a new module with an old one."
   (let ((json-encoding-pretty-print nil))
     (json-encode
      `((imports . ,(mapcar (lambda (m) (cons (concat "./" m) (concat "./" (site--asset m))))
@@ -503,6 +555,7 @@ same page at every view's address."
            (site--write-share-pages pages template))
          (site--write-feed collections)
          (site--write-sitemap pages)
+         (site--write-asset-list)
          (message "site: %d views, %s"
                   (length (alist-get 'views data))
                   (mapconcat (lambda (c) (format "%d %s" (length (alist-get 'entries (cdr c))) (car c)))
