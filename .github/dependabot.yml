@@ -4,13 +4,16 @@
 # requests are not the owner's: each waits for the owner's approval (owner-merge.yml
 # approves only the owner's), and a merged wrangler bump redeploys every Worker.
 # Pull requests carry no secrets, so a Dependabot branch reaches nothing.
-# Not covered: check.yml's Debian image digest, bumped by hand.
+# A release waits a week before Dependabot offers it, so a compromised one that is pulled
+# quickly never reaches a deploy. Not covered: check.yml's Debian image digest, bumped by hand.
 version: 2
 updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 7
     groups:
       actions:
         patterns: ["*"]
@@ -18,6 +21,8 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 7
     groups:
       toolchain:
         update-types: ["minor", "patch"]

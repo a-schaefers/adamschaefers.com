@@ -146,3 +146,11 @@ test('wrangler.jsonc: no Workers caching, and only /admin runs the script', () =
   assert.match(code, /"run_worker_first":\s*\["\/admin",\s*"\/admin\/\*"\]/);
   assert.match(code, /"not_found_handling":\s*"404-page"/);
 });
+
+test('only types that cannot run as a page: no HTML, no SVG, nothing unknown', async () => {
+  for (const name of ['page.html', 'logo.svg', 'tool.exe', 'notes.htm']) {
+    const r = await call('PUT', `/admin/api/media/${name}`, { body: '<script>alert(1)</script>' });
+    assert.equal(r.status, 400, name);
+  }
+  assert.deepEqual([...bucket.keys()], ['evia.mp4']);
+});

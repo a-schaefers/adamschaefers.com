@@ -48,13 +48,16 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      # The license tests check every key the server signs with the plugin's own checker,
-      # when ../backseat-driver is there (public; its main is what users run).
-      - run: git clone -q --depth 1 https://github.com/a-schaefers/backseat-driver ../backseat-driver
-      - run: make check
+      # make check in two halves: the site is built, checked and uploaded before any code
+      # from another repository runs, so nothing but this commit can shape what deploys.
+      - run: make build check-dist
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: site
           path: public/
           if-no-files-found: error
           retention-days: 14
+      # The license tests check every key the server signs with the plugin's own checker,
+      # when ../backseat-driver is there (public; its main is what users run).
+      - run: git clone -q --depth 1 https://github.com/a-schaefers/backseat-driver ../backseat-driver
+      - run: make test
