@@ -133,7 +133,8 @@ seats; they must match the Worker's): the buy form, and "Add seats to your
 license", a link (so several products don't repeat a box down the page) that
 opens a card which shows a key's seats and recent installs and adds seats. Below the products, "Lost your key?" emails an address every key
 on file for it (each license's newest unrevoked key; the answer never says
-whether there were any; per address one email per 30 seconds and 5 a day, and
+whether there were any, and goes out before the lookup, so its timing can't
+either; per address one email per 30 seconds and 5 a day, and
 40 a day in all, keeping most of Resend's free 100 a day for key emails).
 Recovery, which sends email, passes a Turnstile check (the "adamschaefers
 store" widget, adamschaefers.com only), rendered only once "Lost your key?"
@@ -152,7 +153,9 @@ product's own address (`/store/backseat-driver/`, `PAGES` in `js/app.js`;
 the old `/backseat-driver/` still leads there) shows the store at that
 product. Stripe returns buyers to `/#license/<checkout id>` (the
 one view left on a hash: private, so no page), where
-the key is shown (copy, print) and said to be emailed. `store.css` styles it.
+the key is shown (copy, print) and said to be emailed, for a week after the
+purchase: the address lives on in browser history, so after that the page
+points to the email and "Lost your key?". `store.css` styles it.
 The store's admin link goes to the license server's `/admin`.
 
 `license-worker/` is that server: a Cloudflare Worker at
