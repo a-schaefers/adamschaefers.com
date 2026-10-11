@@ -92,12 +92,17 @@ adds seats. Below the products, "Lost your key?" emails an address every key
 on file for it (each license's newest unrevoked key; the answer never says
 whether there were any; per address one email per 30 seconds and 5 a day, and
 40 a day in all, keeping most of Resend's free 100 a day for key emails).
-Buying, adding seats and recovery each pass a Turnstile check (the
-"adamschaefers store" widget, adamschaefers.com only, so locally the store
-shows but can't buy). `js/store.js` renders it with `loadTurnstile` from
+Recovery, which sends email, passes a Turnstile check (the "adamschaefers
+store" widget, adamschaefers.com only), rendered only once "Lost your key?"
+is opened. Buying and adding seats don't (owner, 2026-10-11): they only make
+a Stripe Checkout page, which has Stripe's own CAPTCHA and card-testing
+defenses, and adding seats needs a signed key. The server takes requests
+from the site's origin only, so locally the store shows but can't buy.
+`js/store.js` renders the check with `loadTurnstile` from
 `js/contact.js` (Turnstile's script must be on the page once; that export is
 the one difference from enchant.games' copy). A Cloudflare rate-limit rule on
-the zone allows 5 `POST /v1/checkout` or `/v1/recover` per IP per 10 seconds.
+the zone allows 5 `POST /v1/checkout` or `/v1/recover` per IP per 10 seconds,
+and the Worker's own limit 20 a minute per IP on every site route.
 Bot Fight Mode stays off: on the free plan it can't be skipped, and it would
 challenge Stripe's webhooks, the plugin's key check and the contact form. A
 product's own route (`#backseat-driver`, `PAGES` in `js/app.js`) shows the

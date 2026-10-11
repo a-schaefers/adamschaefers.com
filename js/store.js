@@ -40,9 +40,11 @@ async function post(path, body) {
 }
 
 // A Turnstile check rendered into `box` (a .cf-turnstile in the form): its token, and a reset
-// for after a try, since each token works once. Widgets whose form is gone (the store view
-// left) are removed; coming back from Stripe with the Back button resets the rest, since the
-// page returns as it was, spent tokens and all.
+// for after a try, since each token works once. Only "Lost your key?" has one: it sends email.
+// Buying and adding seats go straight to Stripe Checkout, which has its own CAPTCHA and
+// card-testing defenses. Widgets whose form is gone (the store view left) are removed; coming
+// back with the Back button (from Stripe, say) resets the rest, since the page returns as it
+// was, spent tokens and all.
 const widgets = new Map();  // widget id -> its box
 
 function pruneWidgets() {
@@ -77,17 +79,14 @@ function botCheck(box) {
 
 const WAIT = 'One moment: the check above that you are not a bot is still running.';
 
-async function checkout(body, status, button, human) {
-    const turnstile = human.token();
-    if (!turnstile) return void (status.textContent = WAIT);
+async function checkout(body, status, button) {
     button.disabled = true;
     status.textContent = 'Opening Stripe checkout…';
     try {
-        location.href = (await post('/v1/checkout', { ...body, turnstile })).url;
+        location.href = (await post('/v1/checkout', body)).url;
     } catch (err) {
         status.innerHTML = `${esc(err.message)} Please try again, or <a href="#inquiries">get in touch</a>.`;
         button.disabled = false;
-        human.reset();
     }
 }
 
@@ -102,11 +101,9 @@ function mountBuy(mount) {
   </div>
   <p class="buy-total" aria-live="polite"></p>
   <p class="buy-note">You'll give the licensee (your company, or you) and your email on Stripe's secure checkout. Your key appears on the next page and is emailed to you.</p>
-  <div class="cf-turnstile"></div>
   <p class="buy-status" role="status"></p>
 </form>`;
     const form = mount.querySelector('form');
-    const human = botCheck(form.querySelector('.cf-turnstile'));
     const input = form.querySelector('input');
     const button = form.querySelector('button');
     const seats = () => Number(input.value);
@@ -127,7 +124,7 @@ function mountBuy(mount) {
     update();
     form.addEventListener('submit', e => {
         e.preventDefault();
-        if (valid()) checkout({ product: p.product, seats: seats() }, form.querySelector('.buy-status'), button, human);
+        if (valid()) checkout({ product: p.product, seats: seats() }, form.querySelector('.buy-status'), button);
     });
 }
 
@@ -168,10 +165,8 @@ function mountKey(mount) {
 </div>
 <p class="buy-total"></p>
 <p class="buy-note">You'll get one new key covering all your seats, shown right away and emailed. Your old key keeps working.</p>
-<div class="cf-turnstile"></div>
 <p class="buy-status" role="status"></p>`;
         result.innerHTML = html;
-        const human = botCheck(result.querySelector('.cf-turnstile'));
         const input = result.querySelector('input');
         const button = result.querySelector('button');
         const update = () => {
@@ -185,7 +180,7 @@ function mountKey(mount) {
         };
         input.addEventListener('input', update);
         update();
-        button.addEventListener('click', () => checkout({ seats: Number(input.value), key }, result.querySelector('.buy-status'), button, human));
+        button.addEventListener('click', () => checkout({ seats: Number(input.value), key }, result.querySelector('.buy-status'), button));
     };
 
     const look = async () => {
