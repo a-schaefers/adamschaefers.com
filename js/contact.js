@@ -29,9 +29,11 @@ const FORM_HTML = `
 </div>`;
 
 // The page is rendered client-side, so Turnstile is loaded once and rendered explicitly
-// into each freshly mounted form rather than scanning the page on load.
+// into each freshly mounted form rather than scanning the page on load. js/store.js
+// shares this loader: Turnstile's script must be on the page only once.
 let turnstileReady = null;
-function loadTurnstile() {
+export function loadTurnstile() {
+    if (window.turnstile) return Promise.resolve(window.turnstile);
     if (!turnstileReady) {
         turnstileReady = new Promise((resolve, reject) => {
             window.onTurnstileLoad = () => resolve(window.turnstile);

@@ -42,8 +42,10 @@
   '("js/lit/lit-html/lit-html.js"
     "js/lit/lit-html/directives/unsafe-html.js"
     "js/lit/lit-html/directive.js"
-    "js/contact.js")
-  "Every module js/app.js imports, directly or not, preloaded with it.")
+    "js/contact.js"
+    "js/store.js")
+  "Every module js/app.js imports, directly or not. Each is preloaded with it, at
+its hashed URL, and the import map sends imports there too.")
 
 (defmacro site--with-export-settings (&rest body)
   `(let ((user-full-name "Adam Schaefers")
@@ -239,6 +241,15 @@ drop the part after #, so the page itself is the only URL to list; the
                        (secure-hash 'sha1 (current-buffer)))
                      0 10)))
 
+(defun site--import-map ()
+  "An import map sending each of `site-module-imports' to its hashed URL.
+Only app.js's own URL carries a hash otherwise, so after a change a browser
+could pair a new module with an old cached one that lacks what it imports."
+  (let ((json-encoding-pretty-print nil))
+    (json-encode
+     `((imports . ,(mapcar (lambda (m) (cons (concat "./" m) (concat "./" (site--asset m))))
+                           site-module-imports))))))
+
 (defun site--json (data)
   "DATA as JSON that is safe inside a <script> element."
   (let ((json-encoding-pretty-print nil))
@@ -255,15 +266,19 @@ drop the part after #, so the page itself is the only URL to list; the
                       (feed . ,site-feed)))
               (org-export-exclude-tags '("noexport" "view"))
               (org-html-head-extra
-               (concat (format "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Adam Schaefers\" href=\"%s\">\n" site-feed)
+               (concat ;; Before any module loads: browsers ignore an import map that comes later.
+                       "<script type=\"importmap\">" (site--import-map) "</script>\n"
+                       (format "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Adam Schaefers\" href=\"%s\">\n" site-feed)
                        (format "<link rel=\"stylesheet\" href=\"%s\">\n" (site--asset "nav.css"))
                        (format "<link rel=\"stylesheet\" href=\"%s\">\n" (site--asset "blog.css"))
+                       (format "<link rel=\"stylesheet\" href=\"%s\">\n" (site--asset "store.css"))
                        "<script type=\"application/json\" id=\"site-data\">"
                        (site--json data)
                        "</script>\n"
                        (format "<script type=\"module\" src=\"%s\"></script>\n" (site--asset "js/app.js"))
-                       ;; Fetch app.js's imports alongside it rather than one level at a time.
-                       (mapconcat (lambda (m) (format "<link rel=\"modulepreload\" href=\"%s\">\n" m))
+                       ;; Fetch app.js's imports alongside it rather than one level at a time,
+                       ;; at the hashed URLs the import map sends them to.
+                       (mapconcat (lambda (m) (format "<link rel=\"modulepreload\" href=\"%s\">\n" (site--asset m)))
                                   site-module-imports "")
                        ;; The Contact view's Turnstile check loads on first visit; connect early.
                        "<link rel=\"preconnect\" href=\"https://challenges.cloudflare.com\">"))

@@ -1,0 +1,36 @@
+// License server for the products in src/products.js (src/index.js), at
+// licenses.adamschaefers.com: real Stripe, real money (there is no sandbox).
+//   make licenses-test   the tests, offline        make licenses   tests, then deploy
+// Secrets (wrangler secret put NAME), never in the repo; backed up in the private repo
+// a-schaefers/adamschaefers.com-private:
+//   STRIPE_SECRET_KEY      live key (Checkout Sessions write is all it needs)
+//   STRIPE_WEBHOOK_SECRET  whsec_... of the webhook endpoint for /v1/stripe/webhook
+//   SIGNING_KEY            PKCS #8 PEM from scripts/keygen.js (live-1)
+//   RESEND_API_KEY         send-only Resend key
+//   TURNSTILE_SECRET       the "adamschaefers store" Turnstile widget
+// Rotating SIGNING_KEY: add the old key's public half ({ kid, x, y }) to an OLD_PUBLIC_KEYS var,
+// so keys it signed can still be looked up and have seats added, and ship the new public key
+// in Backseat Driver's PUBLIC_KEYS beside the old one.
+// /admin sits behind the Cloudflare Access application "Backseat Driver licenses admin".
+{
+  "name": "adamschaefers-licenses",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-01",
+  // Only the Worker's own event logs (no IP addresses in them); no per-request logs, which
+  // would keep each caller's IP and the URL with its install id.
+  "observability": { "enabled": true, "logs": { "invocation_logs": false } },
+  "d1_databases": [{ "binding": "DB", "database_name": "adamschaefers-licenses", "database_id": "82cd50be-9537-4e53-8779-452a42299433" }],
+  "ratelimits": [{ "name": "LIMIT", "namespace_id": "3002", "simple": { "limit": 20, "period": 60 } }],
+  "vars": {
+    "SITE_ORIGINS": "https://adamschaefers.com",
+    "SIGNING_KID": "live-1",
+    "PRICES": { "backseat-driver": { "seat": "price_1UPBKcAwNhq3P64enzC9NrPc", "volume": "price_1UPBL8AwNhq3P64ez3duzOAg" } },
+    "STRIPE_DASHBOARD": "https://dashboard.stripe.com/acct_1UOvhbAwNhq3P64e",
+    "FROM_EMAIL": "Adam Schaefers <licenses@adamschaefers.com>",
+    "ACCESS_TEAM": "nmwebkings.cloudflareaccess.com",
+    "ACCESS_AUD": "07db6f0f7517fe393148c3e0276cfa4ca05dd8f6060d62babda0b3bae25ba027",
+    "ADMIN_EMAIL": "adam.schaefers@icloud.com",
+    "TURNSTILE_HOSTNAMES": "adamschaefers.com"
+  },
+  "routes": [{ "pattern": "licenses.adamschaefers.com", "custom_domain": true }]
+}

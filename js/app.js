@@ -1,13 +1,15 @@
 // The site is one page. The sidebar is static HTML from index.org; this renders the menu
 // and one view at a time beside it from the #site-data JSON that site.el builds, so every
 // view is already loaded and switching never loads a page. Views are hash routes:
-//   #quest-log (the default)  #inquiries  #sitemap
+//   #quest-log (the default)  #store  #inquiries  #sitemap  #backseat-driver (its product in the store)
 //   #blog  #blog/2  #blog/<entry slug>, and the same under #off-the-clock
+//   #license/<Stripe checkout id>, where Stripe sends a license buyer back
 // Any other hash is left to the browser as a plain in-page anchor (footnotes, say).
 
 import { html, render, nothing } from './lit/lit-html/lit-html.js';
 import { unsafeHTML } from './lit/lit-html/directives/unsafe-html.js';
 import { mountContactForms } from './contact.js';
+import { mountStore, mountLicense } from './store.js';
 
 const SITE = 'Adam Schaefers';
 const data = JSON.parse(document.getElementById('site-data').textContent);
@@ -26,19 +28,32 @@ const TABS = [
       icon: '<path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M8 7h6M8 11h6"/>' },
     { route: 'off-the-clock', label: 'Off the clock', collection: 'off-the-clock',
       icon: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4" height="7" rx="1.5"/><rect x="17" y="14" width="4" height="7" rx="1.5"/>' },
+    { route: 'store', label: 'Store', sections: ['store'],
+      icon: '<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>' },
     { route: 'inquiries', label: 'Contact', sections: ['inquiries'],
       icon: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>' },
+];
+// Views that aren't in the menu; while one is open, the tab it hangs off is highlighted. A
+// product's route shows the store at that product (its <article id="product-<route>">).
+const PAGES = [
+    { route: 'backseat-driver', label: 'Backseat Driver commercial license', sections: ['store'], under: 'store', product: true },
 ];
 const DEFAULT = 'quest-log';
 const RSS_ICON = '<path d="M5 11a8 8 0 0 1 8 8M5 5a14 14 0 0 1 14 14"/><circle cx="6" cy="18" r="1.2"/>';
 
 // The view for the current hash, or null when the hash isn't a route.
 function parseRoute() {
-    const hash = decodeURIComponent(location.hash.slice(1));
+    let hash = location.hash.slice(1);
+    try {
+        hash = decodeURIComponent(hash);
+    } catch {
+        // A malformed % sequence (a half-copied link): take the hash as typed.
+    }
     if (!hash || hash === 'about' || hash === 'slop-shelf') return { tab: DEFAULT };
     if (hash === 'sitemap') return { tab: 'sitemap' };
     const [route, rest] = hash.split(/\/(.*)/s);
-    const tab = TABS.find(t => t.route === route);
+    if (route === 'license' && rest) return { tab: 'license', session: rest };
+    const tab = TABS.find(t => t.route === route) || PAGES.find(p => p.route === route);
     if (!tab) return null;
     if (tab.sections) return rest === undefined ? { tab: route } : null;
     if (rest === undefined) return { tab: route, page: 1 };
@@ -135,6 +150,7 @@ const sitemap = () => html`
                     ${collections[t.collection].entries.map(e => html`<li><a href="#${t.route}/${e.slug}">${e.title}</a> <time datetime=${e.date}>${e.dateLabel}</time></li>`)}
                 </ul>` : nothing}
             </li>`)}
+            ${PAGES.map(p => html`<li><a href="#${p.route}">${p.label}</a></li>`)}
         </ul>
         <h3>Feeds</h3>
         <ul>
@@ -143,9 +159,19 @@ const sitemap = () => html`
         </ul>
     </div>`;
 
+// Where Stripe sends a license buyer back; js/buy.js fills in the key.
+const license = session => html`
+    <div class="outline-2 license">
+        <h2>Thank you!</h2>
+        <div id="license-mount" data-session=${session}></div>
+    </div>`;
+
+const findView = route => TABS.find(t => t.route === route) || PAGES.find(p => p.route === route);
+
 function view(r) {
     if (r.tab === 'sitemap') return sitemap();
-    const t = TABS.find(t => t.route === r.tab);
+    if (r.tab === 'license') return license(r.session);
+    const t = findView(r.tab);
     if (t.collection) {
         const c = collections[t.collection];
         return r.entry === undefined ? listing(t.route, c, r.page) : single(t.route, t.label, c, r.entry);
@@ -156,7 +182,8 @@ function view(r) {
 function title(r) {
     if (r.tab === DEFAULT) return SITE;
     if (r.tab === 'sitemap') return `Sitemap · ${SITE}`;
-    const t = TABS.find(t => t.route === r.tab);
+    if (r.tab === 'license') return `Your license key · ${SITE}`;
+    const t = findView(r.tab);
     if (r.entry !== undefined) return `${collections[t.collection].entries[r.entry].title} · ${SITE}`;
     return `${t.label} · ${SITE}`;
 }
@@ -168,12 +195,16 @@ let shown = false;
 function show() {
     const r = parseRoute() || (shown ? null : { tab: DEFAULT });
     if (!r) return;
-    render(menu(r.tab), nav);
+    render(menu(PAGES.find(p => p.route === r.tab)?.under || r.tab), nav);
     render(view(r), app);
     mountContactForms(app);
+    mountStore(app);
+    mountLicense(app);
     document.title = title(r);
-    // A new view starts at the top of the page.
-    if (shown) scrollTo({ top: 0, behavior: 'instant' });
+    // A new view starts at the top of the page, or at its product.
+    const product = PAGES.find(p => p.route === r.tab && p.product) && document.getElementById(`product-${r.tab}`);
+    if (product) product.scrollIntoView({ behavior: 'instant', block: 'start' });
+    else if (shown) scrollTo({ top: 0, behavior: 'instant' });
     shown = true;
 }
 

@@ -318,7 +318,7 @@
 - *Also cooking 🍳: my side projects*
   - *[[https://merecatholicity.com][merecatholicity.com]]* ([[https://github.com/merecatholicity/merecatholicity.com][Git]]): my eclectic ecumenical project. It includes a self-published book, /Mere Catholicity/ (public domain, typeset in LaTeX for PDF, paperback and Logos), a library of the Fathers, councils and classics re-typeset from public-domain sources, and *merecat* 🐈, an AI research librarian that answers from the library with citations. I built it serverless: a PureScript, lit-js and Tailwind front end over a custom headless API backend on Cloudflare Workers, with D1 (SQLite), R2 (S3-compatible storage) and Durable Objects for real-time chat. A GitHub Actions CI/CD system ships both the application and its Terraform infrastructure, with approval gates before production, staged rollouts and nightly tests against production. For the community side I borrowed the best bits of the old internet: 4chan-style auth, Snapchat-style DMs, Signal-style end-to-end encryption, and Facebook-style profiles and walls.
   - *[[https://stasislinux.org][stasislinux.org]]* ([[https://codeberg.org/sta_sis/stasis][Git]]): my own Linux distro, the natural follow-through of my years as a package maintainer on KISS Linux with Dylan Araps.
-  - *[[https://github.com/a-schaefers/backseat-driver][backseat-driver]]*: my tutor for keeping AI-era programmers' fundamentals sharp.
+  - *[[https://github.com/a-schaefers/backseat-driver][backseat-driver]]*: my tutor for keeping AI-era programmers' fundamentals sharp. Free for personal use; @@html:<a href="#backseat-driver">commercial licenses in the store</a>@@ for businesses.
   - *[[https://github.com/a-schaefers/.emacs.d][.emacs.d]]*: my Emacs config. It starts in about 0.2s, with everything deferred through use-package. It prefers built-ins (eglot, flymake), runs on vertico/corfu/tree-sitter, and binds the same SLIME-style keys in every language.
 - *2020 – 2025 · ☁️ DevOps @ Upgrade, Inc. · Immaculata Studios, LLC · Skvare, LLC* \\
   Herded Kubernetes, Terraform (5k+ lines of homegrown modules), AWS, CI/CD pipelines, monitoring, and a Postfix server that sent a million emails a month without landing in spam. Rode the industry's evolution from LAMP-stack monoliths to IaC-driven cloud microservices, right up to the arrival of AI automation, which is when I turned to solo gamedev.
@@ -338,6 +338,45 @@ My secondary GitHub, [[https://github.com/el-sloppo][@el-sloppo]], is where I pu
 - *[[https://github.com/emacs-os/jellyfin-emms-mpv.el][jellyfin-emms-mpv.el]]*: browse and play your Jellyfin library from Emacs. Music goes through EMMS and video through mpv, with poster galleries, and playback position syncs back so "Continue Watching" stays accurate.
 - *[[https://github.com/emacs-os/elcava][elcava]]*: a cava clone in pure Emacs Lisp. It captures system audio from PipeWire, runs the FFT in Elisp, and draws a live Unicode spectrum in a buffer.
 - *[[https://github.com/emacs-os/el-init][el-init]]*: Emacs as PID 1, for real this time. It's a systemd-inspired service supervisor written in Emacs Lisp, with a dependency graph, targets, an ~M-x elinit~ dashboard and an ~elinitctl~ CLI, plus an optional static-build patchset that turns Emacs into an actual init. It's the spiritual sequel to systemE and the core of Emacs-OS.
+
+-----
+
+** 🛒 Store :view:
+:PROPERTIES:
+:CUSTOM_ID: store
+:END:
+
+Things I make and sell. Payment is through Stripe; keys arrive the moment you've paid, and by email.
+
+# Each product is an <article class="product"> (js/store.js finds them): its
+# image, its words in Org, then the buy form and the "already have a key" box,
+# mounted from the data-* attributes (prices must match license-worker's Stripe
+# prices). id="product-<id>" is where #<id> lands (PAGES in js/app.js).
+#+BEGIN_EXPORT html
+<article class="product" id="product-backseat-driver">
+<img class="product-image" src="images/store/placeholder.svg" alt="" width="640" height="360">
+<div class="product-body">
+<h3>Backseat Driver commercial license</h3>
+#+END_EXPORT
+
+[[https://github.com/a-schaefers/backseat-driver][Backseat Driver]] is my coding tutor for Claude Code. It's free for personal use: your own learning on your own time, hobby projects and unpaid open source, schools and charities too.
+
+If a business uses it, or has its people use it, that's commercial use, and it includes training. A team lead who has the team practice with it every Friday to keep their skills sharp needs a seat for each person. Freelance and other paid work count too. [[https://github.com/a-schaefers/backseat-driver/blob/main/COMMERCIAL-LICENSE.md][Read the terms]].
+
+- *$99 a seat*, paid once. The license is for life.
+- *25% off every seat from 10 seats*: $74.25 a seat.
+- One key covers every seat you buy. A seat is one person using it.
+- Need more seats later? Paste your key below and add them.
+- No seat police: nobody on your team ever sees a seat warning, and nothing stops working. If far more installs use your key than it has seats, whoever bought it may get one short email.
+
+#+BEGIN_EXPORT html
+<div class="buy-mount" data-product="backseat-driver" data-price="99" data-volume-price="74.25" data-volume-seats="10"></div>
+<div class="key-mount" data-product="backseat-driver" data-price="99" data-volume-price="74.25" data-volume-seats="10"></div>
+</div>
+</article>
+<div class="recover-mount"></div>
+<p class="store-admin"><a href="https://licenses.adamschaefers.com/admin" target="_blank" rel="noopener">Admin</a></p>
+#+END_EXPORT
 
 -----
 
