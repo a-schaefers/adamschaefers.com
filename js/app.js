@@ -14,6 +14,7 @@ const data = JSON.parse(document.getElementById('site-data').textContent);
 const sections = Object.fromEntries(data.views.map(v => [v.id, v]));
 // Collections (blog.org and blog/, off-the-clock.org and off-the-clock/): dated entries,
 // newest first, listed a page at a time. An entry with a video is shown as that video.
+// One RSS feed (data.feed) carries every collection.
 const collections = data.collections;
 
 // Menu tabs: the route each opens, what it shows (index.org sections by CUSTOM_ID, or a
@@ -89,7 +90,7 @@ function listing(route, c, page) {
     <div class="outline-2 blog">
         <h2>${c.title}</h2>
         ${unsafeHTML(c.intro)}
-        <p class="blog-rss"><a href=${c.feed}>${icon(RSS_ICON)}RSS feed</a></p>
+        <p class="blog-rss"><a href=${data.feed}>${icon(RSS_ICON)}RSS feed</a></p>
         ${shown.length
             ? html`<ol class=${shown.some(e => e.video) ? 'travelogs' : 'entries'}>${shown.map(e => entry(route, e))}</ol>`
             : html`<div class="entries-empty">
@@ -137,7 +138,7 @@ const sitemap = () => html`
         </ul>
         <h3>Feeds</h3>
         <ul>
-            ${TABS.filter(t => t.collection).map(t => html`<li><a href=${collections[t.collection].feed}>${t.label} RSS feed</a></li>`)}
+            <li><a href=${data.feed}>RSS feed</a> (the blog and Off the clock)</li>
             <li><a href="sitemap.xml">sitemap.xml</a></li>
         </ul>
     </div>`;

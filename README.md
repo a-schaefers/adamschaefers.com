@@ -18,8 +18,8 @@ make submodule
 
 Then:
 
-- `make build` regenerates `index.html`, the feeds (`rss.xml`,
-  `off-the-clock.xml`) and `sitemap.xml` from `index.org`, `blog.org`,
+- `make build` regenerates `index.html`, the RSS feed (`rss.xml`) and
+  `sitemap.xml` from `index.org`, `blog.org`,
   `blog/*.org`, `off-the-clock.org` and `off-the-clock/*.org` (needs Emacs).
 - `make run` serves the site at http://localhost:8000.
 - `make worker` deploys the contact form's Cloudflare Worker.

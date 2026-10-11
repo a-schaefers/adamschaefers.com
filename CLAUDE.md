@@ -35,9 +35,10 @@ from the site root, so link images and files as `blog/...`, `videos/...`.
 Links out of the site open in a new tab. The index file holds the
 collection's title, intro and `#+POSTS_PER_PAGE` (Off the clock: 12).
 
-The build also writes each collection's RSS feed (`rss.xml` for the blog,
-`off-the-clock.xml`), every entry in full with site-relative links made
-absolute against https://adamschaefers.com/ and videos as enclosures, and
+The build also writes `rss.xml`, one feed for both collections (a reader
+subscribes once): every entry in full, newest first, tagged with its
+collection as `<category>`, site-relative links made absolute against
+https://adamschaefers.com/ and videos as enclosures. It also writes
 `sitemap.xml`. Crawlers drop everything after `#`, so `sitemap.xml` lists
 only the page; the `#sitemap` view lists every view and entry for people.
 `robots.txt` points at `sitemap.xml`. `scripts/pre-commit` (installed as
