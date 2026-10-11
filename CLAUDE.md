@@ -90,12 +90,13 @@ can't play, so always re-encode.
 
 The Store (`/store/`, index.org's Store section) sells licenses: real Stripe,
 real money (there is no sandbox). Each product is an
-`<article class="product" id="product-<id>">` with its image (a placeholder,
-`images/store/placeholder.svg`, until a real one), its words in Org, and two
-mounts that `js/store.js` fills from their `data-*` attributes (product id,
-prices, volume seats; they must match the Worker's): the buy form and the
-"already have a key" box, which shows a key's seats and recent installs and
-adds seats. Below the products, "Lost your key?" emails an address every key
+`<article class="product" id="product-<id>">` with its image
+(`images/store/<id>.webp`, which zooms on a click; `data-share-image` names a
+PNG or JPEG copy for link previews), its words in Org, and two mounts that
+`js/store.js` fills from their `data-*` attributes (product id, prices, volume
+seats; they must match the Worker's): the buy form, and "Add seats to your
+license", a link (so several products don't repeat a box down the page) that
+opens a card which shows a key's seats and recent installs and adds seats. Below the products, "Lost your key?" emails an address every key
 on file for it (each license's newest unrevoked key; the answer never says
 whether there were any; per address one email per 30 seconds and 5 a day, and
 40 a day in all, keeping most of Resend's free 100 a day for key emails).

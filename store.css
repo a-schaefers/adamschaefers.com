@@ -64,9 +64,15 @@
 
 /* Lost your key */
 .recover-card { margin-top: 2.5rem; padding-top: 1.75rem; border-top: 1px solid var(--ridge); }
-.recover-open { font: inherit; font-size: .95rem; color: var(--dust); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline 1px rgba(168, 166, 190, .4); text-underline-offset: 3px; }
-.recover-open:hover, .recover-open:focus-visible { color: var(--turq); }
-.recover-open[hidden], .recover-body[hidden] { display: none; }
+.recover-open, .key-open { font: inherit; font-size: .95rem; color: var(--dust); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline 1px rgba(168, 166, 190, .4); text-underline-offset: 3px; }
+.recover-open:hover, .recover-open:focus-visible, .key-open:hover, .key-open:focus-visible { color: var(--turq); }
+.recover-open[hidden], .recover-body[hidden], .key-open[hidden], .key-card[hidden] { display: none; }
+/* Add seats: a link under the buy box until clicked, then its card pops in. */
+.key-open { margin-top: 1.1rem; }
+@media (prefers-reduced-motion: no-preference) {
+  .key-card.is-opening { animation: card-pop .3s cubic-bezier(.2, .9, .25, 1) both; transform-origin: top left; }
+  @keyframes card-pop { from { opacity: 0; transform: translateY(-.4rem) scale(.97); } }
+}
 .recover-card form[hidden] { display: none; }
 .recover-card .inquiry-sent { margin-top: .5rem; }
 .recover-card .sent-title { margin: 0; color: var(--sand); }

@@ -129,10 +129,14 @@ function mountBuy(mount) {
 }
 
 // Paste a key: its licensee, seats and the installs using it, and a way to add seats.
+// It starts folded away behind an "Add seats to your license" link, like "Lost your license
+// key?": with several products, a box under each would repeat all down the page. A click
+// opens it, its card popping in.
 function mountKey(mount) {
     const p = pricing(mount);
     mount.innerHTML = `
-<form class="key-card" novalidate>
+<button type="button" class="key-open" aria-expanded="false" aria-controls="key-card-${p.product}">Add seats to your license</button>
+<form class="key-card" id="key-card-${p.product}" novalidate hidden>
   <h4 class="key-title">Add seats to your license</h4>
   <label for="key-${p.product}">Growing team? Paste your license key, pick how many more seats, and pay for just those. ${money(p.price)} a seat, 25% off every seat once your license has ${p.volumeSeats} or more. You get one new key covering them all.</label>
   <textarea id="key-${p.product}" rows="3" spellcheck="false" autocomplete="off" placeholder="Paste your license key"></textarea>
@@ -141,7 +145,15 @@ function mountKey(mount) {
     const form = mount.querySelector('form');
     const area = form.querySelector('textarea');
     const result = form.querySelector('.key-result');
+    const opener = mount.querySelector('.key-open');
     let timer = null, asked = '';
+    opener.addEventListener('click', () => {
+        opener.hidden = true;
+        opener.setAttribute('aria-expanded', 'true');
+        form.hidden = false;
+        form.classList.add('is-opening');
+        area.focus();
+    });
 
     // The seats are the license's. Installs can't tell people from machines, so they're said
     // plainly, and more seats are suggested only when installs are clearly over: more than
