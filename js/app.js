@@ -2,6 +2,7 @@
 // and one view at a time beside it from the #site-data JSON that site.el builds, so every
 // view is already loaded and switching never loads a page. Views are hash routes:
 //   #quest-log (the default)  #store  #inquiries  #sitemap  #backseat-driver (its product in the store)
+//   #privacy-policy  #terms-of-service (linked from the footer)
 //   #blog  #blog/2  #blog/<entry slug>, and the same under #off-the-clock
 //   #license/<Stripe checkout id>, where Stripe sends a license buyer back
 // Any other hash is left to the browser as a plain in-page anchor (footnotes, say).
@@ -37,6 +38,8 @@ const TABS = [
 // product's route shows the store at that product (its <article id="product-<route>">).
 const PAGES = [
     { route: 'backseat-driver', label: 'Backseat Driver commercial license', sections: ['store'], under: 'store', product: true },
+    { route: 'privacy-policy', label: 'Privacy policy', sections: ['privacy-policy'] },
+    { route: 'terms-of-service', label: 'Terms of service', sections: ['terms-of-service'] },
 ];
 const DEFAULT = 'quest-log';
 const RSS_ICON = '<path d="M5 11a8 8 0 0 1 8 8M5 5a14 14 0 0 1 14 14"/><circle cx="6" cy="18" r="1.2"/>';

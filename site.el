@@ -287,7 +287,7 @@ could pair a new module with an old cached one that lacks what it imports."
               ;; js/app.js keeps the year current; the build year is the fallback.
               (org-html-postamble
                (lambda (_)
-                 (format "<footer class=\"site-footer\">© <span id=\"year\">%s</span> adamschaefers.com · <a href=\"#sitemap\">Sitemap</a></footer>"
+                 (format "<footer class=\"site-footer\">© <span id=\"year\">%s</span> adamschaefers.com · <a href=\"#sitemap\">Sitemap</a> · <a href=\"#privacy-policy\">Privacy</a> · <a href=\"#terms-of-service\">Terms</a></footer>"
                          (format-time-string "%Y")))))
          (random "index")
          (org-export-to-file 'html "index.html")
