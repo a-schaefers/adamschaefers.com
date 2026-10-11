@@ -19,8 +19,8 @@
 ;; caption.  The index file holds the collection's title, intro text and
 ;; #+POSTS_PER_PAGE.
 ;;
-;; The build also writes an RSS feed per collection, every entry in full, and
-;; sitemap.xml.
+;; The build also writes rss.xml, one feed of every collection's entries in
+;; full, and sitemap.xml.
 
 (require 'cl-lib)
 (require 'json)
@@ -29,12 +29,11 @@
 (require 'xml)
 
 (defconst site-collections
-  '((blog :dir "blog/" :index "blog.org" :feed "rss.xml"
-          :name "Blog" :about "Posts by Adam Schaefers")
-    (off-the-clock :dir "off-the-clock/" :index "off-the-clock.org" :feed "off-the-clock.xml"
-                   :name "Off the clock" :about "Travelogs by Adam Schaefers"))
-  "Each collection: its route (the symbol), entry folder, index file, feed,
-the feed's name and description.")
+  '((blog :dir "blog/" :index "blog.org" :name "Blog")
+    (off-the-clock :dir "off-the-clock/" :index "off-the-clock.org" :name "Off the clock"))
+  "Each collection: its route (the symbol), entry folder, index file and name.")
+(defconst site-feed "rss.xml"
+  "The one feed: every collection's entries, newest first.")
 (defconst site-entry-re
   "\\`\\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\)-\\(.+\\)\\.org\\'")
 (defconst site-default-per-page 10)
@@ -149,7 +148,6 @@ Org's heading ids are random; SEED keeps them the same from build to build."
       `((title . ,(or (site--keyword "TITLE") (plist-get plist :name)))
         (intro . ,(site--body-html (symbol-name route)))
         (perPage . ,(if (> per-page 0) per-page site-default-per-page))
-        (feed . ,(plist-get plist :feed))
         (entries . ,(vconcat (site--entries route (plist-get plist :dir))))))))
 
 ;;; RSS
@@ -180,25 +178,28 @@ Org's heading ids are random; SEED keeps them the same from build to build."
               "")
             (alist-get 'html entry))))
 
-(defun site--write-feed (route plist collection)
-  "Write COLLECTION's feed: every entry, newest first, in full."
-  (let ((entries (append (alist-get 'entries collection) nil))
-        (title (concat (plist-get plist :name) " · Adam Schaefers"))
-        (link (format "%s#%s" site-url route))
-        (feed (plist-get plist :feed)))
-    (with-temp-file feed
+(defun site--write-feed (collections)
+  "Write `site-feed': every entry of COLLECTIONS, newest first, in full."
+  (let ((items (sort (mapcan (lambda (c)
+                               (mapcar (lambda (e) (list (car c) e))
+                                       (alist-get 'entries (cdr c))))
+                             collections)
+                     ;; Stable, so same-day entries keep collection order.
+                     (lambda (a b) (string> (alist-get 'date (cadr a))
+                                            (alist-get 'date (cadr b)))))))
+    (with-temp-file site-feed
       (insert "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
               "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:content=\"http://purl.org/rss/1.0/modules/content/\">\n"
               "<channel>\n"
-              "  <title>" (xml-escape-string title) "</title>\n"
-              "  <link>" link "</link>\n"
-              "  <description>" (xml-escape-string (plist-get plist :about)) "</description>\n"
+              "  <title>Adam Schaefers</title>\n"
+              "  <link>" site-url "</link>\n"
+              "  <description>Posts and travelogs by Adam Schaefers</description>\n"
               "  <language>en</language>\n"
-              "  <atom:link href=\"" site-url feed "\" rel=\"self\" type=\"application/rss+xml\"/>\n")
+              "  <atom:link href=\"" site-url site-feed "\" rel=\"self\" type=\"application/rss+xml\"/>\n")
       ;; The newest entry's date rather than the clock, so rebuilds are identical.
-      (when entries
-        (insert "  <lastBuildDate>" (site--rss-date (alist-get 'date (car entries))) "</lastBuildDate>\n"))
-      (dolist (entry entries)
+      (when items
+        (insert "  <lastBuildDate>" (site--rss-date (alist-get 'date (cadr (car items)))) "</lastBuildDate>\n"))
+      (pcase-dolist (`(,route ,entry) items)
         (let ((url (format "%s#%s/%s" site-url route (alist-get 'slug entry)))
               (video (alist-get 'video entry)))
           (insert "  <item>\n"
@@ -206,6 +207,7 @@ Org's heading ids are random; SEED keeps them the same from build to build."
                   "    <link>" url "</link>\n"
                   "    <guid isPermaLink=\"true\">" url "</guid>\n"
                   "    <pubDate>" (site--rss-date (alist-get 'date entry)) "</pubDate>\n"
+                  "    <category>" (plist-get (alist-get route site-collections) :name) "</category>\n"
                   "    <description>" (site--cdata (site--absolute-urls (alist-get 'excerpt entry))) "</description>\n"
                   "    <content:encoded>" (site--cdata (site--absolute-urls (site--entry-full-html entry))) "</content:encoded>\n")
           (when video
@@ -249,13 +251,11 @@ drop the part after #, so the page itself is the only URL to list; the
                               site-collections)))
      (with-current-buffer (find-file-noselect "index.org")
        (let* ((data `((views . ,(vconcat (site--views)))
-                      (collections . ,collections)))
+                      (collections . ,collections)
+                      (feed . ,site-feed)))
               (org-export-exclude-tags '("noexport" "view"))
               (org-html-head-extra
-               (concat (mapconcat (lambda (c)
-                                    (format "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Adam Schaefers · %s\" href=\"%s\">\n"
-                                            (plist-get (cdr c) :name) (plist-get (cdr c) :feed)))
-                                  site-collections "")
+               (concat (format "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Adam Schaefers\" href=\"%s\">\n" site-feed)
                        (format "<link rel=\"stylesheet\" href=\"%s\">\n" (site--asset "nav.css"))
                        (format "<link rel=\"stylesheet\" href=\"%s\">\n" (site--asset "blog.css"))
                        "<script type=\"application/json\" id=\"site-data\">"
@@ -276,8 +276,7 @@ drop the part after #, so the page itself is the only URL to list; the
                          (format-time-string "%Y")))))
          (random "index")
          (org-export-to-file 'html "index.html")
-         (dolist (c site-collections)
-           (site--write-feed (car c) (cdr c) (alist-get (car c) collections)))
+         (site--write-feed collections)
          (site--write-sitemap)
          (message "site: %d views, %s"
                   (length (alist-get 'views data))
