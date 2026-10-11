@@ -304,15 +304,16 @@ function mountRecover(mount) {
     });
 }
 
-// A product's title gets a link icon that copies its direct link (#<id>, which opens the
-// store at that product), always the live address so a shared link works anywhere.
+// A product's title gets a link icon that copies its share link (/<id>/: the page site.el
+// makes for link previews, which opens the store at that product), always the live address
+// so a shared link works anywhere.
 const LINK_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.1 1.1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.1-1.1"/></svg>';
 
 function mountShare(product) {
     const title = product.querySelector('.product-body > h3');
     const id = product.id.replace(/^product-/, '');
     if (!title || !id) return;
-    const url = `https://adamschaefers.com/#${id}`;
+    const url = `https://adamschaefers.com/${id}/`;
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'product-link';

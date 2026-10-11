@@ -218,17 +218,161 @@ Org's heading ids are random; SEED keeps them the same from build to build."
           (insert "  </item>\n")))
       (insert "</channel>\n</rss>\n"))))
 
+;;; Share pages and link previews
+
+;; Link previews (social media, chat apps) and search crawlers read a page's
+;; HTML without running its JavaScript, and drop everything after #.  So every
+;; view, product and entry also gets a small page at a real path
+;; (store/index.html, off-the-clock/<slug>/index.html, ...) carrying its title,
+;; description and picture, which sends people on to its #route.  The pages
+;; made are listed in share-pages.txt, so the next build (and the pre-commit
+;; hook) can drop the ones that are gone.
+
+(defconst site-name "Adam Schaefers")
+(defconst site-share-image "images/og.jpg"
+  "The preview picture (1200x630): the profile photo, name and roles.")
+(defconst site-home-views '("about" "quest-log" "slop-shelf")
+  "Views shown together as the home page: no page of their own.")
+(defconst site-share-list "share-pages.txt")
+(defconst site-share-descriptions
+  '(("inquiries" . "Get in touch with Adam Schaefers: work, licenses, or just to say hi.")
+    ("blog" . "Posts by Adam Schaefers."))
+  "Descriptions for views and collections with no paragraph of their own to take one from.")
+
+(defun site--decode (text)
+  "TEXT with the few HTML entities Org writes turned back into characters."
+  (let ((case-fold-search nil))
+    (dolist (e '(("&lt;" . "<") ("&gt;" . ">") ("&quot;" . "\"") ("&#39;" . "'") ("&nbsp;" . " ") ("&amp;" . "&")) text)
+      (setq text (string-replace (car e) (cdr e) text)))))
+
+(defun site--summary (html &optional max)
+  "HTML as one plain line of at most MAX (200) characters, cut at a word."
+  (let* ((max (or max 200))
+         (text (string-trim (replace-regexp-in-string "[ \t\n]+" " " (site--decode (replace-regexp-in-string "<[^>]*>" " " html))))))
+    (if (<= (length text) max) text
+      (concat (string-trim-right (replace-regexp-in-string "[ ,;:]+[^ ]*\\'" "" (substring text 0 max))) "…"))))
+
+(defun site--plain-title (title)
+  "TITLE without the emoji in front: \"🛒 Store\" -> \"Store\", \"✉️ Inquiries\" -> \"Inquiries\"."
+  (let ((text (string-trim (site--decode title))))
+    ;; Up to the first letter or digit (an emoji can be several characters: ✉ and its variation selector).
+    (while (and (> (length text) 0)
+                (not (memq (get-char-code-property (aref text 0) 'general-category) '(Lu Ll Lt Lm Lo Nd Nl No))))
+      (setq text (substring text 1)))
+    (string-trim text)))
+
+(defun site--first-paragraph-html (html)
+  "The first <p> of HTML, or \"\"."
+  (if (string-match "<p>\\(\\(?:.\\|\n\\)*?\\)</p>" html) (match-string 1 html) ""))
+
+(defun site--attr (text)
+  "TEXT for a double-quoted attribute."
+  (replace-regexp-in-string "[&\"<>]" (lambda (c) (pcase c ("&" "&amp;") ("\"" "&quot;") ("<" "&lt;") (_ "&gt;"))) text t t))
+
+(defun site--meta (title description url image &optional type)
+  "The tags a link preview reads."
+  (let ((image (concat site-url image)))
+    (mapconcat
+     #'identity
+     (list (format "<meta name=\"description\" content=\"%s\">" (site--attr description))
+           (format "<link rel=\"canonical\" href=\"%s\">" url)
+           (format "<meta property=\"og:site_name\" content=\"%s\">" site-name)
+           (format "<meta property=\"og:type\" content=\"%s\">" (or type "website"))
+           (format "<meta property=\"og:title\" content=\"%s\">" (site--attr title))
+           (format "<meta property=\"og:description\" content=\"%s\">" (site--attr description))
+           (format "<meta property=\"og:url\" content=\"%s\">" url)
+           (format "<meta property=\"og:image\" content=\"%s\">" image)
+           (format "<meta property=\"og:image:alt\" content=\"%s\">" (site--attr title))
+           "<meta name=\"twitter:card\" content=\"summary_large_image\">"
+           (format "<meta name=\"twitter:title\" content=\"%s\">" (site--attr title))
+           (format "<meta name=\"twitter:description\" content=\"%s\">" (site--attr description))
+           (format "<meta name=\"twitter:image\" content=\"%s\">" image))
+     "\n")))
+
+(defun site--share-pages (views collections)
+  "Every page to make: (PATH ROUTE TITLE DESCRIPTION IMAGE TYPE), PATH under the site root."
+  (let ((fallback (site--summary (alist-get 'html (seq-find (lambda (v) (equal (alist-get 'id v) "about")) views)))))
+    (append
+     ;; Views, and the products in them.
+     (mapcan
+      (lambda (v)
+        (let ((id (alist-get 'id v)) (html (alist-get 'html v)))
+          (unless (member id site-home-views)
+            (let ((summary (site--summary (site--first-paragraph-html html))))
+              (cons (list id id (site--plain-title (alist-get 'title v))
+                          (if (string-empty-p summary) (or (cdr (assoc id site-share-descriptions)) fallback) summary)
+                          site-share-image "website")
+                    (let (products (start 0))
+                      (while (string-match "<article class=\"product\" id=\"product-\\([^\"]+\\)\">\\(\\(?:.\\|\n\\)*?\\)</article>" html start)
+                        (let ((pid (match-string 1 html)) (body (match-string 2 html)))
+                          (setq start (match-end 0))
+                          (push (list pid pid
+                                      (site--plain-title (if (string-match "<h3>\\(\\(?:.\\|\n\\)*?\\)</h3>" body) (match-string 1 body) pid))
+                                      (site--summary (if (string-match "</h3>\\(\\(?:.\\|\n\\)*?\\)</p>" body) (match-string 1 body) html))
+                                      site-share-image "product")
+                                products)))
+                      (nreverse products)))))))
+      views)
+     ;; Collections, and their entries.
+     (mapcan
+      (lambda (c)
+        (let* ((route (symbol-name (car c))) (col (cdr c)) (intro (site--summary (alist-get 'intro col))))
+          (cons (list route route (site--plain-title (alist-get 'title col))
+                      (if (string-empty-p intro) (or (cdr (assoc route site-share-descriptions)) fallback) intro)
+                      site-share-image "website")
+                (mapcar (lambda (e)
+                          (let ((excerpt (site--summary (alist-get 'excerpt e))))
+                            (list (concat route "/" (alist-get 'slug e)) (concat route "/" (alist-get 'slug e))
+                                  (site--plain-title (alist-get 'title e))
+                                  (if (string-empty-p excerpt) fallback excerpt)
+                                  (or (alist-get 'poster e) site-share-image) "article")))
+                        (append (alist-get 'entries col) nil)))))
+      collections))))
+
+(defun site--write-share-pages (pages)
+  "Write PAGES as PATH/index.html, drop the ones an earlier build made that are gone,
+and list them in `site-share-list'."
+  (let ((old (and (file-exists-p site-share-list)
+                  (split-string (with-temp-buffer (insert-file-contents site-share-list) (buffer-string)) "\n" t)))
+        made)
+    (pcase-dolist (`(,path ,route ,title ,description ,image ,type) pages)
+      (let ((file (concat path "/index.html"))
+            (url (concat site-url path "/"))
+            (full (format "%s · %s" title site-name)))
+        (make-directory path t)
+        (with-temp-file file
+          (insert "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n"
+                  "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
+                  "<title>" (site--attr full) "</title>\n"
+                  (site--meta full description url image (if (equal type "article") "article" "website")) "\n"
+                  ;; People go on to the page itself; previews and crawlers stop here.
+                  (format "<meta http-equiv=\"refresh\" content=\"0; url=/#%s\">\n" route)
+                  (format "<script>location.replace('/#%s')</script>\n" route)
+                  "</head>\n<body>\n"
+                  (format "<p><a href=\"/#%s\">%s</a></p>\n" route (site--attr full))
+                  "</body>\n</html>\n"))
+        (push file made)))
+    (setq made (sort made #'string<))
+    (dolist (gone (seq-difference old made))
+      (when (file-exists-p gone)
+        (delete-file gone)
+        (ignore-errors (delete-directory (file-name-directory gone)))))
+    (with-temp-file site-share-list
+      (insert (mapconcat #'identity made "\n") "\n"))
+    made))
+
 ;;; Sitemap
 
-(defun site--write-sitemap ()
-  "Write sitemap.xml.  Every view is a #route of the one page, and crawlers
-drop the part after #, so the page itself is the only URL to list; the
-#sitemap view lists every view and entry for people."
+(defun site--write-sitemap (pages)
+  "Write sitemap.xml: the home page, and every share page (the views and
+entries at real paths, which crawlers can read)."
   (with-temp-file "sitemap.xml"
     (insert "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n"
-            "  <url><loc>" site-url "</loc></url>\n"
-            "</urlset>\n")))
+            "  <url><loc>" site-url "</loc></url>\n")
+    (dolist (page pages)
+      (insert "  <url><loc>" site-url (car page) "/</loc></url>\n"))
+    (insert "</urlset>\n")))
 
 ;;; The page
 
@@ -261,13 +405,18 @@ could pair a new module with an old cached one that lacks what it imports."
    (let ((collections (mapcar (lambda (c) (cons (car c) (site--collection (car c) (cdr c))))
                               site-collections)))
      (with-current-buffer (find-file-noselect "index.org")
-       (let* ((data `((views . ,(vconcat (site--views)))
+       (let* ((views (site--views))
+              (data `((views . ,(vconcat views))
                       (collections . ,collections)
                       (feed . ,site-feed)))
+              (pages (site--share-pages views collections))
+              (home (site--summary (alist-get 'html (seq-find (lambda (v) (equal (alist-get 'id v) "about")) views))))
               (org-export-exclude-tags '("noexport" "view"))
               (org-html-head-extra
                (concat ;; Before any module loads: browsers ignore an import map that comes later.
                        "<script type=\"importmap\">" (site--import-map) "</script>\n"
+                       ;; The home page's link preview; other pages have their own (site--share-pages).
+                       (site--meta site-name home site-url site-share-image) "\n"
                        (format "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Adam Schaefers\" href=\"%s\">\n" site-feed)
                        (format "<link rel=\"stylesheet\" href=\"%s\">\n" (site--asset "nav.css"))
                        (format "<link rel=\"stylesheet\" href=\"%s\">\n" (site--asset "blog.css"))
@@ -292,7 +441,8 @@ could pair a new module with an old cached one that lacks what it imports."
          (random "index")
          (org-export-to-file 'html "index.html")
          (site--write-feed collections)
-         (site--write-sitemap)
+         (site--write-share-pages pages)
+         (site--write-sitemap pages)
          (message "site: %d views, %s"
                   (length (alist-get 'views data))
                   (mapconcat (lambda (c) (format "%d %s" (length (alist-get 'entries (cdr c))) (car c)))
