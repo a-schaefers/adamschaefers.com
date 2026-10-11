@@ -27,3 +27,9 @@ updates:
     groups:
       toolchain:
         update-types: ["minor", "patch"]
+    # @types/node follows the Node the site runs on (24: node-version in check.yml and
+    # deploy.yml, engines in package.json); a newer major's types would accept APIs that
+    # Node 24 lacks. Lift this when Node itself moves.
+    ignore:
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
