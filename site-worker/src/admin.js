@@ -25,7 +25,10 @@ const TYPES = {
 };
 // Only these: the media domain is same-site with the site and the license server, so nothing
 // that a browser would run as a page (HTML, SVG) may be served from it.
-const typeOf = (name) => TYPES[name.slice(name.lastIndexOf('.') + 1)];
+const typeOf = (name) => {
+  const ext = name.slice(name.lastIndexOf('.') + 1);
+  return Object.hasOwn(TYPES, ext) ? TYPES[ext] : undefined; // not x.constructor's
+};
 const SECURITY = { 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'strict-origin-when-cross-origin' };
 
 const json = (data, status = 200) => new Response(JSON.stringify(data), {
