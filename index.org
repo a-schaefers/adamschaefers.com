@@ -361,7 +361,7 @@ Things I make and sell. Payment is through Stripe; keys arrive the moment you've
 
 [[https://github.com/a-schaefers/backseat-driver][Backseat Driver]] is my coding tutor for Claude Code. It's free for personal use: your own learning on your own time, hobby projects and unpaid open source, schools and charities too.
 
-If a business uses it, or has its people use it, that's commercial use, and it includes training. A team lead who has the team practice with it every Friday to keep their skills sharp needs a seat for each person. Freelance and other paid work count too. [[https://github.com/a-schaefers/backseat-driver/blob/main/COMMERCIAL-LICENSE.md][Read the terms]].
+If a business uses Backseat Driver or has its people use it, training included, that's commercial use, and purchasing a commercial license is required. Freelance and other paid work count too. [[https://github.com/a-schaefers/backseat-driver/blob/main/COMMERCIAL-LICENSE.md][Read the terms]].
 
 - *$99 a seat*, paid once. The license is for life.
 - *25% off every seat from 10 seats*: $74.25 a seat.
