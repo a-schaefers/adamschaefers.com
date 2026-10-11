@@ -1,0 +1,11 @@
+# Headers for the built site, read by Workers Static Assets (make dist copies this into
+# public/ and adds a rule per hashed style and script, which browsers keep for good).
+# Pages, the feed and everything else keep the default: public, max-age=0, must-revalidate,
+# with an ETag, so each visit checks for a newer deploy and a 304 answers when there's none.
+# Never "cache" in site-worker/wrangler.jsonc: it would bill these requests as the Worker's.
+/*
+  X-Frame-Options: DENY
+  Content-Security-Policy: frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000

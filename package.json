@@ -1,0 +1,10 @@
+{
+  "name": "adamschaefers.com",
+  "private": true,
+  "type": "module",
+  "description": "The toolchain only: wrangler, pinned here for CI and local use (npx wrangler -c <worker>/wrangler.jsonc).",
+  "engines": { "node": ">=24" },
+  "devDependencies": {
+    "wrangler": "4.149.0"
+  }
+}

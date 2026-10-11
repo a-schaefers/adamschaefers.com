@@ -1,5 +1,5 @@
 #+TITLE: Hawaiʻi 🌺
-#+VIDEO: videos/hawaii.mp4
+#+VIDEO: https://media.adamschaefers.com/hawaii.mp4
 #+POSTER: videos/hawaii.jpg
 
 Back in Hawaiʻi 🌺 with my ohana. I lived in Waiʻanae and worked hospitality in Waikīkī for most of my 20s.
