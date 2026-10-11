@@ -1,4 +1,4 @@
-.PHONY: build run submodule worker
+.PHONY: build run submodule worker licenses licenses-test
 
 PORT ?= 8000
 
@@ -18,3 +18,10 @@ submodule:
 
 worker:
 	cd contact-worker && npx wrangler deploy
+
+# The license server (license-worker/): its tests (offline), then a deploy. Live: real money.
+licenses-test:
+	cd license-worker && node --test test/*.test.js
+
+licenses: licenses-test
+	cd license-worker && npx wrangler deploy

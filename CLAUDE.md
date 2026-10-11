@@ -16,8 +16,11 @@ each collection `#blog`, `#blog/2`, `#blog/<entry slug>`) without page
 loads. A section is shown by tagging it `:view:` and listing it under a tab
 in `TABS` in `js/app.js` (Projects shows About, the Quest Log and the slop
 shelf), which also holds the menu's labels and icons.
-If `js/app.js` gains or loses an import, update `site-module-imports` in
-`site.el`, which preloads them all with it.
+If `js/app.js` gains or loses an import, direct or not, update
+`site-module-imports` in `site.el`: it preloads them all at content-hashed
+URLs and writes an import map sending every import there, so a browser never
+pairs a new module with an old cached one. A module missing from the list
+still loads, unversioned.
 The sidebar (index.org's Contact section) and the footer (`site.el`, with
 the Sitemap link) are written once and frame every view.
 `nav.css` styles the menu (top on desktop, bottom tab bar on phones),
@@ -43,8 +46,9 @@ https://adamschaefers.com/ and videos as enclosures. It also writes
 only the page; the `#sitemap` view lists every view and entry for people.
 `robots.txt` points at `sitemap.xml`. `scripts/pre-commit` (installed as
 `.git/hooks/pre-commit`) rebuilds and stages all generated files on every
-commit; if you change what the build generates, update the hook and
-reinstall it.
+commit, building from the staged files (a copy of the index), so another
+session's unstaged edits never ship in them; if you change what the build
+generates, update the hook and reinstall it.
 
 The travelog videos are MP4s in `videos/`, committed to git and served by
 GitHub Pages, which answers range requests, so they stream and seek with no
@@ -57,6 +61,65 @@ can't play, so always re-encode.
 
 `fonts/TwemojiCountryFlags.woff2` draws flag emoji, which Windows lacks; see
 `fonts/README.md`.
+
+The Store (`#store`, index.org's Store section) sells licenses: real Stripe,
+real money (there is no sandbox). Each product is an
+`<article class="product" id="product-<id>">` with its image (a placeholder,
+`images/store/placeholder.svg`, until a real one), its words in Org, and two
+mounts that `js/store.js` fills from their `data-*` attributes (product id,
+prices, volume seats; they must match the Worker's): the buy form and the
+"already have a key" box, which shows a key's seats and recent installs and
+adds seats. Below the products, "Lost your key?" emails an address every key
+on file for it (each license's newest unrevoked key; the answer never says
+whether there were any; per address one email per 30 seconds and 5 a day, and
+40 a day in all, keeping most of Resend's free 100 a day for key emails).
+Buying, adding seats and recovery each pass a Turnstile check (the
+"adamschaefers store" widget, adamschaefers.com only, so locally the store
+shows but can't buy). `js/store.js` renders it with `loadTurnstile` from
+`js/contact.js` (Turnstile's script must be on the page once; that export is
+the one difference from enchant.games' copy). A Cloudflare rate-limit rule on
+the zone allows 5 `POST /v1/checkout` or `/v1/recover` per IP per 10 seconds.
+Bot Fight Mode stays off: on the free plan it can't be skipped, and it would
+challenge Stripe's webhooks, the plugin's key check and the contact form. A
+product's own route (`#backseat-driver`, `PAGES` in `js/app.js`) shows the
+store at that product. Stripe returns buyers to `#license/<checkout id>`, where
+the key is shown (copy, print) and said to be emailed. `store.css` styles it.
+The store's admin link goes to the license server's `/admin`.
+
+`license-worker/` is that server: a Cloudflare Worker at
+licenses.adamschaefers.com with its D1 database (`adamschaefers-licenses`).
+What it sells is `src/products.js`; each product's two Stripe prices (per
+seat, and per seat once a license has `volumeSeats`) are `PRICES` in
+`wrangler.jsonc`. It makes Stripe Checkouts, issues a key when Stripe says
+paid (webhook, or the thank-you page asking first), signs it (`BSD1.` keys,
+the format Backseat Driver checks offline against the public key it ships),
+emails it through Resend from licenses@adamschaefers.com (send only: the email
+says not to reply and links the contact form; no colors, so dark mode reads
+it), emails the owner (adam.schaefers@icloud.com) of each sale, and revokes the
+key on a full refund or a lost chargeback. A paid Checkout that can't become a
+key emails the owner too. Licenses are lifetime, one key per purchase covering
+its seats; adding seats issues one new key for the new total in the same
+family, and the old keys keep working. A family is the license: it stands
+while any of its keys does, so refunding only an add-on never withdraws it.
+Apps check a key at `GET /v1/keys/<id>` (rate limited) with an anonymous
+install id; the server keeps at most max(50, 3 × seats) installs per license
+and counts those seen in 14 days. Never a false alarm for a customer who paid:
+nobody using the app is shown anything about seats, and the buyer gets one
+polite email only when installs are more than twice the seats and 5 over for
+two weeks running, at most every 90 days. `/admin` (behind Cloudflare Access,
+adam.schaefers@icloud.com) lists every license and email, and withdraws,
+restores (whole licenses), resends and issues by hand. Its per-request logs are
+off (no IP addresses kept). Secrets are Worker secrets only (`wrangler secret
+put`, listed in `wrangler.jsonc`); a local copy lives in the git-ignored
+`license-worker/.dev.vars` and the signing key in
+`~/.config/adamschaefers-licenses/`, never in the repo. All of them are backed
+up in the private repository a-schaefers/adamschaefers.com-private (cloned
+beside this one, not a submodule: this repo is public), whose README says how
+to restore them; update it when a secret changes. A database change is a new
+file in `license-worker/migrations/`, run once on the database, and
+`schema.sql` kept as the whole. `make licenses-test` runs its tests offline
+(Node's SQLite stands in for D1; Stripe, Resend and Access are faked); there
+is no sandbox, so a change is tested there before `make licenses` deploys it.
 
 The Inquiries (Contact) view's form is mounted by `js/contact.js`, the same
 module as `js/contact.js` in ../enchant.games. It posts to `contact-worker/`, a

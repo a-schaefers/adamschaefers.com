@@ -1,14 +1,30 @@
 #!/bin/sh
 
-# Rebuild the generated files from their org sources and stage them with
-# every commit, so the page, feeds and sitemap never lag behind.
+# Rebuild the generated files (index.html, rss.xml, sitemap.xml) from what is
+# being committed, and commit them with it, so they never lag behind.
+#
+# The build runs on a copy of the index (the staged files), not the working
+# tree: unstaged edits, such as another session's work in progress, never end
+# up in a generated file. When nothing else is unstaged, the working tree gets
+# the same outputs, so `git status` stays clean.
 
 set -e
 
-make build
+generated="index.html rss.xml sitemap.xml"
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
 
-git add index.html rss.xml sitemap.xml
+git checkout-index --all --prefix="$tmp/"
+make -s -C "$tmp" build
+
+for f in $generated; do
+    blob=$(git hash-object -w "$tmp/$f")
+    git update-index --add --cacheinfo 100644,"$blob","$f"
+done
+
+if git diff --quiet -- . ':(exclude)index.html' ':(exclude)rss.xml' ':(exclude)sitemap.xml'; then
+    for f in $generated; do cp "$tmp/$f" "$f"; done
+fi
 
 echo "Pre-commit hook completed successfully"
-
 exit 0

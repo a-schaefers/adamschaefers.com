@@ -1,0 +1,6 @@
+# Local Worker secrets (wrangler reads .dev.vars for local dev) and caches.
+# Real secrets live in each Worker's Cloudflare secrets, never in the repo.
+.dev.vars*
+.env*
+.wrangler/
+node_modules/
