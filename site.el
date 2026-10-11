@@ -78,7 +78,10 @@ Org's heading ids are random; SEED keeps them the same from build to build."
        (let ((id (org-entry-get nil "CUSTOM_ID")))
          (push `((id . ,id)
                  (title . ,(org-get-heading t t t t))
-                 (html . ,(site--body-html (concat "view:" id) t)))
+                 (html . ,(site--body-html (concat "view:" id) t))
+                 ;; Its link preview: the heading's DESCRIPTION and IMAGE properties.
+                 (description . ,(or (org-entry-get nil "DESCRIPTION") ""))
+                 (image . ,(or (org-entry-get nil "IMAGE") "")))
                views)))
      "view")
     (nreverse views)))
@@ -124,7 +127,8 @@ Org's heading ids are random; SEED keeps them the same from build to build."
           (org-mode)
           (let ((excerpt (or (site--keyword "DESCRIPTION") (site--first-paragraph)))
                 (video (site--keyword "VIDEO"))
-                (poster (site--keyword "POSTER")))
+                (poster (site--keyword "POSTER"))
+                (image (site--keyword "IMAGE")))
             (push `((slug . ,slug)
                     (date . ,date)
                     (dateLabel . ,(site--date-label date))
@@ -137,7 +141,8 @@ Org's heading ids are random; SEED keeps them the same from build to build."
                     (html . ,(let ((org-html-toplevel-hlevel 3))
                                (site--body-html (format "%s:%s" route slug))))
                     ,@(and video `((video . ,video)))
-                    ,@(and poster `((poster . ,poster))))
+                    ,@(and poster `((poster . ,poster)))
+                    ,@(and image `((image . ,image))))
                   entries)))))
     entries))
 
@@ -148,6 +153,8 @@ Org's heading ids are random; SEED keeps them the same from build to build."
     (org-mode)
     (let ((per-page (string-to-number (or (site--keyword "POSTS_PER_PAGE") ""))))
       `((title . ,(or (site--keyword "TITLE") (plist-get plist :name)))
+        (description . ,(or (site--keyword "DESCRIPTION") ""))
+        (image . ,(or (site--keyword "IMAGE") ""))
         (intro . ,(site--body-html (symbol-name route)))
         (perPage . ,(if (> per-page 0) per-page site-default-per-page))
         (entries . ,(vconcat (site--entries route (plist-get plist :dir))))))))
@@ -227,6 +234,12 @@ Org's heading ids are random; SEED keeps them the same from build to build."
 ;; description and picture, which sends people on to its #route.  The pages
 ;; made are listed in share-pages.txt, so the next build (and the pre-commit
 ;; hook) can drop the ones that are gone.
+;;
+;; The words and pictures come from the Org sources: a view's DESCRIPTION and
+;; IMAGE properties, #+DESCRIPTION and #+IMAGE in blog.org, off-the-clock.org and
+;; each entry (an entry's #+DESCRIPTION is also its listing excerpt), and a
+;; product's data-share-image.  With none, the first paragraph or excerpt, a
+;; travelog's poster, and `site-share-image'.
 
 (defconst site-name "Adam Schaefers")
 (defconst site-share-image "images/og.jpg"
@@ -234,11 +247,6 @@ Org's heading ids are random; SEED keeps them the same from build to build."
 (defconst site-home-views '("about" "quest-log" "slop-shelf")
   "Views shown together as the home page: no page of their own.")
 (defconst site-share-list "share-pages.txt")
-(defconst site-share-descriptions
-  '(("inquiries" . "Get in touch with Adam Schaefers: work, licenses, or just to say hi.")
-    ("blog" . "Posts by Adam Schaefers."))
-  "Descriptions for views and collections with no paragraph of their own to take one from.")
-
 (defun site--decode (text)
   "TEXT with the few HTML entities Org writes turned back into characters."
   (let ((case-fold-search nil))
@@ -298,18 +306,24 @@ Org's heading ids are random; SEED keeps them the same from build to build."
       (lambda (v)
         (let ((id (alist-get 'id v)) (html (alist-get 'html v)))
           (unless (member id site-home-views)
-            (let ((summary (site--summary (site--first-paragraph-html html))))
+            (let ((summary (site--summary (site--first-paragraph-html html)))
+                  (described (alist-get 'description v)))
               (cons (list id id (site--plain-title (alist-get 'title v))
-                          (if (string-empty-p summary) (or (cdr (assoc id site-share-descriptions)) fallback) summary)
-                          site-share-image "website")
+                          (cond ((not (string-empty-p described)) described)
+                                ((not (string-empty-p summary)) summary)
+                                (t fallback))
+                          (if (string-empty-p (alist-get 'image v)) site-share-image (alist-get 'image v))
+                          "website")
                     (let (products (start 0))
-                      (while (string-match "<article class=\"product\" id=\"product-\\([^\"]+\\)\">\\(\\(?:.\\|\n\\)*?\\)</article>" html start)
-                        (let ((pid (match-string 1 html)) (body (match-string 2 html)))
-                          (setq start (match-end 0))
+                      (while (string-match "<article class=\"product\" id=\"product-\\([^\"]+\\)\"\\([^>]*\\)>\\(\\(?:.\\|\n\\)*?\\)</article>" html start)
+                        (let* ((pid (match-string 1 html)) (attrs (match-string 2 html)) (body (match-string 3 html))
+                               (next (match-end 0))
+                               (picture (if (string-match "data-share-image=\"\\([^\"]+\\)\"" attrs) (match-string 1 attrs) site-share-image)))
+                          (setq start next)
                           (push (list pid pid
                                       (site--plain-title (if (string-match "<h3>\\(\\(?:.\\|\n\\)*?\\)</h3>" body) (match-string 1 body) pid))
                                       (site--summary (if (string-match "</h3>\\(\\(?:.\\|\n\\)*?\\)</p>" body) (match-string 1 body) html))
-                                      site-share-image "product")
+                                      picture "product")
                                 products)))
                       (nreverse products)))))))
       views)
@@ -318,14 +332,17 @@ Org's heading ids are random; SEED keeps them the same from build to build."
       (lambda (c)
         (let* ((route (symbol-name (car c))) (col (cdr c)) (intro (site--summary (alist-get 'intro col))))
           (cons (list route route (site--plain-title (alist-get 'title col))
-                      (if (string-empty-p intro) (or (cdr (assoc route site-share-descriptions)) fallback) intro)
-                      site-share-image "website")
+                      (cond ((not (string-empty-p (alist-get 'description col))) (alist-get 'description col))
+                            ((not (string-empty-p intro)) intro)
+                            (t fallback))
+                      (if (string-empty-p (alist-get 'image col)) site-share-image (alist-get 'image col))
+                      "website")
                 (mapcar (lambda (e)
                           (let ((excerpt (site--summary (alist-get 'excerpt e))))
                             (list (concat route "/" (alist-get 'slug e)) (concat route "/" (alist-get 'slug e))
                                   (site--plain-title (alist-get 'title e))
                                   (if (string-empty-p excerpt) fallback excerpt)
-                                  (or (alist-get 'poster e) site-share-image) "article")))
+                                  (or (alist-get 'image e) (alist-get 'poster e) site-share-image) "article")))
                         (append (alist-get 'entries col) nil)))))
       collections))))
 
