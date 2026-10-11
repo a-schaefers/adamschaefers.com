@@ -1,5 +1,8 @@
 # adamschaefers.com
 
+[![check](https://github.com/a-schaefers/adamschaefers.com/actions/workflows/check.yml/badge.svg)](https://github.com/a-schaefers/adamschaefers.com/actions/workflows/check.yml)
+[![deploy](https://github.com/a-schaefers/adamschaefers.com/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/a-schaefers/adamschaefers.com/actions/workflows/deploy.yml)
+
 Source for [adamschaefers.com](https://adamschaefers.com). The page is
 written in Org (`index.org` and the collections) and built with Emacs; GitHub
 Actions builds it on every merge to `master` and deploys it to Cloudflare.
