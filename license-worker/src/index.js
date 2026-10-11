@@ -5,7 +5,7 @@
    For adamschaefers.com (CORS: SITE_ORIGINS):
      POST /v1/checkout              { product, seats } -> { url } of a Stripe Checkout page;
                                     { seats, key }: that many more seats on the key's license
-     GET  /v1/checkout/<session>    the key bought in that Checkout, once paid
+     GET  /v1/checkout/<session>    the key bought in that Checkout, once paid; 410 a week on
      POST /v1/lookup                { key } -> its licensee, seats and installs, to add seats
      POST /v1/recover               { email } -> emails that address every key on file for it
    From Stripe (signed with STRIPE_WEBHOOK_SECRET):
@@ -56,6 +56,9 @@ const MAX_SEATS = 1000;
 const INSTALL_WINDOW = 14 * 24 * 3600_000;
 const DAY = 24 * 3600_000;
 const RECOVERY_GAP = 30_000;
+// The thank-you page shows a key this long after it was issued. Its address (the Checkout's id)
+// lives on in the buyer's browser history; after this, the key is in their email and recovery.
+const KEY_SHOWN_FOR = 7 * DAY;
 // Recovery emails a day: per address, and in all, which leaves most of Resend's free
 // 100 a day for key emails.
 const RECOVERY_PER_ADDRESS = 5;
@@ -243,10 +246,12 @@ async function alertOwner(env, subject, text, idempotency) {
  * prefix is checked against that product's keys, which never signed it, so it's forged.
  */
 async function checkAnyKey(env, text) {
-  const prefix = String(text || '').replace(/\s+/g, '').split('.')[0];
+  // A key is text: anything else sent in its place (an object, say) is malformed, not an error.
+  const key = typeof text === 'string' ? text : '';
+  const prefix = key.replace(/\s+/g, '').split('.')[0];
   const product = productByPrefix(prefix);
   if (!product) return { state: 'malformed' };
-  return { ...(await checkKey(String(text), await publicKeys(env, product), [product.keyPrefix])), product };
+  return { ...(await checkKey(key, await publicKeys(env, product), [product.keyPrefix])), product };
 }
 
 /** A pasted key that is ours and on record: { license, product } or { error, status }. */
@@ -434,6 +439,7 @@ async function checkoutResult(env, ctx, sessionId, origin) {
   }
   if (license.emailed_at === 0) ctx.waitUntil(emailOnce(env, license));
   if (!license.notified_at) ctx.waitUntil(notifySaleOnce(env, license, origin));
+  if (Date.now() - license.issued_at > KEY_SHOWN_FOR) return json({ error: 'expired' }, 410);
   return json({
     status: statusOf(license), id: license.id, key: license.key, licensee: license.licensee,
     seats: license.seats, email: license.email, issuedAt: license.issued_at,
@@ -445,49 +451,60 @@ async function checkoutResult(env, ctx, sessionId, origin) {
 /**
  * Lost keys: emails the address every license connected to it (a key ever sent
  * there), each license's newest unrevoked key. The answer is the same whether
- * or not there are any, so it can't tell anyone who bought. An address gets at most one
- * every 30 seconds and RECOVERY_PER_ADDRESS a day, and all addresses RECOVERY_PER_DAY.
+ * or not there are any, and it goes out before the lookup (sendKeys, after it), so
+ * neither its words, its timing nor a failed send can tell anyone who bought.
  */
-async function recover(request, env) {
+async function recover(request, env, ctx) {
   if (!siteOrigin(request, env)) return json({ error: 'Bad origin.' }, 403);
   const body = await request.json().catch(() => null);
   const email = String(body?.email || '').trim().slice(0, 200);
   if (!EMAIL.test(email)) return json({ error: 'Please enter a valid email address.' }, 400);
   if (!(await human(env, body?.turnstile, request))) return json(NOT_HUMAN, 403);
-  const sent = { ok: true, message: "If we have keys for that address, we've emailed them to it. Give it a minute, and check your spam folder." };
-  const { results } = await env.DB.prepare(
-    `SELECT l.* FROM licenses l
-     WHERE l.revoked_at = 0
-       AND l.root_id IN (SELECT root_id FROM licenses WHERE email = ? COLLATE NOCASE)
-       AND l.issued_at = (SELECT max(issued_at) FROM licenses m WHERE m.root_id = l.root_id AND m.revoked_at = 0)
-     ORDER BY l.issued_at DESC`,
-  ).bind(email).all();
-  if (!results.length) return json(sent);
-  const now = Date.now();
-  const today = new Date(now).toISOString().slice(0, 10);
-  const all = await env.DB.prepare('SELECT coalesce(sum(day_count), 0) AS n FROM recoveries WHERE day = ?').bind(today).first();
-  if ((all?.n ?? 0) >= RECOVERY_PER_DAY) {
-    console.log(JSON.stringify({ event: 'recover_capped', scope: 'day' }));
-    return json(sent);
-  }
-  // Claimed only when the last send to this address was over 30 seconds ago and it has had
-  // fewer than RECOVERY_PER_ADDRESS today. The SET reads the row as it was.
-  const claim = await env.DB.prepare(
-    `INSERT INTO recoveries (email, sent_at, day, day_count) VALUES (?1, ?2, ?3, 1)
-     ON CONFLICT (email) DO UPDATE SET sent_at = excluded.sent_at, day = excluded.day,
-       day_count = CASE WHEN recoveries.day = excluded.day THEN recoveries.day_count + 1 ELSE 1 END
-     WHERE recoveries.sent_at < ?4 AND (recoveries.day != excluded.day OR recoveries.day_count < ?5)`,
-  ).bind(email.toLowerCase(), now, today, now - RECOVERY_GAP, RECOVERY_PER_ADDRESS).run();
-  if (claim.meta.changes !== 1) return json(sent);
+  ctx.waitUntil(sendKeys(env, email));
+  return json({ ok: true, message: "If we have keys for that address, we've emailed them to it. Give it a minute, and check your spam folder." });
+}
+
+/**
+ * Recovery's lookup and email, once its answer is out. An address gets at most one every
+ * 30 seconds and RECOVERY_PER_ADDRESS a day, and all addresses RECOVERY_PER_DAY; a send that
+ * fails is released, so asking again works at once. Never throws.
+ */
+async function sendKeys(env, email) {
   try {
-    await sendEmail(env, email, recoveryEmail(email, results), `recover/${email.toLowerCase()}/${now}`);
+    const { results } = await env.DB.prepare(
+      `SELECT l.* FROM licenses l
+       WHERE l.revoked_at = 0
+         AND l.root_id IN (SELECT root_id FROM licenses WHERE email = ? COLLATE NOCASE)
+         AND l.issued_at = (SELECT max(issued_at) FROM licenses m WHERE m.root_id = l.root_id AND m.revoked_at = 0)
+       ORDER BY l.issued_at DESC`,
+    ).bind(email).all();
+    if (!results.length) return;
+    const now = Date.now();
+    const today = new Date(now).toISOString().slice(0, 10);
+    const all = await env.DB.prepare('SELECT coalesce(sum(day_count), 0) AS n FROM recoveries WHERE day = ?').bind(today).first();
+    if ((all?.n ?? 0) >= RECOVERY_PER_DAY) {
+      console.log(JSON.stringify({ event: 'recover_capped', scope: 'day' }));
+      return;
+    }
+    // Claimed only when the last send to this address was over 30 seconds ago and it has had
+    // fewer than RECOVERY_PER_ADDRESS today. The SET reads the row as it was.
+    const claim = await env.DB.prepare(
+      `INSERT INTO recoveries (email, sent_at, day, day_count) VALUES (?1, ?2, ?3, 1)
+       ON CONFLICT (email) DO UPDATE SET sent_at = excluded.sent_at, day = excluded.day,
+         day_count = CASE WHEN recoveries.day = excluded.day THEN recoveries.day_count + 1 ELSE 1 END
+       WHERE recoveries.sent_at < ?4 AND (recoveries.day != excluded.day OR recoveries.day_count < ?5)`,
+    ).bind(email.toLowerCase(), now, today, now - RECOVERY_GAP, RECOVERY_PER_ADDRESS).run();
+    if (claim.meta.changes !== 1) return;
+    try {
+      await sendEmail(env, email, recoveryEmail(email, results), `recover/${email.toLowerCase()}/${now}`);
+    } catch (error) {
+      await env.DB.prepare('UPDATE recoveries SET sent_at = 0, day_count = max(day_count - 1, 0) WHERE email = ?').bind(email.toLowerCase()).run();
+      throw error;
+    }
+    console.log(JSON.stringify({ event: 'recovered', keys: results.length }));
   } catch (error) {
     console.log(JSON.stringify({ event: 'recover_failed', error: String(error) }));
-    await env.DB.prepare('UPDATE recoveries SET sent_at = 0, day_count = max(day_count - 1, 0) WHERE email = ?').bind(email.toLowerCase()).run();
-    return json({ error: "Couldn't send the email just now. Please try again, or use the contact form." }, 502);
   }
-  console.log(JSON.stringify({ event: 'recovered', keys: results.length }));
-  return json(sent);
 }
 
 async function lookup(request, env) {
@@ -664,7 +681,7 @@ const routes = {
         let response;
         try {
           response = path === '/v1/lookup' && request.method === 'POST' ? await lookup(request, env)
-            : path === '/v1/recover' && request.method === 'POST' ? await recover(request, env)
+            : path === '/v1/recover' && request.method === 'POST' ? await recover(request, env, ctx)
             : path === '/v1/checkout' && request.method === 'POST'
             ? await createCheckout(request, env)
             : request.method === 'GET' ? await checkoutResult(env, ctx, decoded(path.slice('/v1/checkout/'.length)), url.origin)

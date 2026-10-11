@@ -41,7 +41,7 @@ function d1() {
 
 const SITE = 'https://adamschaefers.com';
 const WEBHOOK_SECRET = 'whsec_test_secret';
-let env, sessions, emails, notices, failEmail, failNotice, waits;
+let env, sessions, emails, notices, failEmail, failNotice, waits, holdEmail;
 
 function ctx() {
   return { waitUntil: (p) => waits.push(p) };
@@ -61,6 +61,7 @@ beforeEach(() => {
   failEmail = false;
   failNotice = false;
   waits = [];
+  holdEmail = null;
 });
 
 // ---- Fakes
@@ -86,6 +87,7 @@ globalThis.fetch = async (input, init = {}) => {
   const get = url.match(/^https:\/\/api\.stripe\.com\/v1\/checkout\/sessions\/(.+)$/);
   if (get) return sessions.has(get[1]) ? Response.json(sessions.get(get[1])) : Response.json({ error: { message: 'No such session' } }, { status: 404 });
   if (url === 'https://api.resend.com/emails') {
+    if (holdEmail) await holdEmail;  // Resend answering slowly, until a test lets it
     const mail = { ...JSON.parse(body), idempotency: init.headers['Idempotency-Key'] };
     // The owner's sale notices are kept apart, so the counts of buyers' emails stay simple.
     if (/Sale: /.test(mail.subject)) {
@@ -332,6 +334,10 @@ test('looking a key up: licensee, seats and installs; bad and unknown keys say s
   const found = await (await lookupKey(page.key)).json();
   assert.deepEqual([found.licensee, found.seats, found.installs, found.status, found.isNewest], ['Lookup Co', 3, 1, 'active', true]);
   assert.equal((await lookupKey('BSD1.junk.junk')).status, 400);
+  for (const junk of [{ toString: 1 }, ['BSD1'], 42, null]) {
+    assert.equal((await lookupKey(junk)).status, 400, `a key of ${JSON.stringify(junk)} is malformed, not an error`);
+    assert.equal((await (await call('POST', '/v1/verify', { body: { key: junk } })).json()).signature, 'malformed');
+  }
   assert.equal((await lookupKey(page.key, 'https://evil.test')).status, 403);
   env.DB.raw.prepare('DELETE FROM licenses').run();
   assert.equal((await lookupKey(page.key)).status, 404);
@@ -387,7 +393,13 @@ test("seats can't be added to a withdrawn or unknown key", async () => {
 
 // ---- Lost keys
 
-const recoverFor = (email, origin = SITE) => call('POST', '/v1/recover', { body: { email, turnstile: 'human' }, headers: { Origin: origin, 'Content-Type': 'application/json' } });
+const askRecovery = (email, origin = SITE) => call('POST', '/v1/recover', { body: { email, turnstile: 'human' }, headers: { Origin: origin, 'Content-Type': 'application/json' } });
+// The answer, once the lookup and the email (which come after it) are done.
+const recoverFor = async (email, origin) => {
+  const r = await askRecovery(email, origin);
+  await Promise.all(waits);
+  return r;
+};
 
 test('recovery emails every license on file for an address, newest key each, never more than every 30 seconds', async () => {
   const a = await buy(3, { licensee: 'First Co', email: 'Owner@Corp.test' });
@@ -440,13 +452,32 @@ test("recovery answers the same for an address with no keys, and refuses junk an
   assert.equal(emails.length, 0);
   assert.equal((await recoverFor('not an email')).status, 400);
   assert.equal((await recoverFor('real@co.test', 'https://evil.test')).status, 403);
-  // A failed send lets them try again at once.
+  // A failed send answers the same, and lets them try again at once.
   env.DB.raw.prepare('DELETE FROM recoveries').run();
   failEmail = true;
-  assert.equal((await recoverFor('real@co.test')).status, 502);
+  const failed = await recoverFor('real@co.test');
+  assert.equal(failed.status, 200);
+  assert.deepEqual(await failed.json(), known, 'a failed send looks like any other answer');
+  assert.equal(emails.length, 0);
   failEmail = false;
   assert.equal((await recoverFor('real@co.test')).status, 200);
   assert.equal(emails.length, 1);
+});
+
+test('recovery answers before it looks anything up, so its timing tells nothing either', async () => {
+  await buy(1, { email: 'timed@co.test' });
+  await Promise.all(waits);
+  emails.length = 0;
+  let release;
+  holdEmail = new Promise((resolve) => { release = resolve; });
+  // Answering only after Resend did would never answer while Resend is held.
+  const r = await Promise.race([askRecovery('timed@co.test'), new Promise((resolve) => setTimeout(resolve, 500, 'waited'))]);
+  assert.notEqual(r, 'waited', 'the answer did not wait for the email');
+  assert.equal(r.status, 200);
+  assert.equal(emails.length, 0);
+  release();
+  await Promise.all(waits);
+  assert.equal(emails.length, 1, 'the email follows');
 });
 
 test('recovery needs a Turnstile token from the store, from the right site; buying and adding seats leave bots to Stripe Checkout', async () => {
@@ -549,6 +580,19 @@ test('adding seats to a license refunded meanwhile covers only the seats just pa
   const page = await (await call('GET', `/v1/checkout/${addOn.id}`)).json();
   assert.equal(page.seats, 2);
   assert.match(env.DB.raw.prepare('SELECT note FROM licenses WHERE id = ?').get(page.id).note, /withdrawn license/);
+});
+
+test("the thank-you page shows the key for a week, then only points to the email", async () => {
+  const { session, page } = await buy(2, { email: 'kept@co.test' });
+  assert.match(page.key, /^BSD1\./);
+  env.DB.raw.prepare('UPDATE licenses SET issued_at = issued_at - ?').run(7 * 24 * 3600_000 - 60_000);
+  assert.equal((await (await call('GET', `/v1/checkout/${session.id}`)).json()).key, page.key, 'still shown within the week');
+  env.DB.raw.prepare('UPDATE licenses SET issued_at = issued_at - ?').run(120_000);
+  const late = await call('GET', `/v1/checkout/${session.id}`);
+  assert.equal(late.status, 410);
+  const said = await late.text();
+  assert.ok(!said.includes(page.key) && !said.includes('kept@co.test'), 'no key or email after a week');
+  assert.equal(late.headers.get('Cache-Control'), 'no-store');
 });
 
 test('malformed % sequences are not found, not errors', async () => {

@@ -36,5 +36,9 @@
     "ADMIN_EMAIL": "adam.schaefers@icloud.com",
     "TURNSTILE_HOSTNAMES": "adamschaefers.com"
   },
-  "routes": [{ "pattern": "licenses.adamschaefers.com", "custom_domain": true }]
+  "routes": [{ "pattern": "licenses.adamschaefers.com", "custom_domain": true }],
+  // Only at licenses.adamschaefers.com: no workers.dev address or per-version preview address,
+  // which would skip the zone's rate limit and serve old versions with today's secrets and data.
+  "workers_dev": false,
+  "preview_urls": false
 }
