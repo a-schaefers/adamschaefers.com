@@ -1,5 +1,5 @@
 #+TITLE: Coos Bay, Oregon
-#+VIDEO: videos/coos-bay.mp4
+#+VIDEO: https://media.adamschaefers.com/coos-bay.mp4
 #+POSTER: videos/coos-bay.jpg
 
 Coos Bay, Oregon: my hometown and old stomping grounds, and Steve Prefontaine's too. I grew up here in the '90s and 2000s, a classic American childhood full of family and friends. The town keeps changing, and coming back now feels like running into an old friend I used to know.

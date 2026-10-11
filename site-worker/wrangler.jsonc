@@ -1,0 +1,39 @@
+// The site, adamschaefers.com: the built site (public/, from make build) as Workers Static
+// Assets. CI deploys it on every merge to master (.github/workflows/deploy.yml); a deploy
+// uploads only the files that changed and switches all of them at once.
+// Rollback: npx wrangler rollback -c site-worker/wrangler.jsonc (the files ride along).
+//
+// Requests for the site's files never run src/index.js: they cost nothing and don't count
+// toward the account's 100,000 Worker requests a day (the free plan, shared with
+// merecatholicity.com). Only /admin runs it (run_worker_first): the asset manager, behind
+// Cloudflare Access. Videos and uploads are in R2, served by R2 itself at
+// media.adamschaefers.com (the bucket's custom domain), never through this Worker.
+//
+// Never add "cache" here: Workers caching bills every static asset request as the Worker's.
+{
+  "name": "adamschaefers-site",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-01",
+  // No per-request logs: they would keep visitors' IP addresses.
+  "observability": { "enabled": true, "logs": { "invocation_logs": false } },
+  "assets": {
+    "directory": "../public",
+    "binding": "ASSETS",
+    // /store serves store/index.html at /store/, as GitHub Pages did; any other path gets
+    // 404.html with a 404 (js/app.js shows Page not found).
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/admin", "/admin/*"]
+  },
+  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "adamschaefers-media" }],
+  "vars": {
+    "MEDIA_ORIGIN": "https://media.adamschaefers.com",
+    "ACCESS_TEAM": "adamschaefers.cloudflareaccess.com",
+    "ACCESS_AUD": "fdaaaa23a991b3a2012281d42baec7df41dd0442c256ae40895dfdca83ed95ca",
+    "ADMIN_EMAIL": "adam.schaefers@icloud.com"
+  },
+  // A route, not a custom domain: the apex's DNS record is a proxied placeholder.
+  "routes": [{ "pattern": "adamschaefers.com/*", "zone_name": "adamschaefers.com" }],
+  "workers_dev": false,
+  "preview_urls": false
+}

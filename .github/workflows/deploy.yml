@@ -1,0 +1,97 @@
+# The merge is the deploy (2026-10-11). On every push to master: the pull request's check
+# again on the merged commit (check.yml), then the site it built deployed as the site
+# Worker's static assets, then the license server and the contact form when anything they
+# are built from changed since their live versions, then a smoke test of the live site.
+#
+# The Cloudflare token lives in the `production` environment, which only master may use
+# (scripts/github-settings.sh); no pull request ever sees it. Deploys never overlap, and a
+# running one is never cancelled. The hourly run catches a merge GitHub Actions made itself
+# (owner-merge.yml arming auto-merge), which starts no push run: it deploys only what isn't
+# live yet. Rollback: npx wrangler rollback -c <worker>/wrangler.jsonc (CLAUDE.md).
+
+name: deploy
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+  schedule:
+    - cron: '23 * * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  # Whether anything isn't live yet. A push or a dispatch always goes on; the hourly run
+  # goes on only when a Worker's live version isn't this commit's.
+  pending:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    environment: production
+    outputs:
+      go: ${{ steps.pending.outputs.go }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - id: pending
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          set -eu
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "::error::CLOUDFLARE_API_TOKEN is not set in the production environment"; exit 1; fi
+          if [ "$EVENT" != schedule ]; then echo go=yes >> "$GITHUB_OUTPUT"; exit 0; fi
+          live=$(node scripts/deployed.mjs adamschaefers-site)
+          if [ "$live" = "$GITHUB_SHA" ]; then echo "the site is live at $GITHUB_SHA"; echo go=no >> "$GITHUB_OUTPUT"
+          else echo "the site is live at ${live:-an untagged version}, master is $GITHUB_SHA"; echo go=yes >> "$GITHUB_OUTPUT"; fi
+
+  check:
+    needs: pending
+    if: needs.pending.outputs.go == 'yes'
+    uses: ./.github/workflows/check.yml
+
+  deploy:
+    needs: check
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment: production
+    # The token is given only to the steps that deploy: never to npm ci and the install
+    # scripts of what it fetches.
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: site
+          path: public/
+      # The site: its files (only the changed ones upload) and the Worker switch together.
+      - name: Site
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler deploy -c site-worker/wrangler.jsonc --tag "$GITHUB_SHA" --message "$(git log -1 --format=%s | cut -c1-100)"
+      - name: License server
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: scripts/deploy-worker.sh license-worker adamschaefers-licenses
+      - name: Contact form
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: scripts/deploy-worker.sh contact-worker adamschaefers-contact
+      - name: Smoke test
+        run: sh scripts/smoke.sh

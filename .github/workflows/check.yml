@@ -1,0 +1,63 @@
+# `make check` (the site built, every link, the Workers' tests, these workflows' rules) on
+# every pull request, and on every merge as the first job of deploy.yml, which then deploys
+# exactly the site this job built (its `site` artifact). CI is the build of record: what
+# this job's Emacs builds is what is served.
+#
+# The `check` job is the required check on master (.github/rulesets/master.json, pinned to
+# GitHub Actions): a pull request merges only once it is green. A required check that never
+# reports holds a pull request at "Expected" for ever, so this workflow takes no path filter.
+# It holds no secret: a pull request's code runs here. Every `uses:` names a commit (the
+# repository requires it); Dependabot moves the pins. The container's digest moves by hand.
+
+name: check
+
+on:
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    concurrency:
+      group: check-${{ github.ref }}
+      cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+    # Debian 13 (trixie): Emacs 30.1 with Org 9.7.11, the Org the site is written for, from
+    # Debian's own signed packages rather than a third-party action.
+    container:
+      image: debian:trixie-slim@sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f
+      env:
+        LANG: C.UTF-8
+        CI: 'true'
+    steps:
+      - name: Tools
+        run: |
+          apt-get update -qq
+          apt-get install -y -qq --no-install-recommends emacs-nox make git ca-certificates python3 curl xz-utils >/dev/null
+          emacs --version | head -1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # make check in two halves: the site is built, checked and uploaded before any code
+      # from another repository runs, so nothing but this commit can shape what deploys.
+      - run: make build check-dist
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: site
+          path: public/
+          if-no-files-found: error
+          retention-days: 14
+      # The license tests check every key the server signs with the plugin's own checker,
+      # when ../backseat-driver is there (public; its main is what users run).
+      - run: git clone -q --depth 1 https://github.com/a-schaefers/backseat-driver ../backseat-driver
+      - run: make test
