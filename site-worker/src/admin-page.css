@@ -1,0 +1,43 @@
+/* The assets page's styles (src/admin.ts serves the page), in Tailwind: scripts/build.ts
+   compiles them, with the utility classes src/admin.ts and src/admin-page.ts use, into
+   src/admin-page.gen.ts, which the page inlines. Elements are styled here; everything with a
+   class, there. No preflight: the browser's defaults are the reset. */
+
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+
+@source "./admin.ts";
+@source "./admin-page.ts";
+
+@theme {
+  /* The site's palette (../../site.css). */
+  --color-*: initial;
+  --color-sky: #161A33;
+  --color-mesa: #1F2445;
+  --color-ridge: #2C3260;
+  --color-sand: #EEE7D7;
+  --color-dust: #A8A6BE;
+  --color-turq: #46D3C3;
+  --color-chile: #E5533D;
+  --font-*: initial;
+  --font-sans: system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
+  --text-*: initial;
+}
+
+@layer base {
+  body { @apply m-0 bg-sky p-6 font-sans text-[15px] leading-[1.5] text-sand; }
+  h1 { @apply mx-0 mt-0 mb-1 text-[1.4rem]; }
+  input, button { font: inherit; color: inherit; @apply rounded-lg border border-ridge bg-mesa px-[.7rem] py-[.45rem]; }
+  button { @apply cursor-pointer; }
+  button:hover { @apply border-turq text-turq; }
+  button:disabled { @apply cursor-default opacity-50; }
+  progress { @apply w-full accent-turq; }
+  table { @apply w-full border-collapse; }
+  th, td { @apply border-b border-b-ridge p-2 text-left align-middle; }
+  th { @apply text-[.85rem] font-semibold text-dust; }
+  td small { @apply block text-dust; }
+  a { @apply text-turq; }
+  code { @apply rounded-sm bg-ridge px-[.35em] py-[.1em] font-mono text-[13px] leading-[normal] font-normal not-italic; }
+}

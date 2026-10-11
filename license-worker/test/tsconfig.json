@@ -1,0 +1,19 @@
+{
+  // The license server's tests: they run in Node (node --test, which strips the types), so
+  // Node's globals beside the Worker's.
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ES2022"],
+    "types": ["node", "@cloudflare/workers-types"]
+  },
+  "include": ["*.ts"]
+}

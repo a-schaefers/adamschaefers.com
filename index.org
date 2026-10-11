@@ -10,167 +10,11 @@
 #+HTML_HEAD: <link rel="preconnect" href="https://fonts.googleapis.com">
 #+HTML_HEAD: <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 #+HTML_HEAD: <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap" rel="stylesheet">
-#+HTML_HEAD: <style>
-#+HTML_HEAD: :root { --sky: #161A33; --mesa: #1F2445; --ridge: #2C3260; --sand: #EEE7D7; --dust: #A8A6BE; --turq: #46D3C3; --chile: #E5533D; }
-#+HTML_HEAD: html { background: radial-gradient(70rem 45rem at 0% -15%, #262B5C 0%, transparent 70%) var(--sky); color: var(--sand); }
-#+HTML_HEAD: @font-face { font-family: "Twemoji Country Flags"; src: url("fonts/TwemojiCountryFlags.woff2") format("woff2"); unicode-range: U+1F1E6-1F1FF, U+1F3F4, U+E0062-E007F; font-display: swap; }
-#+HTML_HEAD: body { margin: 0; font: 400 1.0625rem/1.6 "Twemoji Country Flags", "Bricolage Grotesque", system-ui, sans-serif; font-optical-sizing: auto; -webkit-font-smoothing: antialiased; }
-#+HTML_HEAD: ::selection { background: var(--turq); color: var(--sky); }
-#+HTML_HEAD: a { color: var(--turq); text-decoration: underline 1px rgba(70, 211, 195, .4); text-underline-offset: 3px; }
-#+HTML_HEAD: a:hover { text-decoration-color: currentColor; }
-#+HTML_HEAD: :focus-visible { outline: 2px solid var(--turq); outline-offset: 3px; border-radius: 3px; }
-#+HTML_HEAD: b, strong { font-weight: 700; }
-#+HTML_HEAD: code { font: .85em ui-monospace, monospace; background: var(--mesa); padding: .1em .35em; border-radius: 4px; }
-#+HTML_HEAD: h2 { font-size: 1.6rem; font-weight: 750; font-stretch: 85%; line-height: 1.15; letter-spacing: -.01em; margin: 0 0 1.25rem; }
-#+HTML_HEAD: .sr-only, #contact, #outline-container-about > h2 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-#+HTML_HEAD: /* Layout: sticky identity column on the left, content on the right */
-#+HTML_HEAD: #content { max-width: 70rem; margin: 0 auto; padding: 4rem 2rem 6rem; display: grid; grid-template-columns: 17rem minmax(0, 44rem); column-gap: clamp(3rem, 7vw, 6.5rem); justify-content: center; }
-#+HTML_HEAD: #content hr { display: none; }
-#+HTML_HEAD: .site-footer { max-width: 70rem; margin: 0 auto; padding: 0 2rem 3rem; color: var(--dust); font-size: .85rem; text-align: center; }
-#+HTML_HEAD: #app { grid-column: 2; grid-row: 1; min-width: 0; }
-#+HTML_HEAD: .outline-2 { grid-column: 2; margin-bottom: 5rem; }
-#+HTML_HEAD: .outline-2:last-child { margin-bottom: 0; }
-#+HTML_HEAD: #outline-container-contact { grid-column: 1; grid-row: 1 / span 12; align-self: start; margin: 0; }
-#+HTML_HEAD: @media (min-height: 56rem) { #outline-container-contact { position: sticky; top: 4rem; } }
-#+HTML_HEAD: /* Identity */
-#+HTML_HEAD: .hello-profile { display: block; width: 8.5rem; height: 8.5rem; border-radius: 50%; object-fit: cover; object-position: 50% 30%; box-shadow: 0 0 0 3px var(--sky), 0 0 0 5px var(--turq); }
-#+HTML_HEAD: .name { font-size: 2.75rem; font-weight: 800; font-stretch: 75%; line-height: .95; letter-spacing: -.02em; margin: 1.75rem 0 .6rem; }
-#+HTML_HEAD: .roles { color: var(--dust); font-size: .95rem; margin: 0 0 1.75rem; }
-#+HTML_HEAD: .roles span { white-space: nowrap; }
-#+HTML_HEAD: /* Avatar zoom and name-as-home link */
-#+HTML_HEAD: .profile-zoom { all: unset; display: block; width: fit-content; border-radius: 50%; cursor: zoom-in; }
-#+HTML_HEAD: .profile-zoom:focus-visible { outline: 2px solid var(--turq); outline-offset: 6px; }
-#+HTML_HEAD: .profile-zoom.is-open img { visibility: hidden; }
-#+HTML_HEAD: .home-link { display: block; color: inherit; text-decoration: none; }
-#+HTML_HEAD: .home-link:hover .name { color: var(--turq); }
-#+HTML_HEAD: .photo-dialog { padding: 0; border: 0; background: none; overflow: visible; max-width: none; max-height: none; cursor: zoom-out; }
-#+HTML_HEAD: .photo-dialog:focus { outline: none; }
-#+HTML_HEAD: .photo-dialog img { display: block; width: auto; height: auto; max-width: min(86vw, 640px); max-height: 86vh; border-radius: 24px; box-shadow: 0 0 0 4px var(--turq), 0 30px 80px rgba(0, 0, 0, .55); }
-#+HTML_HEAD: .photo-dialog::backdrop { background: rgba(14, 16, 36, .82); backdrop-filter: blur(6px); }
-#+HTML_HEAD: .photo-dialog.is-closing::backdrop { opacity: 0; transition: opacity .35s; }
-#+HTML_HEAD: @media (prefers-reduced-motion: no-preference) {
-#+HTML_HEAD:   .photo-dialog[open]::backdrop { animation: backdrop-in .35s ease-out; }
-#+HTML_HEAD:   @keyframes backdrop-in { from { opacity: 0; } }
-#+HTML_HEAD:   .name { transition: color .15s; }
-#+HTML_HEAD: }
-#+HTML_HEAD: /* Contact list: latest work as a featured link, socials as an icon row (labels stay for screen readers) */
-#+HTML_HEAD: #text-contact > ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .6rem; }
-#+HTML_HEAD: #text-contact > ul > li { font-size: 0; }
-#+HTML_HEAD: #text-contact > ul > li:nth-child(-n+2) { flex-basis: 100%; font-size: .85rem; color: var(--dust); padding: .9rem 0; border-top: 1px solid var(--ridge); }
-#+HTML_HEAD: #text-contact > ul > li:nth-child(2) { border-bottom: 1px solid var(--ridge); margin: -.6rem 0 .5rem; }
-#+HTML_HEAD: #text-contact > ul > li:nth-child(-n+2) a { display: block; color: var(--sand); font-size: 1.1rem; font-weight: 600; text-decoration: none; }
-#+HTML_HEAD: #text-contact > ul > li:nth-child(n+3) a { display: flex; align-items: center; justify-content: center; width: 2.6rem; height: 2.6rem; border-radius: 50%; color: var(--sand); background: var(--mesa); box-shadow: inset 0 0 0 1px var(--ridge); text-decoration: none; }
-#+HTML_HEAD: #text-contact > ul > li:nth-child(n+3) a::before { content: ""; width: 1.1rem; height: 1.1rem; background: currentColor; mask: var(--icon) center / contain no-repeat; }
-#+HTML_HEAD: #text-contact > ul > li a:hover { color: var(--turq); }
-#+HTML_HEAD: #text-contact > ul > li:nth-child(n+3) a:hover { box-shadow: inset 0 0 0 1px var(--turq); }
-#+HTML_HEAD: #text-contact > ul a[href*="github.com"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8'/%3E%3C/svg%3E"); }
-#+HTML_HEAD: #text-contact > ul a[href*="twitch.tv"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.857 0 1 2.857v10.286h3.429V16l2.857-2.857H9.57L14.714 8V0zm9.714 7.429-2.285 2.285H9l-2 2v-2H4.429V1.143h9.142z'/%3E%3Cpath d='M11.857 3.143h-1.143V6.57h1.143zm-3.143 0H7.571V6.57h1.143z'/%3E%3C/svg%3E"); }
-#+HTML_HEAD: /* Emacs course player */
-#+HTML_HEAD: .course { margin-top: 2rem; }
-#+HTML_HEAD: .course-title { margin: 0 0 .75rem; font-size: 1.05rem; font-weight: 700; }
-#+HTML_HEAD: .course-title a { color: var(--sand); text-decoration: none; }
-#+HTML_HEAD: .course-title a:hover { color: var(--turq); }
-#+HTML_HEAD: .course-player { aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: var(--mesa); }
-#+HTML_HEAD: .course-player iframe { display: block; width: 100%; height: 100%; border: 0; }
-#+HTML_HEAD: .course-play { all: unset; position: relative; display: block; width: 100%; height: 100%; cursor: pointer; }
-#+HTML_HEAD: .course-play:focus-visible { outline: 3px solid var(--turq); outline-offset: -3px; }
-#+HTML_HEAD: .course-play img { display: block; width: 100%; height: 100%; object-fit: cover; }
-#+HTML_HEAD: .course-play::after { content: ""; position: absolute; inset: 0; margin: auto; width: 3.25rem; height: 3.25rem; border-radius: 50%; box-shadow: 0 0 0 6px rgba(22, 26, 51, .45); background: var(--turq) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23161A33' d='M4.5 2.5v11l9-5.5z'/%3E%3C/svg%3E") 58% 50% / 1.2rem no-repeat; }
-#+HTML_HEAD: .course-play:hover::after { background-color: #7BE3D7; }
-#+HTML_HEAD: .course-now { margin: .65rem 0; min-height: 2.8em; font-size: .85rem; line-height: 1.4; color: #D9D3C6; }
-#+HTML_HEAD: .course-now b { color: var(--turq); margin-right: .2rem; font-variant-numeric: tabular-nums; }
-#+HTML_HEAD: .course-now .len { color: var(--dust); white-space: nowrap; }
-#+HTML_HEAD: .course-episodes { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .35rem; }
-#+HTML_HEAD: .course-episodes button { width: 2.1rem; height: 2.1rem; border: 0; border-radius: 8px; font-family: inherit; font-size: .8rem; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--dust); background: var(--mesa); box-shadow: inset 0 0 0 1px var(--ridge); cursor: pointer; }
-#+HTML_HEAD: .course-episodes button:hover { color: var(--sand); box-shadow: inset 0 0 0 1px var(--turq); }
-#+HTML_HEAD: .course-episodes button[aria-current] { color: var(--sky); background: var(--turq); box-shadow: none; }
-#+HTML_HEAD: /* TL;DR as the headline of the content column */
-#+HTML_HEAD: #text-about p { margin: 0; font-size: clamp(2rem, 4.6vw, 3.25rem); font-weight: 750; font-stretch: 80%; line-height: 1.08; letter-spacing: -.02em; }
-#+HTML_HEAD: #text-about p b { display: block; color: var(--dust); font-size: 1rem; font-weight: 500; font-stretch: 100%; letter-spacing: 0; margin-bottom: .75rem; }
-#+HTML_HEAD: #outline-container-about { margin-bottom: 4.5rem; }
-#+HTML_HEAD: /* Quest log timeline: chile = active quest, turquoise = side quests, dust = completed */
-#+HTML_HEAD: #text-quest-log > ul { list-style: none; margin: 0; padding: 0; }
-#+HTML_HEAD: #text-quest-log > ul > li { position: relative; margin-left: .45rem; padding: 0 0 2.5rem 2rem; border-left: 2px solid var(--ridge); }
-#+HTML_HEAD: #text-quest-log > ul > li:last-child { border-left-color: transparent; padding-bottom: 0; }
-#+HTML_HEAD: #text-quest-log > ul > li::before { content: ""; position: absolute; left: -8px; top: .35rem; width: 10px; height: 10px; border-radius: 50%; background: var(--dust); border: 2px solid var(--sky); box-shadow: 0 0 0 2px var(--dust); }
-#+HTML_HEAD: #text-quest-log > ul > li:first-child::before { background: var(--chile); box-shadow: 0 0 0 2px var(--chile), 0 0 0 7px rgba(229, 83, 61, .25); }
-#+HTML_HEAD: #text-quest-log > ul > li:nth-child(2)::before { background: var(--sky); box-shadow: 0 0 0 2px var(--turq); }
-#+HTML_HEAD: #text-quest-log > ul > li > b:first-child { display: block; font-size: 1.15rem; line-height: 1.3; margin-bottom: .35rem; }
-#+HTML_HEAD: #text-quest-log > ul > li > br { display: none; }
-#+HTML_HEAD: #text-quest-log ul ul { list-style: none; margin: .75rem 0 0; padding: 0; }
-#+HTML_HEAD: #text-quest-log ul ul li { padding: .9rem 0; border-top: 1px solid var(--ridge); color: #D9D3C6; font-size: 1rem; }
-#+HTML_HEAD: #text-quest-log ul ul li:last-child { padding-bottom: 0; }
-#+HTML_HEAD: @media (prefers-reduced-motion: no-preference) {
-#+HTML_HEAD:   #text-quest-log > ul > li:first-child::before { animation: active-quest 2.4s ease-in-out infinite; }
-#+HTML_HEAD:   @keyframes active-quest { 50% { box-shadow: 0 0 0 2px var(--chile), 0 0 0 10px rgba(229, 83, 61, .08); } }
-#+HTML_HEAD:   html { scroll-behavior: smooth; }
-#+HTML_HEAD:   a, button { transition: color .15s, background-color .15s, text-decoration-color .15s; }
-#+HTML_HEAD: }
-#+HTML_HEAD: /* Slop shelf */
-#+HTML_HEAD: #text-slop-shelf ul { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
-#+HTML_HEAD: #text-slop-shelf li { background: var(--mesa); border-radius: 12px; padding: 1.1rem 1.25rem 1.25rem; font-size: .95rem; color: #D9D3C6; }
-#+HTML_HEAD: /* Inquiries form */
-#+HTML_HEAD: #contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem 1.25rem; }
-#+HTML_HEAD: #contact-form .wide { grid-column: 1 / -1; }
-#+HTML_HEAD: #contact-form label { display: block; color: var(--dust); font-size: .9rem; margin-bottom: .35rem; }
-#+HTML_HEAD: #contact-form input, #contact-form textarea { box-sizing: border-box; width: 100%; font: inherit; color: var(--sand); background: var(--mesa); border: 1px solid var(--ridge); border-radius: 10px; padding: .7rem .85rem; }
-#+HTML_HEAD: #contact-form textarea { resize: vertical; min-height: 9rem; }
-#+HTML_HEAD: #contact-form input:focus-visible, #contact-form textarea:focus-visible { outline: 2px solid var(--turq); outline-offset: 1px; border-color: transparent; }
-#+HTML_HEAD: #contact-form button { justify-self: start; font: inherit; font-weight: 700; color: var(--sky); background: var(--turq); border: 0; border-radius: 999px; padding: .75rem 2rem; cursor: pointer; }
-#+HTML_HEAD: #contact-form button:hover { background: #7BE3D7; }
-#+HTML_HEAD: #contact-form button:disabled { opacity: .6; cursor: progress; }
-#+HTML_HEAD: #contact-status { margin: 0; color: var(--dust); }
-#+HTML_HEAD: #contact-status:empty { display: none; }
-#+HTML_HEAD: /* Sent: the form flips away and the sent card swings in */
-#+HTML_HEAD: .inquiry-card { perspective: 1100px; perspective-origin: 50% 0; transition: height .45s cubic-bezier(.3, .7, .2, 1); }
-#+HTML_HEAD: #contact-form[hidden], .inquiry-sent[hidden] { display: none; }
-#+HTML_HEAD: #contact-form.is-leaving { transform-origin: 50% 100%; animation: form-leave .75s cubic-bezier(.55, 0, .75, .1) forwards; pointer-events: none; }
-#+HTML_HEAD: @keyframes form-leave { 0% { transform: none; } 18% { transform: rotateX(-7deg) translateY(-.5rem); opacity: 1; } 100% { transform: rotateX(88deg) translateY(1.5rem) scale(.92); opacity: 0; } }
-#+HTML_HEAD: .inquiry-sent { display: flex; align-items: center; gap: 1.25rem; padding: 1.5rem 1.75rem; border-radius: 16px; background: var(--mesa); box-shadow: inset 0 0 0 1px var(--ridge); transform-origin: 50% 0; }
-#+HTML_HEAD: .inquiry-sent:focus { outline: none; }
-#+HTML_HEAD: .inquiry-sent.is-arriving { animation: sent-arrive .7s cubic-bezier(.2, 1.35, .4, 1) both; }
-#+HTML_HEAD: @keyframes sent-arrive { from { transform: rotateX(-80deg); opacity: 0; } 40% { opacity: 1; } to { transform: none; } }
-#+HTML_HEAD: .sent-check { flex: none; width: 3.25rem; height: 3.25rem; fill: none; stroke: var(--turq); stroke-linecap: round; stroke-linejoin: round; }
-#+HTML_HEAD: .sent-check circle { stroke-width: 2.5; stroke-dasharray: 145; }
-#+HTML_HEAD: .sent-check path { stroke-width: 4; stroke-dasharray: 34; }
-#+HTML_HEAD: .is-arriving .sent-check circle { animation: draw .6s .25s ease-out both; --len: 145; }
-#+HTML_HEAD: .is-arriving .sent-check path { animation: draw .35s .7s ease-out both; --len: 34; }
-#+HTML_HEAD: @keyframes draw { from { stroke-dashoffset: var(--len); } to { stroke-dashoffset: 0; } }
-#+HTML_HEAD: .sent-title { margin: 0; font-size: 1.35rem; font-weight: 750; font-stretch: 85%; line-height: 1.2; }
-#+HTML_HEAD: .sent-note { margin: .2rem 0 0; color: var(--dust); }
-#+HTML_HEAD: /* Mobile: identity becomes a compact header, then one column */
-#+HTML_HEAD: @media (max-width: 56rem) {
-#+HTML_HEAD:   /* The sidebar splits: name through socials on top, then the view, then the course */
-#+HTML_HEAD:   #content { display: flex; flex-direction: column; padding: 2rem 1.25rem 4rem; }
-#+HTML_HEAD:   #outline-container-contact, #text-contact { display: contents; }
-#+HTML_HEAD:   #app { order: 1; margin-top: 3.5rem; }
-#+HTML_HEAD:   .course { order: 2; margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--ridge); }
-#+HTML_HEAD:   .contact-head { display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; align-items: center; margin-bottom: 1.5rem; }
-#+HTML_HEAD:   .hello-profile { width: 5.5rem; height: 5.5rem; }
-#+HTML_HEAD:   .name { font-size: 2.25rem; margin: 0 0 .35rem; }
-#+HTML_HEAD:   .roles { margin: 0; font-size: .9rem; }
-#+HTML_HEAD:   /* Latest Work and Contact side by side, sized like the roles line */
-#+HTML_HEAD:   #text-contact > ul { gap: 0; }
-#+HTML_HEAD:   #text-contact > ul > li:nth-child(-n+2) { flex: 1 1 0; min-width: 0; margin: 0; padding: .6rem 0; font-size: .8rem; border-top: 1px solid var(--ridge); border-bottom: 1px solid var(--ridge); }
-#+HTML_HEAD:   #text-contact > ul > li:nth-child(2) { padding-left: .9rem; }
-#+HTML_HEAD:   #text-contact > ul > li:nth-child(-n+2) a { font-size: .9rem; overflow-wrap: anywhere; }
-#+HTML_HEAD:   /* Socials sit small in the page's top-right corner, above the name and out of the flow; they scroll away with the page */
-#+HTML_HEAD:   #content { position: relative; }
-#+HTML_HEAD:   #text-contact > ul > li:nth-child(n+3) { position: absolute; top: .3rem; right: calc(.5rem + var(--k) * 2.25rem); }
-#+HTML_HEAD:   #text-contact > ul > li:nth-child(n+3) a { width: 1.9rem; height: 1.9rem; }
-#+HTML_HEAD:   #text-contact > ul > li:nth-child(n+3) a::before { width: .9rem; height: .9rem; }
-#+HTML_HEAD:   #text-contact > ul > li:nth-child(n+3):nth-last-child(1) { --k: 0; }
-#+HTML_HEAD:   #text-contact > ul > li:nth-child(n+3):nth-last-child(2) { --k: 1; }
-#+HTML_HEAD:   #text-contact > ul > li:nth-child(n+3):nth-last-child(3) { --k: 2; }
-#+HTML_HEAD:   #text-contact > ul > li:nth-child(n+3):nth-last-child(4) { --k: 3; }
-#+HTML_HEAD:   .outline-2 { margin-bottom: 4rem; }
-#+HTML_HEAD:   #outline-container-about { margin-bottom: 3.5rem; }
-#+HTML_HEAD:   #contact-form { grid-template-columns: 1fr; }
-#+HTML_HEAD: }
-#+HTML_HEAD: </style>
+# The page's styles are site.css (Tailwind): the classes in the HTML blocks below
+# are styled there, by name.
 
 # The sections tagged :view: aren't in index.html: site.el puts them in the
-# page's data and js/app.js shows one at a time here, picked from the menu.
+# page's data and js/app.ts shows one at a time here, picked from the menu.
 #+BEGIN_EXPORT html
 <main id="app"></main>
 #+END_EXPORT
@@ -195,44 +39,6 @@
 <dialog class="photo-dialog" aria-label="Photo of Adam Schaefers">
   <img src="me.jpeg" width="1080" height="1920" alt="Adam Schaefers">
 </dialog>
-<script>
-// Profile photo: grows out of the avatar into a large view; click anywhere or Esc shrinks it back.
-(function () {
-  var thumb = document.querySelector('.profile-zoom');
-  var dialog = document.querySelector('.photo-dialog');
-  var big = dialog.querySelector('img');
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)');
-  function morph(reverse) {
-    var a = thumb.getBoundingClientRect(), b = big.getBoundingClientRect();
-    var dx = a.left + a.width / 2 - (b.left + b.width / 2);
-    var dy = a.top + a.height / 2 - (b.top + b.height / 2);
-    var frames = [
-      { transform: 'translate(' + dx + 'px, ' + dy + 'px) scale(' + a.width / b.width + ')', borderRadius: '50%' },
-      { transform: 'none', borderRadius: '24px' }
-    ];
-    if (reverse) frames.reverse();
-    return big.animate(frames, { duration: reduce.matches ? 0 : 450, easing: 'cubic-bezier(.2, .9, .25, 1)' });
-  }
-  thumb.addEventListener('click', function () {
-    dialog.classList.remove('is-closing');
-    dialog.showModal();
-    thumb.classList.add('is-open');
-    morph(false);
-  });
-  function close() {
-    if (dialog.classList.contains('is-closing')) return;
-    dialog.classList.add('is-closing');
-    morph(true).onfinish = function () {
-      dialog.close();
-      dialog.classList.remove('is-closing');
-      thumb.classList.remove('is-open');
-      thumb.focus({ preventScroll: true });
-    };
-  }
-  dialog.addEventListener('click', close);
-  dialog.addEventListener('cancel', function (e) { e.preventDefault(); close(); });
-})();
-</script>
 #+END_EXPORT
 
 - Latest Work: @@html:<a href="https://enchant.games" target="_blank" rel="noopener">@LandOfEnchantment</a>@@
@@ -258,43 +64,6 @@
     <li><button type="button" data-id="Rk8vngeJZOk" data-title="More CRUX goodies - Emacs Crash Course PT. 5" data-len="3:07" title="More CRUX goodies - Emacs Crash Course PT. 5" aria-label="Episode 05: More CRUX goodies - Emacs Crash Course PT. 5">05</button></li>
   </ol>
 </div>
-<script>
-// Emacs course: thumbnail until played, then a YouTube embed. Episode buttons swap the video.
-(function () {
-  var course = document.querySelector('.course');
-  var player = course.querySelector('.course-player');
-  var now = course.querySelector('.course-now');
-  var current = course.querySelector('.course-episodes [aria-current]');
-  function embed(btn) {
-    var f = document.createElement('iframe');
-    f.src = 'https://www.youtube-nocookie.com/embed/' + btn.dataset.id + '?autoplay=1&rel=0';
-    f.title = 'Episode ' + btn.textContent + ': ' + btn.dataset.title;
-    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
-    f.allowFullscreen = true;
-    player.replaceChildren(f);
-  }
-  function select(btn) {
-    current.removeAttribute('aria-current');
-    btn.setAttribute('aria-current', 'true');
-    current = btn;
-    now.children[0].textContent = btn.textContent;
-    now.childNodes[1].textContent = ' ' + btn.dataset.title + ' ';
-    now.children[1].textContent = btn.dataset.len;
-    var play = player.querySelector('.course-play');
-    if (play) {
-      play.querySelector('img').src = 'https://i.ytimg.com/vi/' + btn.dataset.id + '/hqdefault.jpg';
-      play.setAttribute('aria-label', 'Play episode ' + btn.textContent);
-    } else {
-      embed(btn);
-    }
-  }
-  player.addEventListener('click', function (e) { if (e.target.closest('.course-play')) embed(current); });
-  course.querySelector('.course-episodes').addEventListener('click', function (e) {
-    var btn = e.target.closest('button');
-    if (btn && btn !== current) select(btn);
-  });
-})();
-</script>
 #+END_EXPORT
 
 -----
@@ -348,12 +117,12 @@ My secondary GitHub, [[https://github.com/el-sloppo][@el-sloppo]], is where I pu
 
 Things I make and sell. Payment is through Stripe; keys arrive the moment you've paid, and by email.
 
-# Each product is an <article class="product"> (js/store.js finds them, and its
+# Each product is an <article class="product"> (js/store.ts finds them, and its
 # image zooms on a click like the profile photo; data-share-image is its link-preview
 # picture, a PNG or JPEG): its image, its words in Org, then the buy form and the "already have a key" box,
 # mounted from the data-* attributes (prices must match license-worker's Stripe
 # prices). id="product-<id>" is where its address /store/<id>/ lands; site.el writes that page
-# from the article, and the address needs an entry in PAGES in js/app.js. A new product
+# from the article, and the address needs an entry in PAGES in js/app.ts. A new product
 # also needs its entry, signing key and prices in license-worker (src/products.js).
 #+BEGIN_EXPORT html
 <article class="product" id="product-backseat-driver" data-share-image="images/store/backseat-driver.png">

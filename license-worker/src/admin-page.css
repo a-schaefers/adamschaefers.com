@@ -1,0 +1,45 @@
+/* The licenses page's styles (src/admin.ts), in Tailwind: scripts/build.ts compiles them,
+   with the utility classes src/admin.ts and src/admin-page.ts use, into src/admin-page.gen.ts,
+   which the page inlines. Elements are styled here; everything with a class, there. No
+   preflight: the browser's defaults are the reset. */
+
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+
+@source "./admin.ts";
+@source "./admin-page.ts";
+
+@theme {
+  /* The site's palette (../../site.css). */
+  --color-*: initial;
+  --color-sky: #161A33;
+  --color-mesa: #1F2445;
+  --color-ridge: #2C3260;
+  --color-sand: #EEE7D7;
+  --color-dust: #A8A6BE;
+  --color-turq: #46D3C3;
+  --color-chile: #E5533D;
+  --font-*: initial;
+  --font-sans: system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
+  --text-*: initial;
+}
+
+@layer base {
+  body { @apply m-0 bg-sky p-6 font-sans text-[15px] leading-[1.5] text-sand; }
+  h1 { @apply mx-0 mt-0 mb-4 text-[1.4rem]; }
+  /* The mode ({{MODE}}): TEST on a test copy. */
+  h1 small { @apply ml-2 text-[.9rem] text-chile; }
+  input, button, textarea, select { font: inherit; color: inherit; @apply rounded-lg border border-ridge bg-mesa px-[.7rem] py-[.45rem]; }
+  button { @apply cursor-pointer; }
+  button:hover { @apply border-turq text-turq; }
+  details { @apply mx-0 mt-0 mb-5 rounded-xl border border-ridge bg-mesa px-4 py-3; }
+  summary { @apply cursor-pointer font-semibold; }
+  form { @apply mt-3 grid max-w-[28rem] gap-2; }
+  table { @apply w-full border-collapse; }
+  th, td { @apply border-b border-b-ridge p-2 text-left align-top; }
+  th { @apply text-[.85rem] font-semibold text-dust; }
+  td small { @apply block text-dust; }
+  a { @apply text-turq; }
+}

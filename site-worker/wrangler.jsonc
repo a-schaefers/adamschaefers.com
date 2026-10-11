@@ -3,7 +3,7 @@
 // uploads only the files that changed and switches all of them at once.
 // Rollback: npx wrangler rollback -c site-worker/wrangler.jsonc (the files ride along).
 //
-// Requests for the site's files never run src/index.js: they cost nothing and don't count
+// Requests for the site's files never run src/index.ts: they cost nothing and don't count
 // toward the account's 100,000 Worker requests a day (the free plan, shared with
 // merecatholicity.com). Only /admin runs it (run_worker_first): the asset manager, behind
 // Cloudflare Access. Videos and uploads are in R2, served by R2 itself at
@@ -12,7 +12,7 @@
 // Never add "cache" here: Workers caching bills every static asset request as the Worker's.
 {
   "name": "adamschaefers-site",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "compatibility_date": "2026-09-01",
   // No per-request logs: they would keep visitors' IP addresses.
   "observability": { "enabled": true, "logs": { "invocation_logs": false } },
@@ -20,7 +20,7 @@
     "directory": "../public",
     "binding": "ASSETS",
     // /store serves store/index.html at /store/, as GitHub Pages did; any other path gets
-    // 404.html with a 404 (js/app.js shows Page not found).
+    // 404.html with a 404 (js/app.ts shows Page not found).
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page",
     "run_worker_first": ["/admin", "/admin/*"]

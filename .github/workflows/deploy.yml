@@ -47,7 +47,7 @@ jobs:
           set -eu
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "::error::CLOUDFLARE_API_TOKEN is not set in the production environment"; exit 1; fi
           if [ "$EVENT" != schedule ]; then echo go=yes >> "$GITHUB_OUTPUT"; exit 0; fi
-          live=$(node scripts/deployed.mjs adamschaefers-site)
+          live=$(node scripts/deployed.ts adamschaefers-site)
           if [ "$live" = "$GITHUB_SHA" ]; then echo "the site is live at $GITHUB_SHA"; echo go=no >> "$GITHUB_OUTPUT"
           else echo "the site is live at ${live:-an untagged version}, master is $GITHUB_SHA"; echo go=yes >> "$GITHUB_OUTPUT"; fi
 
@@ -73,6 +73,9 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      # The Workers' admin pages (src/admin-page.gen.ts), which wrangler bundles: compiled
+      # here, before any step holds the token.
+      - run: make workers
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: site

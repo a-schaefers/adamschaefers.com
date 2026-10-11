@@ -1,0 +1,19 @@
+{
+  // The Node scripts (scripts/*.ts, license-worker/scripts/*.ts): node runs them as they
+  // are (it strips the types), so only what it can strip; tsc only checks.
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ES2022"],
+    "types": ["node"]
+  },
+  "include": ["*.ts", "../license-worker/scripts/*.ts"]
+}

@@ -1,0 +1,301 @@
+/* The site's styles, in Tailwind (v4, configured here). make build compiles this file and
+   the utility classes the templates use into build/site.css (scripts/build.ts), published
+   as site.<hash>.css.
+
+   Where the classes go:
+   - Markup the TypeScript renders (js/: the menu and the views, the store's forms and key
+     page, the contact form) and site.el writes (the menu's and footer's frames) carries
+     Tailwind's utility classes itself.
+   - Markup Org writes (the sections, lists and posts exported from index.org and the
+     collections) and index.org's own HTML blocks (the sidebar, the products) keep their
+     semantic class names, styled below with @apply as components. Their rules keep the
+     selectors and order they always had, so the cascade among them is unchanged.
+   Tailwind's own reset (preflight) is left out: the site is built on the browser's
+   defaults, and the base layer below is its whole reset. The palette and the fonts are
+   the theme. */
+
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+
+/* The files whose classes are utilities. */
+@source "./js";
+@source "./site.el";
+/* .outline-2 is Org's section wrapper (js/app.ts writes it too), not Tailwind's 2px outline. */
+@source not inline("outline-2");
+
+/* The site's breakpoints, exactly: phones and narrow windows get the one-column page and
+   the bottom tab bar; narrower still, products stack; tall windows keep the sidebar in view. */
+@custom-variant phone (@media (max-width: 56rem));
+@custom-variant narrow (@media (max-width: 40rem));
+@custom-variant tall (@media (min-height: 56rem));
+
+@theme {
+  /* New Mexico at dusk: night sky, mesa, ridge, sand, dust, turquoise, chile. */
+  --color-*: initial;
+  --color-sky: #161A33;
+  --color-mesa: #1F2445;
+  --color-ridge: #2C3260;
+  --color-sand: #EEE7D7;
+  --color-dust: #A8A6BE;
+  --color-turq: #46D3C3;
+  --color-chile: #E5533D;
+  --color-bone: #D9D3C6;      /* body text a shade under sand: lists, excerpts, notes */
+  --color-surf: #7BE3D7;      /* turquoise, lit: a button under the pointer */
+  --color-dusk: #262B5C;      /* the glow at the top of the page */
+
+  --font-*: initial;
+  /* Flags first: Windows has no flag emoji (fonts/README.md). */
+  --font-sans: "Twemoji Country Flags", "Bricolage Grotesque", system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
+  /* Font sizes are each element's own (text-[.9rem]): the default scale would set line heights too. */
+  --text-*: initial;
+
+  --animate-backdrop-in: backdrop-in .35s ease-out;
+  --animate-active-quest: active-quest 2.4s ease-in-out infinite;
+  --animate-form-leave: form-leave .75s cubic-bezier(.55, 0, .75, .1) forwards;
+  --animate-sent-arrive: sent-arrive .7s cubic-bezier(.2, 1.35, .4, 1) both;
+  --animate-draw-circle: draw .6s .25s ease-out both;
+  --animate-draw-tick: draw .35s .7s ease-out both;
+  --animate-card-pop: card-pop .3s cubic-bezier(.2, .9, .25, 1) both;
+
+  @keyframes backdrop-in { from { opacity: 0; } }
+  @keyframes active-quest { 50% { box-shadow: 0 0 0 2px var(--color-chile), 0 0 0 10px rgba(229, 83, 61, .08); } }
+  /* Sent: the form flips away and the sent card swings in, its check drawing itself. */
+  @keyframes form-leave {
+    0% { transform: none; }
+    18% { transform: rotateX(-7deg) translateY(-.5rem); opacity: 1; }
+    100% { transform: rotateX(88deg) translateY(1.5rem) scale(.92); opacity: 0; }
+  }
+  @keyframes sent-arrive { from { transform: rotateX(-80deg); opacity: 0; } 40% { opacity: 1; } to { transform: none; } }
+  @keyframes draw { from { stroke-dashoffset: var(--len); } to { stroke-dashoffset: 0; } }
+  @keyframes card-pop { from { opacity: 0; transform: translateY(-.4rem) scale(.97); } }
+}
+
+@font-face {
+  font-family: "Twemoji Country Flags";
+  src: url("/fonts/TwemojiCountryFlags.woff2") format("woff2");
+  unicode-range: U+1F1E6-1F1FF, U+1F3F4, U+E0062-E007F;
+  font-display: swap;
+}
+
+@layer base {
+  html {
+    @apply bg-sky bg-[radial-gradient(70rem_45rem_at_0%_-15%,var(--color-dusk)_0%,transparent_70%)] text-sand motion-safe:scroll-smooth;
+  }
+  body {
+    @apply m-0 font-sans text-[1.0625rem] leading-[1.6] font-normal antialiased;
+    /* Room for the bottom tab bar. */
+    @apply phone:pb-[calc(4.5rem+env(safe-area-inset-bottom))];
+  }
+  ::selection { @apply bg-turq text-sky; }
+  a { @apply text-turq underline decoration-turq/40 decoration-1 underline-offset-3; }
+  a:hover { @apply decoration-current; }
+  :focus-visible { @apply rounded-[3px] outline-[2px] outline-turq outline-offset-3; }
+  b, strong { @apply font-bold; }
+  code { @apply rounded-sm bg-mesa px-[.35em] py-[.1em] font-mono text-[.85em] leading-[normal] font-normal not-italic font-stretch-normal; }
+  h2 { @apply m-0 mb-5 text-[1.6rem] leading-[1.15] font-[750] font-stretch-85% tracking-[-.01em]; }
+  /* Form controls take the page's type, as every one here always has. */
+  button, input, textarea { font: inherit; }
+  /* hidden hides, whatever display a class gives. */
+  [hidden]:where(:not([hidden="until-found"])) { display: none !important; }
+  @variant motion-safe {
+    a, button { transition: color .15s, background-color .15s, text-decoration-color .15s; }
+  }
+}
+
+@layer components {
+  /* ---- The page: index.org's export */
+
+  /* The sidebar (index.org's Contact section) on the left, the view (#app) on the right. */
+  #content {
+    @apply mx-auto grid max-w-[70rem] grid-cols-[17rem_minmax(0,44rem)] justify-center gap-x-[clamp(3rem,7vw,6.5rem)] px-8 pt-16 pb-24;
+  }
+  #content hr { @apply hidden; }
+  #app { @apply col-start-2 row-start-1 min-w-0; }
+  .outline-2 { @apply col-start-2 mb-20; }
+  .outline-2:last-child { @apply mb-0; }
+  #outline-container-contact { align-self: start; @apply col-start-1 row-[1/span_12] m-0 tall:sticky tall:top-16; }
+  /* Section headings that are there for screen readers only. */
+  #contact, #outline-container-about > h2 { @apply absolute size-px overflow-hidden whitespace-nowrap [clip-path:inset(50%)]; }
+
+  /* ---- The sidebar: the profile photo (it grows into a large view on a click,
+     js/profile.ts), the name as a link home, the roles. */
+  .hello-profile { @apply block size-34 rounded-[50%] object-cover object-[50%_30%] ring-2 ring-turq ring-offset-3 ring-offset-sky; }
+  .name { @apply mx-0 mt-7 mb-[.6rem] text-[2.75rem] leading-[.95] font-extrabold font-stretch-75% tracking-[-.02em]; }
+  .roles { @apply mx-0 mt-0 mb-7 text-[.95rem] text-dust; }
+  .roles span { @apply whitespace-nowrap; }
+  .profile-zoom { all: unset; @apply block w-fit cursor-zoom-in rounded-[50%] focus-visible:outline-[2px] focus-visible:outline-turq focus-visible:outline-offset-6; }
+  .profile-zoom.is-open img { @apply invisible; }
+  .home-link { @apply block text-inherit no-underline; }
+  .home-link:hover .name { @apply text-turq; }
+  .photo-dialog { @apply max-h-none max-w-none cursor-zoom-out overflow-visible border-0 bg-transparent p-0; }
+  .photo-dialog:focus { @apply outline-none; }
+  .photo-dialog img { @apply block h-auto max-h-[86vh] w-auto max-w-[min(86vw,640px)] rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,.55)] ring-4 ring-turq; }
+  .photo-dialog::backdrop { @apply bg-[rgba(14,16,36,.82)] backdrop-blur-[6px]; }
+  .photo-dialog.is-closing::backdrop { @apply opacity-0 [transition:opacity_.35s]; }
+  @variant motion-safe {
+    .photo-dialog[open]::backdrop { @apply animate-backdrop-in; }
+    .name { transition: color .15s; }
+  }
+
+  /* The contact list: the latest work and a way to get in touch as featured links, the
+     socials as a row of icons (their labels stay, for screen readers). */
+  #text-contact > ul { @apply m-0 flex list-none flex-wrap gap-[.6rem] p-0; }
+  #text-contact > ul > li { @apply text-[0px]; }
+  #text-contact > ul > li:nth-child(-n+2) { @apply basis-full border-t border-t-ridge px-0 py-[.9rem] text-[.85rem] text-dust; }
+  #text-contact > ul > li:nth-child(2) { @apply mx-0 mt-[-.6rem] mb-2 border-b border-b-ridge; }
+  #text-contact > ul > li:nth-child(-n+2) a { @apply block text-[1.1rem] font-semibold text-sand no-underline; }
+  #text-contact > ul > li:nth-child(n+3) a { @apply flex size-[2.6rem] items-center justify-center rounded-[50%] bg-mesa text-sand no-underline inset-ring inset-ring-ridge; }
+  #text-contact > ul > li:nth-child(n+3) a::before { content: ""; @apply size-[1.1rem] bg-current mask-(--icon) mask-contain mask-center mask-no-repeat; }
+  #text-contact > ul > li a:hover { @apply text-turq; }
+  #text-contact > ul > li:nth-child(n+3) a:hover { @apply inset-ring-turq; }
+  #text-contact > ul a[href*="github.com"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8'/%3E%3C/svg%3E"); }
+  #text-contact > ul a[href*="twitch.tv"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.857 0 1 2.857v10.286h3.429V16l2.857-2.857H9.57L14.714 8V0zm9.714 7.429-2.285 2.285H9l-2 2v-2H4.429V1.143h9.142z'/%3E%3Cpath d='M11.857 3.143h-1.143V6.57h1.143zm-3.143 0H7.571V6.57h1.143z'/%3E%3C/svg%3E"); }
+
+  /* The Emacs course: a thumbnail until played, then YouTube's player (js/course.ts). */
+  .course { @apply mt-8; }
+  .course-title { @apply mx-0 mt-0 mb-3 text-[1.05rem] font-bold; }
+  .course-title a { @apply text-sand no-underline; }
+  .course-title a:hover { @apply text-turq; }
+  .course-player { @apply aspect-video overflow-hidden rounded-xl bg-mesa; }
+  .course-player iframe { @apply block size-full border-0; }
+  .course-play { all: unset; @apply relative block size-full cursor-pointer; }
+  .course-play:focus-visible { @apply outline-3 -outline-offset-3 outline-turq; }
+  .course-play img { @apply block size-full object-cover; }
+  .course-play::after {
+    content: "";
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23161A33' d='M4.5 2.5v11l9-5.5z'/%3E%3C/svg%3E");
+    @apply absolute inset-0 m-auto size-13 rounded-[50%] bg-turq bg-size-[1.2rem] bg-position-[58%_50%] bg-no-repeat shadow-[0_0_0_6px_rgba(22,26,51,.45)];
+  }
+  .course-play:hover::after { @apply bg-surf; }
+  .course-now { @apply mx-0 my-[.65rem] min-h-[2.8em] text-[.85rem] leading-[1.4] text-bone; }
+  .course-now b { @apply mr-[.2rem] text-turq tabular-nums; }
+  .course-now .len { @apply whitespace-nowrap text-dust; }
+  .course-episodes { @apply m-0 flex list-none flex-wrap gap-[.35rem] p-0; }
+  .course-episodes button {
+    @apply size-[2.1rem] cursor-pointer rounded-lg border-0 bg-mesa text-[.8rem] leading-[normal] font-semibold text-dust tabular-nums inset-ring inset-ring-ridge;
+  }
+  .course-episodes button:hover { @apply text-sand inset-ring-turq; }
+  .course-episodes button[aria-current] { @apply bg-turq text-sky inset-ring-0; }
+
+  /* ---- Projects: About's TL;DR as the headline of the view, the Quest Log as a timeline
+     (chile: the quest under way; turquoise: side quests; dust: done), the slop shelf. */
+  #text-about p { @apply m-0 text-[clamp(2rem,4.6vw,3.25rem)] leading-[1.08] font-[750] font-stretch-80% tracking-[-.02em]; }
+  #text-about p b { @apply mb-3 block text-[1rem] font-medium font-stretch-100% tracking-[0] text-dust; }
+  #outline-container-about { @apply mb-18; }
+  #text-quest-log > ul { @apply m-0 list-none p-0; }
+  #text-quest-log > ul > li { @apply relative ml-[.45rem] border-l-2 border-l-ridge pt-0 pr-0 pb-10 pl-8; }
+  #text-quest-log > ul > li:last-child { @apply border-l-transparent pb-0; }
+  #text-quest-log > ul > li::before {
+    content: "";
+    @apply absolute top-[.35rem] -left-2 size-[10px] rounded-[50%] border-2 border-sky bg-dust [box-shadow:0_0_0_2px_var(--color-dust)];
+  }
+  #text-quest-log > ul > li:first-child::before { @apply bg-chile [box-shadow:0_0_0_2px_var(--color-chile),0_0_0_7px_rgba(229,83,61,.25)]; }
+  #text-quest-log > ul > li:nth-child(2)::before { @apply bg-sky [box-shadow:0_0_0_2px_var(--color-turq)]; }
+  #text-quest-log > ul > li > b:first-child { @apply mb-[.35rem] block text-[1.15rem] leading-[1.3]; }
+  #text-quest-log > ul > li > br { @apply hidden; }
+  #text-quest-log ul ul { @apply mx-0 mt-3 mb-0 list-none p-0; }
+  #text-quest-log ul ul li { @apply border-t border-t-ridge px-0 py-[.9rem] text-[1rem] text-bone; }
+  #text-quest-log ul ul li:last-child { @apply pb-0; }
+  @variant motion-safe {
+    #text-quest-log > ul > li:first-child::before { @apply animate-active-quest; }
+  }
+  #text-slop-shelf ul { @apply mx-0 mt-6 mb-0 grid list-none grid-cols-[repeat(auto-fit,minmax(17rem,1fr))] gap-4 p-0; }
+  #text-slop-shelf li { @apply rounded-xl bg-mesa px-5 pt-[1.1rem] pb-5 text-[.95rem] text-bone; }
+
+  /* ---- Phones: the sidebar becomes a compact header, then one column: name through
+     socials on top, then the view, then the course. */
+  @variant phone {
+    #content { @apply flex flex-col px-5 pt-8 pb-16; }
+    #outline-container-contact, #text-contact { @apply contents; }
+    #app { @apply order-1 mt-14; }
+    .course { @apply order-2 mt-16 border-t border-t-ridge pt-12; }
+    .contact-head { @apply mb-6 grid grid-cols-[auto_1fr] items-center gap-5; }
+    .hello-profile { @apply size-22; }
+    .name { @apply mx-0 mt-0 mb-[.35rem] text-[2.25rem]; }
+    .roles { @apply m-0 text-[.9rem]; }
+    /* Latest Work and Contact side by side, sized like the roles line. */
+    #text-contact > ul { @apply gap-0; }
+    #text-contact > ul > li:nth-child(-n+2) { @apply m-0 min-w-0 flex-1 basis-0 border-t border-b border-t-ridge border-b-ridge px-0 py-[.6rem] text-[.8rem]; }
+    #text-contact > ul > li:nth-child(2) { @apply pl-[.9rem]; }
+    #text-contact > ul > li:nth-child(-n+2) a { @apply text-[.9rem] wrap-anywhere; }
+    /* The socials sit small in the page's top right corner, above the name and out of the
+       flow; they scroll away with the page. */
+    #content { @apply relative; }
+    #text-contact > ul > li:nth-child(n+3) { @apply absolute top-[.3rem] right-[calc(.5rem+var(--k)*2.25rem)]; }
+    #text-contact > ul > li:nth-child(n+3) a { @apply size-[1.9rem]; }
+    #text-contact > ul > li:nth-child(n+3) a::before { @apply size-[.9rem]; }
+    #text-contact > ul > li:nth-child(n+3):nth-last-child(1) { --k: 0; }
+    #text-contact > ul > li:nth-child(n+3):nth-last-child(2) { --k: 1; }
+    #text-contact > ul > li:nth-child(n+3):nth-last-child(3) { --k: 2; }
+    #text-contact > ul > li:nth-child(n+3):nth-last-child(4) { --k: 3; }
+    .outline-2 { @apply mb-16; }
+    #outline-container-about { @apply mb-14; }
+  }
+
+  /* ---- A post (the Blog's and Off the clock's entries): the HTML Org exports for it. */
+  .post { @apply leading-[1.7]; }
+  .post h3, .post h4, .post h5 { @apply mx-0 mt-10 mb-[.9rem] leading-[1.2] font-[750] font-stretch-85% tracking-[-.01em]; }
+  .post h3 { @apply text-[1.45rem]; }
+  .post h4 { @apply text-[1.2rem]; }
+  .post h5 { @apply text-[1.05rem]; }
+  .post :is(p, ul, ol, dl, blockquote, pre, table, figure) { @apply mx-0 mt-0 mb-5; }
+  .post li + li { @apply mt-[.35rem]; }
+  .post blockquote { @apply ml-0 border-l-3 border-l-turq pl-5 text-bone; }
+  .post pre { @apply overflow-x-auto rounded-xl bg-mesa px-5 py-4 font-mono text-[.9rem] leading-[1.55] font-normal not-italic font-stretch-normal inset-ring inset-ring-ridge; }
+  .post :is(img, video) { @apply h-auto max-w-full rounded-xl; }
+  .post figure { @apply mx-0; }
+  .post figcaption { @apply mt-2 text-[.9rem] text-dust; }
+  #app .post hr { @apply mx-0 my-10 block border-0 border-t border-t-ridge; }
+  .post table { @apply w-full border-collapse text-[.95rem]; }
+  .post :is(th, td) { @apply border-b border-b-ridge px-3 py-[.55rem] text-left; }
+  .post th { @apply font-semibold text-dust; }
+  .post #footnotes { @apply mt-12 border-t border-t-ridge pt-6 text-[.9rem] text-bone; }
+  .post #footnotes h3 { @apply mx-0 mt-0 mb-4 text-[1rem] text-dust; }
+  .post .footdef { @apply flex gap-2; }
+
+  /* ---- The Store: index.org's products. The image floats left, the words run beside it,
+     then wrap under it at full width; the buy and key boxes (js/store.ts) start below both.
+     The image grows into a large view on a click, the way the profile photo does: js/store.ts
+     wraps it in a .product-zoom button and adds a .zoom-dialog. */
+  .product { @apply mx-0 mt-7 mb-0 flow-root; }
+  .product-image { @apply float-left mt-[.35rem] mr-6 mb-3 ml-0 aspect-video h-auto w-60 max-w-[45%] rounded-xl bg-mesa object-cover; }
+  .product-zoom { all: unset; @apply float-left mt-[.35rem] mr-6 mb-3 ml-0 w-60 max-w-[45%] cursor-zoom-in rounded-xl; }
+  .product-zoom .product-image { @apply float-none m-0 block w-full max-w-none; }
+  .product-zoom:focus-visible { @apply outline-[2px] outline-offset-4 outline-turq; }
+  .product-zoom.is-open img { @apply invisible; }
+  .zoom-dialog { @apply max-h-none max-w-none cursor-zoom-out overflow-visible border-0 bg-transparent p-0; }
+  .zoom-dialog:focus { @apply outline-none; }
+  .zoom-dialog img { @apply block h-auto max-h-[90vh] w-auto max-w-[min(94vw,1220px)] rounded-2xl shadow-[0_30px_80px_rgba(0,0,0,.55)] ring-4 ring-turq; }
+  .zoom-dialog::backdrop { @apply bg-[rgba(14,16,36,.82)] backdrop-blur-[6px]; }
+  .zoom-dialog.is-closing::backdrop { @apply opacity-0 [transition:opacity_.35s]; }
+  @variant motion-safe {
+    .zoom-dialog[open]::backdrop { @apply animate-backdrop-in; }
+  }
+  .product-body > h3 { @apply mx-0 mt-0 mb-3 text-[1.45rem] leading-[1.2] font-[750] font-stretch-85% tracking-[-.01em]; }
+  .product-body > p:first-of-type { @apply mt-0; }
+  .product .buy-mount { @apply clear-both; }
+  @variant narrow {
+    .product-image, .product-zoom { @apply float-none mx-0 mt-0 mb-4 w-full max-w-none; }
+    .product-zoom .product-image { @apply m-0; }
+  }
+  .store-admin { @apply mx-0 mt-10 mb-0 text-right text-[.8rem]; }
+  .store-admin a { @apply text-dust no-underline; }
+  .store-admin a:hover { @apply text-turq; }
+
+  /* Printing the key page (js/store.ts) prints just the key, in black on white. */
+  @variant print {
+    html:has(#license-mount), body:has(#license-mount) { background: #fff !important; }
+    body:has(#license-mount) * { @apply invisible; }
+    body:has(#license-mount) #app, body:has(#license-mount) #app * {
+      @apply visible;
+      color: #000 !important;
+      background: none !important;
+      box-shadow: none !important;
+    }
+    body:has(#license-mount) #app { @apply absolute top-0 right-auto bottom-auto left-0 w-full; }
+    body:has(#license-mount) .license-key { @apply border border-[#999]; }
+    body:has(#license-mount) .license-actions { @apply hidden!; }
+  }
+}

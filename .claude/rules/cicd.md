@@ -5,10 +5,11 @@ paths:
   - "scripts/github-settings.sh"
   - "scripts/test_workflows.py"
   - "scripts/deploy-worker.sh"
-  - "scripts/deployed.mjs"
+  - "scripts/deployed.ts"
   - "scripts/smoke.sh"
+  - "scripts/build.ts"
   - "scripts/dist.sh"
-  - "scripts/check-dist.mjs"
+  - "scripts/check-dist.ts"
   - "site-worker/**"
   - "package.json"
 ---
@@ -31,10 +32,10 @@ How a change reaches `master` and the live site (2026-10-11). The road to `maste
 
 ## Workflows
 
-- `check.yml`, the required check: `make check` (the site built, `scripts/check-dist.mjs` over `public/`, the Workers' tests, `scripts/test_workflows.py`) in a Debian 13 container (Emacs 30.1, Org 9.7.11, pinned by digest; Node 24). It runs on every pull request with no secret and no path filter (a required check that never reports holds a pull request at "Expected" for ever; never rename the job without the ruleset). It runs `make check` in two halves: `make build check-dist`, then the upload of `public/` as the artifact `site`, then `make test`, so the plugin code the license tests import from backseat-driver's `main` runs only after the site that deploys is sealed.
-- `deploy.yml`, on every push to `master` (and hourly, and by hand): `check.yml` again on the merged commit, then in the `production` environment: the site Worker deployed with that artifact (`wrangler deploy --tag <commit>`: the changed files upload and the version switches at once), the license server and the contact form through `scripts/deploy-worker.sh` (only when their folder or `package-lock.json` changed since their live version's tag), then `scripts/smoke.sh` against the live site (this build's pages, revalidated; a 404 for nothing; `/admin` closed; a video's Range answered 206; the license server's answers no-store and never a cache HIT). Deploys never overlap and are never cancelled. The hourly run first asks whether the site's live version is `master`'s, and stops there when it is.
+- `check.yml`, the required check: `make check` (the site built: `scripts/build.ts` (esbuild, Tailwind) then Emacs; `scripts/check-dist.ts` over `public/`, every TypeScript project type-checked, the Workers' tests, `scripts/test_workflows.py`) in a Debian 13 container (Emacs 30.1, Org 9.7.11, pinned by digest; Node 24). It runs on every pull request with no secret and no path filter (a required check that never reports holds a pull request at "Expected" for ever; never rename the job without the ruleset). It runs `make check` in two halves: `make build check-dist typecheck`, then the upload of `public/` as the artifact `site`, then `make test`, so the plugin code the license tests import from backseat-driver's `main` runs only after the site that deploys is sealed.
+- `deploy.yml`, on every push to `master` (and hourly, and by hand): `check.yml` again on the merged commit, then in the `production` environment: the Workers' admin pages compiled (`make workers`, before any step holds the token), the site Worker deployed with that artifact (`wrangler deploy --tag <commit>`: the changed files upload and the version switches at once), the license server and the contact form through `scripts/deploy-worker.sh` (only when their folder or `package-lock.json` changed since their live version's tag), then `scripts/smoke.sh` against the live site (this build's pages, revalidated; a 404 for nothing; `/admin` closed; a video's Range answered 206; the license server's answers no-store and never a cache HIT). Deploys never overlap and are never cancelled. The hourly run first asks whether the site's live version is `master`'s, and stops there when it is.
 - `owner-merge.yml`: above.
-- Every `uses:` names a commit with a `# vX.Y.Z` comment; `.github/dependabot.yml` bumps the action pins and wrangler weekly, each pull request waiting for the owner's approval (a merged wrangler bump redeploys every Worker). The Debian image digest in `check.yml` moves by hand.
+- Every `uses:` names a commit with a `# vX.Y.Z` comment; `.github/dependabot.yml` bumps the action pins and the npm packages (`package.json`: wrangler, TypeScript, esbuild, Tailwind, lit-html, the flag font, the types) weekly, each pull request waiting for the owner's approval (a merged bump redeploys the site, and every Worker when the lockfile changes). The Debian image digest in `check.yml` moves by hand.
 
 ## Credentials
 

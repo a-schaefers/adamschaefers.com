@@ -2,5 +2,5 @@
   "name": "adamschaefers-site",
   "private": true,
   "type": "module",
-  "scripts": { "test": "node --test test/*.test.js" }
+  "scripts": { "test": "node --test test/*.test.ts" }
 }

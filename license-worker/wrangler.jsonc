@@ -1,11 +1,11 @@
-// License server for the products in src/products.js (src/index.js), at
+// License server for the products in src/products.ts (src/index.ts), at
 // licenses.adamschaefers.com: real Stripe, real money (there is no sandbox).
 //   make licenses-test   the tests, offline        make licenses   tests, then deploy
 // Secrets (wrangler secret put NAME), never in the repo; backed up in the private repo
 // a-schaefers/adamschaefers.com-private:
 //   STRIPE_SECRET_KEY      live key (Checkout Sessions write is all it needs)
 //   STRIPE_WEBHOOK_SECRET  whsec_... of the webhook endpoint for /v1/stripe/webhook
-//   SIGNING_KEY            PKCS #8 PEM from scripts/keygen.js (live-1): signs Backseat Driver's keys only
+//   SIGNING_KEY            PKCS #8 PEM from scripts/keygen.ts (live-1): signs Backseat Driver's keys only
 //   (each product signs with its own: its `signing` in src/products.js names its secret, e.g.
 //   SIGNING_KEY_<PRODUCT>, and its kid var, e.g. SIGNING_KID_<PRODUCT>, set below)
 //   RESEND_API_KEY         send-only Resend key
@@ -18,7 +18,7 @@
 // "Backseat Driver licenses admin" (the name is only a label).
 {
   "name": "adamschaefers-licenses",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "compatibility_date": "2026-09-01",
   // Only the Worker's own event logs (no IP addresses in them); no per-request logs, which
   // would keep each caller's IP and the URL with its install id.

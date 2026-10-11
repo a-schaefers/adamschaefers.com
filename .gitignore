@@ -6,7 +6,9 @@
 node_modules/
 # What make build writes: CI builds it on every merge and deploys it, so it is never
 # committed (index.html covers every page's: off-the-clock/<slug>/index.html, ...).
+/build/
 /public/
+/*-worker/src/*.gen.ts
 index.html
 /404.html
 /rss.xml

@@ -2,9 +2,20 @@
   "name": "adamschaefers.com",
   "private": true,
   "type": "module",
-  "description": "The toolchain only: wrangler, pinned here for CI and local use (npx wrangler -c <worker>/wrangler.jsonc).",
+  "description": "The toolchain, pinned here for CI and local use (make drives it): TypeScript checks the code, esbuild bundles js/app.ts and the Workers' admin pages, Tailwind compiles the styles, wrangler serves and deploys (npx wrangler -c <worker>/wrangler.jsonc). lit-html and the flag font are the site's own dependencies, bundled and copied by make build.",
   "engines": { "node": ">=24" },
+  "dependencies": {
+    "country-flag-emoji-polyfill": "0.1.10",
+    "lit-html": "3.3.3"
+  },
   "devDependencies": {
+    "@cloudflare/workers-types": "5.20261006.1",
+    "@tailwindcss/cli": "4.3.3",
+    "@types/cloudflare-turnstile": "0.2.2",
+    "@types/node": "24.19.1",
+    "esbuild": "0.28.2",
+    "tailwindcss": "4.3.3",
+    "typescript": "7.0.2",
     "wrangler": "4.149.0"
   }
 }
