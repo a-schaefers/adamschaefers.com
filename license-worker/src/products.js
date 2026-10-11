@@ -14,7 +14,7 @@ export const PRODUCTS = {
     // The volume price applies to every seat once a license has this many in all.
     volumeSeats: 10,
     // Its page on the site, where Checkout's Back button returns.
-    page: '#backseat-driver',
+    page: 'backseat-driver/',
     howToUse: (seats) => `To use it, run /backseat license in Claude Code, choose commercial use and paste the key. Everyone using Backseat Driver under this license uses the same key, up to ${seats}.`,
   },
 };

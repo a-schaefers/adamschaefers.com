@@ -9,7 +9,7 @@
 
 import { productOf } from './products.js';
 
-export const SUPPORT = 'https://adamschaefers.com/#inquiries';
+export const SUPPORT = 'https://adamschaefers.com/inquiries/';
 
 const escape = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 

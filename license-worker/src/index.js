@@ -627,7 +627,7 @@ export default {
         } catch (error) {
           // Answered with CORS headers, so the page can show it.
           console.log(JSON.stringify({ event: 'error', path, error: String(error?.stack || error) }));
-          response = json({ error: 'Something went wrong. Please try again, or get in touch: https://adamschaefers.com/#inquiries' }, 500);
+          response = json({ error: 'Something went wrong. Please try again, or get in touch: https://adamschaefers.com/inquiries/' }, 500);
         }
         for (const [k, v] of Object.entries(cors)) response.headers.set(k, v);
         return response;
@@ -647,11 +647,11 @@ export default {
         if (await limited(env, request)) return json({ error: 'Too many requests.' }, 429, ANY_ORIGIN);
         return await verify(request, env);
       }
-      if (path === '/') return new Response('Backseat Driver license server. Buy at https://adamschaefers.com/#backseat-driver\n');
+      if (path === '/') return new Response('Backseat Driver license server. Buy at https://adamschaefers.com/backseat-driver/\n');
       return json({ error: 'Not found.' }, 404);
     } catch (error) {
       console.log(JSON.stringify({ event: 'error', path, error: String(error?.stack || error) }));
-      return json({ error: 'Something went wrong. Please try again, or get in touch: https://adamschaefers.com/#inquiries' }, 500);
+      return json({ error: 'Something went wrong. Please try again, or get in touch: https://adamschaefers.com/inquiries/' }, 500);
     }
   },
 };
