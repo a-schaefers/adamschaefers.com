@@ -794,3 +794,33 @@ test('admin: every product, its totals and a filter; issuing by hand needs a pro
   const only = await (await call('GET', '/admin/api/licenses?product=test-tool', { headers: auth })).json();
   assert.deepEqual(only.licenses.map((l) => l.product), ['test-tool', 'test-tool']);
 });
+
+// ---- Caching (2026-10-10): no cache may keep anything this server answers
+
+test('every answer says no-store, so no cache keeps a key, a license or the admin page', async () => {
+  const auth = { 'Cf-Access-Jwt-Assertion': await accessToken({}), Origin: 'https://licenses.test', 'Content-Type': 'application/json' };
+  const { session, page } = await buy(2);
+  const answers = {
+    'the root': await call('GET', '/'),
+    'a key check': await call('GET', `/v1/keys/${page.id}?install=install-aaaa`),
+    'an unknown key dressed as a stylesheet': await call('GET', '/v1/keys/lic_nope.css'),
+    "a product's key check": await call('GET', `/v1/products/backseat-driver/keys/${page.id}`),
+    'an unknown product': await call('GET', `/v1/products/nope/keys/${page.id}`),
+    'the public keys': await call('GET', '/v1/public-keys'),
+    "the thank-you page's key": await call('GET', `/v1/checkout/${session.id}`, { headers: { Origin: SITE } }),
+    'a checkout not found': await call('GET', '/v1/checkout/cs_test_doesnotexist0000', { headers: { Origin: SITE } }),
+    'a preflight': await call('OPTIONS', '/v1/lookup', { headers: { Origin: SITE } }),
+    'a lookup': await lookupKey(page.key),
+    'a verify': await call('POST', '/v1/verify', { body: { key: page.key } }),
+    'a bad webhook': await call('POST', '/v1/stripe/webhook', { body: '{}' }),
+    'admin, signed out': await call('GET', '/admin'),
+    'admin, signed in': await call('GET', '/admin', { headers: auth }),
+    "admin's list": await call('GET', '/admin/api/licenses', { headers: auth }),
+    'no such path': await call('GET', '/nope'),
+  };
+  for (const [what, r] of Object.entries(answers)) assert.match(r.headers.get('Cache-Control') || '', /no-store/, what);
+});
+
+test("Workers Cache stays off: on, Cloudflare would keep any answer that doesn't say no-store", () => {
+  assert.doesNotMatch(readFileSync(new URL('../wrangler.jsonc', here), 'utf8'), /"cache"\s*:/);
+});

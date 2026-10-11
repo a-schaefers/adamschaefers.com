@@ -650,7 +650,7 @@ async function limited(env, request) {
   return !success;
 }
 
-export default {
+const routes = {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const path = url.pathname;
@@ -704,5 +704,23 @@ export default {
       console.log(JSON.stringify({ event: 'error', path, error: String(error?.stack || error) }));
       return json({ error: 'Something went wrong. Please try again, or get in touch: https://adamschaefers.com/inquiries/' }, 500);
     }
+  },
+};
+
+/**
+ * Every answer this server gives is for one caller at one moment (a key, a license's seats,
+ * the admin page), so no cache may keep any of it: each says Cache-Control: no-store, the
+ * ones that don't set it themselves included. Cloudflare doesn't cache a Worker's own answers
+ * anyway, unless Workers Cache ("cache" in wrangler.jsonc) is switched on, and that stays off
+ * (test/worker.test.js); even on, it would honor no-store.
+ */
+function uncached(response) {
+  if (!response.headers.has('Cache-Control')) response.headers.set('Cache-Control', 'no-store');
+  return response;
+}
+
+export default {
+  async fetch(request, env, ctx) {
+    return uncached(await routes.fetch(request, env, ctx));
   },
 };

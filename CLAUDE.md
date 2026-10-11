@@ -168,6 +168,22 @@ file in `license-worker/migrations/`, run once on the database, and
 (Node's SQLite stands in for D1; Stripe, Resend and Access are faked); there
 is no sandbox, so a change is tested there before `make licenses` deploys it.
 
+Caching (audited 2026-10-10): no cache may ever keep anything personal. The
+site's files are the same for everyone; everything personal (a key's seats,
+the thank-you page's key, recovery, `/admin`) is fetched by the browser from
+the license server, every answer of which says `Cache-Control: no-store`
+(`uncached` in `src/index.js` adds it to any that lack it, and a test holds
+every route to it). Cloudflare never caches a Worker's own answers unless
+Workers Cache (`"cache"` in its `wrangler.jsonc`) is switched on, which a test
+keeps off for the license server (on, it would keep any answer without
+no-store). The contact form takes POSTs only, which no cache keeps. The
+thank-you page stays at `/#license/<checkout id>`: what follows `#` never
+leaves the browser, so no server, cache or log sees it. Never point a Cache
+Rule, `cf.cacheEverything` or the Cache API at the license or contact hosts.
+Whatever serves the site: its pages are revalidated on every visit or within
+minutes, never kept long, and a picture or video that changes gets a new name
+rather than replacing a file caches may hold.
+
 The Inquiries (Contact) view's form is mounted by `js/contact.js`, the same
 module as `js/contact.js` in ../enchant.games. It posts to `contact-worker/`, a
 Cloudflare Worker (`adamschaefers-contact`) at contact-api.adamschaefers.com.
