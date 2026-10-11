@@ -273,15 +273,6 @@ hostname added to the widget in the Cloudflare dashboard and to
 CI deploys it when a merge changes `contact-worker/`. Its Turnstile secret is
 a Worker secret (`wrangler secret put TURNSTILE_SECRET`), not in the repo.
 
-`a-schaefers/` is a git submodule holding the GitHub profile README
-(github.com/a-schaefers/a-schaefers), tracking its `main` branch.
-`make submodule` clones it if missing. This site and the profile README are
-kept in sync: whenever the core content of `index.org` changes (bio,
-projects, links), make the matching change in `a-schaefers/README.md` in
-the same pass. Commit and push the submodule first (on `main`, not a
-detached HEAD), then ship `index.org` and the updated submodule pointer here
-together, in one pull request.
-
 Checks and where they run (owner, 2026-10-11: no slow suites on this old
 machine when CI already runs them). `make check` is CI's required check
 (`.claude/rules/cicd.md`): the build, every link, the types, the Workers'
