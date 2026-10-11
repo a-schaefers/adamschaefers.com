@@ -8,6 +8,7 @@ node_modules/
 # committed (index.html covers every page's: off-the-clock/<slug>/index.html, ...).
 /build/
 /public/
+/*-worker/src/*.gen.ts
 index.html
 /404.html
 /rss.xml

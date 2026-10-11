@@ -132,9 +132,23 @@ function routeAt(url: URL | Location, exactly?: boolean): Route | null {
 
 const icon = (paths: string) => unsafeHTML(`<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`);
 
+// The styles of the elements drawn here are Tailwind's utilities (site.css). Some repeat:
+// a menu tab (a pill at the top on desktop; on phones, an icon over its label in the bottom
+// bar), an entry's title link, the cards that say there's nothing here, and the pager's and a
+// post's newer/older links.
+const TAB = 'flex items-center rounded-full px-[.9rem] py-[.45rem] text-[.95rem] font-semibold text-dust no-underline '
+    + 'hover:bg-mesa hover:text-sand aria-[current]:bg-mesa aria-[current]:text-turq aria-[current]:inset-ring aria-[current]:inset-ring-ridge [&>svg]:hidden '
+    + 'phone:flex-1 phone:flex-col phone:gap-[.2rem] phone:rounded-none phone:px-0 phone:py-[.3rem] phone:text-[.75rem] phone:font-medium '
+    + 'phone:font-stretch-85% phone:whitespace-nowrap phone:hover:bg-transparent phone:aria-[current]:bg-transparent phone:aria-[current]:inset-ring-0 phone:[&>svg]:block';
+const TITLE_LINK = 'text-sand no-underline hover:text-turq';
+const NOTE_CARD = 'mt-6 rounded-2xl bg-mesa px-7 py-6 text-dust inset-ring inset-ring-ridge';
+const PAGER_LINK = 'whitespace-nowrap rounded-full bg-mesa px-[1.2rem] py-[.6rem] font-semibold text-sand no-underline inset-ring inset-ring-ridge hover:text-turq hover:inset-ring-turq';
+const POST_LINK = 'block rounded-xl bg-mesa px-5 py-4 leading-[1.35] font-semibold text-sand no-underline inset-ring inset-ring-ridge hover:text-turq hover:inset-ring-turq';
+const POST_LINK_LABEL = 'mb-1 block text-[.85rem] font-medium text-dust';
+
 const menu = (active: string) => html`
-    <div class="site-tabs">
-        ${TABS.map(t => html`<a href=${address(t.route)} aria-current=${t.route === active ? 'page' : nothing}>${icon(t.icon!)}<span>${t.label}</span></a>`)}
+    <div class="site-tabs flex justify-end gap-1 phone:fixed phone:inset-x-0 phone:bottom-0 phone:z-10 phone:justify-around phone:gap-0 phone:border-t phone:border-t-ridge phone:bg-sky/95 phone:px-0 phone:pt-[.4rem] phone:pb-[calc(.4rem+env(safe-area-inset-bottom))] phone:backdrop-blur-[8px]">
+        ${TABS.map(t => html`<a class=${TAB} href=${address(t.route)} aria-current=${t.route === active ? 'page' : nothing}>${icon(t.icon!)}<span>${t.label}</span></a>`)}
     </div>`;
 
 // An index.org section, wrapped the way Org exports it so index.org's styles apply.
@@ -145,22 +159,22 @@ const section = (s: Section) => html`
     </div>`;
 
 // src on the element itself, not a <source>, so a reused element loads the new video.
-const video = (e: Entry, cls?: string) => html`
-    <video controls playsinline preload="metadata" src=${e.video} poster=${e.poster || nothing} class=${cls || nothing}></video>`;
+const video = (e: Entry, cls = '') => html`
+    <video controls playsinline preload="metadata" src=${e.video} poster=${e.poster || nothing} class="block aspect-[9/16] h-auto w-full rounded-xl bg-mesa ${cls}"></video>`;
 
 // A listing entry: a post's excerpt, or a travelog's video and caption.
 const entry = (route: string, e: Entry) => e.video ? html`
-    <li class="travelog">
+    <li class="travelog [&_p]:m-0 [&_p]:text-[.9rem] [&_p]:text-dust">
         ${video(e)}
-        <time datetime=${e.date}>${e.dateLabel}</time>
-        <h3><a href=${address(route, e.slug)}>${e.title}</a></h3>
+        <time class="mt-[.6rem] block text-[.85rem] text-dust" datetime=${e.date}>${e.dateLabel}</time>
+        <h3 class="mx-0 mt-[.1rem] mb-[.35rem] text-[1.15rem] leading-[1.2] font-[750] font-stretch-85%"><a class=${TITLE_LINK} href=${address(route, e.slug)}>${e.title}</a></h3>
         ${unsafeHTML(e.excerpt)}
     </li>` : html`
-    <li class="entry">
-        <time datetime=${e.date}>${e.dateLabel}</time>
-        <h3><a href=${address(route, e.slug)}>${e.title}</a></h3>
+    <li class="entry border-t border-t-ridge py-7 [&_p]:m-0 [&_p]:mb-3 [&_p]:text-bone">
+        <time class="text-[.9rem] text-dust" datetime=${e.date}>${e.dateLabel}</time>
+        <h3 class="mx-0 mt-1 mb-[.6rem] text-[1.45rem] leading-[1.2] font-[750] font-stretch-85% tracking-[-.01em]"><a class=${TITLE_LINK} href=${address(route, e.slug)}>${e.title}</a></h3>
         ${unsafeHTML(e.excerpt)}
-        <a class="entry-more" href=${address(route, e.slug)}>Read post →</a>
+        <a class="text-[.95rem] font-semibold" href=${address(route, e.slug)}>Read post →</a>
     </li>`;
 
 function listing(route: string, c: Collection, page: number) {
@@ -170,18 +184,20 @@ function listing(route: string, c: Collection, page: number) {
     <div class="outline-2 blog">
         <h2>${c.title}</h2>
         ${unsafeHTML(c.intro)}
-        <p class="blog-rss"><a href=${data.feed}>${icon(RSS_ICON)}RSS feed</a></p>
+        <p class="m-0"><a class="inline-flex items-center gap-[.4rem] text-[.9rem] font-semibold text-dust no-underline hover:text-turq [&>svg]:size-4" href=${data.feed}>${icon(RSS_ICON)}RSS feed</a></p>
         ${shown.length
-            ? html`<ol class=${shown.some(e => e.video) ? 'travelogs' : 'entries'}>${shown.map(e => entry(route, e))}</ol>`
-            : html`<div class="entries-empty">
-                <p class="entries-empty-title">Nothing here yet.</p>
-                <p>Watch this space. The RSS feed will tell you when the first post lands.</p>
+            ? html`<ol class=${shown.some(e => e.video)
+                ? 'travelogs m-0 mt-6 grid list-none grid-cols-[repeat(2,minmax(0,17rem))] gap-x-4 gap-y-8 p-0'
+                : 'entries m-0 mt-6 list-none p-0'}>${shown.map(e => entry(route, e))}</ol>`
+            : html`<div class=${NOTE_CARD}>
+                <p class="m-0 text-[1.35rem] font-[750] font-stretch-85% text-sand">Nothing here yet.</p>
+                <p class="m-0">Watch this space. The RSS feed will tell you when the first post lands.</p>
               </div>`}
         ${pages > 1 ? html`
-        <nav class="pager" aria-label="Pages">
-            ${page > 1 ? html`<a href=${pageHref(route, page - 1)} rel="prev">← Newer</a>` : html`<span></span>`}
-            <span class="pager-count">Page ${page} of ${pages}</span>
-            ${page < pages ? html`<a href=${pageHref(route, page + 1)} rel="next">Older →</a>` : html`<span></span>`}
+        <nav class="pager mt-2 grid grid-cols-[1fr_auto_1fr] items-center gap-4 border-t border-t-ridge pt-6 [&>:last-child]:justify-self-end" aria-label="Pages">
+            ${page > 1 ? html`<a class=${PAGER_LINK} href=${pageHref(route, page - 1)} rel="prev">← Newer</a>` : html`<span></span>`}
+            <span class="text-[.9rem] text-dust tabular-nums">Page ${page} of ${pages}</span>
+            ${page < pages ? html`<a class=${PAGER_LINK} href=${pageHref(route, page + 1)} rel="next">Older →</a>` : html`<span></span>`}
         </nav>` : nothing}
     </div>`;
 }
@@ -190,16 +206,16 @@ function single(route: string, label: string, c: Collection, i: number) {
     const e = c.entries[i], newer = c.entries[i - 1], older = c.entries[i + 1];
     return html`
     <article class="outline-2 post">
-        <header class="post-head">
-            <a class="post-back" href=${pageHref(route, Math.floor(i / c.perPage) + 1)}>← ${label}</a>
-            <h2>${e.title}</h2>
-            <time datetime=${e.date}>${e.dateLabel}</time>
+        <header class="mb-10">
+            <a class="mb-5 inline-block text-[.9rem] font-semibold text-dust no-underline hover:text-turq" href=${pageHref(route, Math.floor(i / c.perPage) + 1)}>← ${label}</a>
+            <h2 class="mx-0 mt-0 mb-[.9rem] text-[clamp(2rem,4.6vw,3rem)] leading-[1.02] font-extrabold font-stretch-75% tracking-[-.02em]">${e.title}</h2>
+            <time class="block text-dust" datetime=${e.date}>${e.dateLabel}</time>
         </header>
-        ${e.video ? video(e, 'post-video') : nothing}
+        ${e.video ? video(e, 'mb-6') : nothing}
         ${unsafeHTML(e.html)}
-        <nav class="post-nav" aria-label="More">
-            ${newer ? html`<a class="newer" href=${address(route, newer.slug)} rel="prev"><span>← Newer</span>${newer.title}</a>` : nothing}
-            ${older ? html`<a class="older" href=${address(route, older.slug)} rel="next"><span>Older →</span>${older.title}</a>` : nothing}
+        <nav class="mt-12 grid grid-cols-[1fr_1fr] gap-4 border-t border-t-ridge pt-6 narrow:grid-cols-[1fr]" aria-label="More">
+            ${newer ? html`<a class=${POST_LINK} href=${address(route, newer.slug)} rel="prev"><span class=${POST_LINK_LABEL}>← Newer</span>${newer.title}</a>` : nothing}
+            ${older ? html`<a class="${POST_LINK} col-start-2 text-right narrow:col-auto" href=${address(route, older.slug)} rel="next"><span class=${POST_LINK_LABEL}>Older →</span>${older.title}</a>` : nothing}
         </nav>
     </article>`;
 }
@@ -208,19 +224,19 @@ function single(route: string, label: string, c: Collection, i: number) {
 const sitemap = () => html`
     <div class="outline-2 sitemap">
         <h2>Sitemap</h2>
-        <ul>
-            ${TABS.map(t => html`<li>
+        <ul class="m-0 mb-6 pl-5">
+            ${TABS.map(t => html`<li class="my-[.35rem]">
                 <a href=${address(t.route)}>${t.label}</a>
-                ${t.collection && collections[t.collection].entries.length ? html`<ul>
-                    ${collections[t.collection].entries.map(e => html`<li><a href=${address(t.route, e.slug)}>${e.title}</a> <time datetime=${e.date}>${e.dateLabel}</time></li>`)}
+                ${t.collection && collections[t.collection].entries.length ? html`<ul class="mx-0 mt-[.35rem] mb-3 pl-5">
+                    ${collections[t.collection].entries.map(e => html`<li class="my-[.35rem]"><a href=${address(t.route, e.slug)}>${e.title}</a> <time class="text-[.85rem] text-dust" datetime=${e.date}>${e.dateLabel}</time></li>`)}
                 </ul>` : nothing}
             </li>`)}
-            ${PAGES.map(p => html`<li><a href=${address(p.route)}>${p.label}</a></li>`)}
+            ${PAGES.map(p => html`<li class="my-[.35rem]"><a href=${address(p.route)}>${p.label}</a></li>`)}
         </ul>
         <h3>Feeds</h3>
-        <ul>
-            <li><a href=${data.feed}>RSS feed</a> (the blog and Off the clock)</li>
-            <li><a href="sitemap.xml">sitemap.xml</a></li>
+        <ul class="m-0 mb-6 pl-5">
+            <li class="my-[.35rem]"><a href=${data.feed}>RSS feed</a> (the blog and Off the clock)</li>
+            <li class="my-[.35rem]"><a href="sitemap.xml">sitemap.xml</a></li>
         </ul>
     </div>`;
 
@@ -231,9 +247,9 @@ function notFound(path: string) {
     return html`
     <div class="outline-2 not-found">
         <h2>Page not found</h2>
-        <div class="not-found-note">
-            <p class="not-found-title">Nothing lives at <code>${decode(path)}</code>.</p>
-            <p>The link may be mistyped, or the page may have moved. Try ${near
+        <div class=${NOTE_CARD}>
+            <p class="m-0 mb-2 text-[1.35rem] font-[750] font-stretch-85% text-sand">Nothing lives at <code>${decode(path)}</code>.</p>
+            <p class="m-0">The link may be mistyped, or the page may have moved. Try ${near
                 ? html`<a href=${address(near.route)}>${near.label}</a>, `
                 : nothing}the <a href="/">home page</a> or the <a href="/sitemap/">sitemap</a>.</p>
         </div>

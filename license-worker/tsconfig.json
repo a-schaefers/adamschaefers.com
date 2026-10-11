@@ -16,5 +16,7 @@
     "lib": ["ES2022"],
     "types": ["@cloudflare/workers-types"]
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts"],
+  // The admin page's script runs in the browser: the site's project checks it (../tsconfig.json).
+  "exclude": ["src/admin-page.ts"]
 }

@@ -1,8 +1,9 @@
 {
   // The browser's code: the site's script (js/, which esbuild bundles into js/app.<hash>.js)
-  // and the Workers' admin pages' scripts. tsc only checks (noEmit); esbuild compiles. The
-  // Workers and the Node scripts are projects of their own (each Worker's tsconfig.json,
-  // scripts/tsconfig.json): their globals and the DOM's conflict. make typecheck runs them all.
+  // and the Workers' admin pages' scripts (src/admin-page.ts, which esbuild bundles into the
+  // page). tsc only checks (noEmit); esbuild compiles. The Workers and the Node scripts are
+  // projects of their own (each Worker's tsconfig.json, scripts/tsconfig.json): their globals
+  // and the DOM's conflict. make typecheck runs them all.
   "compilerOptions": {
     "target": "ES2022",
     "module": "ESNext",
@@ -17,5 +18,5 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "types": ["cloudflare-turnstile"]
   },
-  "include": ["js/**/*.ts"]
+  "include": ["js/**/*.ts", "site-worker/src/admin-page.ts", "license-worker/src/admin-page.ts"]
 }

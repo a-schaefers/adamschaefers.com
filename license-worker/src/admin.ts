@@ -4,31 +4,17 @@
    or issue one by hand for any product. Served only after Cloudflare Access signs
    the owner in (src/access.ts); it calls /admin/api/... on the same origin. */
 
+import { SCRIPT, STYLE } from './admin-page.gen.ts';
+
+// Its styles and script are compiled from src/admin-page.css and src/admin-page.ts
+// (scripts/build.ts) and inlined; its classes are Tailwind's.
 export const ADMIN_PAGE = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Licenses {{MODE}}</title>
-<style>
-  :root { --sky:#161A33; --mesa:#1F2445; --ridge:#2C3260; --sand:#EEE7D7; --dust:#A8A6BE; --turq:#46D3C3; --chile:#E5533D; }
-  body { margin:0; padding:1.5rem; background:var(--sky); color:var(--sand); font:15px/1.5 system-ui,sans-serif; }
-  h1 { margin:0 0 1rem; font-size:1.4rem; } h1 small { color:var(--chile); font-size:.9rem; margin-left:.5rem; }
-  input, button, textarea, select { font:inherit; color:inherit; background:var(--mesa); border:1px solid var(--ridge); border-radius:8px; padding:.45rem .7rem; }
-  button { cursor:pointer; } button:hover { border-color:var(--turq); color:var(--turq); }
-  .bar { display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:1rem; } .bar input { flex:1; min-width:14rem; }
-  .totals { display:flex; gap:.75rem; flex-wrap:wrap; margin:0 0 1.25rem; padding:0; list-style:none; }
-  .totals li { background:var(--mesa); border:1px solid var(--ridge); border-radius:12px; padding:.6rem .9rem; cursor:pointer; }
-  .totals li.on { border-color:var(--turq); } .totals b { display:block; } .totals small { color:var(--dust); }
-  table { width:100%; border-collapse:collapse; } th, td { text-align:left; padding:.5rem; border-bottom:1px solid var(--ridge); vertical-align:top; }
-  th { color:var(--dust); font-weight:600; font-size:.85rem; } td small { color:var(--dust); display:block; }
-  .key { font:12px/1.4 ui-monospace,monospace; word-break:break-all; color:var(--dust); max-width:28rem; }
-  .revoked { color:var(--chile); } .active { color:var(--turq); } .err { color:var(--chile); }
-  .actions { display:flex; gap:.35rem; flex-wrap:wrap; } .actions button { padding:.25rem .55rem; font-size:.85rem; }
-  details { margin:0 0 1.25rem; background:var(--mesa); border:1px solid var(--ridge); border-radius:12px; padding:.75rem 1rem; }
-  summary { cursor:pointer; font-weight:600; } form { display:grid; gap:.5rem; max-width:28rem; margin-top:.75rem; }
-  #msg { min-height:1.5em; color:var(--turq); } a { color:var(--turq); }
-</style></head>
+<style>${STYLE}</style></head>
 <body>
 <h1>Licenses <small>{{MODE}}</small></h1>
-<ul class="totals" id="totals"></ul>
+<ul class="m-0 mb-5 flex list-none flex-wrap gap-3 p-0" id="totals"></ul>
 <details><summary>Issue a license by hand</summary>
   <form id="issue">
     <select id="product" name="product" required></select>
@@ -40,85 +26,8 @@ export const ADMIN_PAGE = `<!doctype html>
     <button>Issue</button>
   </form>
 </details>
-<div class="bar"><select id="only"><option value="">All products</option></select><input id="q" type="search" placeholder="Search email, licensee, lic_ id or pi_ payment"><button id="go">Search</button></div>
-<p id="msg"></p>
+<div class="mb-4 flex flex-wrap gap-2"><select id="only"><option value="">All products</option></select><input class="min-w-56 flex-1" id="q" type="search" placeholder="Search email, licensee, lic_ id or pi_ payment"><button id="go">Search</button></div>
+<p class="min-h-[1.5em] text-turq" id="msg"></p>
 <table><thead><tr><th>Issued</th><th>Product</th><th>Email / licensee</th><th>Seats / installs</th><th>Paid</th><th>Status</th><th>Key</th><th></th></tr></thead><tbody id="rows"></tbody></table>
-<script>
-const $ = (s) => document.querySelector(s);
-const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c]);
-let dashboard = '';
-let products = {};
-function say(text, bad) { $('#msg').textContent = text; $('#msg').className = bad ? 'err' : ''; }
-async function api(path, options) {
-  const r = await fetch('/admin/api/' + path, { headers: { 'Content-Type': 'application/json' }, ...options });
-  const data = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error(data.error || r.status);
-  return data;
-}
-function row(l) {
-  const paid = l.amount_total == null ? '<small>' + esc(l.source) + '</small>'
-    : esc((l.amount_total / 100).toFixed(2) + ' ' + String(l.currency || '').toUpperCase())
-      + (l.stripe_payment_intent ? '<small>' + (dashboard ? '<a target="_blank" rel="noopener" href="' + esc(dashboard + '/payments/' + l.stripe_payment_intent) + '">' + esc(l.stripe_payment_intent) + '</a>' : esc(l.stripe_payment_intent)) + '</small>' : '');
-  const status = l.revoked_at ? '<span class="revoked">revoked</span><small>' + new Date(l.revoked_at).toLocaleString() + '</small>' : '<span class="active">active</span>';
-  const mail = l.email_error ? '<small class="err">email failed: ' + esc(l.email_error) + '</small>' : l.emailed_at ? '<small>emailed ' + new Date(l.emailed_at).toLocaleString() + '</small>' : '<small>not emailed</small>';
-  return '<tr data-id="' + esc(l.id) + '"><td>' + new Date(l.issued_at).toLocaleString() + '<small>' + esc(l.id) + '</small></td>'
-    + '<td>' + esc(products[l.product] || l.product) + '</td>'
-    + '<td>' + esc(l.email) + '<small>' + esc(l.licensee) + '</small>' + mail + (l.note ? '<small>' + esc(l.note) + '</small>' : '') + '</td>'
-    + '<td>' + l.seats + '<small' + (l.installs > l.seats ? ' class="err"' : '') + '>' + l.installs + ' install' + (l.installs === 1 ? '' : 's') + ' in 14 days</small>'
-      + (l.nudged_at ? '<small>seats email ' + new Date(l.nudged_at).toLocaleDateString() + '</small>' : '')
-      + (l.root_id && l.root_id !== l.id ? '<small>family ' + esc(l.root_id) + '</small>' : '') + '</td><td>' + paid + '</td><td>' + status + '</td><td class="key">' + esc(l.key) + '</td>'
-    + '<td><div class="actions"><button data-do="copy">Copy key</button><button data-do="resend">Resend email</button>'
-    + (l.revoked_at ? '<button data-do="restore">Restore</button>' : '<button data-do="revoke">Revoke</button>') + '</div></td></tr>';
-}
-const money = (n, c) => new Intl.NumberFormat('en-US', { style: 'currency', currency: String(c || 'usd').toUpperCase() }).format(n / 100);
-const options = (list) => list.map(([id, name]) => '<option value="' + esc(id) + '">' + esc(name) + '</option>').join('');
-function totals(list) {
-  const only = $('#only').value;
-  $('#totals').innerHTML = Object.entries(products).map(([id, name]) => {
-    const t = list.find((x) => x.product === id) || { licenses: 0, live: 0, taken: 0 };
-    return '<li data-product="' + esc(id) + '"' + (only === id ? ' class="on"' : '') + '><b>' + esc(name) + '</b><small>' + t.live + ' active of ' + t.licenses + ' license' + (t.licenses === 1 ? '' : 's') + ' · ' + money(t.taken, t.currency) + '</small></li>';
-  }).join('');
-}
-let shown = [];
-async function load() {
-  try {
-    const data = await api('licenses?q=' + encodeURIComponent($('#q').value) + '&product=' + encodeURIComponent($('#only').value));
-    dashboard = data.dashboard; shown = data.licenses;
-    if (!Object.keys(products).length) {
-      products = data.products;
-      // Hand-issued keys are only for products on sale; with more than one, choosing is required.
-      const sold = Object.entries(products).filter(([id]) => data.selling.includes(id));
-      $('#product').innerHTML = (sold.length > 1 ? '<option value="">Product…</option>' : '') + options(sold);
-      $('#only').innerHTML = '<option value="">All products</option>' + options(Object.entries(products));
-    }
-    totals(data.totals);
-    $('#rows').innerHTML = shown.map(row).join('') || '<tr><td colspan="8">No licenses' + ($('#q').value || $('#only').value ? ' match.' : ' yet.') + '</td></tr>';
-    say(shown.length + ' license' + (shown.length === 1 ? '' : 's') + ($('#only').value ? ' of ' + products[$('#only').value] : ''));
-  } catch (e) { say('Could not load: ' + e.message, true); }
-}
-$('#totals').addEventListener('click', (e) => {
-  const li = e.target.closest('li[data-product]'); if (!li) return;
-  $('#only').value = $('#only').value === li.dataset.product ? '' : li.dataset.product; load();
-});
-$('#only').addEventListener('change', load);
-$('#rows').addEventListener('click', async (e) => {
-  const b = e.target.closest('button[data-do]'); if (!b) return;
-  const id = b.closest('tr').dataset.id; const l = shown.find((x) => x.id === id); const act = b.dataset.do;
-  if (act === 'copy') { try { await navigator.clipboard.writeText(l.key); return say('Key copied for ' + l.email); } catch { return say('Copy blocked: select the key in the table instead.', true); } }
-  if (act === 'revoke' && !confirm('Withdraw the whole ' + (products[l.product] || l.product) + ' license of ' + l.licensee + ' (every key of it, ' + l.email + ')? Its app will say withdrawn.')) return;
-  b.disabled = true;
-  try { await api('licenses/' + id + '/' + act, { method: 'POST', body: '{}' }); say(act === 'resend' ? 'Emailed ' + l.email : id + ' ' + act + 'd'); await load(); }
-  catch (err) { say(act + ' failed: ' + err.message, true); b.disabled = false; }
-});
-$('#issue').addEventListener('submit', async (e) => {
-  e.preventDefault(); const f = new FormData(e.target);
-  try {
-    const data = await api('licenses', { method: 'POST', body: JSON.stringify({ product: f.get('product'), email: f.get('email'), licensee: f.get('licensee'), seats: Number(f.get('seats')), note: f.get('note'), send: f.get('send') === 'on' }) });
-    e.target.reset(); say('Issued ' + (products[data.license.product] || '') + ' ' + data.license.id + (data.emailed === false ? ', but the email failed' : data.emailed ? ' and emailed it' : '')); await load();
-  } catch (err) { say('Issue failed: ' + err.message, true); }
-});
-$('#go').addEventListener('click', load);
-$('#q').addEventListener('keydown', (e) => { if (e.key === 'Enter') load(); });
-load();
-</script>
+<script>${SCRIPT}</script>
 </body></html>`;

@@ -20,19 +20,21 @@ Or, in an existing clone, fetch the submodule if it is missing:
 make submodule
 ```
 
-Then install the toolchain (wrangler, pinned in `package.json`; needs Node 24
-and Emacs 30):
+Then install the toolchain (TypeScript, esbuild, Tailwind, wrangler and the
+site's npm packages, pinned in `package.json`; needs Node 24 and Emacs 30):
 
 ```sh
 npm ci
 ```
 
-- `make build` builds the site into `public/` (the pages, the RSS feed and the
-  sitemap from `index.org`, `blog.org`, `blog/*.org`, `off-the-clock.org` and
-  `off-the-clock/*.org`). None of it is committed.
+- `make build` builds the site into `public/`: its TypeScript and Tailwind
+  styles compiled, then the pages, the RSS feed and the sitemap from
+  `index.org`, `blog.org`, `blog/*.org`, `off-the-clock.org` and
+  `off-the-clock/*.org`. None of it is committed.
 - `make run` serves it at http://localhost:8000, the way the site does.
 - `make check` runs what CI's required check runs: the build, every link, the
-  Workers' tests (offline) and the workflows' rules.
+  types (`make typecheck`), the Workers' tests (offline) and the workflows'
+  rules.
 
 Changes reach `master` only through pull requests: commit on a branch and run
 `scripts/ship.sh`. The merge deploys the site and, when they changed, the

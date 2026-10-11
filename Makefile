@@ -1,4 +1,4 @@
-.PHONY: build run check check-dist typecheck test licenses-test submodule
+.PHONY: build workers run check check-dist typecheck test licenses-test submodule
 
 PORT ?= 8000
 
@@ -9,6 +9,11 @@ build:
 	node scripts/build.ts
 	emacs -Q --batch -l site.el -f site-build
 	sh scripts/dist.sh
+
+# The Workers' admin pages, compiled into the modules they import (src/admin-page.gen.ts, which
+# git ignores): the Workers' tests, tsc and wrangler need them. make build makes them too.
+workers:
+	node scripts/build.ts workers
 
 # public/ served the way the site serves it (Workers Static Assets, locally), at
 # http://localhost:8000. A make build in another terminal shows on the next reload.
@@ -29,15 +34,15 @@ check-dist:
 TSCONFIGS = tsconfig.json site-worker/tsconfig.json site-worker/test/tsconfig.json \
 	license-worker/tsconfig.json license-worker/test/tsconfig.json contact-worker/tsconfig.json \
 	scripts/tsconfig.json
-typecheck:
+typecheck: workers
 	@for p in $(TSCONFIGS); do echo "tsc -p $$p"; npx tsc -p $$p || exit 1; done
 
-test:
+test: workers
 	node --test site-worker/test/*.test.ts license-worker/test/*.test.ts
 	python3 scripts/test_workflows.py
 
 # The license server's tests, offline (license-worker/). CI deploys it on merge.
-licenses-test:
+licenses-test: workers
 	node --test license-worker/test/*.test.ts
 
 # Clone the a-schaefers profile README into ./a-schaefers if it isn't there yet.
