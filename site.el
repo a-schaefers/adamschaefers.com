@@ -312,8 +312,10 @@ Org's heading ids are random; SEED keeps them the same from build to build."
      "\n")))
 
 (defun site--share-pages (views collections)
-  "Every page to make: (PATH TITLE DESCRIPTION IMAGE TYPE), PATH under the site
-root and the view's address in js/app.js."
+  "Every page to make: (PATH TITLE DESCRIPTION IMAGE TYPE [ADDRESS]), PATH under
+the site root and the view's address in js/app.js.  With ADDRESS, PATH is an old
+address of that page (a product's /<id>/, from before /store/<id>/): the same
+page, its preview naming ADDRESS, and not in the sitemap."
   (let ((fallback (site--summary (alist-get 'html (seq-find (lambda (v) (equal (alist-get 'id v) "about")) views)))))
     (append
      ;; Views, and the products in them.
@@ -335,11 +337,12 @@ root and the view's address in js/app.js."
                                (next (match-end 0))
                                (picture (if (string-match "data-share-image=\"\\([^\"]+\\)\"" attrs) (match-string 1 attrs) site-share-image)))
                           (setq start next)
-                          (push (list pid
-                                      (site--plain-title (if (string-match "<h3>\\(\\(?:.\\|\n\\)*?\\)</h3>" body) (match-string 1 body) pid))
-                                      (site--summary (if (string-match "</h3>\\(\\(?:.\\|\n\\)*?\\)</p>" body) (match-string 1 body) html))
-                                      picture "product")
-                                products)))
+                          (let ((page (list (concat id "/" pid)
+                                            (site--plain-title (if (string-match "<h3>\\(\\(?:.\\|\n\\)*?\\)</h3>" body) (match-string 1 body) pid))
+                                            (site--summary (if (string-match "</h3>\\(\\(?:.\\|\n\\)*?\\)</p>" body) (match-string 1 body) html))
+                                            picture "product")))
+                            (push page products)
+                            (push (append (cons pid (cdr page)) (list (car page))) products))))
                       (nreverse products)))))))
       views)
      ;; The sitemap, which js/app.js draws.
@@ -387,9 +390,9 @@ tags, drop the ones an earlier build made that are gone, and list them in
   (let ((old (and (file-exists-p site-share-list)
                   (split-string (with-temp-buffer (insert-file-contents site-share-list) (buffer-string)) "\n" t)))
         made)
-    (pcase-dolist (`(,path ,title ,description ,image ,type) pages)
+    (pcase-dolist (`(,path ,title ,description ,image ,type ,address) pages)
       (let ((file (concat path "/index.html"))
-            (url (concat site-url path "/"))
+            (url (concat site-url (or address path) "/"))
             (full (format "%s · %s" title site-name)))
         (make-directory path t)
         (site--write file (site--page template full
@@ -414,7 +417,8 @@ entries at real paths, which crawlers can read)."
             "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n"
             "  <url><loc>" site-url "</loc></url>\n")
     (dolist (page pages)
-      (insert "  <url><loc>" site-url (car page) "/</loc></url>\n"))
+      (unless (nth 5 page)
+        (insert "  <url><loc>" site-url (car page) "/</loc></url>\n")))
     (insert "</urlset>\n")))
 
 ;;; The page
@@ -493,8 +497,8 @@ same page at every view's address."
              (error "site: no <meta charset> in the exported page to put <base> after"))
            (site--write "index.html" (site--page template site-name home-tags))
            ;; Any other path (a mistyped address, an entry since removed): js/app.js
-           ;; shows the nearest view.  Not a page for search engines to keep.
-           (site--write "404.html" (site--page template site-name
+           ;; shows Page not found.  Not a page for search engines to keep.
+           (site--write "404.html" (site--page template (format "Page not found · %s" site-name)
                                                (concat "<meta name=\"robots\" content=\"noindex\">\n" home-tags)))
            (site--write-share-pages pages template))
          (site--write-feed collections)

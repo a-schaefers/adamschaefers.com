@@ -14,9 +14,12 @@
 .entry h3 a:hover { color: var(--turq); }
 .entry p { margin: 0 0 .75rem; color: #D9D3C6; }
 .entry-more { font-size: .95rem; font-weight: 600; }
-.entries-empty { margin-top: 1.5rem; padding: 1.5rem 1.75rem; border-radius: 16px; background: var(--mesa); box-shadow: inset 0 0 0 1px var(--ridge); color: var(--dust); }
+/* Page not found shares the empty listing's card. */
+:is(.entries-empty, .not-found-note) { margin-top: 1.5rem; padding: 1.5rem 1.75rem; border-radius: 16px; background: var(--mesa); box-shadow: inset 0 0 0 1px var(--ridge); color: var(--dust); }
 .entries-empty p { margin: 0; }
-.entries-empty .entries-empty-title { margin-bottom: .25rem; color: var(--sand); font-size: 1.35rem; font-weight: 750; font-stretch: 85%; }
+.not-found-note p { margin: 0 0 .5rem; }
+.not-found-note p:last-child { margin: 0; }
+:is(.entries-empty-title, .not-found-title) { margin-bottom: .25rem; color: var(--sand); font-size: 1.35rem; font-weight: 750; font-stretch: 85%; }
 
 /* Travelog listing: videos two to a row */
 .travelogs { display: grid; grid-template-columns: repeat(2, minmax(0, 17rem)); gap: 2rem 1rem; list-style: none; margin: 1.5rem 0 0; padding: 0; }
