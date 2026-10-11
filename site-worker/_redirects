@@ -1,0 +1,7 @@
+# Old addresses, read by Workers Static Assets (make dist copies this into public/).
+# The travelog videos moved from the repository to R2 (2026-10-11): feed readers and old
+# links still ask for /videos/<name>.mp4.
+/videos/coos-bay.mp4 https://media.adamschaefers.com/coos-bay.mp4 301
+/videos/evia.mp4 https://media.adamschaefers.com/evia.mp4 301
+/videos/hawaii.mp4 https://media.adamschaefers.com/hawaii.mp4 301
+/videos/zakynthos.mp4 https://media.adamschaefers.com/zakynthos.mp4 301

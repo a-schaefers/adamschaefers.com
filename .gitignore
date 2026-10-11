@@ -4,3 +4,15 @@
 .env*
 .wrangler/
 node_modules/
+# What make build writes: CI builds it on every merge and deploys it, so it is never
+# committed (index.html covers every page's: off-the-clock/<slug>/index.html, ...).
+/public/
+index.html
+/404.html
+/rss.xml
+/sitemap.xml
+/share-pages.txt
+/assets.txt
+# Videos and uploads live in R2 (media.adamschaefers.com, managed at /admin), not git.
+*.mp4
+*.mov

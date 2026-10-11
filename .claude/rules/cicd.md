@@ -1,0 +1,53 @@
+---
+paths:
+  - ".github/**"
+  - "scripts/ship.sh"
+  - "scripts/github-settings.sh"
+  - "scripts/test_workflows.py"
+  - "scripts/deploy-worker.sh"
+  - "scripts/deployed.mjs"
+  - "scripts/smoke.sh"
+  - "scripts/dist.sh"
+  - "scripts/check-dist.mjs"
+  - "site-worker/**"
+  - "package.json"
+---
+
+# CI/CD
+
+How a change reaches `master` and the live site (2026-10-11). The road to `master` is ../backseat-driver's (its `.claude/rules/cicd.md`); the deploys follow merecatholicity.com's principles: the merge is the deploy, CI is the build of record, no secret on a pull request, every deploy checks itself.
+
+## The road to master
+
+- `master` takes no direct push: the ruleset `.github/rulesets/master.json` wants a pull request, `check` green (from GitHub Actions, app 15368, so a status of that name from anywhere else satisfies nothing), and one approval; a push dismisses a stale approval. No force push, no deletion. Not strict: a pull request need not be on the newest `master` (the merge's own check runs again before it deploys). No bypass actor: the owner, their agents and everyone else get the same rule.
+- Auto-merge for the owner and the Claude sessions the owner drives, nobody else. `owner-merge.yml` (`pull_request_target`) approves a pull request whose author and event sender are user id 26800291 (a-schaefers), from this repository, not a draft, at the head it was woken for, then arms auto-merge if nobody has. Anyone else's (other people, other Claudes, Dependabot, forks) waits for the owner's approval by hand; so does the owner's own after someone else pushes to it, until the owner pushes again. A draft holds one back.
+- `owner-merge.yml` must never run the pull request's code: no checkout, no `uses:`, nothing from the event in a shell but the number, the head hash, the repository and the token. `scripts/test_workflows.py` (in `make check`) holds it to that.
+- Who arms auto-merge decides whether the merge deploys at once: a merge armed with the workflow's token is GitHub Actions' push, which starts no workflow. `scripts/ship.sh` arms it as the owner, so the merge is the owner's and `deploy.yml` runs on it; when `owner-merge.yml` armed it, `deploy.yml`'s hourly run deploys the merge instead.
+
+## Shipping
+
+- Commit on a branch (or in a worktree), then `scripts/ship.sh`: pushes `HEAD` to the branch (a detached `HEAD` ships as `agent/<worktree>`), opens the pull request or finds the open one, arms auto-merge as you with `--match-head-commit`, waits for the merge or names the failing check. It refuses to ship from `master` and acts only on this repository's own pull request at the commit it pushed. `--draft` opens one that waits. A red check leaves auto-merge armed: fix, commit, run it again.
+- Other sessions ship too: merge `origin/master` into your branch when it conflicts, stage by path, never `git add -A`.
+
+## Workflows
+
+- `check.yml`, the required check: `make check` (the site built, `scripts/check-dist.mjs` over `public/`, the Workers' tests, `scripts/test_workflows.py`) in a Debian 13 container (Emacs 30.1, Org 9.7.11, pinned by digest; Node 24). It runs on every pull request with no secret and no path filter (a required check that never reports holds a pull request at "Expected" for ever; never rename the job without the ruleset), and uploads `public/` as the artifact `site`.
+- `deploy.yml`, on every push to `master` (and hourly, and by hand): `check.yml` again on the merged commit, then in the `production` environment: the site Worker deployed with that artifact (`wrangler deploy --tag <commit>`: the changed files upload and the version switches at once), the license server and the contact form through `scripts/deploy-worker.sh` (only when their folder or `package-lock.json` changed since their live version's tag), then `scripts/smoke.sh` against the live site (this build's pages, revalidated; a 404 for nothing; `/admin` closed; a video's Range answered 206; the license server's answers no-store and never a cache HIT). Deploys never overlap and are never cancelled. The hourly run first asks whether the site's live version is `master`'s, and stops there when it is.
+- `owner-merge.yml`: above.
+- Every `uses:` names a commit with a `# vX.Y.Z` comment; `.github/dependabot.yml` bumps the action pins and wrangler weekly, each pull request waiting for the owner's approval (a merged wrangler bump redeploys every Worker). The Debian image digest in `check.yml` moves by hand.
+
+## Credentials
+
+- One: `CLOUDFLARE_API_TOKEN`, a GitHub secret in the `production` environment, which only `master` may deploy from, so no pull request (and no workflow but `deploy.yml`, which a test holds to) can read it. An account-owned token, `adamschaefers.com CI`: Workers Scripts edit on `adamschaefers-site`, `adamschaefers-licenses` and `adamschaefers-contact` only, and Workers Routes edit on the adamschaefers.com zone. It can't touch R2, D1, DNS, Access or any other Worker. `CLOUDFLARE_ACCOUNT_ID` is a repository variable (an id, not a secret). Rotate: mint a new token with the same policy (dashboard, Manage Account, Account API Tokens), `gh secret set CLOUDFLARE_API_TOKEN --env production`, dispatch `deploy.yml`, delete the old token, note it in the private repository's README.
+- The Workers' own secrets (Stripe, Resend, signing keys, Turnstile) are Worker secrets, set by hand with `wrangler secret put`, never in GitHub; a deploy leaves them as they are. Each is backed up in a-schaefers/adamschaefers.com-private.
+
+## Settings
+
+- Kept in `scripts/github-settings.sh` (`check` reads GitHub and names any drift; `apply` writes it, needs `gh` as admin): the ruleset; Actions may approve pull requests, default token read only; auto-merge, merge commits, delete branch on merge, update branch; only GitHub-owned and verified actions, each pinned to a commit (`sha_pinning_required`); a fork's workflows wait for approval every time; secret scanning with push protection; Dependabot alerts and security fixes; the `production` environment (deploys from `master` only); the account id variable; GitHub Pages off.
+- Order matters the first time: `owner-merge.yml` must be on `master` before the ruleset is applied, or the owner's next pull request has nobody to approve it.
+- The emergency door: when `check` itself is broken and its fix cannot pass it, the owner sets the ruleset's enforcement to disabled (Settings, Rules, or the JSON's `"enforcement"` and `apply`), merges the fix, and sets it back (`check` shows the drift if forgotten). Never a bypass actor. A deploy by hand from a laptop (`npx wrangler deploy -c <worker>/wrangler.jsonc` after `make build`) is for when CI itself is down; the next merge's deploy replaces it.
+
+## Done by hand, on purpose
+
+- Cloudflare: the R2 bucket `adamschaefers-media` and its custom domain media.adamschaefers.com (r2.dev off); the Access applications (license admin, assets admin); the apex DNS record (a proxied placeholder, `AAAA 100::`, so the route catches every request); the zone's Browser Cache TTL (Respect Existing Headers) and Smart Tiered Cache (on); D1 migrations (CLAUDE.md). None changes with a merge.
+- The CI token itself: minted in the dashboard, kept only as the GitHub secret; a lost one is replaced.
