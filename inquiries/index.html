@@ -1,9 +1,175 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<base href="/">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Inquiries · Adam Schaefers</title>
+<meta name="author" content="Adam Schaefers" />
+<meta name="generator" content="Org Mode" />
+<meta name="theme-color" content="#161A33">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap" rel="stylesheet">
+<style>
+:root { --sky: #161A33; --mesa: #1F2445; --ridge: #2C3260; --sand: #EEE7D7; --dust: #A8A6BE; --turq: #46D3C3; --chile: #E5533D; }
+html { background: radial-gradient(70rem 45rem at 0% -15%, #262B5C 0%, transparent 70%) var(--sky); color: var(--sand); }
+@font-face { font-family: "Twemoji Country Flags"; src: url("fonts/TwemojiCountryFlags.woff2") format("woff2"); unicode-range: U+1F1E6-1F1FF, U+1F3F4, U+E0062-E007F; font-display: swap; }
+body { margin: 0; font: 400 1.0625rem/1.6 "Twemoji Country Flags", "Bricolage Grotesque", system-ui, sans-serif; font-optical-sizing: auto; -webkit-font-smoothing: antialiased; }
+::selection { background: var(--turq); color: var(--sky); }
+a { color: var(--turq); text-decoration: underline 1px rgba(70, 211, 195, .4); text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--turq); outline-offset: 3px; border-radius: 3px; }
+b, strong { font-weight: 700; }
+code { font: .85em ui-monospace, monospace; background: var(--mesa); padding: .1em .35em; border-radius: 4px; }
+h2 { font-size: 1.6rem; font-weight: 750; font-stretch: 85%; line-height: 1.15; letter-spacing: -.01em; margin: 0 0 1.25rem; }
+.sr-only, #contact, #outline-container-about > h2 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* Layout: sticky identity column on the left, content on the right */
+#content { max-width: 70rem; margin: 0 auto; padding: 4rem 2rem 6rem; display: grid; grid-template-columns: 17rem minmax(0, 44rem); column-gap: clamp(3rem, 7vw, 6.5rem); justify-content: center; }
+#content hr { display: none; }
+.site-footer { max-width: 70rem; margin: 0 auto; padding: 0 2rem 3rem; color: var(--dust); font-size: .85rem; text-align: center; }
+#app { grid-column: 2; grid-row: 1; min-width: 0; }
+.outline-2 { grid-column: 2; margin-bottom: 5rem; }
+.outline-2:last-child { margin-bottom: 0; }
+#outline-container-contact { grid-column: 1; grid-row: 1 / span 12; align-self: start; margin: 0; }
+@media (min-height: 56rem) { #outline-container-contact { position: sticky; top: 4rem; } }
+/* Identity */
+.hello-profile { display: block; width: 8.5rem; height: 8.5rem; border-radius: 50%; object-fit: cover; object-position: 50% 30%; box-shadow: 0 0 0 3px var(--sky), 0 0 0 5px var(--turq); }
+.name { font-size: 2.75rem; font-weight: 800; font-stretch: 75%; line-height: .95; letter-spacing: -.02em; margin: 1.75rem 0 .6rem; }
+.roles { color: var(--dust); font-size: .95rem; margin: 0 0 1.75rem; }
+.roles span { white-space: nowrap; }
+/* Avatar zoom and name-as-home link */
+.profile-zoom { all: unset; display: block; width: fit-content; border-radius: 50%; cursor: zoom-in; }
+.profile-zoom:focus-visible { outline: 2px solid var(--turq); outline-offset: 6px; }
+.profile-zoom.is-open img { visibility: hidden; }
+.home-link { display: block; color: inherit; text-decoration: none; }
+.home-link:hover .name { color: var(--turq); }
+.photo-dialog { padding: 0; border: 0; background: none; overflow: visible; max-width: none; max-height: none; cursor: zoom-out; }
+.photo-dialog:focus { outline: none; }
+.photo-dialog img { display: block; width: auto; height: auto; max-width: min(86vw, 640px); max-height: 86vh; border-radius: 24px; box-shadow: 0 0 0 4px var(--turq), 0 30px 80px rgba(0, 0, 0, .55); }
+.photo-dialog::backdrop { background: rgba(14, 16, 36, .82); backdrop-filter: blur(6px); }
+.photo-dialog.is-closing::backdrop { opacity: 0; transition: opacity .35s; }
+@media (prefers-reduced-motion: no-preference) {
+.photo-dialog[open]::backdrop { animation: backdrop-in .35s ease-out; }
+@keyframes backdrop-in { from { opacity: 0; } }
+.name { transition: color .15s; }
+}
+/* Contact list: latest work as a featured link, socials as an icon row (labels stay for screen readers) */
+#text-contact > ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .6rem; }
+#text-contact > ul > li { font-size: 0; }
+#text-contact > ul > li:nth-child(-n+2) { flex-basis: 100%; font-size: .85rem; color: var(--dust); padding: .9rem 0; border-top: 1px solid var(--ridge); }
+#text-contact > ul > li:nth-child(2) { border-bottom: 1px solid var(--ridge); margin: -.6rem 0 .5rem; }
+#text-contact > ul > li:nth-child(-n+2) a { display: block; color: var(--sand); font-size: 1.1rem; font-weight: 600; text-decoration: none; }
+#text-contact > ul > li:nth-child(n+3) a { display: flex; align-items: center; justify-content: center; width: 2.6rem; height: 2.6rem; border-radius: 50%; color: var(--sand); background: var(--mesa); box-shadow: inset 0 0 0 1px var(--ridge); text-decoration: none; }
+#text-contact > ul > li:nth-child(n+3) a::before { content: ""; width: 1.1rem; height: 1.1rem; background: currentColor; mask: var(--icon) center / contain no-repeat; }
+#text-contact > ul > li a:hover { color: var(--turq); }
+#text-contact > ul > li:nth-child(n+3) a:hover { box-shadow: inset 0 0 0 1px var(--turq); }
+#text-contact > ul a[href*="github.com"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8'/%3E%3C/svg%3E"); }
+#text-contact > ul a[href*="twitch.tv"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.857 0 1 2.857v10.286h3.429V16l2.857-2.857H9.57L14.714 8V0zm9.714 7.429-2.285 2.285H9l-2 2v-2H4.429V1.143h9.142z'/%3E%3Cpath d='M11.857 3.143h-1.143V6.57h1.143zm-3.143 0H7.571V6.57h1.143z'/%3E%3C/svg%3E"); }
+/* Emacs course player */
+.course { margin-top: 2rem; }
+.course-title { margin: 0 0 .75rem; font-size: 1.05rem; font-weight: 700; }
+.course-title a { color: var(--sand); text-decoration: none; }
+.course-title a:hover { color: var(--turq); }
+.course-player { aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: var(--mesa); }
+.course-player iframe { display: block; width: 100%; height: 100%; border: 0; }
+.course-play { all: unset; position: relative; display: block; width: 100%; height: 100%; cursor: pointer; }
+.course-play:focus-visible { outline: 3px solid var(--turq); outline-offset: -3px; }
+.course-play img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.course-play::after { content: ""; position: absolute; inset: 0; margin: auto; width: 3.25rem; height: 3.25rem; border-radius: 50%; box-shadow: 0 0 0 6px rgba(22, 26, 51, .45); background: var(--turq) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23161A33' d='M4.5 2.5v11l9-5.5z'/%3E%3C/svg%3E") 58% 50% / 1.2rem no-repeat; }
+.course-play:hover::after { background-color: #7BE3D7; }
+.course-now { margin: .65rem 0; min-height: 2.8em; font-size: .85rem; line-height: 1.4; color: #D9D3C6; }
+.course-now b { color: var(--turq); margin-right: .2rem; font-variant-numeric: tabular-nums; }
+.course-now .len { color: var(--dust); white-space: nowrap; }
+.course-episodes { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .35rem; }
+.course-episodes button { width: 2.1rem; height: 2.1rem; border: 0; border-radius: 8px; font-family: inherit; font-size: .8rem; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--dust); background: var(--mesa); box-shadow: inset 0 0 0 1px var(--ridge); cursor: pointer; }
+.course-episodes button:hover { color: var(--sand); box-shadow: inset 0 0 0 1px var(--turq); }
+.course-episodes button[aria-current] { color: var(--sky); background: var(--turq); box-shadow: none; }
+/* TL;DR as the headline of the content column */
+#text-about p { margin: 0; font-size: clamp(2rem, 4.6vw, 3.25rem); font-weight: 750; font-stretch: 80%; line-height: 1.08; letter-spacing: -.02em; }
+#text-about p b { display: block; color: var(--dust); font-size: 1rem; font-weight: 500; font-stretch: 100%; letter-spacing: 0; margin-bottom: .75rem; }
+#outline-container-about { margin-bottom: 4.5rem; }
+/* Quest log timeline: chile = active quest, turquoise = side quests, dust = completed */
+#text-quest-log > ul { list-style: none; margin: 0; padding: 0; }
+#text-quest-log > ul > li { position: relative; margin-left: .45rem; padding: 0 0 2.5rem 2rem; border-left: 2px solid var(--ridge); }
+#text-quest-log > ul > li:last-child { border-left-color: transparent; padding-bottom: 0; }
+#text-quest-log > ul > li::before { content: ""; position: absolute; left: -8px; top: .35rem; width: 10px; height: 10px; border-radius: 50%; background: var(--dust); border: 2px solid var(--sky); box-shadow: 0 0 0 2px var(--dust); }
+#text-quest-log > ul > li:first-child::before { background: var(--chile); box-shadow: 0 0 0 2px var(--chile), 0 0 0 7px rgba(229, 83, 61, .25); }
+#text-quest-log > ul > li:nth-child(2)::before { background: var(--sky); box-shadow: 0 0 0 2px var(--turq); }
+#text-quest-log > ul > li > b:first-child { display: block; font-size: 1.15rem; line-height: 1.3; margin-bottom: .35rem; }
+#text-quest-log > ul > li > br { display: none; }
+#text-quest-log ul ul { list-style: none; margin: .75rem 0 0; padding: 0; }
+#text-quest-log ul ul li { padding: .9rem 0; border-top: 1px solid var(--ridge); color: #D9D3C6; font-size: 1rem; }
+#text-quest-log ul ul li:last-child { padding-bottom: 0; }
+@media (prefers-reduced-motion: no-preference) {
+#text-quest-log > ul > li:first-child::before { animation: active-quest 2.4s ease-in-out infinite; }
+@keyframes active-quest { 50% { box-shadow: 0 0 0 2px var(--chile), 0 0 0 10px rgba(229, 83, 61, .08); } }
+html { scroll-behavior: smooth; }
+a, button { transition: color .15s, background-color .15s, text-decoration-color .15s; }
+}
+/* Slop shelf */
+#text-slop-shelf ul { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+#text-slop-shelf li { background: var(--mesa); border-radius: 12px; padding: 1.1rem 1.25rem 1.25rem; font-size: .95rem; color: #D9D3C6; }
+/* Inquiries form */
+#contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem 1.25rem; }
+#contact-form .wide { grid-column: 1 / -1; }
+#contact-form label { display: block; color: var(--dust); font-size: .9rem; margin-bottom: .35rem; }
+#contact-form input, #contact-form textarea { box-sizing: border-box; width: 100%; font: inherit; color: var(--sand); background: var(--mesa); border: 1px solid var(--ridge); border-radius: 10px; padding: .7rem .85rem; }
+#contact-form textarea { resize: vertical; min-height: 9rem; }
+#contact-form input:focus-visible, #contact-form textarea:focus-visible { outline: 2px solid var(--turq); outline-offset: 1px; border-color: transparent; }
+#contact-form button { justify-self: start; font: inherit; font-weight: 700; color: var(--sky); background: var(--turq); border: 0; border-radius: 999px; padding: .75rem 2rem; cursor: pointer; }
+#contact-form button:hover { background: #7BE3D7; }
+#contact-form button:disabled { opacity: .6; cursor: progress; }
+#contact-status { margin: 0; color: var(--dust); }
+#contact-status:empty { display: none; }
+/* Sent: the form flips away and the sent card swings in */
+.inquiry-card { perspective: 1100px; perspective-origin: 50% 0; transition: height .45s cubic-bezier(.3, .7, .2, 1); }
+#contact-form[hidden], .inquiry-sent[hidden] { display: none; }
+#contact-form.is-leaving { transform-origin: 50% 100%; animation: form-leave .75s cubic-bezier(.55, 0, .75, .1) forwards; pointer-events: none; }
+@keyframes form-leave { 0% { transform: none; } 18% { transform: rotateX(-7deg) translateY(-.5rem); opacity: 1; } 100% { transform: rotateX(88deg) translateY(1.5rem) scale(.92); opacity: 0; } }
+.inquiry-sent { display: flex; align-items: center; gap: 1.25rem; padding: 1.5rem 1.75rem; border-radius: 16px; background: var(--mesa); box-shadow: inset 0 0 0 1px var(--ridge); transform-origin: 50% 0; }
+.inquiry-sent:focus { outline: none; }
+.inquiry-sent.is-arriving { animation: sent-arrive .7s cubic-bezier(.2, 1.35, .4, 1) both; }
+@keyframes sent-arrive { from { transform: rotateX(-80deg); opacity: 0; } 40% { opacity: 1; } to { transform: none; } }
+.sent-check { flex: none; width: 3.25rem; height: 3.25rem; fill: none; stroke: var(--turq); stroke-linecap: round; stroke-linejoin: round; }
+.sent-check circle { stroke-width: 2.5; stroke-dasharray: 145; }
+.sent-check path { stroke-width: 4; stroke-dasharray: 34; }
+.is-arriving .sent-check circle { animation: draw .6s .25s ease-out both; --len: 145; }
+.is-arriving .sent-check path { animation: draw .35s .7s ease-out both; --len: 34; }
+@keyframes draw { from { stroke-dashoffset: var(--len); } to { stroke-dashoffset: 0; } }
+.sent-title { margin: 0; font-size: 1.35rem; font-weight: 750; font-stretch: 85%; line-height: 1.2; }
+.sent-note { margin: .2rem 0 0; color: var(--dust); }
+/* Mobile: identity becomes a compact header, then one column */
+@media (max-width: 56rem) {
+/* The sidebar splits: name through socials on top, then the view, then the course */
+#content { display: flex; flex-direction: column; padding: 2rem 1.25rem 4rem; }
+#outline-container-contact, #text-contact { display: contents; }
+#app { order: 1; margin-top: 3.5rem; }
+.course { order: 2; margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--ridge); }
+.contact-head { display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; align-items: center; margin-bottom: 1.5rem; }
+.hello-profile { width: 5.5rem; height: 5.5rem; }
+.name { font-size: 2.25rem; margin: 0 0 .35rem; }
+.roles { margin: 0; font-size: .9rem; }
+/* Latest Work and Contact side by side, sized like the roles line */
+#text-contact > ul { gap: 0; }
+#text-contact > ul > li:nth-child(-n+2) { flex: 1 1 0; min-width: 0; margin: 0; padding: .6rem 0; font-size: .8rem; border-top: 1px solid var(--ridge); border-bottom: 1px solid var(--ridge); }
+#text-contact > ul > li:nth-child(2) { padding-left: .9rem; }
+#text-contact > ul > li:nth-child(-n+2) a { font-size: .9rem; overflow-wrap: anywhere; }
+/* Socials sit small in the page's top-right corner, above the name and out of the flow; they scroll away with the page */
+#content { position: relative; }
+#text-contact > ul > li:nth-child(n+3) { position: absolute; top: .3rem; right: calc(.5rem + var(--k) * 2.25rem); }
+#text-contact > ul > li:nth-child(n+3) a { width: 1.9rem; height: 1.9rem; }
+#text-contact > ul > li:nth-child(n+3) a::before { width: .9rem; height: .9rem; }
+#text-contact > ul > li:nth-child(n+3):nth-last-child(1) { --k: 0; }
+#text-contact > ul > li:nth-child(n+3):nth-last-child(2) { --k: 1; }
+#text-contact > ul > li:nth-child(n+3):nth-last-child(3) { --k: 2; }
+#text-contact > ul > li:nth-child(n+3):nth-last-child(4) { --k: 3; }
+.outline-2 { margin-bottom: 4rem; }
+#outline-container-about { margin-bottom: 3.5rem; }
+#contact-form { grid-template-columns: 1fr; }
+}
+</style>
+<script type="importmap">{"imports":{"./js/lit/lit-html/lit-html.js":"./js/lit/lit-html/lit-html.js?v=8d035f1cf4","./js/lit/lit-html/directives/unsafe-html.js":"./js/lit/lit-html/directives/unsafe-html.js?v=9995f4bd69","./js/lit/lit-html/directive.js":"./js/lit/lit-html/directive.js?v=007064f9f1","./js/contact.js":"./js/contact.js?v=c7a23a968c","./js/store.js":"./js/store.js?v=b28254164b"}}</script>
 <meta name="description" content="Get in touch with Adam Schaefers: work, licenses, or just to say hi.">
 <link rel="canonical" href="https://adamschaefers.com/inquiries/">
 <meta property="og:site_name" content="Adam Schaefers">
@@ -17,10 +183,149 @@
 <meta name="twitter:title" content="Inquiries · Adam Schaefers">
 <meta name="twitter:description" content="Get in touch with Adam Schaefers: work, licenses, or just to say hi.">
 <meta name="twitter:image" content="https://adamschaefers.com/images/og.jpg">
-<meta http-equiv="refresh" content="0; url=/#inquiries">
-<script>location.replace('/#inquiries')</script>
+<link rel="alternate" type="application/rss+xml" title="Adam Schaefers" href="rss.xml">
+<link rel="stylesheet" href="nav.css?v=71e8271b7a">
+<link rel="stylesheet" href="blog.css?v=0c4008b8c7">
+<link rel="stylesheet" href="store.css?v=01a5622b44">
+<script type="application/json" id="site-data">{"views":[{"id":"about","title":"About","html":"<p>\n<b>TL;DR:<\/b> Linux nerd → DevOps wrangler → indie gamedev. 🐧 → ☁️ → 🎮\n<\/p>\n\n<hr>","description":"","image":""},{"id":"quest-log","title":"🗺️ The Quest Log","html":"<ul class=\"org-ul\">\n<li><b>2025 – now · 🎮 Founder, <a href=\"https://enchant.games\">Land of Enchantment Games<\/a><\/b> <br>\nMy indie gamedev studio, based in New Mexico.<\/li>\n<li><b>Also cooking 🍳: my side projects<\/b>\n<ul class=\"org-ul\">\n<li><b><a href=\"https://merecatholicity.com\">merecatholicity.com<\/a><\/b> (<a href=\"https://github.com/merecatholicity/merecatholicity.com\">Git<\/a>): my eclectic ecumenical project. It includes a self-published book, <i>Mere Catholicity<\/i> (public domain, typeset in LaTeX for PDF, paperback and Logos), a library of the Fathers, councils and classics re-typeset from public-domain sources, and <b>merecat<\/b> 🐈, an AI research librarian that answers from the library with citations. I built it serverless: a PureScript, lit-js and Tailwind front end over a custom headless API backend on Cloudflare Workers, with D1 (SQLite), R2 (S3-compatible storage) and Durable Objects for real-time chat. A GitHub Actions CI/CD system ships both the application and its Terraform infrastructure, with approval gates before production, staged rollouts and nightly tests against production. For the community side I borrowed the best bits of the old internet: 4chan-style auth, Snapchat-style DMs, Signal-style end-to-end encryption, and Facebook-style profiles and walls.<\/li>\n<li><b><a href=\"https://stasislinux.org\">stasislinux.org<\/a><\/b> (<a href=\"https://codeberg.org/sta_sis/stasis\">Git<\/a>): my own Linux distro, the natural follow-through of my years as a package maintainer on KISS Linux with Dylan Araps.<\/li>\n<li><b><a href=\"https://github.com/a-schaefers/backseat-driver\">backseat-driver<\/a><\/b>: my tutor for keeping AI-era programmers' fundamentals sharp. Free for personal use; <a href=\"/backseat-driver/\">commercial licenses in the store<\/a> for businesses.<\/li>\n<li><b><a href=\"https://github.com/a-schaefers/.emacs.d\">.emacs.d<\/a><\/b>: my Emacs config. It starts in about 0.2s, with everything deferred through use-package. It prefers built-ins (eglot, flymake), runs on vertico/corfu/tree-sitter, and binds the same SLIME-style keys in every language.<\/li>\n<\/ul><\/li>\n<li><b>2020 – 2025 · ☁️ DevOps @ Upgrade, Inc. · Immaculata Studios, LLC · Skvare, LLC<\/b> <br>\nHerded Kubernetes, Terraform (5k+ lines of homegrown modules), AWS, CI/CD pipelines, monitoring, and a Postfix server that sent a million emails a month without landing in spam. Rode the industry's evolution from LAMP-stack monoliths to IaC-driven cloud microservices, right up to the arrival of AI automation, which is when I turned to solo gamedev.<\/li>\n<li><b>2017 – 2020 · 🐧 Open Source Hermit<\/b> <br>\nSpent 10+ hours a day learning Linux from the kernel up. Maintained packages for KISS Linux, wrote docs for Funtoo, and built <a href=\"https://github.com/a-schaefers/themelios\">Themelios<\/a> (a NixOS ZFS-on-root installer) and <a href=\"https://github.com/a-schaefers/spartan-emacs\">Spartan Emacs<\/a>. Got commits merged upstream (<a href=\"https://bugzilla.kernel.org/show_bug.cgi?id=206741\">e.g. libcap<\/a>). Also went viral on Hacker News by booting my Linux distro with Emacs as init (<a href=\"https://news.ycombinator.com/item?id=28439275\">systemE<\/a>).<\/li>\n<\/ul>\n\n<hr>","description":"","image":""},{"id":"slop-shelf","title":"🤖 The slop shelf","html":"<p>\nMy secondary GitHub, <a href=\"https://github.com/el-sloppo\">@el-sloppo<\/a>, is where I push my favorite AI slop projects. Most of them live under <a href=\"https://github.com/emacs-os\">Emacs-OS<\/a>:\n<\/p>\n\n<ul class=\"org-ul\">\n<li><b><a href=\"https://github.com/emacs-os/embr.el\">embr.el<\/a><\/b>: a web browser inside Emacs. Emacs is the display server and headless Chromium is the renderer, streamed over CDP screencast. It has EXWM-style key passthrough, optional Vimium-style modal navigation, and a native C rendering path built on the Emacs canvas patch. It doubles as a proof of concept for getting that patch mainlined.<\/li>\n<li><b><a href=\"https://github.com/emacs-os/jellyfin-emms-mpv.el\">jellyfin-emms-mpv.el<\/a><\/b>: browse and play your Jellyfin library from Emacs. Music goes through EMMS and video through mpv, with poster galleries, and playback position syncs back so \"Continue Watching\" stays accurate.<\/li>\n<li><b><a href=\"https://github.com/emacs-os/elcava\">elcava<\/a><\/b>: a cava clone in pure Emacs Lisp. It captures system audio from PipeWire, runs the FFT in Elisp, and draws a live Unicode spectrum in a buffer.<\/li>\n<li><b><a href=\"https://github.com/emacs-os/el-init\">el-init<\/a><\/b>: Emacs as PID 1, for real this time. It's a systemd-inspired service supervisor written in Emacs Lisp, with a dependency graph, targets, an <code>M-x elinit<\/code> dashboard and an <code>elinitctl<\/code> CLI, plus an optional static-build patchset that turns Emacs into an actual init. It's the spiritual sequel to systemE and the core of Emacs-OS.<\/li>\n<\/ul>\n\n<hr>","description":"","image":""},{"id":"store","title":"🛒 Store","html":"<p>\nThings I make and sell. Payment is through Stripe; keys arrive the moment you've paid, and by email.\n<\/p>\n\n<article class=\"product\" id=\"product-backseat-driver\" data-share-image=\"images/store/backseat-driver.png\">\n<img class=\"product-image\" src=\"images/store/backseat-driver.webp\" width=\"1220\" height=\"680\" alt=\"Backseat Driver beside Claude Code: its play-by-play pane, with a note on a bug in the code just saved\">\n<div class=\"product-body\">\n<h3>Backseat Driver commercial license<\/h3>\n\n<p>\n<a href=\"https://github.com/a-schaefers/backseat-driver\">Backseat Driver<\/a> is my coding tutor for Claude Code. It's free for personal use: your own learning on your own time, hobby projects and unpaid open source, schools and charities too.\n<\/p>\n\n<p>\nIf a business uses Backseat Driver or has its people use it, training included, that's commercial use, and purchasing a commercial license is required. Freelance and other paid work count too. <a href=\"https://github.com/a-schaefers/backseat-driver/blob/main/COMMERCIAL-LICENSE.md\">Read the terms<\/a>.\n<\/p>\n\n<ul class=\"org-ul\">\n<li><b>$99 a seat<\/b>, paid once. The license is for life.<\/li>\n<li><b>25% off every seat from 10 seats<\/b>: $74.25 a seat.<\/li>\n<li>One key covers every seat you buy. A seat is one person using it.<\/li>\n<li>Need more seats later? Paste your key below and add them.<\/li>\n<li>Honor system: nothing ever stops working. If installs far outnumber your seats for two weeks, everyone using the key sees a small note asking for more seats, and whoever bought it gets a short email.<\/li>\n<\/ul>\n\n<div class=\"buy-mount\" data-product=\"backseat-driver\" data-price=\"99\" data-volume-price=\"74.25\" data-volume-seats=\"10\"><\/div>\n<div class=\"key-mount\" data-product=\"backseat-driver\" data-price=\"99\" data-volume-price=\"74.25\" data-volume-seats=\"10\"><\/div>\n<\/div>\n<\/article>\n<div class=\"recover-mount\"><\/div>\n<p class=\"store-admin\"><a href=\"https://licenses.adamschaefers.com/admin\" target=\"_blank\" rel=\"noopener\">Admin<\/a><\/p>\n\n<hr>","description":"","image":""},{"id":"inquiries","title":"✉️ Inquiries","html":"<div id=\"contact-mount\"><\/div>","description":"Get in touch with Adam Schaefers: work, licenses, or just to say hi.","image":""},{"id":"privacy-policy","title":"Privacy policy","html":"<p>\nThis site has no ads, analytics or tracking cookies. I collect only what you give me: your name, email address and message when you use the contact form, and when you buy a license, the licensee's name, your email address, the seats and the purchase record, plus an anonymous ID for each install that checks in, used only to count seats. I use it to answer you and to deliver, manage and refund licenses, and I never sell or rent it. It's disclosed only to the services that run the site, each sent over an encrypted connection only what it needs to do its job: Stripe takes payments (I never see your card), Cloudflare runs the contact form, license server, its database and the bot check, Resend sends license emails, iCloud Mail receives contact messages, GitHub hosts the site and, like any web host, may log your IP address, and YouTube sees videos you choose to play. Otherwise I disclose it only when the law requires. Everything travels over HTTPS and is stored with those providers in access-controlled accounts, and the license admin page sits behind Cloudflare Access; the contact form keeps an unsent draft only in your own browser. To see, correct or delete your information, <a href=\"/inquiries/\">get in touch<\/a>. <i>Last updated October 10, 2026.<\/i>\n<\/p>","description":"","image":""},{"id":"terms-of-service","title":"Terms of service","html":"<p>\nBy using this site you agree to these terms. Everything here, including text, code, images, video and software, is © Adam Schaefers, all rights reserved, unless it says otherwise; open-source projects carry their own licenses, and a Backseat Driver commercial license is governed by <a href=\"https://github.com/a-schaefers/backseat-driver/blob/main/COMMERCIAL-LICENSE.md\">its own terms<\/a>. The site, its content and anything sold here are provided \"as is\" and \"as available\", without warranties of any kind, express or implied, including merchantability, fitness for a particular purpose and non-infringement. To the fullest extent the law allows, I'm not liable for any indirect, incidental, special, consequential or punitive damages, and my total liability for any claim is limited to what you paid me in the twelve months before it. Sales are final unless I choose to refund or the law requires it, and a refunded license is revoked. Don't misuse the site: no attacking or overloading it, abusing the contact form or license server, or sharing license keys beyond their seats; you'll indemnify me against claims arising from your misuse or breach of these terms. I may change, suspend or end the site, any product or these terms at any time and refuse service to anyone, and using the site after a change means you accept it. These terms are governed by the laws of New Mexico and the United States, with any dispute heard in the state or federal courts located in New Mexico. <i>Last updated October 10, 2026.<\/i>\n<\/p>","description":"","image":""}],"collections":{"blog":{"title":"Blog","description":"Posts by Adam Schaefers.","image":"","intro":"","perPage":10,"entries":[]},"off-the-clock":{"title":"🎧 Off the clock","description":"","image":"","intro":"<p>\nProfessional music recording, and I play guitar. 🎸 Big fan of electronic music, house and techno. I enjoy vacationing in Greece. 🇬🇷 Born and raised in the Pacific Northwest, and an avid fly fisherman. 🎣\n<\/p>","perPage":12,"entries":[{"slug":"2026-08-27-evia","date":"2026-08-27","dateLabel":"August 27, 2026","title":"Εύβοια, Greece 🇬🇷","excerpt":"<p>\nVisiting <a target=\"_blank\" rel=\"noopener\" href=\"https://dylan.gr\">Dylan Araps<\/a> 🧑‍🌾 (Neofetch, Pure Bash Bible, KISS Linux) at <a target=\"_blank\" rel=\"noopener\" href=\"https://wild.gr\">the WILD Project<\/a> (farming) in Εύβοια, Greece 🇬🇷<\/p>","html":"<p>\nVisiting <a target=\"_blank\" rel=\"noopener\" href=\"https://dylan.gr\">Dylan Araps<\/a> 🧑‍🌾 (Neofetch, Pure Bash Bible, KISS Linux) at <a target=\"_blank\" rel=\"noopener\" href=\"https://wild.gr\">the WILD Project<\/a> (farming) in Εύβοια, Greece 🇬🇷\n<\/p>","video":"videos/evia.mp4","poster":"videos/evia.jpg"},{"slug":"2026-08-20-zakynthos","date":"2026-08-20","dateLabel":"August 20, 2026","title":"Zakynthos, Greece 🇬🇷","excerpt":"<p>\nHoliday in Zakynthos (Zante), Greece 🇬🇷<\/p>","html":"<p>\nHoliday in Zakynthos (Zante), Greece 🇬🇷\n<\/p>","video":"videos/zakynthos.mp4","poster":"videos/zakynthos.jpg"},{"slug":"2025-02-15-hawaii","date":"2025-02-15","dateLabel":"February 15, 2025","title":"Hawaiʻi 🌺","excerpt":"<p>\nBack in Hawaiʻi 🌺 with my ohana. I lived in Waiʻanae and worked hospitality in Waikīkī for most of my 20s.<\/p>","html":"<p>\nBack in Hawaiʻi 🌺 with my ohana. I lived in Waiʻanae and worked hospitality in Waikīkī for most of my 20s.\n<\/p>","video":"videos/hawaii.mp4","poster":"videos/hawaii.jpg"},{"slug":"1988-06-07-coos-bay","date":"1988-06-07","dateLabel":"June 7, 1988","title":"Coos Bay, Oregon","excerpt":"<p>\nCoos Bay, Oregon: my hometown and old stomping grounds, and Steve Prefontaine's too. I grew up here in the '90s and 2000s, a classic American childhood full of family and friends. The town keeps changing, and coming back now feels like running into an old friend I used to know.<\/p>","html":"<p>\nCoos Bay, Oregon: my hometown and old stomping grounds, and Steve Prefontaine's too. I grew up here in the '90s and 2000s, a classic American childhood full of family and friends. The town keeps changing, and coming back now feels like running into an old friend I used to know.\n<\/p>","video":"videos/coos-bay.mp4","poster":"videos/coos-bay.jpg"}]}},"feed":"rss.xml"}</script>
+<script type="module" src="js/app.js?v=4d98765953"></script>
+<link rel="modulepreload" href="js/lit/lit-html/lit-html.js?v=8d035f1cf4">
+<link rel="modulepreload" href="js/lit/lit-html/directives/unsafe-html.js?v=9995f4bd69">
+<link rel="modulepreload" href="js/lit/lit-html/directive.js?v=007064f9f1">
+<link rel="modulepreload" href="js/contact.js?v=c7a23a968c">
+<link rel="modulepreload" href="js/store.js?v=b28254164b">
+<link rel="preconnect" href="https://challenges.cloudflare.com">
 </head>
 <body>
-<p><a href="/#inquiries">Inquiries · Adam Schaefers</a></p>
+<div id="preamble" class="status">
+<nav id="site-nav" class="site-nav" aria-label="Main"></nav>
+</div>
+<div id="content" class="content">
+<main id="app"></main>
+
+<hr>
+<div id="outline-container-contact" class="outline-2">
+<h2 id="contact">Contact</h2>
+<div class="outline-text-2" id="text-contact">
+<div class="contact-head">
+  <button type="button" class="profile-zoom" aria-label="Enlarge photo of Adam Schaefers">
+    <img src="me.jpeg" width="1080" height="1920" class="hello-profile" alt="">
+  </button>
+  <a class="home-link" href="/" aria-label="Adam Schaefers, back to top">
+    <h1 class="name">Adam Schaefers</h1>
+    <p class="roles"><span>Devops |</span> <span>Full stack dev |</span> <span>Gamedev |</span> <span>Founder</span></p>
+  </a>
+</div>
+<dialog class="photo-dialog" aria-label="Photo of Adam Schaefers">
+  <img src="me.jpeg" width="1080" height="1920" alt="Adam Schaefers">
+</dialog>
+<script>
+// Profile photo: grows out of the avatar into a large view; click anywhere or Esc shrinks it back.
+(function () {
+  var thumb = document.querySelector('.profile-zoom');
+  var dialog = document.querySelector('.photo-dialog');
+  var big = dialog.querySelector('img');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  function morph(reverse) {
+    var a = thumb.getBoundingClientRect(), b = big.getBoundingClientRect();
+    var dx = a.left + a.width / 2 - (b.left + b.width / 2);
+    var dy = a.top + a.height / 2 - (b.top + b.height / 2);
+    var frames = [
+      { transform: 'translate(' + dx + 'px, ' + dy + 'px) scale(' + a.width / b.width + ')', borderRadius: '50%' },
+      { transform: 'none', borderRadius: '24px' }
+    ];
+    if (reverse) frames.reverse();
+    return big.animate(frames, { duration: reduce.matches ? 0 : 450, easing: 'cubic-bezier(.2, .9, .25, 1)' });
+  }
+  thumb.addEventListener('click', function () {
+    dialog.classList.remove('is-closing');
+    dialog.showModal();
+    thumb.classList.add('is-open');
+    morph(false);
+  });
+  function close() {
+    if (dialog.classList.contains('is-closing')) return;
+    dialog.classList.add('is-closing');
+    morph(true).onfinish = function () {
+      dialog.close();
+      dialog.classList.remove('is-closing');
+      thumb.classList.remove('is-open');
+      thumb.focus({ preventScroll: true });
+    };
+  }
+  dialog.addEventListener('click', close);
+  dialog.addEventListener('cancel', function (e) { e.preventDefault(); close(); });
+})();
+</script>
+
+<ul class="org-ul">
+<li>Latest Work: <a href="https://enchant.games" target="_blank" rel="noopener">@LandOfEnchantment</a></li>
+<li>Contact: <a href="/inquiries/">Send me an email</a></li>
+<li>Github: <a href="https://github.com/a-schaefers">a-schaefers</a></li>
+<li>Twitch: <a href="https://www.twitch.tv/enchantdev">@enchantdev</a></li>
+</ul>
+
+<div class="course">
+  <p class="course-title"><a href="https://www.youtube.com/playlist?list=PLFf4Ibrb-mjTcoaVv6orVtH93K47GPrwl">Watch my free Emacs course!</a></p>
+  <div class="course-player">
+    <button type="button" class="course-play" aria-label="Play episode 00">
+      <img src="https://i.ytimg.com/vi/n9gJxKchkRw/hqdefault.jpg" width="480" height="360" alt="">
+    </button>
+  </div>
+  <p class="course-now" aria-live="polite"><b>00</b> Avoid RSI and &quot;emacs pinky&quot; once and for all. <span class="len">5:04</span></p>
+  <ol class="course-episodes">
+    <li><button type="button" data-id="n9gJxKchkRw" data-title="Avoid RSI and &quot;emacs pinky&quot; once and for all." data-len="5:04" title="Avoid RSI and &quot;emacs pinky&quot; once and for all." aria-label="Episode 00: Avoid RSI and &quot;emacs pinky&quot; once and for all." aria-current="true">00</button></li>
+    <li><button type="button" data-id="dCdoyDeR_rI" data-title="Vanilla Emacs Crash Course" data-len="42:39" title="Vanilla Emacs Crash Course" aria-label="Episode 01: Vanilla Emacs Crash Course">01</button></li>
+    <li><button type="button" data-id="SEPlByrobAI" data-title="Vanilla Emacs Crash Course PT. 2" data-len="52:37" title="Vanilla Emacs Crash Course PT. 2" aria-label="Episode 02: Vanilla Emacs Crash Course PT. 2">02</button></li>
+    <li><button type="button" data-id="JNpNge1cRhw" data-title="Crash Course PT. 3, org-mode, ediff, Magit, Projectile and more." data-len="33:32" title="Crash Course PT. 3, org-mode, ediff, Magit, Projectile and more." aria-label="Episode 03: Crash Course PT. 3, org-mode, ediff, Magit, Projectile and more.">03</button></li>
+    <li><button type="button" data-id="AI3y15hJtKA" data-title="Emacs TRAMP Crash Course PT. 4" data-len="3:30" title="Emacs TRAMP Crash Course PT. 4" aria-label="Episode 04: Emacs TRAMP Crash Course PT. 4">04</button></li>
+    <li><button type="button" data-id="Rk8vngeJZOk" data-title="More CRUX goodies - Emacs Crash Course PT. 5" data-len="3:07" title="More CRUX goodies - Emacs Crash Course PT. 5" aria-label="Episode 05: More CRUX goodies - Emacs Crash Course PT. 5">05</button></li>
+  </ol>
+</div>
+<script>
+// Emacs course: thumbnail until played, then a YouTube embed. Episode buttons swap the video.
+(function () {
+  var course = document.querySelector('.course');
+  var player = course.querySelector('.course-player');
+  var now = course.querySelector('.course-now');
+  var current = course.querySelector('.course-episodes [aria-current]');
+  function embed(btn) {
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + btn.dataset.id + '?autoplay=1&rel=0';
+    f.title = 'Episode ' + btn.textContent + ': ' + btn.dataset.title;
+    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    f.allowFullscreen = true;
+    player.replaceChildren(f);
+  }
+  function select(btn) {
+    current.removeAttribute('aria-current');
+    btn.setAttribute('aria-current', 'true');
+    current = btn;
+    now.children[0].textContent = btn.textContent;
+    now.childNodes[1].textContent = ' ' + btn.dataset.title + ' ';
+    now.children[1].textContent = btn.dataset.len;
+    var play = player.querySelector('.course-play');
+    if (play) {
+      play.querySelector('img').src = 'https://i.ytimg.com/vi/' + btn.dataset.id + '/hqdefault.jpg';
+      play.setAttribute('aria-label', 'Play episode ' + btn.textContent);
+    } else {
+      embed(btn);
+    }
+  }
+  player.addEventListener('click', function (e) { if (e.target.closest('.course-play')) embed(current); });
+  course.querySelector('.course-episodes').addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (btn && btn !== current) select(btn);
+  });
+})();
+</script>
+
+<hr>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<footer class="site-footer">© <span id="year">2026</span> adamschaefers.com · <a href="/sitemap/">Sitemap</a> · <a href="/privacy-policy/">Privacy</a> · <a href="/terms-of-service/">Terms</a></footer>
+</div>
 </body>
 </html>

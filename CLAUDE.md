@@ -10,10 +10,18 @@ The site is one page, built by `site.el`. `index.html` is `index.org`
 exported without its `:view:` sections; those sections and the collections
 (below) go into a JSON blob in the page head (`#site-data`), so the first
 load carries everything. `js/app.js` (lit-html, vendored in `js/lit/` from
-../enchant.games) renders the menu and one view at a time from it,
-switching on hash routes (`#quest-log`, `#inquiries`, `#sitemap`, and for
-each collection `#blog`, `#blog/2`, `#blog/<entry slug>`) without page
-loads. A section is shown by tagging it `:view:` and listing it under a tab
+../enchant.games) renders the menu and one view at a time from it. Each view
+has a real address (`/` for Projects, `/inquiries/`, `/sitemap/`, and for
+each collection `/blog/`, `/blog/2/`, `/blog/<entry slug>/`), and the build
+writes the page at each: `index.html` again, with that view's title and
+preview tags (below), plus `404.html` for any other path. `js/app.js` catches
+links between views and switches without a page load (History API), so the
+address bar always holds the view's own address. The page has
+`<base href="/">`, so relative links reach the same files from every address,
+and app.js follows bare `#anchors` on the page they're on. Old hash routes
+(`/#store`, still in links out there) show the view and give way to its
+address. Link views by address (`<a href="/inquiries/">`), not `#inquiries`.
+A section is shown by tagging it `:view:` and listing it under a tab
 in `TABS` in `js/app.js` (Projects shows About, the Quest Log and the slop
 shelf), which also holds the menu's labels and icons.
 If `js/app.js` gains or loses an import, direct or not, update
@@ -23,25 +31,23 @@ pairs a new module with an old cached one. A module missing from the list
 still loads, unversioned.
 The sidebar (index.org's Contact section) and the footer (`site.el`, with
 the Sitemap, Privacy and Terms links) are written once and frame every view.
-The privacy policy and terms of service (`#privacy-policy`,
-`#terms-of-service`) are `:view:` sections in index.org, routed through
+The privacy policy and terms of service (`/privacy-policy/`,
+`/terms-of-service/`) are `:view:` sections in index.org, routed through
 `PAGES` in `js/app.js`; keep the policy in step with what the site and
 `license-worker/` actually collect and who they send it to.
 Link previews (social media, chat apps) and crawlers read HTML without running
-JavaScript and drop everything after `#`, so the build also writes a small
-share page at a real path for every view, product and entry
+JavaScript and drop everything after `#`; that's why views have real
+addresses. Every view, product, entry and later listing page has its page
 (`store/index.html`, `backseat-driver/index.html`,
 `off-the-clock/<slug>/index.html`; listed in `share-pages.txt`, which the
-build and the hook use to drop pages that are gone). Each carries its title,
-a description and a picture, and sends people on to its `#route`. Set them in
+build and the hook use to drop pages that are gone), and each carries its
+title, a description and a picture. Set them in
 the Org sources: `:DESCRIPTION:` and `:IMAGE:` properties on a view's heading,
 `#+DESCRIPTION` and `#+IMAGE` in `blog.org`, `off-the-clock.org` and each
 entry, `data-share-image` on a product's `<article>` (previews want PNG or
 JPEG, not WebP). Without them: the first paragraph or excerpt, a travelog's
 poster, and `images/og.jpg` (the 1200x630 card of the profile photo, name and
-roles). Share those addresses (the store's copy-link
-icon does); `sitemap.xml` lists them. `index.html` carries the home page's
-preview tags.
+roles). `index.html` carries the home page's preview tags.
 `nav.css` styles the menu (top on desktop, bottom tab bar on phones),
 `blog.css` the collection views and the sitemap.
 
@@ -60,9 +66,10 @@ collection's title, intro and `#+POSTS_PER_PAGE` (Off the clock: 12).
 The build also writes `rss.xml`, one feed for both collections (a reader
 subscribes once): every entry in full, newest first, tagged with its
 collection as `<category>`, site-relative links made absolute against
-https://adamschaefers.com/ and videos as enclosures. It also writes
-`sitemap.xml`. Crawlers drop everything after `#`, so `sitemap.xml` lists
-only the page; the `#sitemap` view lists every view and entry for people.
+https://adamschaefers.com/ and videos as enclosures. Items link to the
+entries' addresses; their guids keep the old `#route` form, so readers don't
+show every entry again. It also writes `sitemap.xml`, every page for
+crawlers; the `/sitemap/` view lists them for people.
 `robots.txt` points at `sitemap.xml`. `scripts/pre-commit` (installed as
 `.git/hooks/pre-commit`) rebuilds and stages all generated files on every
 commit, building from the staged files (a copy of the index), so another
@@ -81,7 +88,7 @@ can't play, so always re-encode.
 `fonts/TwemojiCountryFlags.woff2` draws flag emoji, which Windows lacks; see
 `fonts/README.md`.
 
-The Store (`#store`, index.org's Store section) sells licenses: real Stripe,
+The Store (`/store/`, index.org's Store section) sells licenses: real Stripe,
 real money (there is no sandbox). Each product is an
 `<article class="product" id="product-<id>">` with its image (a placeholder,
 `images/store/placeholder.svg`, until a real one), its words in Org, and two
@@ -105,8 +112,9 @@ the zone allows 5 `POST /v1/checkout` or `/v1/recover` per IP per 10 seconds,
 and the Worker's own limit 20 a minute per IP on every site route.
 Bot Fight Mode stays off: on the free plan it can't be skipped, and it would
 challenge Stripe's webhooks, the plugin's key check and the contact form. A
-product's own route (`#backseat-driver`, `PAGES` in `js/app.js`) shows the
-store at that product. Stripe returns buyers to `#license/<checkout id>`, where
+product's own address (`/backseat-driver/`, `PAGES` in `js/app.js`) shows the
+store at that product. Stripe returns buyers to `/#license/<checkout id>` (the
+one view left on a hash: private, so no page), where
 the key is shown (copy, print) and said to be emailed. `store.css` styles it.
 The store's admin link goes to the license server's `/admin`.
 
@@ -189,6 +197,6 @@ down, a CI failure the logs can't explain, a change to its test kit, or the
 owner asks) are in its CLAUDE.md.
 
 `make run` serves the site locally at http://localhost:8000 (`PORT=` to
-change it).
+change it; a path with no page gets Python's own 404, not `404.html`).
 
 There is no branch protection; commit and push to `master` directly.

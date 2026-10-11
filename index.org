@@ -187,7 +187,7 @@
   <button type="button" class="profile-zoom" aria-label="Enlarge photo of Adam Schaefers">
     <img src="me.jpeg" width="1080" height="1920" class="hello-profile" alt="">
   </button>
-  <a class="home-link" href="#" aria-label="Adam Schaefers, back to top">
+  <a class="home-link" href="/" aria-label="Adam Schaefers, back to top">
     <h1 class="name">Adam Schaefers</h1>
     <p class="roles"><span>Devops |</span> <span>Full stack dev |</span> <span>Gamedev |</span> <span>Founder</span></p>
   </a>
@@ -236,7 +236,7 @@
 #+END_EXPORT
 
 - Latest Work: @@html:<a href="https://enchant.games" target="_blank" rel="noopener">@LandOfEnchantment</a>@@
-- Contact: @@html:<a href="#inquiries">Send me an email</a>@@
+- Contact: @@html:<a href="/inquiries/">Send me an email</a>@@
 - Github: [[https://github.com/a-schaefers][a-schaefers]]
 - Twitch: [[https://www.twitch.tv/enchantdev][@enchantdev]]
 
@@ -318,7 +318,7 @@
 - *Also cooking 🍳: my side projects*
   - *[[https://merecatholicity.com][merecatholicity.com]]* ([[https://github.com/merecatholicity/merecatholicity.com][Git]]): my eclectic ecumenical project. It includes a self-published book, /Mere Catholicity/ (public domain, typeset in LaTeX for PDF, paperback and Logos), a library of the Fathers, councils and classics re-typeset from public-domain sources, and *merecat* 🐈, an AI research librarian that answers from the library with citations. I built it serverless: a PureScript, lit-js and Tailwind front end over a custom headless API backend on Cloudflare Workers, with D1 (SQLite), R2 (S3-compatible storage) and Durable Objects for real-time chat. A GitHub Actions CI/CD system ships both the application and its Terraform infrastructure, with approval gates before production, staged rollouts and nightly tests against production. For the community side I borrowed the best bits of the old internet: 4chan-style auth, Snapchat-style DMs, Signal-style end-to-end encryption, and Facebook-style profiles and walls.
   - *[[https://stasislinux.org][stasislinux.org]]* ([[https://codeberg.org/sta_sis/stasis][Git]]): my own Linux distro, the natural follow-through of my years as a package maintainer on KISS Linux with Dylan Araps.
-  - *[[https://github.com/a-schaefers/backseat-driver][backseat-driver]]*: my tutor for keeping AI-era programmers' fundamentals sharp. Free for personal use; @@html:<a href="#backseat-driver">commercial licenses in the store</a>@@ for businesses.
+  - *[[https://github.com/a-schaefers/backseat-driver][backseat-driver]]*: my tutor for keeping AI-era programmers' fundamentals sharp. Free for personal use; @@html:<a href="/backseat-driver/">commercial licenses in the store</a>@@ for businesses.
   - *[[https://github.com/a-schaefers/.emacs.d][.emacs.d]]*: my Emacs config. It starts in about 0.2s, with everything deferred through use-package. It prefers built-ins (eglot, flymake), runs on vertico/corfu/tree-sitter, and binds the same SLIME-style keys in every language.
 - *2020 – 2025 · ☁️ DevOps @ Upgrade, Inc. · Immaculata Studios, LLC · Skvare, LLC* \\
   Herded Kubernetes, Terraform (5k+ lines of homegrown modules), AWS, CI/CD pipelines, monitoring, and a Postfix server that sent a million emails a month without landing in spam. Rode the industry's evolution from LAMP-stack monoliths to IaC-driven cloud microservices, right up to the arrival of AI automation, which is when I turned to solo gamedev.
@@ -396,7 +396,7 @@ If a business uses Backseat Driver or has its people use it, training included, 
 :CUSTOM_ID: privacy-policy
 :END:
 
-This site has no ads, analytics or tracking cookies. I collect only what you give me: your name, email address and message when you use the contact form, and when you buy a license, the licensee's name, your email address, the seats and the purchase record, plus an anonymous ID for each install that checks in, used only to count seats. I use it to answer you and to deliver, manage and refund licenses, and I never sell or rent it. It's disclosed only to the services that run the site, each sent over an encrypted connection only what it needs to do its job: Stripe takes payments (I never see your card), Cloudflare runs the contact form, license server, its database and the bot check, Resend sends license emails, iCloud Mail receives contact messages, GitHub hosts the site and, like any web host, may log your IP address, and YouTube sees videos you choose to play. Otherwise I disclose it only when the law requires. Everything travels over HTTPS and is stored with those providers in access-controlled accounts, and the license admin page sits behind Cloudflare Access; the contact form keeps an unsent draft only in your own browser. To see, correct or delete your information, @@html:<a href="#inquiries">get in touch</a>@@. /Last updated October 10, 2026./
+This site has no ads, analytics or tracking cookies. I collect only what you give me: your name, email address and message when you use the contact form, and when you buy a license, the licensee's name, your email address, the seats and the purchase record, plus an anonymous ID for each install that checks in, used only to count seats. I use it to answer you and to deliver, manage and refund licenses, and I never sell or rent it. It's disclosed only to the services that run the site, each sent over an encrypted connection only what it needs to do its job: Stripe takes payments (I never see your card), Cloudflare runs the contact form, license server, its database and the bot check, Resend sends license emails, iCloud Mail receives contact messages, GitHub hosts the site and, like any web host, may log your IP address, and YouTube sees videos you choose to play. Otherwise I disclose it only when the law requires. Everything travels over HTTPS and is stored with those providers in access-controlled accounts, and the license admin page sits behind Cloudflare Access; the contact form keeps an unsent draft only in your own browser. To see, correct or delete your information, @@html:<a href="/inquiries/">get in touch</a>@@. /Last updated October 10, 2026./
 
 ** Terms of service :view:
 :PROPERTIES:

@@ -1,11 +1,15 @@
 // The site is one page. The sidebar is static HTML from index.org; this renders the menu
 // and one view at a time beside it from the #site-data JSON that site.el builds, so every
-// view is already loaded and switching never loads a page. Views are hash routes:
-//   #quest-log (the default)  #store  #inquiries  #sitemap  #backseat-driver (its product in the store)
-//   #privacy-policy  #terms-of-service (linked from the footer)
-//   #blog  #blog/2  #blog/<entry slug>, and the same under #off-the-clock
-//   #license/<Stripe checkout id>, where Stripe sends a license buyer back
-// Any other hash is left to the browser as a plain in-page anchor (footnotes, say).
+// view is already loaded and switching never loads a page. Each view has its own address,
+// where site.el writes the same page with that view's link preview, so the address bar
+// always holds a link that shares as the view on screen:
+//   / (Projects)  /store/  /inquiries/  /sitemap/  /backseat-driver/ (its product in the store)
+//   /privacy-policy/  /terms-of-service/ (linked from the footer)
+//   /blog/  /blog/2/  /blog/<entry slug>/, and the same under /off-the-clock/
+//   /#license/<Stripe checkout id>, where Stripe sends a license buyer back (private: no page)
+// Links to a view switch to it here. A view's old hash route (/#store, still in links out
+// there) shows it and gives way to its address; any other hash is a plain in-page anchor
+// (footnotes, say).
 
 import { html, render, nothing } from './lit/lit-html/lit-html.js';
 import { unsafeHTML } from './lit/lit-html/directives/unsafe-html.js';
@@ -44,32 +48,60 @@ const PAGES = [
 const DEFAULT = 'quest-log';
 const RSS_ICON = '<path d="M5 11a8 8 0 0 1 8 8M5 5a14 14 0 0 1 14 14"/><circle cx="6" cy="18" r="1.2"/>';
 
-// The view for the current hash, or null when the hash isn't a route.
-function parseRoute() {
-    let hash = location.hash.slice(1);
-    try {
-        hash = decodeURIComponent(hash);
-    } catch {
-        // A malformed % sequence (a half-copied link): take the hash as typed.
-    }
-    if (!hash || hash === 'about' || hash === 'slop-shelf') return { tab: DEFAULT };
-    if (hash === 'sitemap') return { tab: 'sitemap' };
-    const [route, rest] = hash.split(/\/(.*)/s);
-    if (route === 'license' && rest) return { tab: 'license', session: rest };
-    const tab = TABS.find(t => t.route === route) || PAGES.find(p => p.route === route);
+const findView = route => TABS.find(t => t.route === route) || PAGES.find(p => p.route === route);
+const pageCount = c => Math.max(1, Math.ceil(c.entries.length / c.perPage));
+
+// The view a route names ('store', 'blog/2', 'blog/<entry slug>', '' for the home page), or
+// null when it names none.
+function parse(route) {
+    if (!route || route === 'about' || route === 'slop-shelf') return { tab: DEFAULT };
+    if (route === 'sitemap') return { tab: 'sitemap' };
+    const [name, rest] = route.split(/\/(.*)/s);
+    if (name === 'license' && rest) return { tab: 'license', session: rest };
+    const tab = findView(name);
     if (!tab) return null;
-    if (tab.sections) return rest === undefined ? { tab: route } : null;
-    if (rest === undefined) return { tab: route, page: 1 };
-    if (/^\d+$/.test(rest)) return { tab: route, page: Number(rest) };
-    const i = collections[tab.collection].entries.findIndex(e => e.slug === rest);
-    return i < 0 ? { tab: route, page: 1 } : { tab: route, entry: i };
+    if (tab.sections) return rest === undefined ? { tab: name } : null;
+    const c = collections[tab.collection];
+    if (rest === undefined) return { tab: name, page: 1 };
+    if (/^\d+$/.test(rest)) return { tab: name, page: Math.min(Math.max(Number(rest), 1), pageCount(c)) };
+    const i = c.entries.findIndex(e => e.slug === rest);
+    return i < 0 ? { tab: name, page: 1 } : { tab: name, entry: i };
+}
+
+function decode(s) {
+    try {
+        return decodeURIComponent(s);
+    } catch {
+        // A malformed % sequence (a half-copied link): take it as typed.
+        return s;
+    }
+}
+
+// A view's address, where site.el writes its page: /, /store/, /blog/2/, /blog/<slug>/.
+const address = (route, rest) => route === DEFAULT ? '/' : `/${route}/${rest ? `${rest}/` : ''}`;
+const pageHref = (route, n) => address(route, n > 1 ? n : '');
+
+function addressOf(r) {
+    if (r.tab === 'license') return `/#license/${r.session}`;
+    if (r.entry !== undefined) return address(r.tab, collections[findView(r.tab).collection].entries[r.entry].slug);
+    return pageHref(r.tab, r.page || 1);
+}
+
+// The view a URL names: an old hash route (/#store) or Stripe's /#license/..., else the
+// path. Exactly: only a view's own address, so a link to a file (/blog/photo.jpg) stays one.
+function routeAt(url, exactly) {
+    const hash = decode(url.hash.slice(1));
+    const fromHash = hash && parse(hash);
+    if (fromHash) return { ...fromHash, hash: true };
+    const r = parse(decode(url.pathname).replace(/^\/+|\/+$/g, ''));
+    return r && (!exactly || addressOf(r) === url.pathname) ? r : null;
 }
 
 const icon = paths => unsafeHTML(`<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`);
 
 const menu = active => html`
     <div class="site-tabs">
-        ${TABS.map(t => html`<a href="#${t.route}" aria-current=${t.route === active ? 'page' : nothing}>${icon(t.icon)}<span>${t.label}</span></a>`)}
+        ${TABS.map(t => html`<a href=${address(t.route)} aria-current=${t.route === active ? 'page' : nothing}>${icon(t.icon)}<span>${t.label}</span></a>`)}
     </div>`;
 
 // An index.org section, wrapped the way Org exports it so index.org's styles apply.
@@ -78,8 +110,6 @@ const section = s => html`
         <h2>${s.title}</h2>
         <div class="outline-text-2" id="text-${s.id}">${unsafeHTML(s.html)}</div>
     </div>`;
-
-const pageHref = (route, n) => n === 1 ? `#${route}` : `#${route}/${n}`;
 
 // src on the element itself, not a <source>, so a reused element loads the new video.
 const video = (e, cls) => html`
@@ -90,19 +120,18 @@ const entry = (route, e) => e.video ? html`
     <li class="travelog">
         ${video(e)}
         <time datetime=${e.date}>${e.dateLabel}</time>
-        <h3><a href="#${route}/${e.slug}">${e.title}</a></h3>
+        <h3><a href=${address(route, e.slug)}>${e.title}</a></h3>
         ${unsafeHTML(e.excerpt)}
     </li>` : html`
     <li class="entry">
         <time datetime=${e.date}>${e.dateLabel}</time>
-        <h3><a href="#${route}/${e.slug}">${e.title}</a></h3>
+        <h3><a href=${address(route, e.slug)}>${e.title}</a></h3>
         ${unsafeHTML(e.excerpt)}
-        <a class="entry-more" href="#${route}/${e.slug}">Read post →</a>
+        <a class="entry-more" href=${address(route, e.slug)}>Read post →</a>
     </li>`;
 
 function listing(route, c, page) {
-    const pages = Math.max(1, Math.ceil(c.entries.length / c.perPage));
-    page = Math.min(Math.max(page, 1), pages);
+    const pages = pageCount(c);
     const shown = c.entries.slice((page - 1) * c.perPage, page * c.perPage);
     return html`
     <div class="outline-2 blog">
@@ -136,8 +165,8 @@ function single(route, label, c, i) {
         ${e.video ? video(e, 'post-video') : nothing}
         ${unsafeHTML(e.html)}
         <nav class="post-nav" aria-label="More">
-            ${newer ? html`<a class="newer" href="#${route}/${newer.slug}" rel="prev"><span>← Newer</span>${newer.title}</a>` : nothing}
-            ${older ? html`<a class="older" href="#${route}/${older.slug}" rel="next"><span>Older →</span>${older.title}</a>` : nothing}
+            ${newer ? html`<a class="newer" href=${address(route, newer.slug)} rel="prev"><span>← Newer</span>${newer.title}</a>` : nothing}
+            ${older ? html`<a class="older" href=${address(route, older.slug)} rel="next"><span>Older →</span>${older.title}</a>` : nothing}
         </nav>
     </article>`;
 }
@@ -148,12 +177,12 @@ const sitemap = () => html`
         <h2>Sitemap</h2>
         <ul>
             ${TABS.map(t => html`<li>
-                <a href="#${t.route}">${t.label}</a>
+                <a href=${address(t.route)}>${t.label}</a>
                 ${t.collection && collections[t.collection].entries.length ? html`<ul>
-                    ${collections[t.collection].entries.map(e => html`<li><a href="#${t.route}/${e.slug}">${e.title}</a> <time datetime=${e.date}>${e.dateLabel}</time></li>`)}
+                    ${collections[t.collection].entries.map(e => html`<li><a href=${address(t.route, e.slug)}>${e.title}</a> <time datetime=${e.date}>${e.dateLabel}</time></li>`)}
                 </ul>` : nothing}
             </li>`)}
-            ${PAGES.map(p => html`<li><a href="#${p.route}">${p.label}</a></li>`)}
+            ${PAGES.map(p => html`<li><a href=${address(p.route)}>${p.label}</a></li>`)}
         </ul>
         <h3>Feeds</h3>
         <ul>
@@ -168,8 +197,6 @@ const license = session => html`
         <h2>Thank you!</h2>
         <div id="license-mount" data-session=${session}></div>
     </div>`;
-
-const findView = route => TABS.find(t => t.route === route) || PAGES.find(p => p.route === route);
 
 function view(r) {
     if (r.tab === 'sitemap') return sitemap();
@@ -188,28 +215,69 @@ function title(r) {
     if (r.tab === 'license') return `Your license key · ${SITE}`;
     const t = findView(r.tab);
     if (r.entry !== undefined) return `${collections[t.collection].entries[r.entry].title} · ${SITE}`;
+    if (r.page > 1) return `${t.label}, page ${r.page} · ${SITE}`;
     return `${t.label} · ${SITE}`;
 }
 
 const nav = document.getElementById('site-nav');
 const app = document.getElementById('app');
-let shown = false;
+let shown = null; // the address of the view on screen
 
+// A new view starts at the top of the page, or at its product.
+function toStart(r, first) {
+    const product = PAGES.find(p => p.route === r.tab && p.product) && document.getElementById(`product-${r.tab}`);
+    if (product) product.scrollIntoView({ behavior: 'instant', block: 'start' });
+    else if (!first) scrollTo({ top: 0, behavior: 'instant' });
+}
+
+// Show the view the address bar names, and put its address there in place of an old hash
+// route or a path that names no view (404.html: the nearest view, or the home page). An
+// in-page anchor and a query (?fbclid=...) stay.
 function show() {
-    const r = parseRoute() || (shown ? null : { tab: DEFAULT });
-    if (!r) return;
+    const r = routeAt(location) || { tab: DEFAULT };
+    const at = addressOf(r);
+    const want = r.hash ? at : at + location.hash;
+    if (location.pathname + location.hash !== want) {
+        history.replaceState(history.state, '', want.replace(/#|$/, `${location.search}$&`));
+    }
+    if (at === shown) return;
     render(menu(PAGES.find(p => p.route === r.tab)?.under || r.tab), nav);
     render(view(r), app);
     mountContactForms(app);
     mountStore(app);
     mountLicense(app);
     document.title = title(r);
-    // A new view starts at the top of the page, or at its product.
-    const product = PAGES.find(p => p.route === r.tab && p.product) && document.getElementById(`product-${r.tab}`);
-    if (product) product.scrollIntoView({ behavior: 'instant', block: 'start' });
-    else if (shown) scrollTo({ top: 0, behavior: 'instant' });
-    shown = true;
+    toStart(r, !shown);
+    shown = at;
 }
+
+// Where a link goes, if to a view: its route, else null (a file, another site, an anchor).
+function linkRoute(a) {
+    const href = a.getAttribute('href');
+    if (href.startsWith('#')) return href.length > 1 ? parse(decode(href.slice(1))) : null;
+    const url = new URL(href, document.baseURI);
+    return url.origin === location.origin ? routeAt(url, true) : null;
+}
+
+// A link to a view switches to it here, without loading a page; one to the view on screen
+// goes back to its start. The page has <base href="/"> (site.el), which would send a bare
+// #anchor to the home page, so those are followed here on the page they're on.
+document.addEventListener('click', e => {
+    const a = e.target.closest('a[href]');
+    if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey
+        || a.target || a.hasAttribute('download')) return;
+    const r = linkRoute(a);
+    if (r) {
+        e.preventDefault();
+        const at = addressOf(r);
+        if (location.pathname + location.hash !== at) history.pushState(null, '', at);
+        if (at === shown) toStart(r);
+        else show();
+    } else if (a.getAttribute('href').startsWith('#')) {
+        e.preventDefault();
+        location.hash = a.getAttribute('href');
+    }
+});
 
 // Phones: tapping the highlighted button for the page you're on jumps back to the top.
 const phone = matchMedia('(max-width: 56rem)');
@@ -221,5 +289,6 @@ nav.addEventListener('click', e => {
 });
 
 document.getElementById('year').textContent = new Date().getFullYear();
+addEventListener('popstate', show);
 addEventListener('hashchange', show);
 show();

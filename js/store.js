@@ -70,7 +70,7 @@ function botCheck(box) {
             widget = turnstile.render(box, { sitekey: SITEKEY, theme: 'dark', size: 'flexible' });
             widgets.set(widget, box);
         })
-        .catch(() => { box.innerHTML = 'Couldn\'t load the check that you\'re not a bot (an ad blocker?). Reload the page, or <a href="#inquiries">use the contact form</a>.'; });
+        .catch(() => { box.innerHTML = 'Couldn\'t load the check that you\'re not a bot (an ad blocker?). Reload the page, or <a href="/inquiries/">use the contact form</a>.'; });
     return {
         token: () => box.querySelector('input[name="cf-turnstile-response"]')?.value || '',
         reset: () => { if (window.turnstile && widget !== null) window.turnstile.reset(widget); },
@@ -85,7 +85,7 @@ async function checkout(body, status, button) {
     try {
         location.href = (await post('/v1/checkout', body)).url;
     } catch (err) {
-        status.innerHTML = `${esc(err.message)} Please try again, or <a href="#inquiries">get in touch</a>.`;
+        status.innerHTML = `${esc(err.message)} Please try again, or <a href="/inquiries/">get in touch</a>.`;
         button.disabled = false;
     }
 }
@@ -150,7 +150,7 @@ function mountKey(mount) {
         const clearlyOver = info.installs > 2 * info.seats && info.installs - info.seats >= 5;
         let html = `<p class="key-facts"><b>${esc(info.licensee)}</b>: ${plural(info.seats)}, for life.</p>`;
         if (info.status === 'revoked') {
-            result.innerHTML = html + '<p class="key-warn">This license was withdrawn, for example after a refund. If that\'s a mistake, <a href="#inquiries">get in touch</a>.</p>';
+            result.innerHTML = html + '<p class="key-warn">This license was withdrawn, for example after a refund. If that\'s a mistake, <a href="/inquiries/">get in touch</a>.</p>';
             return;
         }
         if (info.installs > 0) {
@@ -226,11 +226,11 @@ function mountRecover(mount) {
     <div>
       <p class="sent-title">Sent. Check your inbox.</p>
       <p class="sent-note"></p>
-      <p class="recover-again"><button type="button" disabled></button> <a href="#inquiries">Contact form</a></p>
+      <p class="recover-again"><button type="button" disabled></button> <a href="/inquiries/">Contact form</a></p>
     </div>
   </div>
   </div>
-  <p class="store-help">Questions, or trouble with a purchase or a key? <a href="#inquiries">Get in touch</a>. I read every message myself.</p>
+  <p class="store-help">Questions, or trouble with a purchase or a key? <a href="/inquiries/">Get in touch</a>. I read every message myself.</p>
 </div>`;
     const form = mount.querySelector('form');
     const input = form.querySelector('input');
@@ -293,15 +293,15 @@ function mountRecover(mount) {
             status.textContent = '';
             showSent(email);
         } catch (err) {
-            status.innerHTML = `${esc(err.message)} You can also <a href="#inquiries">use the contact form</a>.`;
+            status.innerHTML = `${esc(err.message)} You can also <a href="/inquiries/">use the contact form</a>.`;
         }
         button.disabled = false;
         human?.reset();
     });
 }
 
-// A product's title gets a link icon that copies its share link (/<id>/: the page site.el
-// makes for link previews, which opens the store at that product), always the live address
+// A product's title gets a link icon that copies its address (/<id>/, which opens the store
+// at that product, and whose page carries the product's link preview), always the live one
 // so a shared link works anywhere.
 const LINK_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.1 1.1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.1-1.1"/></svg>';
 
@@ -421,11 +421,11 @@ function keyCard(l) {
     <button type="button" data-do="print">Print</button>
   </div>
 </div>
-<p>We've also emailed it to <b>${esc(l.email)}</b> from licenses@adamschaefers.com. Please don't reply to that email: nobody reads that address. If anything's wrong or you have a question, <a href="#inquiries">use the contact form</a>.</p>
+<p>We've also emailed it to <b>${esc(l.email)}</b> from licenses@adamschaefers.com. Please don't reply to that email: nobody reads that address. If anything's wrong or you have a question, <a href="/inquiries/">use the contact form</a>.</p>
 <h3>Using it</h3>
 <p>${esc(l.howToUse)}</p>
-<p>Need more seats later? Paste this key in the <a href="#store">store</a>.</p>
-${l.status === 'revoked' ? '<p class="license-revoked">This license has been withdrawn, for example after a refund. If that\'s a mistake, <a href="#inquiries">get in touch</a>.</p>' : ''}`;
+<p>Need more seats later? Paste this key in the <a href="/store/">store</a>.</p>
+${l.status === 'revoked' ? '<p class="license-revoked">This license has been withdrawn, for example after a refund. If that\'s a mistake, <a href="/inquiries/">get in touch</a>.</p>' : ''}`;
 }
 
 export function mountLicense(root) {
@@ -471,7 +471,7 @@ export function mountLicense(root) {
             });
         } catch {
             say(`<p class="license-lead">We couldn't find this purchase.</p>
-<p>If you've paid, your key is on its way to your email from licenses@adamschaefers.com. If it doesn't arrive within a few minutes, check your spam folder. You can also have every key on file emailed to you from the <a href="#store">store</a> ("Lost your key?"), or <a href="#inquiries">use the contact form</a> and we'll sort it out.</p>`);
+<p>If you've paid, your key is on its way to your email from licenses@adamschaefers.com. If it doesn't arrive within a few minutes, check your spam folder. You can also have every key on file emailed to you from the <a href="/store/">store</a> ("Lost your key?"), or <a href="/inquiries/">use the contact form</a> and we'll sort it out.</p>`);
         }
     };
     load();
