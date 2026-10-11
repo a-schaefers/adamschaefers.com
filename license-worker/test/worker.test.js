@@ -143,7 +143,7 @@ test('checkout picks the price by seat count and returns to the site it came fro
   assert.equal(s9.price, 'price_99');
   assert.equal(s10.price, 'price_7425');
   assert.equal(s10.quantity, 10);
-  assert.equal(s10.cancel_url, 'http://localhost:8000/#backseat-driver');
+  assert.equal(s10.cancel_url, 'http://localhost:8000/backseat-driver/');
 });
 
 test('checkout refuses bad seat counts, unknown products and other origins', async () => {
@@ -180,7 +180,7 @@ test('a paid checkout: the success page and the webhook issue one key between th
   assert.equal(emails[0].from, 'Adam Schaefers <licenses@adamschaefers.com>');
   assert.ok(emails[0].text.includes(page.key));
   assert.ok(emails[0].text.includes("Please don't reply"));
-  assert.ok(emails[0].text.includes('https://adamschaefers.com/#inquiries'));
+  assert.ok(emails[0].text.includes('https://adamschaefers.com/inquiries/'));
 });
 
 test('the webhook alone issues and emails; a failed email answers 500 so Stripe retries', async () => {
@@ -409,7 +409,7 @@ test('recovery emails every license on file for an address, newest key each, nev
   assert.ok(mail.text.includes(b.page.key), 'the second license');
   assert.ok(!mail.text.includes(gone.page.key), 'not a refunded one');
   assert.ok(mail.text.includes('Seats: 5'));
-  assert.ok(mail.text.includes('https://adamschaefers.com/#inquiries'));
+  assert.ok(mail.text.includes('https://adamschaefers.com/inquiries/'));
 
   // The add-on buyer's address finds the same license too.
   emails.length = 0;
