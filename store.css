@@ -80,6 +80,8 @@
 .recover-card p { margin: 0 0 .75rem; color: var(--dust); }
 .recover-card .buy-row input { width: 18rem; max-width: 100%; }
 .recover-card .buy-status { color: var(--sand); }
+.recover-card .store-help { margin: .9rem 0 0; font-size: .95rem; }
+.recover-body:not([hidden]) + .store-help { margin-top: 1.5rem; }
 
 /* The key */
 .license-lead { font-size: 1.1rem; }

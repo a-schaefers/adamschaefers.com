@@ -235,6 +235,7 @@ function mountRecover(mount) {
     </div>
   </div>
   </div>
+  <p class="store-help">Questions, or trouble with a purchase or a key? <a href="#inquiries">Get in touch</a>. I read every message myself.</p>
 </div>`;
     const form = mount.querySelector('form');
     const input = form.querySelector('input');
