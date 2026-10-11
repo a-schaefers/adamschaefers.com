@@ -3,6 +3,7 @@
 
 # The Off the clock page. site.el puts this text above the travelogs in
 # off-the-clock/YYYY-MM-DD-slug.org, newest first, POSTS_PER_PAGE to a page.
-# Each travelog's #+VIDEO and #+POSTER point into videos/; its text is the caption.
+# Each travelog's #+VIDEO is its upload on the media domain and #+POSTER its poster, a JPEG
+# beside the entry (off-the-clock/<name>.jpg); its text is the caption.
 
 Professional music recording, and I play guitar. 🎸 Big fan of electronic music, house and techno. I enjoy vacationing in Greece. 🇬🇷 Born and raised in the Pacific Northwest, and an avid fly fisherman. 🎣

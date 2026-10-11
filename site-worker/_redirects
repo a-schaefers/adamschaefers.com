@@ -5,3 +5,9 @@
 /videos/evia.mp4 https://media.adamschaefers.com/evia.mp4 301
 /videos/hawaii.mp4 https://media.adamschaefers.com/hawaii.mp4 301
 /videos/zakynthos.mp4 https://media.adamschaefers.com/zakynthos.mp4 301
+# The travelog posters moved beside their entries (2026-10-11): previews of links shared
+# before ask for /videos/<name>.jpg.
+/videos/coos-bay.jpg /off-the-clock/coos-bay.jpg 301
+/videos/evia.jpg /off-the-clock/evia.jpg 301
+/videos/hawaii.jpg /off-the-clock/hawaii.jpg 301
+/videos/zakynthos.jpg /off-the-clock/zakynthos.jpg 301

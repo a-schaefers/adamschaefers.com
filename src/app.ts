@@ -244,7 +244,7 @@ function notFound(path: string) {
     </div>`;
 }
 
-// Where Stripe sends a license buyer back; js/store.ts fills in the key.
+// Where Stripe sends a license buyer back; src/store.ts fills in the key.
 const license = (session: string) => html`
     <div class="outline-2 license">
         <h2>Thank you!</h2>

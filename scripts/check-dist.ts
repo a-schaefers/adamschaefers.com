@@ -5,7 +5,7 @@
 // Every href, src and poster in the pages (also inside the #site-data JSON), every url() in
 // the styles, every preview picture and every link in the feed must name a file in public/
 // (or a page's directory). A script's relative imports must reach a published file: esbuild
-// bundles js/app.ts whole (scripts/build.ts), so it has none, and one that isn't published
+// bundles src/app.ts whole (scripts/build.ts), so it has none, and one that isn't published
 // (a chunk, were the bundle ever split) fails here rather than on the site. Links to the media
 // domain (videos and uploads, https://media.adamschaefers.com/...) are asked for with HEAD:
 // each must be there. And each file is under the 25 MiB a static asset may be.
@@ -77,7 +77,7 @@ for (const [key, path] of files) {
     const text = readFileSync(path, 'utf8');
     for (const m of text.matchAll(/(?:\bfrom\s*|\bimport\s*\(?\s*)['"](\.\.?\/[^'"]+)['"]/g)) {
       const imported = new URL(m[1], `${SITE}${key}`).pathname.slice(1);
-      if (!files.has(imported)) broken.push(`${key}: ${m[1]} (not published: scripts/build.ts bundles what js/app.ts imports)`);
+      if (!files.has(imported)) broken.push(`${key}: ${m[1]} (not published: scripts/build.ts bundles what src/app.ts imports)`);
     }
     continue;
   }

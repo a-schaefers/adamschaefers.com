@@ -3,8 +3,9 @@
 PORT ?= 8000
 
 # The site: its script and styles compiled (scripts/build.ts: esbuild and Tailwind, into
-# build/), the Org export (site.el), then public/, exactly what the site serves
-# (scripts/dist.sh). None of it is committed: CI builds and deploys it on every merge.
+# build/), the Org export (site.el: content/ into pages in build/), then public/, exactly
+# what the site serves (scripts/dist.sh, from build/ and static/). None of it is committed:
+# CI builds and deploys it on every merge.
 build:
 	node scripts/build.ts
 	emacs -Q --batch -l site.el -f site-build

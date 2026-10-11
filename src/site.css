@@ -3,9 +3,9 @@
    as site.<hash>.css.
 
    Where the classes go:
-   - Markup the TypeScript renders (js/: the menu and the views, the store's forms and key
-     page, the contact form) and site.el writes (the menu's and footer's frames) carries
-     Tailwind's utility classes itself.
+   - Markup the TypeScript renders (src/: the views, the store's forms and key page, the
+     contact form) and site.el writes (the menu and the footer) carries Tailwind's utility
+     classes itself.
    - Markup Org writes (the sections, lists and posts exported from index.org and the
      collections) and index.org's own HTML blocks (the sidebar, the products) keep their
      semantic class names, styled below with @apply as components. Their rules keep the
@@ -18,9 +18,9 @@
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
 
-/* The files whose classes are utilities. */
-@source "./js";
-@source "./site.el";
+/* The files whose classes are utilities: the TypeScript beside this file, and site.el. */
+@source ".";
+@source "../site.el";
 /* .outline-2 is Org's section wrapper (js/app.ts writes it too), not Tailwind's 2px outline. */
 @source not inline("outline-2");
 
