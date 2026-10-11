@@ -225,7 +225,7 @@ test('the plugin: status, public key, verify; a full refund revokes, a partial o
   const [s] = sessions.values();
   pay(s.id);
   const { id, key } = await (await call('GET', `/v1/checkout/${s.id}`)).json();
-  assert.deepEqual(await (await call('GET', `/v1/keys/${id}`)).json(), { status: 'active', seats: 2, installs: 0 });
+  assert.deepEqual(await (await call('GET', `/v1/keys/${id}`)).json(), { status: 'active', seats: 2, installs: 0, outgrown: false });
   assert.deepEqual(await (await call('GET', '/v1/keys/lic_nope')).json(), { status: 'unknown' });
   const [pub] = await (await call('GET', '/v1/public-keys')).json();
   assert.equal(pub.kid, 'test-1');
@@ -317,9 +317,9 @@ test('the plugin check counts installs per license, once each, and reports seats
     await call('GET', `/v1/keys/${page.id}?install=${install}`);
   }
   const answer = await (await call('GET', `/v1/keys/${page.id}?install=install-aaaa`)).json();
-  assert.deepEqual(answer, { status: 'active', seats: 2, installs: 3 });
-  assert.deepEqual(await (await call('GET', `/v1/keys/${page.id}?install=bad id!`)).json(), { status: 'active', seats: 2, installs: 3 }, 'junk ids are ignored');
-  assert.deepEqual(await (await call('GET', `/v1/keys/${page.id}`)).json(), { status: 'active', seats: 2, installs: 3 }, 'old plugins send none');
+  assert.deepEqual(answer, { status: 'active', seats: 2, installs: 3, outgrown: false });
+  assert.deepEqual(await (await call('GET', `/v1/keys/${page.id}?install=bad id!`)).json(), { status: 'active', seats: 2, installs: 3, outgrown: false }, 'junk ids are ignored');
+  assert.deepEqual(await (await call('GET', `/v1/keys/${page.id}`)).json(), { status: 'active', seats: 2, installs: 3, outgrown: false }, 'old plugins send none');
   // Installs not seen for 30 days drop out.
   env.DB.raw.prepare('UPDATE installs SET last_seen = ? WHERE install = ?').run(Date.now() - 31 * 24 * 3600_000, 'install-cccc');
   assert.equal((await (await call('GET', `/v1/keys/${page.id}`)).json()).installs, 2);
@@ -367,7 +367,7 @@ test('adding seats: priced by the new total, one new key for it, the old key sti
   assert.equal((await (await call('GET', `/v1/keys/${first.page.id}`)).json()).installs, 2);
   // Refunding the added seats takes the family back to 8.
   await call('POST', '/v1/stripe/webhook', await signed({ type: 'charge.refunded', data: { object: { amount: 14850, amount_refunded: 14850, payment_intent: more.session.payment_intent } } }));
-  assert.deepEqual(await (await call('GET', `/v1/keys/${first.page.id}`)).json(), { status: 'active', seats: 8, installs: 2 });
+  assert.deepEqual(await (await call('GET', `/v1/keys/${first.page.id}`)).json(), { status: 'active', seats: 8, installs: 2, outgrown: false });
   // Adding again counts from 8.
   const again = await buy(1, { key: first.page.key });
   assert.equal(again.page.seats, 9);
@@ -634,7 +634,7 @@ test('withdrawing and restoring from admin act on the whole license', async () =
   for (const id of [base.page.id, more.page.id]) assert.equal((await (await call('GET', `/v1/keys/${id}`)).json()).status, 'active');
 });
 
-test('the seats email: only clearly over (more than 2x and 5+ over) for 14 days, to the latest buyer, at most every 90 days', async () => {
+test('outgrown and the seats email: only clearly over (more than 2x and 5+ over) for 14 days; the email to the latest buyer, at most every 90 days', async () => {
   const base = await buy(2, { licensee: 'Busy Co', email: 'lead@busy.test' });
   const more = await buy(1, { key: base.page.key, email: 'it@busy.test' });   // 3 seats now
   await Promise.all(waits);
@@ -644,12 +644,14 @@ test('the seats email: only clearly over (more than 2x and 5+ over) for 14 days,
     await Promise.all(waits);
   };
   const rootRow = () => env.DB.raw.prepare('SELECT over_since, nudged_at FROM licenses WHERE id = ?').get(base.page.id);
+  const isOutgrown = async (key = base.page.id) => (await (await call('GET', `/v1/keys/${key}`)).json()).outgrown;
   // 3 seats: 6 installs is twice, not more than twice; 7 is more than twice but only 4 over; 8 is clearly over.
   await check(7);
   assert.equal(rootRow().over_since, 0, '7 installs on 3 seats is not clearly over');
   await check(1, 7);
   assert.ok(rootRow().over_since > 0, '8 is: the clock starts');
   assert.equal(emails.length, 0, 'but nothing is sent yet');
+  assert.equal(await isOutgrown(), false, 'and the apps show nothing yet');
   // Dropping back (installs not seen for 14 days fall away) stops the clock.
   env.DB.raw.prepare("UPDATE installs SET last_seen = ? WHERE install IN ('busy-install-0', 'busy-install-1', 'busy-install-2')").run(Date.now() - 15 * 24 * 3600_000);
   await check(1, 3);
@@ -658,19 +660,27 @@ test('the seats email: only clearly over (more than 2x and 5+ over) for 14 days,
   await check(3, 20);
   env.DB.raw.prepare('UPDATE licenses SET over_since = ? WHERE id = ?').run(Date.now() - 15 * 24 * 3600_000, base.page.id);
   await check(1, 20);
+  assert.equal(await isOutgrown(), true, 'outgrown: the apps ask for more seats');
+  assert.equal(await isOutgrown(more.page.id), true, 'on every key of the license');
   assert.equal(emails.length, 1);
   assert.equal(emails[0].to[0], 'it@busy.test');
   assert.equal(emails[0].subject, 'Your Backseat Driver seats');
   assert.match(emails[0].text, /covers 3 seats\. Over the last two weeks, about 8 installs/);
   assert.ok(emails[0].text.includes('more than one machine'));
+  assert.ok(emails[0].text.includes('a small note asking for them'));
   // Not again for 90 days, however often they check.
   await check(5, 20);
   assert.equal(emails.length, 1);
   env.DB.raw.prepare('UPDATE licenses SET nudged_at = ? WHERE id = ?').run(Date.now() - 91 * 24 * 3600_000, base.page.id);
   await check(1, 20);
   assert.equal(emails.length, 2, 'after 90 days, once more');
+  // Adding seats ends it at the next check: 10 installs on 6 seats is not clearly over.
+  env.DB.raw.prepare("UPDATE licenses SET seats = 6 WHERE id = ?").run(more.page.id);
+  assert.equal(await isOutgrown(), false, 'enough seats now');
+  env.DB.raw.prepare("UPDATE licenses SET seats = 1 WHERE id = ?").run(more.page.id);
   // Never for a withdrawn license.
   env.DB.raw.prepare('UPDATE licenses SET revoked_at = 1, nudged_at = 0').run();
   await check(1, 20);
   assert.equal(emails.length, 2);
+  assert.equal(await isOutgrown(), false, 'a withdrawn license is not outgrown');
 });

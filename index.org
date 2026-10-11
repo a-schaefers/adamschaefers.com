@@ -368,7 +368,7 @@ If a business uses Backseat Driver or has its people use it, training included, 
 - *25% off every seat from 10 seats*: $74.25 a seat.
 - One key covers every seat you buy. A seat is one person using it.
 - Need more seats later? Paste your key below and add them.
-- No seat police: nobody on your team ever sees a seat warning, and nothing stops working. If far more installs use your key than it has seats, whoever bought it may get one short email.
+- Honor system: nothing ever stops working. If installs far outnumber your seats for two weeks, everyone using the key sees a small note asking for more seats, and whoever bought it gets a short email.
 
 #+BEGIN_EXPORT html
 <div class="buy-mount" data-product="backseat-driver" data-price="99" data-volume-price="74.25" data-volume-seats="10"></div>
