@@ -27,7 +27,7 @@
     "PRICES": { "backseat-driver": { "seat": "price_1UPBKcAwNhq3P64enzC9NrPc", "volume": "price_1UPBL8AwNhq3P64ez3duzOAg" } },
     "STRIPE_DASHBOARD": "https://dashboard.stripe.com/acct_1UOvhbAwNhq3P64e",
     "FROM_EMAIL": "Adam Schaefers <licenses@adamschaefers.com>",
-    "ACCESS_TEAM": "nmwebkings.cloudflareaccess.com",
+    "ACCESS_TEAM": "adamschaefers.cloudflareaccess.com",
     "ACCESS_AUD": "07db6f0f7517fe393148c3e0276cfa4ca05dd8f6060d62babda0b3bae25ba027",
     "ADMIN_EMAIL": "adam.schaefers@icloud.com",
     "TURNSTILE_HOSTNAMES": "adamschaefers.com"
