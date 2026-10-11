@@ -124,11 +124,13 @@ The store's admin link goes to the license server's `/admin`.
 
 `license-worker/` is that server: a Cloudflare Worker at
 licenses.adamschaefers.com with its D1 database (`adamschaefers-licenses`).
-What it sells is `src/products.js`; each product's two Stripe prices (per
-seat, and per seat once a license has `volumeSeats`) are `PRICES` in
-`wrangler.jsonc`. It makes Stripe Checkouts, issues a key when Stripe says
-paid (webhook, or the thank-you page asking first), signs it (`BSD1.` keys,
-the format Backseat Driver checks offline against the public key it ships),
+It sells several products under one buy-once, lifetime model: they are
+`src/products.js`, and each product's two Stripe prices (per seat, and per
+seat once a license has `volumeSeats`) are `PRICES` in `wrangler.jsonc`. It
+makes Stripe Checkouts, issues a key when Stripe says paid (webhook, or the
+thank-you page asking first), signs it (`<prefix>.<payload>.<signature>`,
+Backseat Driver's format, which its app checks offline against the public key
+it ships; `BSD1.` for Backseat Driver),
 emails it through Resend from licenses@adamschaefers.com (send only: the email
 says not to reply and links the contact form; no colors, so dark mode reads
 it), emails the owner (adam.schaefers@icloud.com) of each sale, and revokes the
@@ -137,19 +139,26 @@ key emails the owner too. Licenses are lifetime, one key per purchase covering
 its seats; adding seats issues one new key for the new total in the same
 family, and the old keys keep working. A family is the license: it stands
 while any of its keys does, so refunding only an add-on never withdraws it.
-Apps check a key at `GET /v1/keys/<id>` (rate limited) with an anonymous
-install id; the server keeps at most max(50, 3 × seats) installs per license
-and counts those seen in 14 days. Seats are on the honor system and nothing is
+Every product signs with its own key (its `signing` in `src/products.js`:
+a secret `SIGNING_KEY_<PRODUCT>` and kid), never another's: the signature
+doesn't cover the prefix, so a product signed with `live-1` (Backseat
+Driver's, `SIGNING_KEY`) could have its keys relabelled `BSD1.` and pass in
+shipped copies. Apps check a key at `GET /v1/products/<product>/keys/<id>`
+(rate limited) with an anonymous install id; the unscoped `/v1/keys/<id>` and
+`/v1/public-keys` stay Backseat Driver's only, as its shipped copies and its
+release script (which checks every key listed there) expect; the server
+keeps at most max(50, 3 × seats) installs per license and counts those seen in 14 days. Seats are on the honor system and nothing is
 ever locked. Installs can't tell people from machines, so nothing is said
 until installs are more than twice the seats and 5 over for two weeks running;
 then the check answers `outgrown: true`, the app shows everyone using the
 license a small note asking for more seats (owner, 2026-10-11), and the buyer
 gets one polite email, at most every 90 days. `/admin` (behind Cloudflare Access,
-adam.schaefers@icloud.com) lists every license and email, and withdraws,
+adam.schaefers@icloud.com) lists every license of every product (each one's
+totals, a filter) and email, and withdraws,
 restores (whole licenses), resends and issues by hand. Its per-request logs are
 off (no IP addresses kept). Secrets are Worker secrets only (`wrangler secret
 put`, listed in `wrangler.jsonc`); a local copy lives in the git-ignored
-`license-worker/.dev.vars` and the signing key in
+`license-worker/.dev.vars` and the signing keys (one per product) in
 `~/.config/adamschaefers-licenses/`, never in the repo. All of them are backed
 up in the private repository a-schaefers/adamschaefers.com-private (cloned
 beside this one, not a submodule: this repo is public), whose README says how

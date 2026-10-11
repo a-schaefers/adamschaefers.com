@@ -25,6 +25,12 @@ function pricing(mount) {
     return { product, price: Number(price), volumePrice: Number(volumePrice), volumeSeats: Number(volumeSeats) };
 }
 
+// A product's prices from its mount anywhere on the page, or null.
+function pricingOf(product) {
+    const mount = [...document.querySelectorAll('.key-mount, .buy-mount')].find(m => m.dataset.product === product);
+    return mount ? pricing(mount) : null;
+}
+
 // What `seats` cost, priced by the license's total (`total`): the volume price applies to
 // every seat once a license reaches volumeSeats.
 function cost(p, seats, total = seats) {
@@ -157,10 +163,12 @@ function mountKey(mount) {
 
     // The seats are the license's. Installs can't tell people from machines, so they're said
     // plainly, and more seats are suggested only when installs are clearly over: more than
-    // twice the seats and at least 5 over, the license server's own rule.
+    // twice the seats and at least 5 over, the license server's own rule. A key is priced as
+    // its own product, whichever product's box it was pasted into, as the server charges.
     const show = (info, key) => {
         const clearlyOver = info.installs > 2 * info.seats && info.installs - info.seats >= 5;
-        let html = `<p class="key-facts"><b>${esc(info.licensee)}</b>: ${plural(info.seats)}, for life.</p>`;
+        const own = info.product === p.product ? p : pricingOf(info.product);
+        let html = `<p class="key-facts"><b>${esc(info.licensee)}</b>: ${esc(info.productName)}, ${plural(info.seats)}, for life.</p>`;
         if (info.status === 'revoked') {
             result.innerHTML = html + '<p class="key-warn">This license was withdrawn, for example after a refund. If that\'s a mistake, <a href="/inquiries/">get in touch</a>.</p>';
             return;
@@ -186,7 +194,8 @@ function mountKey(mount) {
             const ok = Number.isInteger(n) && n >= 1 && info.seats + n <= MAX_SEATS;
             button.disabled = !ok;
             if (!ok) return void (result.querySelector('.buy-total').textContent = `Add between 1 and ${MAX_SEATS - info.seats} seats.`);
-            const c = cost(p, n, info.seats + n);
+            if (!own) return void (result.querySelector('.buy-total').textContent = `${n} more, ${plural(info.seats + n)} in all. Stripe shows the price.`);
+            const c = cost(own, n, info.seats + n);
             result.querySelector('.buy-total').innerHTML = `${n} more × ${money(c.each)} = <b>${money(c.sum)}</b>, ${plural(info.seats + n)} in all`
                 + (c.volume ? ' <span class="buy-save">25% off</span>' : '');
         };
@@ -418,11 +427,12 @@ function keyCard(l) {
     const seats = plural(l.seats);
     const lead = l.added
         ? `Your license now covers <b>${seats}</b>, and here's its new key. Your old key keeps working, but use this one from now on. <b>Screenshot or print this page</b> to keep it.`
-        : `Here's your license key. <b>Screenshot or print this page</b> to keep it.`;
+        : `Here's your ${esc(l.productName || 'license')}${l.productName ? ' license' : ''} key. <b>Screenshot or print this page</b> to keep it.`;
     return `
 <p class="license-lead">${lead}</p>
 <div class="license-card">
   <dl>
+    ${l.productName ? `<div><dt>Product</dt><dd>${esc(l.productName)}</dd></div>` : ''}
     <div><dt>Licensee</dt><dd>${esc(l.licensee)}</dd></div>
     <div><dt>Seats</dt><dd>${seats}, for life</dd></div>
     <div><dt>Email</dt><dd>${esc(l.email)}</dd></div>
@@ -436,7 +446,7 @@ function keyCard(l) {
 <p>We've also emailed it to <b>${esc(l.email)}</b> from licenses@adamschaefers.com. Please don't reply to that email: nobody reads that address. If anything's wrong or you have a question, <a href="/inquiries/">use the contact form</a>.</p>
 <h3>Using it</h3>
 <p>${esc(l.howToUse)}</p>
-<p>Need more seats later? Paste this key in the <a href="/store/">store</a>.</p>
+<p>Need more seats later? Paste this key in the <a href="${l.product ? `/store/${encodeURIComponent(l.product)}/` : '/store/'}">store</a>.</p>
 ${l.status === 'revoked' ? '<p class="license-revoked">This license has been withdrawn, for example after a refund. If that\'s a mistake, <a href="/inquiries/">get in touch</a>.</p>' : ''}`;
 }
 
