@@ -34,8 +34,6 @@ caption; that's every Off the clock entry (travelogs). Entry HTML is shown
 from the site root, so link images and files as `blog/...`, `videos/...`.
 Links out of the site open in a new tab. The index file holds the
 collection's title, intro and `#+POSTS_PER_PAGE` (Off the clock: 12).
-The four current travelogs carry made-up dates (2026-10-07 to 10) that only
-fix their order.
 
 The build also writes each collection's RSS feed (`rss.xml` for the blog,
 `off-the-clock.xml`), every entry in full with site-relative links made
