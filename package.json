@@ -2,9 +2,12 @@
   "name": "adamschaefers.com",
   "private": true,
   "type": "module",
-  "description": "The toolchain, pinned here for CI and local use (make drives it): TypeScript checks the code, esbuild bundles js/app.ts and the Workers' admin pages, Tailwind compiles the styles, wrangler serves and deploys (npx wrangler -c <worker>/wrangler.jsonc). lit-html and the flag font are the site's own dependencies, bundled and copied by make build.",
-  "engines": { "node": ">=24" },
+  "description": "The toolchain, pinned here for CI and local use (make drives it): TypeScript checks the code, esbuild bundles js/app.ts and the Workers' admin pages, Tailwind compiles the styles, wrangler serves and deploys (npx wrangler -c <worker>/wrangler.jsonc). lit-html and the fonts are the site's own dependencies, bundled and copied by make build.",
+  "engines": {
+    "node": ">=24"
+  },
   "dependencies": {
+    "@fontsource-variable/bricolage-grotesque": "5.3.0",
     "country-flag-emoji-polyfill": "0.1.10",
     "lit-html": "3.3.3"
   },
