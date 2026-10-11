@@ -1,0 +1,5 @@
+#+TITLE: Εύβοια, Greece 🇬🇷
+#+VIDEO: videos/evia.mp4
+#+POSTER: videos/evia.jpg
+
+Visiting [[https://dylan.gr][Dylan Araps]] 🧑‍🌾 (Neofetch, Pure Bash Bible, KISS Linux) at [[https://wild.gr][the WILD Project]] (farming) in Εύβοια, Greece 🇬🇷

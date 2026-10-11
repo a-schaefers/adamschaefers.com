@@ -1,5 +1,5 @@
-/* Blog views (js/app.js): the post listing with its pager, and posts.
-   Uses the palette variables index.org defines. */
+/* Collection views (js/app.js), the Blog and Off the clock: listings with their pager,
+   single entries, and the sitemap. Uses the palette variables index.org defines. */
 
 /* Listing */
 .blog-rss { margin: 0; }
@@ -17,6 +17,22 @@
 .entries-empty { margin-top: 1.5rem; padding: 1.5rem 1.75rem; border-radius: 16px; background: var(--mesa); box-shadow: inset 0 0 0 1px var(--ridge); color: var(--dust); }
 .entries-empty p { margin: 0; }
 .entries-empty .entries-empty-title { margin-bottom: .25rem; color: var(--sand); font-size: 1.35rem; font-weight: 750; font-stretch: 85%; }
+
+/* Travelog listing: videos two to a row */
+.travelogs { display: grid; grid-template-columns: repeat(2, minmax(0, 17rem)); gap: 2rem 1rem; list-style: none; margin: 1.5rem 0 0; padding: 0; }
+.travelog video, .post-video { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; border-radius: 12px; background: var(--mesa); }
+.travelog time { display: block; margin-top: .6rem; color: var(--dust); font-size: .85rem; }
+.travelog h3 { margin: .1rem 0 .35rem; font-size: 1.15rem; font-weight: 750; font-stretch: 85%; line-height: 1.2; }
+.travelog h3 a { color: var(--sand); text-decoration: none; }
+.travelog h3 a:hover { color: var(--turq); }
+.travelog p { margin: 0; color: var(--dust); font-size: .9rem; }
+.post-video { max-width: 22rem; margin-bottom: 1.5rem; }
+
+/* Sitemap */
+.sitemap ul { margin: 0 0 1.5rem; padding-left: 1.25rem; }
+.sitemap li { margin: .35rem 0; }
+.sitemap li ul { margin: .35rem 0 .75rem; }
+.sitemap time { color: var(--dust); font-size: .85rem; }
 
 /* Post */
 .post-head { margin-bottom: 2.5rem; }

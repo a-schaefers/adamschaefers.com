@@ -1,50 +1,63 @@
 # CLAUDE.md
 
-Edit `index.org`, never `index.html`. `README.md` covers repo setup only.
+Edit the org sources, never `index.html` or the generated feeds and sitemap. `README.md` covers repo setup only.
 
 After editing, regenerate the HTML with:
 
     make build
 
 The site is one page, built by `site.el`. `index.html` is `index.org`
-exported without its `:view:` sections; those sections, `blog.org` and the
-blog posts go into a JSON blob in the page head (`#site-data`), so the
-first load carries everything. `js/app.js` (lit-html, vendored in `js/lit/`
-from ../enchant.games) renders the menu and one view at a time from it,
-switching on hash routes (`#quest-log`, `#off-the-clock`, `#inquiries`,
-`#blog`, `#blog/2`, `#blog/<post slug>`) without page loads.
-A section is shown by tagging it `:view:` and listing it under a tab in
-`TABS` in `js/app.js` (Projects shows About, the Quest Log and the slop
+exported without its `:view:` sections; those sections and the collections
+(below) go into a JSON blob in the page head (`#site-data`), so the first
+load carries everything. `js/app.js` (lit-html, vendored in `js/lit/` from
+../enchant.games) renders the menu and one view at a time from it,
+switching on hash routes (`#quest-log`, `#inquiries`, `#sitemap`, and for
+each collection `#blog`, `#blog/2`, `#blog/<entry slug>`) without page
+loads. A section is shown by tagging it `:view:` and listing it under a tab
+in `TABS` in `js/app.js` (Projects shows About, the Quest Log and the slop
 shelf), which also holds the menu's labels and icons.
 If `js/app.js` gains or loses an import, update `site-module-imports` in
 `site.el`, which preloads them all with it.
-The sidebar (index.org's Contact section) and the footer (`site.el`) are
-written once and frame every view.
+The sidebar (index.org's Contact section) and the footer (`site.el`, with
+the Sitemap link) are written once and frame every view.
 `nav.css` styles the menu (top on desktop, bottom tab bar on phones),
-`blog.css` the blog views.
+`blog.css` the collection views and the sitemap.
 
-The Off the clock travelogs are plain `<video>` tags on MP4s in `videos/`,
-committed to git and served by GitHub Pages, which answers range requests,
-so they stream and seek with no server code. Encode new ones with ffmpeg as
-H.264 High + AAC, yuv420p, `-movflags +faststart` (index first, so playback
-starts while downloading) and `-map_metadata -1`; several clips meant to
-play as one get joined into one file. Keep each well under GitHub's 50 MB
-warning, and give each a JPEG poster. iPhone uploads are often HEVC `.mov`,
-which many desktop browsers can't play, so always re-encode.
+A collection is a folder of dated entries plus an index file, listed newest
+first and paginated: the Blog (`blog/`, `blog.org`) and Off the clock
+(`off-the-clock/`, `off-the-clock.org`). Both are declared in
+`site-collections` in `site.el` and as tabs with `collection:` in `TABS`.
+Entries are `DIR/YYYY-MM-DD-slug.org`: date from the file name, title from
+`#+TITLE`, listing excerpt from `#+DESCRIPTION` or the first paragraph. An
+entry with `#+VIDEO` (and `#+POSTER`) shows as that video, its text the
+caption; that's every Off the clock entry (travelogs). Entry HTML is shown
+from the site root, so link images and files as `blog/...`, `videos/...`.
+Links out of the site open in a new tab. The index file holds the
+collection's title, intro and `#+POSTS_PER_PAGE` (Off the clock: 12).
+The four current travelogs carry made-up dates (2026-10-07 to 10) that only
+fix their order.
+
+The build also writes each collection's RSS feed (`rss.xml` for the blog,
+`off-the-clock.xml`), every entry in full with site-relative links made
+absolute against https://adamschaefers.com/ and videos as enclosures, and
+`sitemap.xml`. Crawlers drop everything after `#`, so `sitemap.xml` lists
+only the page; the `#sitemap` view lists every view and entry for people.
+`robots.txt` points at `sitemap.xml`. `scripts/pre-commit` (installed as
+`.git/hooks/pre-commit`) rebuilds and stages all generated files on every
+commit; if you change what the build generates, update the hook and
+reinstall it.
+
+The travelog videos are MP4s in `videos/`, committed to git and served by
+GitHub Pages, which answers range requests, so they stream and seek with no
+server code. Encode new ones with ffmpeg as H.264 High + AAC, yuv420p,
+`-movflags +faststart` (index first, so playback starts while downloading)
+and `-map_metadata -1`; several clips meant to play as one get joined into
+one file. Keep each well under GitHub's 50 MB warning, and give each a JPEG
+poster. iPhone uploads are often HEVC `.mov`, which many desktop browsers
+can't play, so always re-encode.
 
 `fonts/TwemojiCountryFlags.woff2` draws flag emoji, which Windows lacks; see
 `fonts/README.md`.
-
-Blog posts are `blog/YYYY-MM-DD-slug.org`: date from the file name, title
-from `#+TITLE`, listing excerpt from `#+DESCRIPTION` or the first
-paragraph. Their HTML is shown from the site root, so link images and
-files as `blog/...`. `blog.org` holds the blog's title, intro and
-`#+POSTS_PER_PAGE`.
-The build also writes `rss.xml`, every post in full (site-relative links made
-absolute against https://adamschaefers.com/); commit it with `index.html`.
-`scripts/pre-commit` (installed as `.git/hooks/pre-commit`) rebuilds and
-stages both on every commit; if you change what the build generates, update
-the hook and reinstall it.
 
 The Inquiries (Contact) view's form is mounted by `js/contact.js`, the same
 module as `js/contact.js` in ../enchant.games. It posts to `contact-worker/`, a

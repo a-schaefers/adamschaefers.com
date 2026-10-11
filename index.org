@@ -66,10 +66,6 @@
 #+HTML_HEAD: #text-contact > ul a[href*="github.com"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8'/%3E%3C/svg%3E"); }
 #+HTML_HEAD: #text-contact > ul a[href*="twitch.tv"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.857 0 1 2.857v10.286h3.429V16l2.857-2.857H9.57L14.714 8V0zm9.714 7.429-2.285 2.285H9l-2 2v-2H4.429V1.143h9.142z'/%3E%3Cpath d='M11.857 3.143h-1.143V6.57h1.143zm-3.143 0H7.571V6.57h1.143z'/%3E%3C/svg%3E"); }
 #+HTML_HEAD: /* Emacs course player */
-#+HTML_HEAD: .travelogs { display: grid; grid-template-columns: repeat(2, minmax(0, 17rem)); gap: 1rem; margin: 1.75rem 0 0; }
-#+HTML_HEAD: .travelogs figure { margin: 0; }
-#+HTML_HEAD: .travelogs video { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; border-radius: 12px; background: var(--mesa); }
-#+HTML_HEAD: .travelogs figcaption { margin-top: .5rem; color: var(--dust); font-size: .9rem; }
 #+HTML_HEAD: .course { margin-top: 2rem; }
 #+HTML_HEAD: .course-title { margin: 0 0 .75rem; font-size: 1.05rem; font-weight: 700; }
 #+HTML_HEAD: .course-title a { color: var(--sand); text-decoration: none; }
@@ -328,47 +324,6 @@
   Herded Kubernetes, Terraform (5k+ lines of homegrown modules), AWS, CI/CD pipelines, monitoring, and a Postfix server that sent a million emails a month without landing in spam. Rode the industry's evolution from LAMP-stack monoliths to IaC-driven cloud microservices, right up to the arrival of AI automation, which is when I turned to solo gamedev.
 - *2017 – 2020 · 🐧 Open Source Hermit* \\
   Spent 10+ hours a day learning Linux from the kernel up. Maintained packages for KISS Linux, wrote docs for Funtoo, and built [[https://github.com/a-schaefers/themelios][Themelios]] (a NixOS ZFS-on-root installer) and [[https://github.com/a-schaefers/spartan-emacs][Spartan Emacs]]. Got commits merged upstream ([[https://bugzilla.kernel.org/show_bug.cgi?id=206741][e.g. libcap]]). Also went viral on Hacker News by booting my Linux distro with Emacs as init ([[https://news.ycombinator.com/item?id=28439275][systemE]]).
-
------
-
-** 🎧 Off the clock :view:
-:PROPERTIES:
-:CUSTOM_ID: off-the-clock
-:END:
-
-Professional music recording, and I play guitar. 🎸 Big fan of electronic music, house and techno. I enjoy vacationing in Greece. 🇬🇷 Born and raised in the Pacific Northwest, and an avid fly fisherman. 🎣
-
-# Travelogs: plain MP4s (H.264/AAC, moov atom first) in videos/, so they start
-# playing while they download and seek with HTTP range requests. preload=metadata
-# fetches only the index until play is pressed.
-#+BEGIN_EXPORT html
-<div class="travelogs">
-  <figure>
-    <video controls playsinline preload="metadata" width="576" height="1024" poster="videos/evia.jpg">
-      <source src="videos/evia.mp4" type="video/mp4">
-    </video>
-    <figcaption>Visiting <a href="https://dylan.gr" target="_blank" rel="noopener">Dylan Araps</a> 🧑‍🌾 (Neofetch, Pure Bash Bible, KISS Linux) at <a href="https://wild.gr" target="_blank" rel="noopener">the WILD Project</a> (farming) in Εύβοια, Greece 🇬🇷</figcaption>
-  </figure>
-  <figure>
-    <video controls playsinline preload="metadata" width="480" height="854" poster="videos/zakynthos.jpg">
-      <source src="videos/zakynthos.mp4" type="video/mp4">
-    </video>
-    <figcaption>Holiday in Zakynthos (Zante), Greece 🇬🇷</figcaption>
-  </figure>
-  <figure>
-    <video controls playsinline preload="metadata" width="480" height="854" poster="videos/hawaii.jpg">
-      <source src="videos/hawaii.mp4" type="video/mp4">
-    </video>
-    <figcaption>Back in Hawaiʻi 🌺 with my ohana. I lived in Waiʻanae and worked hospitality in Waikīkī for most of my 20s.</figcaption>
-  </figure>
-  <figure>
-    <video controls playsinline preload="metadata" width="720" height="1280" poster="videos/coos-bay.jpg">
-      <source src="videos/coos-bay.mp4" type="video/mp4">
-    </video>
-    <figcaption>Coos Bay, Oregon: my hometown and old stomping grounds, and Steve Prefontaine's too. I grew up here in the '90s and 2000s, a classic American childhood full of family and friends. The town keeps changing, and coming back now feels like running into an old friend I used to know.</figcaption>
-  </figure>
-</div>
-#+END_EXPORT
 
 -----
 
