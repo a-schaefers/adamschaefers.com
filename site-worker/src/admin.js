@@ -20,10 +20,12 @@ const NAME = /^(?:[a-z0-9][a-z0-9._-]*\/)*[a-z0-9][a-z0-9._-]*\.[a-z0-9]+$/;
 const CACHE_CONTROL = 'public, max-age=3600';
 const TYPES = {
   mp4: 'video/mp4', webm: 'video/webm', mp3: 'audio/mpeg', m4a: 'audio/mp4',
-  jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', avif: 'image/avif', gif: 'image/gif', svg: 'image/svg+xml',
+  jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', avif: 'image/avif', gif: 'image/gif',
   pdf: 'application/pdf', zip: 'application/zip', txt: 'text/plain; charset=utf-8', json: 'application/json',
 };
-const typeOf = (name) => TYPES[name.slice(name.lastIndexOf('.') + 1)] || 'application/octet-stream';
+// Only these: the media domain is same-site with the site and the license server, so nothing
+// that a browser would run as a page (HTML, SVG) may be served from it.
+const typeOf = (name) => TYPES[name.slice(name.lastIndexOf('.') + 1)];
 const SECURITY = { 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'strict-origin-when-cross-origin' };
 
 const json = (data, status = 200) => new Response(JSON.stringify(data), {
@@ -44,7 +46,7 @@ async function list(env) {
   for (let cursor; ;) {
     const page = await env.MEDIA.list({ cursor, limit: 1000, include: ['httpMetadata'] });
     for (const o of page.objects) {
-      items.push({ name: o.key, url: `${env.MEDIA_ORIGIN}/${o.key}`, size: o.size, uploaded: o.uploaded.toISOString(), type: o.httpMetadata?.contentType || typeOf(o.key) });
+      items.push({ name: o.key, url: `${env.MEDIA_ORIGIN}/${o.key}`, size: o.size, uploaded: o.uploaded.toISOString(), type: o.httpMetadata?.contentType || typeOf(o.key) || 'application/octet-stream' });
     }
     if (!page.truncated) break;
     cursor = page.cursor;
@@ -76,6 +78,10 @@ export async function admin(request, env, url) {
     return json({ error: 'Name it with lowercase letters, digits, dots, dashes and underscores, folders allowed, and an extension: evia.mp4, posters/evia.jpg.' }, 400);
   }
   if (!sameOrigin(request, url)) return json({ error: 'Changes come from this page only.' }, 403);
+  const type = typeOf(name);
+  if (request.method === 'PUT' && !type) {
+    return json({ error: `Only ${Object.keys(TYPES).join(', ')} files: nothing a browser would run as a page.` }, 400);
+  }
   if (request.method === 'DELETE') {
     await env.MEDIA.delete(name);
     return json({ deleted: name });
@@ -85,7 +91,6 @@ export async function admin(request, env, url) {
     if (url.searchParams.get('replace') !== '1' && (await env.MEDIA.head(name))) {
       return json({ error: `${name} is taken. Upload it under a new name (caches may hold the old one for an hour), or tick Replace.`, taken: true }, 409);
     }
-    const type = typeOf(name) !== 'application/octet-stream' ? typeOf(name) : request.headers.get('Content-Type') || 'application/octet-stream';
     const object = await env.MEDIA.put(name, request.body, { httpMetadata: { contentType: type, cacheControl: CACHE_CONTROL } });
     return json({ name: object.key, url: `${env.MEDIA_ORIGIN}/${object.key}`, size: object.size, type });
   }

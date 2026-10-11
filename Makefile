@@ -1,4 +1,4 @@
-.PHONY: build run check licenses-test submodule
+.PHONY: build run check check-dist test licenses-test submodule
 
 PORT ?= 8000
 
@@ -14,9 +14,13 @@ run: build
 	npx wrangler dev -c site-worker/wrangler.jsonc --port $(PORT)
 
 # What CI's required check runs: the build, every link, the Workers' tests (offline), the
-# workflows' rules.
-check: build
+# workflows' rules. (CI runs the two halves apart, uploading the site between them.)
+check: build check-dist test
+
+check-dist:
 	node scripts/check-dist.mjs
+
+test:
 	node --test site-worker/test/*.test.js license-worker/test/*.test.js
 	python3 scripts/test_workflows.py
 
