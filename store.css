@@ -46,7 +46,7 @@
 .buy-hint { display: block; margin-top: .25rem; color: var(--dust); font-size: .9rem; }
 .buy-note { margin: .75rem 0 0; color: var(--dust); font-size: .9rem; }
 .buy-status { margin: .5rem 0 0; color: var(--sand); }
-.buy-card .cf-turnstile, .key-result .cf-turnstile, .recover-card .cf-turnstile { margin-top: .9rem; }
+.recover-card .cf-turnstile { margin-top: .9rem; }
 .buy-status:empty { display: none; }
 
 /* Already have a key */

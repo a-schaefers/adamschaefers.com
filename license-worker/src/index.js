@@ -22,7 +22,10 @@
      /admin/api/...                 what that page calls
 
    Secrets: STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, SIGNING_KEY, RESEND_API_KEY, TURNSTILE_SECRET.
-   Buying, adding seats and recovery need a Turnstile token ({ turnstile }) from the store's widget.
+   Recovery, which sends email, needs a Turnstile token ({ turnstile }) from the store's widget.
+   Buying and adding seats don't: they only make a Stripe Checkout page, which has its own
+   CAPTCHA and card-testing defenses, and every site route is rate-limited per IP (LIMIT,
+   and the zone's rule). Adding seats also needs a signed key.
    Everything else is in wrangler.jsonc (PRICES: each product's two Stripe prices).
    Licenses are lifetime, one key per purchase covering every seat bought, the
    volume price for every seat once a license reaches the product's volumeSeats
@@ -307,7 +310,7 @@ async function fulfil(env, session) {
 
 // ---- The site
 
-/** Whether a Turnstile token from the store's widget is good (and from one of TURNSTILE_HOSTNAMES, when set). */
+/** Whether a Turnstile token from the store's recovery widget is good (and from one of TURNSTILE_HOSTNAMES, when set). */
 async function human(env, token, request) {
   if (!token || !env.TURNSTILE_SECRET) return false;
   const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
@@ -340,7 +343,6 @@ async function createCheckout(request, env) {
   if (!Number.isInteger(seats) || seats < 1 || seats > MAX_SEATS) {
     return json({ error: `Choose between 1 and ${MAX_SEATS} seats.` }, 400);
   }
-  if (!(await human(env, body?.turnstile, request))) return json(NOT_HUMAN, 403);
   const plural = (n) => `${n} seat${n === 1 ? '' : 's'}`;
   let product = productOf(body?.product);
   if (!body?.key && !product) return json({ error: 'Unknown product.' }, 400);

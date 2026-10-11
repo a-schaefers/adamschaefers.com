@@ -124,7 +124,7 @@ async function signed(event, secret = WEBHOOK_SECRET, t = Math.floor(Date.now() 
 }
 
 async function checkout(seats, origin = SITE) {
-  const r = await call('POST', '/v1/checkout', { body: { product: 'backseat-driver', seats, turnstile: 'human' }, headers: { Origin: origin, 'Content-Type': 'application/json' } });
+  const r = await call('POST', '/v1/checkout', { body: { product: 'backseat-driver', seats }, headers: { Origin: origin, 'Content-Type': 'application/json' } });
   return { r, data: await r.json() };
 }
 
@@ -148,7 +148,7 @@ test('checkout picks the price by seat count and returns to the site it came fro
 
 test('checkout refuses bad seat counts, unknown products and other origins', async () => {
   for (const product of [undefined, 'nope', '__proto__', 'toString']) {
-    const r = await call('POST', '/v1/checkout', { body: { product, seats: 1, turnstile: 'human' }, headers: { Origin: SITE, 'Content-Type': 'application/json' } });
+    const r = await call('POST', '/v1/checkout', { body: { product, seats: 1 }, headers: { Origin: SITE, 'Content-Type': 'application/json' } });
     assert.equal(r.status, 400, String(product));
   }
   for (const seats of [0, -1, 1.5, 'three', 1001, null]) assert.equal((await checkout(seats)).r.status, 400, String(seats));
@@ -300,7 +300,7 @@ test('admin: issue by hand, search, revoke, restore, resend; POSTs must come fro
 async function buy(seats, opts) {
   const before = sessions.size;
   const { data } = await (async () => {
-    const r = await call('POST', '/v1/checkout', { body: opts?.key ? { seats, key: opts.key, turnstile: 'human' } : { product: 'backseat-driver', seats, turnstile: 'human' }, headers: { Origin: SITE, 'Content-Type': 'application/json' } });
+    const r = await call('POST', '/v1/checkout', { body: opts?.key ? { seats, key: opts.key } : { product: 'backseat-driver', seats }, headers: { Origin: SITE, 'Content-Type': 'application/json' } });
     return { data: await r.json() };
   })();
   assert.ok(data.url, JSON.stringify(data));
@@ -377,10 +377,10 @@ test('adding seats: priced by the new total, one new key for it, the old key sti
 test("seats can't be added to a withdrawn or unknown key", async () => {
   const { page, session } = await buy(1);
   await call('POST', '/v1/stripe/webhook', await signed({ type: 'charge.refunded', data: { object: { amount: 9900, amount_refunded: 9900, payment_intent: session.payment_intent } } }));
-  const r = await call('POST', '/v1/checkout', { body: { seats: 1, key: page.key, turnstile: 'human' }, headers: { Origin: SITE, 'Content-Type': 'application/json' } });
+  const r = await call('POST', '/v1/checkout', { body: { seats: 1, key: page.key }, headers: { Origin: SITE, 'Content-Type': 'application/json' } });
   assert.equal(r.status, 400);
   assert.match((await r.json()).error, /withdrawn/);
-  const junk = await call('POST', '/v1/checkout', { body: { seats: 1, key: 'BSD1.x.y', turnstile: 'human' }, headers: { Origin: SITE, 'Content-Type': 'application/json' } });
+  const junk = await call('POST', '/v1/checkout', { body: { seats: 1, key: 'BSD1.x.y' }, headers: { Origin: SITE, 'Content-Type': 'application/json' } });
   assert.equal(junk.status, 400);
 });
 
@@ -448,15 +448,16 @@ test("recovery answers the same for an address with no keys, and refuses junk an
   assert.equal(emails.length, 1);
 });
 
-test('buying, adding seats and recovery need a Turnstile token from the store, from the right site', async () => {
+test('recovery needs a Turnstile token from the store, from the right site; buying and adding seats leave bots to Stripe Checkout', async () => {
   const post = (path, body) => call('POST', path, { body, headers: { Origin: SITE, 'Content-Type': 'application/json' } });
   for (const turnstile of [undefined, '', 'bot', 'wrong-site']) {
-    assert.equal((await post('/v1/checkout', { product: 'backseat-driver', seats: 1, turnstile })).status, 403, String(turnstile));
     assert.equal((await post('/v1/recover', { email: 'a@b.test', turnstile })).status, 403, String(turnstile));
   }
-  assert.equal(sessions.size, 0, 'no Checkout was made');
   assert.equal(emails.length, 0, 'no email was sent');
-  assert.equal((await post('/v1/checkout', { product: 'backseat-driver', seats: 1, turnstile: 'human' })).status, 200);
+  // Checkout has its own CAPTCHA; the page here only asks for one.
+  assert.equal(sessions.size, 0);
+  assert.equal((await post('/v1/checkout', { product: 'backseat-driver', seats: 1 })).status, 200);
+  assert.equal(sessions.size, 1, 'a Checkout was made, with no token');
 });
 
 // ---- Hardening (2026-10-11 audit)
@@ -540,7 +541,7 @@ test('a paid Checkout that cannot become a key emails the owner, once', async ()
 test('adding seats to a license refunded meanwhile covers only the seats just paid for', async () => {
   const first = await buy(3);
   const before = sessions.size;
-  await call('POST', '/v1/checkout', { body: { seats: 2, key: first.page.key, turnstile: 'human' }, headers: { Origin: SITE, 'Content-Type': 'application/json' } });
+  await call('POST', '/v1/checkout', { body: { seats: 2, key: first.page.key }, headers: { Origin: SITE, 'Content-Type': 'application/json' } });
   const addOn = [...sessions.values()][before];
   await call('POST', '/v1/stripe/webhook', await signed({ type: 'charge.refunded', data: { object: { amount: 29700, amount_refunded: 29700, payment_intent: first.session.payment_intent } } }));
   pay(addOn.id);
