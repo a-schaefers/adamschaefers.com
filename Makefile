@@ -1,4 +1,4 @@
-.PHONY: build workers run check check-dist typecheck test licenses-test submodule
+.PHONY: build workers run check check-dist typecheck test licenses-test
 
 PORT ?= 8000
 
@@ -44,11 +44,3 @@ test: workers
 # The license server's tests, offline (license-worker/). CI deploys it on merge.
 licenses-test: workers
 	node --test license-worker/test/*.test.ts
-
-# Clone the a-schaefers profile README into ./a-schaefers if it isn't there yet.
-submodule:
-	@if [ -e a-schaefers/.git ]; then \
-		echo "a-schaefers already present"; \
-	else \
-		git submodule update --init a-schaefers; \
-	fi

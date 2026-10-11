@@ -7,17 +7,10 @@ Source for [adamschaefers.com](https://adamschaefers.com). The page is
 written in Org (`index.org` and the collections) and built with Emacs; GitHub
 Actions builds it on every merge to `master` and deploys it to Cloudflare.
 
-Clone with the [a-schaefers](https://github.com/a-schaefers/a-schaefers)
-profile README as a submodule:
+Clone it:
 
 ```sh
-git clone --recursive https://github.com/a-schaefers/adamschaefers.com.git
-```
-
-Or, in an existing clone, fetch the submodule if it is missing:
-
-```sh
-make submodule
+git clone https://github.com/a-schaefers/adamschaefers.com.git
 ```
 
 Then install the toolchain (TypeScript, esbuild, Tailwind, wrangler and the
