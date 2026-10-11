@@ -8,5 +8,6 @@ off-the-clock/2026-08-27-evia/index.html
 off-the-clock/index.html
 privacy-policy/index.html
 sitemap/index.html
+store/backseat-driver/index.html
 store/index.html
 terms-of-service/index.html

@@ -14,7 +14,9 @@ load carries everything. `js/app.js` (lit-html, vendored in `js/lit/` from
 has a real address (`/` for Projects, `/inquiries/`, `/sitemap/`, and for
 each collection `/blog/`, `/blog/2/`, `/blog/<entry slug>/`), and the build
 writes the page at each: `index.html` again, with that view's title and
-preview tags (below), plus `404.html` for any other path. `js/app.js` catches
+preview tags (below), plus `404.html` for any other path (GitHub Pages
+serves it with a 404; app.js shows Page not found, pointing at the view the
+path's first part names, if any). `js/app.js` catches
 links between views and switches without a page load (History API), so the
 address bar always holds the view's own address. The page has
 `<base href="/">`, so relative links reach the same files from every address,
@@ -38,7 +40,7 @@ The privacy policy and terms of service (`/privacy-policy/`,
 Link previews (social media, chat apps) and crawlers read HTML without running
 JavaScript and drop everything after `#`; that's why views have real
 addresses. Every view, product, entry and later listing page has its page
-(`store/index.html`, `backseat-driver/index.html`,
+(`store/index.html`, `store/backseat-driver/index.html`,
 `off-the-clock/<slug>/index.html`; listed in `share-pages.txt`, which the
 build and the hook use to drop pages that are gone), and each carries its
 title, a description and a picture. Set them in
@@ -113,8 +115,9 @@ the zone allows 5 `POST /v1/checkout` or `/v1/recover` per IP per 10 seconds,
 and the Worker's own limit 20 a minute per IP on every site route.
 Bot Fight Mode stays off: on the free plan it can't be skipped, and it would
 challenge Stripe's webhooks, the plugin's key check and the contact form. A
-product's own address (`/backseat-driver/`, `PAGES` in `js/app.js`) shows the
-store at that product. Stripe returns buyers to `/#license/<checkout id>` (the
+product's own address (`/store/backseat-driver/`, `PAGES` in `js/app.js`;
+the old `/backseat-driver/` still leads there) shows the store at that
+product. Stripe returns buyers to `/#license/<checkout id>` (the
 one view left on a hash: private, so no page), where
 the key is shown (copy, print) and said to be emailed. `store.css` styles it.
 The store's admin link goes to the license server's `/admin`.

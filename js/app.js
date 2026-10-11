@@ -3,10 +3,12 @@
 // view is already loaded and switching never loads a page. Each view has its own address,
 // where site.el writes the same page with that view's link preview, so the address bar
 // always holds a link that shares as the view on screen:
-//   / (Projects)  /store/  /inquiries/  /sitemap/  /backseat-driver/ (its product in the store)
+//   / (Projects)  /store/  /store/backseat-driver/ (the store at that product)
+//   /inquiries/  /sitemap/
 //   /privacy-policy/  /terms-of-service/ (linked from the footer)
 //   /blog/  /blog/2/  /blog/<entry slug>/, and the same under /off-the-clock/
 //   /#license/<Stripe checkout id>, where Stripe sends a license buyer back (private: no page)
+// Any other path gets 404.html, which shows Page not found.
 // Links to a view switch to it here. A view's old hash route (/#store, still in links out
 // there) shows it and gives way to its address; any other hash is a plain in-page anchor
 // (footnotes, say).
@@ -39,7 +41,8 @@ const TABS = [
       icon: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>' },
 ];
 // Views that aren't in the menu; while one is open, the tab it hangs off is highlighted. A
-// product's route shows the store at that product (its <article id="product-<route>">).
+// product's route shows the store at that product (its <article id="product-<route>">), at
+// /store/<route>/; its old /<route>/ still leads there.
 const PAGES = [
     { route: 'backseat-driver', label: 'Backseat Driver commercial license', sections: ['store'], under: 'store', product: true },
     { route: 'privacy-policy', label: 'Privacy policy', sections: ['privacy-policy'] },
@@ -52,7 +55,7 @@ const findView = route => TABS.find(t => t.route === route) || PAGES.find(p => p
 const pageCount = c => Math.max(1, Math.ceil(c.entries.length / c.perPage));
 
 // The view a route names ('store', 'blog/2', 'blog/<entry slug>', '' for the home page), or
-// null when it names none.
+// null when it names none (an entry since removed among them).
 function parse(route) {
     if (!route || route === 'about' || route === 'slop-shelf') return { tab: DEFAULT };
     if (route === 'sitemap') return { tab: 'sitemap' };
@@ -60,12 +63,16 @@ function parse(route) {
     if (name === 'license' && rest) return { tab: 'license', session: rest };
     const tab = findView(name);
     if (!tab) return null;
-    if (tab.sections) return rest === undefined ? { tab: name } : null;
+    if (tab.sections) {
+        if (rest === undefined) return { tab: name };
+        const product = PAGES.find(p => p.product && p.under === name && p.route === rest);
+        return product ? { tab: product.route } : null;
+    }
     const c = collections[tab.collection];
     if (rest === undefined) return { tab: name, page: 1 };
     if (/^\d+$/.test(rest)) return { tab: name, page: Math.min(Math.max(Number(rest), 1), pageCount(c)) };
     const i = c.entries.findIndex(e => e.slug === rest);
-    return i < 0 ? { tab: name, page: 1 } : { tab: name, entry: i };
+    return i < 0 ? null : { tab: name, entry: i };
 }
 
 function decode(s) {
@@ -77,12 +84,19 @@ function decode(s) {
     }
 }
 
-// A view's address, where site.el writes its page: /, /store/, /blog/2/, /blog/<slug>/.
-const address = (route, rest) => route === DEFAULT ? '/' : `/${route}/${rest ? `${rest}/` : ''}`;
+// A view's address, where site.el writes its page: /, /store/, /store/<product>/, /blog/2/,
+// /blog/<slug>/.
+function address(route, rest) {
+    if (route === DEFAULT) return '/';
+    const view = findView(route);
+    const at = view?.product ? `/${view.under}/${route}/` : `/${route}/`;
+    return rest ? `${at}${rest}/` : at;
+}
 const pageHref = (route, n) => address(route, n > 1 ? n : '');
 
 function addressOf(r) {
     if (r.tab === 'license') return `/#license/${r.session}`;
+    if (r.tab === 'not-found') return r.path;
     if (r.entry !== undefined) return address(r.tab, collections[findView(r.tab).collection].entries[r.entry].slug);
     return pageHref(r.tab, r.page || 1);
 }
@@ -191,6 +205,22 @@ const sitemap = () => html`
         </ul>
     </div>`;
 
+// A path that names no view (404.html). Points at the view its first part names, if any:
+// /off-the-clock/<a removed entry>/ offers Off the clock.
+function notFound(path) {
+    const near = findView(decode(path).split('/')[1]);
+    return html`
+    <div class="outline-2 not-found">
+        <h2>Page not found</h2>
+        <div class="not-found-note">
+            <p class="not-found-title">Nothing lives at <code>${decode(path)}</code>.</p>
+            <p>The link may be mistyped, or the page may have moved. Try ${near
+                ? html`<a href=${address(near.route)}>${near.label}</a>, `
+                : nothing}the <a href="/">home page</a> or the <a href="/sitemap/">sitemap</a>.</p>
+        </div>
+    </div>`;
+}
+
 // Where Stripe sends a license buyer back; js/buy.js fills in the key.
 const license = session => html`
     <div class="outline-2 license">
@@ -201,6 +231,7 @@ const license = session => html`
 function view(r) {
     if (r.tab === 'sitemap') return sitemap();
     if (r.tab === 'license') return license(r.session);
+    if (r.tab === 'not-found') return notFound(r.path);
     const t = findView(r.tab);
     if (t.collection) {
         const c = collections[t.collection];
@@ -213,6 +244,7 @@ function title(r) {
     if (r.tab === DEFAULT) return SITE;
     if (r.tab === 'sitemap') return `Sitemap · ${SITE}`;
     if (r.tab === 'license') return `Your license key · ${SITE}`;
+    if (r.tab === 'not-found') return `Page not found · ${SITE}`;
     const t = findView(r.tab);
     if (r.entry !== undefined) return `${collections[t.collection].entries[r.entry].title} · ${SITE}`;
     if (r.page > 1) return `${t.label}, page ${r.page} · ${SITE}`;
@@ -231,10 +263,10 @@ function toStart(r, first) {
 }
 
 // Show the view the address bar names, and put its address there in place of an old hash
-// route or a path that names no view (404.html: the nearest view, or the home page). An
-// in-page anchor and a query (?fbclid=...) stay.
+// route. An in-page anchor and a query (?fbclid=...) stay, and so does a path that names
+// no view: Page not found shows what was asked for.
 function show() {
-    const r = routeAt(location) || { tab: DEFAULT };
+    const r = routeAt(location) || { tab: 'not-found', path: location.pathname };
     const at = addressOf(r);
     const want = r.hash ? at : at + location.hash;
     if (location.pathname + location.hash !== want) {
