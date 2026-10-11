@@ -152,7 +152,7 @@ Buyer: ${license.email}
 Seats: ${what}${added ? ', added to an existing license' : ', a new license'}
 Paid: ${paid}${license.currency ? ` ${String(license.currency).toUpperCase()}` : ''}
 License: ${license.id}
-Purchase number: ${number}
+Purchase number: ${number} of ${product.name}
 
 ${license.stripe_payment_intent && dashboard ? `Payment in Stripe: ${dashboard}/payments/${license.stripe_payment_intent}\n` : ''}Every license: ${origin}/admin
 `;

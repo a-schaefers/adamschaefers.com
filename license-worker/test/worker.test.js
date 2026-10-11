@@ -10,6 +10,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { generateKeyPairSync } from 'node:crypto';
 
 import worker from '../src/index.js';
+import { PRODUCTS } from '../src/products.js';
 import { toBase64url } from '../src/keys.js';
 
 const here = new URL('.', import.meta.url);
@@ -143,7 +144,7 @@ test('checkout picks the price by seat count and returns to the site it came fro
   assert.equal(s9.price, 'price_99');
   assert.equal(s10.price, 'price_7425');
   assert.equal(s10.quantity, 10);
-  assert.equal(s10.cancel_url, 'http://localhost:8000/backseat-driver/');
+  assert.equal(s10.cancel_url, 'http://localhost:8000/store/backseat-driver/');
 });
 
 test('checkout refuses bad seat counts, unknown products and other origins', async () => {
@@ -277,7 +278,7 @@ test('admin needs a valid Access token for the admin email', async () => {
 
 test('admin: issue by hand, search, revoke, restore, resend; POSTs must come from the admin page', async () => {
   const auth = { 'Cf-Access-Jwt-Assertion': await accessToken({}), Origin: 'https://licenses.test', 'Content-Type': 'application/json' };
-  const made = await (await call('POST', '/admin/api/licenses', { headers: auth, body: { email: 'friend@co.test', licensee: 'Friend Co', seats: 5, note: 'comp', send: true } })).json();
+  const made = await (await call('POST', '/admin/api/licenses', { headers: auth, body: { product: 'backseat-driver', email: 'friend@co.test', licensee: 'Friend Co', seats: 5, note: 'comp', send: true } })).json();
   assert.equal(made.emailed, true);
   assert.equal(made.license.source, 'admin');
   assert.equal(emails.length, 1);
@@ -300,7 +301,7 @@ test('admin: issue by hand, search, revoke, restore, resend; POSTs must come fro
 async function buy(seats, opts) {
   const before = sessions.size;
   const { data } = await (async () => {
-    const r = await call('POST', '/v1/checkout', { body: opts?.key ? { seats, key: opts.key } : { product: 'backseat-driver', seats }, headers: { Origin: SITE, 'Content-Type': 'application/json' } });
+    const r = await call('POST', '/v1/checkout', { body: opts?.key ? { seats, key: opts.key } : { product: opts?.product ?? 'backseat-driver', seats }, headers: { Origin: SITE, 'Content-Type': 'application/json' } });
     return { data: await r.json() };
   })();
   assert.ok(data.url, JSON.stringify(data));
@@ -582,7 +583,7 @@ test('the owner hears of each sale once, however many paths reach it', async () 
 
 test('no notice for a key issued by hand; a notice that fails is tried again', async () => {
   const auth = { 'Cf-Access-Jwt-Assertion': await accessToken({}), Origin: 'https://licenses.test', 'Content-Type': 'application/json' };
-  await call('POST', '/admin/api/licenses', { headers: auth, body: { email: 'comp@co.test', licensee: 'Comp Co', seats: 1, send: false } });
+  await call('POST', '/admin/api/licenses', { headers: auth, body: { product: 'backseat-driver', email: 'comp@co.test', licensee: 'Comp Co', seats: 1, send: false } });
   assert.equal(notices.length, 0);
   failNotice = true;
   const { session } = await buy(1);
@@ -684,4 +685,112 @@ test('outgrown and the seats email: only clearly over (more than 2x and 5+ over)
   await check(1, 20);
   assert.equal(emails.length, 2);
   assert.equal(await isOutgrown(), false, 'a withdrawn license is not outgrown');
+});
+
+// ---- More than one product (2026-10-10)
+
+const newPem = () => generateKeyPairSync('ec', { namedCurve: 'P-256' }).privateKey.export({ format: 'pem', type: 'pkcs8' }).toString();
+
+/** Sells a second product, with its own signing key, prices and page, for one test. */
+function secondProduct(t) {
+  PRODUCTS['test-tool'] = {
+    name: 'Test Tool', license: 'Test Tool license', keyPrefix: 'TT1',
+    signing: { secret: 'SIGNING_KEY_TT', kid: 'SIGNING_KID_TT', retired: 'OLD_PUBLIC_KEYS_TT' },
+    volumeSeats: 5, page: 'store/test-tool/', howToUse: (seats) => `Paste it into Test Tool, ${seats}.`,
+  };
+  Object.assign(env, { SIGNING_KEY_TT: newPem(), SIGNING_KID_TT: 'tt-1' });
+  env.PRICES = { ...env.PRICES, 'test-tool': { seat: 'price_tt', volume: 'price_tt_vol' } };
+  t.after(() => delete PRODUCTS['test-tool']);
+}
+
+/** The same payload and signature under another product's prefix. */
+const relabel = (key, prefix) => [prefix, ...key.split('.').slice(1)].join('.');
+
+test('every product has its own prefix, signing secret, kid and retired-keys var', () => {
+  for (const field of [(p) => p.keyPrefix, (p) => p.signing.secret, (p) => p.signing.kid, (p) => p.signing.retired]) {
+    const values = Object.values(PRODUCTS).map(field);
+    assert.equal(new Set(values).size, values.length);
+  }
+});
+
+test("a second product: its own prefix, key and prices; Backseat Driver's paths never answer for it", async (t) => {
+  secondProduct(t);
+  const tool = await buy(2, { product: 'test-tool', licensee: 'Tool Co' });
+  assert.match(tool.page.key, /^TT1\./);
+  assert.equal(tool.page.productName, 'Test Tool');
+  assert.equal(tool.session.price, 'price_tt');
+  assert.equal(tool.session.cancel_url, `${SITE}/store/test-tool/`);
+  const bsd = await buy(1);
+  // Its own paths answer for it; the unscoped ones, which shipped Backseat Drivers ask, don't.
+  assert.equal((await (await call('GET', `/v1/products/test-tool/keys/${tool.page.id}`)).json()).status, 'active');
+  assert.deepEqual(await (await call('GET', `/v1/keys/${tool.page.id}`)).json(), { status: 'unknown' });
+  assert.deepEqual(await (await call('GET', `/v1/products/test-tool/keys/${bsd.page.id}`)).json(), { status: 'unknown' });
+  assert.equal((await (await call('GET', `/v1/products/backseat-driver/keys/${bsd.page.id}`)).json()).status, 'active');
+  assert.equal((await call('GET', `/v1/products/nope/keys/${bsd.page.id}`)).status, 404);
+  assert.deepEqual((await (await call('GET', '/v1/public-keys')).json()).map((k) => k.kid), ['test-1'], 'only what Backseat Driver ships');
+  const [toolPub] = await (await call('GET', '/v1/products/test-tool/public-keys')).json();
+  assert.equal(toolPub.kid, 'tt-1');
+  const verified = await (await call('POST', '/v1/verify', { body: { key: tool.page.key } })).json();
+  assert.deepEqual([verified.valid, verified.product], [true, 'test-tool']);
+  // Adding seats with its key: its prices, its volume threshold (5 in all).
+  const more = await buy(3, { key: tool.page.key });
+  assert.equal(more.session.price, 'price_tt_vol');
+  assert.match(more.page.key, /^TT1\./);
+  assert.equal(more.page.seats, 5);
+  const looked = await (await lookupKey(tool.page.key)).json();
+  assert.deepEqual([looked.product, looked.productName, looked.volumeSeats], ['test-tool', 'Test Tool', 5]);
+  // Sales are numbered per product.
+  await Promise.all(waits);
+  assert.ok(notices.some((n) => n.text.includes('Purchase number: 1 of Backseat Driver')));
+});
+
+test("a key relabelled as another product's is forged: one product's buyers can't pass as another's", async (t) => {
+  secondProduct(t);
+  const tool = await buy(1, { product: 'test-tool' });
+  const bsd = await buy(1);
+  const asBsd = relabel(tool.page.key, 'BSD1');
+  const asTool = relabel(bsd.page.key, 'TT1');
+  for (const key of [asBsd, asTool]) {
+    assert.equal((await (await call('POST', '/v1/verify', { body: { key } })).json()).signature, 'forged');
+    assert.equal((await lookupKey(key)).status, 400);
+    const r = await call('POST', '/v1/checkout', { body: { seats: 1, key }, headers: { Origin: SITE, 'Content-Type': 'application/json' } });
+    assert.equal(r.status, 400);
+  }
+  if (existsSync(pluginChecker)) {
+    const { checkKey } = await import(pluginChecker.href);
+    const pubs = await (await call('GET', '/v1/public-keys')).json();
+    assert.equal((await checkKey(asBsd, pubs)).state, 'forged', "Backseat Driver's own checker refuses it");
+  }
+});
+
+test('two products can never share a signing key or kid', async (t) => {
+  secondProduct(t);
+  env.SIGNING_KEY_TT = env.SIGNING_KEY;
+  const r = await call('POST', '/v1/checkout', { body: { product: 'test-tool', seats: 1 }, headers: { Origin: SITE, 'Content-Type': 'application/json' } });
+  assert.ok(sessions.size === 1 && r.status === 200, 'checkout itself signs nothing');
+  pay([...sessions.keys()][0]);
+  assert.equal((await call('GET', `/v1/checkout/${[...sessions.keys()][0]}`)).status, 500);
+  assert.equal(env.DB.raw.prepare('SELECT count(*) n FROM licenses').get().n, 0, 'no key signed with the wrong one');
+  env.SIGNING_KEY_TT = newPem();
+  env.SIGNING_KID_TT = 'test-1';
+  assert.equal((await call('GET', `/v1/checkout/${[...sessions.keys()][0]}`)).status, 500);
+});
+
+test('admin: every product, its totals and a filter; issuing by hand needs a product', async (t) => {
+  secondProduct(t);
+  const auth = { 'Cf-Access-Jwt-Assertion': await accessToken({}), Origin: 'https://licenses.test', 'Content-Type': 'application/json' };
+  await buy(2);
+  await buy(3, { product: 'test-tool' });
+  const none = await call('POST', '/admin/api/licenses', { headers: auth, body: { email: 'a@b.test', licensee: 'A', seats: 1 } });
+  assert.equal(none.status, 400);
+  const made = await (await call('POST', '/admin/api/licenses', { headers: auth, body: { product: 'test-tool', email: 'a@b.test', licensee: 'A', seats: 1 } })).json();
+  assert.match(made.license.key, /^TT1\./);
+  const all = await (await call('GET', '/admin/api/licenses', { headers: auth })).json();
+  assert.equal(all.licenses.length, 3);
+  assert.deepEqual(all.products, { 'backseat-driver': 'Backseat Driver', 'test-tool': 'Test Tool' });
+  assert.deepEqual(all.selling, ['backseat-driver', 'test-tool']);
+  const tool = all.totals.find((x) => x.product === 'test-tool');
+  assert.deepEqual([tool.licenses, tool.live, tool.taken], [2, 2, 3 * 7425]);
+  const only = await (await call('GET', '/admin/api/licenses?product=test-tool', { headers: auth })).json();
+  assert.deepEqual(only.licenses.map((l) => l.product), ['test-tool', 'test-tool']);
 });

@@ -1,10 +1,11 @@
-// Makes a license signing key pair.
+// Makes a license signing key pair, one per product (never share one: src/products.js).
 //   node license-worker/scripts/keygen.js <kid> <private-key-file>
 // The private half (PKCS #8 PEM) goes to the file, which must not exist yet and
-// must stay out of the repository: set it as the Worker's SIGNING_KEY secret and
-// keep a copy somewhere safe, since a Worker secret can't be read back. The
-// public half is printed, for PUBLIC_KEYS in ../backseat-driver's
-// plugin/core/licensekey.ts.
+// must stay out of the repository: set it as the product's signing secret
+// (SIGNING_KEY for Backseat Driver, SIGNING_KEY_<PRODUCT> for another) and keep a
+// copy in the private repo, since a Worker secret can't be read back. The public
+// half is printed, for the product's app to ship (Backseat Driver: PUBLIC_KEYS in
+// ../backseat-driver's plugin/core/licensekey.ts).
 
 import { generateKeyPairSync } from 'node:crypto';
 import { writeFileSync } from 'node:fs';

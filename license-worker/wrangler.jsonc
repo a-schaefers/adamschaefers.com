@@ -5,13 +5,17 @@
 // a-schaefers/adamschaefers.com-private:
 //   STRIPE_SECRET_KEY      live key (Checkout Sessions write is all it needs)
 //   STRIPE_WEBHOOK_SECRET  whsec_... of the webhook endpoint for /v1/stripe/webhook
-//   SIGNING_KEY            PKCS #8 PEM from scripts/keygen.js (live-1)
+//   SIGNING_KEY            PKCS #8 PEM from scripts/keygen.js (live-1): signs Backseat Driver's keys only
+//   (each product signs with its own: its `signing` in src/products.js names its secret, e.g.
+//   SIGNING_KEY_<PRODUCT>, and its kid var, e.g. SIGNING_KID_<PRODUCT>, set below)
 //   RESEND_API_KEY         send-only Resend key
 //   TURNSTILE_SECRET       the "adamschaefers store" Turnstile widget
-// Rotating SIGNING_KEY: add the old key's public half ({ kid, x, y }) to an OLD_PUBLIC_KEYS var,
-// so keys it signed can still be looked up and have seats added, and ship the new public key
-// in Backseat Driver's PUBLIC_KEYS beside the old one.
-// /admin sits behind the Cloudflare Access application "Backseat Driver licenses admin".
+// Rotating a product's signing key: add the old key's public half ({ kid, x, y }) to the var its
+// `signing.retired` names (OLD_PUBLIC_KEYS for Backseat Driver), so keys it signed can still be
+// looked up and have seats added, and ship the new public key in the product's app beside the old
+// one (Backseat Driver's PUBLIC_KEYS).
+// /admin, every product's licenses, sits behind the Cloudflare Access application
+// "Backseat Driver licenses admin" (the name is only a label).
 {
   "name": "adamschaefers-licenses",
   "main": "src/index.js",

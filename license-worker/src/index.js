@@ -12,11 +12,16 @@
      POST /v1/stripe/webhook        a paid Checkout issues and emails the key and tells the owner
                                     (ADMIN_EMAIL) of the sale; a full refund or a
                                     lost chargeback revokes it; a paid Checkout with no key emails the owner
-   For the apps (any origin); key ids are unique across products:
-     GET  /v1/keys/<id>[?install=]  { status: "active" | "revoked" | "unknown", seats, installs, outgrown };
-                                    install is the plugin's anonymous id, counted for seats
-     GET  /v1/public-keys           the public keys that check its signatures
-     POST /v1/verify                { key } -> its signature check and status
+   For the apps (any origin), each product's under /v1/products/<product>:
+     GET  .../keys/<id>[?install=]  { status: "active" | "revoked" | "unknown", seats, installs, outgrown };
+                                    install is the app's anonymous id, counted for seats; another
+                                    product's license is unknown
+     GET  .../public-keys           the public keys that check the product's signatures (each
+                                    product signs with its own key: src/products.js)
+     GET  /v1/keys/<id>, /v1/public-keys
+                                    the same for Backseat Driver (FIRST_PRODUCT), whose shipped
+                                    copies ask there; they never answer for another product
+     POST /v1/verify                { key } -> its signature check and status, any product
    For the owner, behind Cloudflare Access (src/access.js):
      GET  /admin                    every license, searchable; revoke, restore, resend, issue by hand
      /admin/api/...                 what that page calls
@@ -45,7 +50,7 @@ import { stripe, webhookEvent } from './stripe.js';
 import { mayEmail, recoveryEmail, saleEmail, seatsEmail, sendEmail, sendKeyEmail } from './email.js';
 import { adminEmail } from './access.js';
 import { ADMIN_PAGE } from './admin.js';
-import { PRODUCTS, keyPrefixes, productByPrefix, productOf } from './products.js';
+import { FIRST_PRODUCT, PRODUCTS, productByPrefix, productOf } from './products.js';
 
 const MAX_SEATS = 1000;
 const INSTALL_WINDOW = 14 * 24 * 3600_000;
@@ -99,13 +104,24 @@ function json(body, status = 200, headers = {}) {
 
 // ---- Licenses
 
-let signingCache = null;
+const signingCache = new Map();
 
-async function signing(env) {
-  if (!signingCache || signingCache.pem !== env.SIGNING_KEY) {
-    signingCache = { pem: env.SIGNING_KEY, key: await loadSigningKey(env.SIGNING_KID, env.SIGNING_KEY) };
+/** A product's own signing key (its `signing` secret and kid; src/products.js), never another product's. */
+async function signing(env, product) {
+  const pem = env[product.signing.secret];
+  const kid = env[product.signing.kid];
+  if (!pem || !kid) throw new Error(`${product.id} has no signing key: set ${product.signing.secret} and ${product.signing.kid}`);
+  // Another product's key (or kid) here would let its keys pass as this product's.
+  for (const [id, other] of Object.entries(PRODUCTS)) {
+    if (id !== product.id && (env[other.signing.secret] === pem || env[other.signing.kid] === kid)) {
+      throw new Error(`${product.id} and ${id} share a signing key or kid; each product needs its own`);
+    }
   }
-  return signingCache.key;
+  const cached = signingCache.get(product.id);
+  if (cached?.pem === pem && cached.kid === kid) return cached.key;
+  const key = await loadSigningKey(kid, pem);
+  signingCache.set(product.id, { pem, kid, key });
+  return key;
 }
 
 const byId = (env, id) => env.DB.prepare('SELECT * FROM licenses WHERE id = ?').bind(id).first();
@@ -157,7 +173,7 @@ async function notifySaleOnce(env, license, origin) {
   const claim = await env.DB.prepare('UPDATE licenses SET notified_at = ? WHERE id = ? AND notified_at = 0').bind(Date.now(), license.id).run();
   if (claim.meta.changes !== 1) return;
   try {
-    const count = await env.DB.prepare("SELECT count(*) AS n FROM licenses WHERE source = 'stripe' AND issued_at <= ?").bind(license.issued_at).first();
+    const count = await env.DB.prepare("SELECT count(*) AS n FROM licenses WHERE source = 'stripe' AND product = ? AND issued_at <= ?").bind(license.product, license.issued_at).first();
     await sendEmail(env, env.ADMIN_EMAIL, saleEmail(license, { number: count?.n ?? 0, origin, dashboard: env.STRIPE_DASHBOARD, mode: env.MODE }), `sale/${license.id}`);
   } catch (error) {
     console.log(JSON.stringify({ event: 'sale_notice_failed', id: license.id, error: String(error) }));
@@ -221,21 +237,34 @@ async function alertOwner(env, subject, text, idempotency) {
   }
 }
 
-/** A pasted key that is ours and on record: { license } or { error, status }. */
+/**
+ * A key's signature check against its own product's public keys (the prefix says which
+ * product): { state, payload, prefix, product }. A key relabelled with another product's
+ * prefix is checked against that product's keys, which never signed it, so it's forged.
+ */
+async function checkAnyKey(env, text) {
+  const prefix = String(text || '').replace(/\s+/g, '').split('.')[0];
+  const product = productByPrefix(prefix);
+  if (!product) return { state: 'malformed' };
+  return { ...(await checkKey(String(text), await publicKeys(env, product), [product.keyPrefix])), product };
+}
+
+/** A pasted key that is ours and on record: { license, product } or { error, status }. */
 async function knownKey(env, text) {
-  const check = await checkKey(String(text || ''), await publicKeys(env), keyPrefixes());
+  const check = await checkAnyKey(env, text);
   if (check.state !== 'valid') return { error: "That doesn't look like a license key. Paste the whole key.", status: 400 };
   const license = await byId(env, check.payload.id);
-  if (!license) return { error: "That key isn't on record. Get in touch and we'll sort it out.", status: 404 };
-  return { license, product: productOf(license.product) };
+  if (!license || license.product !== check.product.id) return { error: "That key isn't on record. Get in touch and we'll sort it out.", status: 404 };
+  return { license, product: check.product };
 }
 
 /**
- * The public keys pasted keys are checked against: the signing key's, and OLD_PUBLIC_KEYS
- * ({ kid, x, y } each) of keys retired by a rotation, so keys they signed still work here.
+ * The public keys a product's keys are checked against: its signing key's, and its retired
+ * keys' ({ kid, x, y } each, in the var its `signing.retired` names, a JSON list), so keys
+ * they signed before a rotation still work here.
  */
-async function publicKeys(env) {
-  let old = env.OLD_PUBLIC_KEYS || [];
+async function publicKeys(env, product) {
+  let old = env[product.signing.retired] || [];
   if (typeof old === 'string') {
     try {
       old = JSON.parse(old);
@@ -243,14 +272,14 @@ async function publicKeys(env) {
       old = [];
     }
   }
-  return [(await signing(env)).publicKey, ...(Array.isArray(old) ? old.filter((k) => k?.kid && k?.x && k?.y) : [])];
+  return [(await signing(env, product)).publicKey, ...(Array.isArray(old) ? old.filter((k) => k?.kid && k?.x && k?.y) : [])];
 }
 
 /** Signs and stores a new license. A second call for the same Checkout gets the first one's row. */
 async function issue(env, { product, licensee, email, seats, source, root = null, session = null, paymentIntent = null, amount = null, currency = null, note = '' }) {
   const id = newLicenseId();
   const iat = Date.now();
-  const { key, payload } = await signKey(await signing(env), product.keyPrefix, { id, to: licensee, seats, iat });
+  const { key, payload } = await signKey(await signing(env, product), product.keyPrefix, { id, to: licensee, seats, iat });
   await env.DB.prepare(
     `INSERT INTO licenses (id, product, root_id, key, licensee, email, seats, issued_at, source, stripe_session, stripe_payment_intent, amount_total, currency, note)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT (stripe_session) DO NOTHING`,
@@ -505,13 +534,14 @@ async function webhook(request, env) {
 // ---- The plugin
 
 /**
- * The plugin's weekly check. The status is the license's (its family's): revoked only once
- * every key of it is. Installs are counted for seatsCheck; the plugin shows the seats, never
- * the installs, and a small note asking for more seats while the license has outgrown them.
+ * The app's weekly check of a product's license. The status is the license's (its family's):
+ * revoked only once every key of it is. Another product's license id is unknown here. Installs
+ * are counted for seatsCheck; the app shows the seats, never the installs, and a small note
+ * asking for more seats while the license has outgrown them.
  */
-async function keyStatus(env, ctx, id, install) {
+async function keyStatus(env, ctx, product, id, install) {
   const license = id ? await byId(env, id) : null;
-  if (!license) return json({ status: 'unknown' }, 200, ANY_ORIGIN);
+  if (!license || license.product !== product) return json({ status: 'unknown' }, 200, ANY_ORIGIN);
   const root = license.root_id || license.id;
   const counted = Boolean(install && /^[A-Za-z0-9_-]{8,64}$/.test(install));
   if (counted) await sawInstall(env, root, install, installCap(license.seats));
@@ -527,12 +557,13 @@ async function verify(request, env) {
   } catch {
     return json({ error: 'Bad request.' }, 400, ANY_ORIGIN);
   }
-  const check = await checkKey(String(body?.key || ''), await publicKeys(env), keyPrefixes());
-  const license = check.state === 'valid' ? await byId(env, check.payload.id) : null;
+  const check = await checkAnyKey(env, body?.key);
+  const found = check.state === 'valid' ? await byId(env, check.payload.id) : null;
+  const license = found?.product === check.product?.id ? found : null;
   const status = license ? ((await family(env, license)).live ? 'active' : 'revoked') : 'unknown';
   return json({
     valid: check.state === 'valid' && status === 'active', signature: check.state, status,
-    ...(check.payload ? { product: productByPrefix(check.prefix)?.id ?? '', licensee: check.payload.to, seats: check.payload.seats, id: check.payload.id } : {}),
+    ...(check.payload ? { product: check.product.id, licensee: check.payload.to, seats: check.payload.seats, id: check.payload.id } : {}),
   }, 200, ANY_ORIGIN);
 }
 
@@ -550,14 +581,28 @@ async function admin(request, env, path) {
     return json({ error: 'Bad origin.' }, 403);
   }
   if (path === '/admin/api/licenses' && request.method === 'GET') {
-    const q = new URL(request.url).searchParams.get('q')?.trim();
-    const like = `%${q || ''}%`;
+    const params = new URL(request.url).searchParams;
+    const q = params.get('q')?.trim() || '';
+    const only = params.get('product') || '';
+    const like = `%${q}%`;
     const { results } = await env.DB.prepare(
       `SELECT licenses.*, (SELECT count(*) FROM installs i WHERE i.root_id = licenses.root_id AND i.last_seen > ?) AS installs
-       FROM licenses WHERE ? = '' OR email LIKE ? OR licensee LIKE ? OR id LIKE ? OR root_id LIKE ? OR stripe_payment_intent LIKE ?
+       FROM licenses WHERE (? = '' OR product = ?)
+         AND (? = '' OR email LIKE ? OR licensee LIKE ? OR id LIKE ? OR root_id LIKE ? OR stripe_payment_intent LIKE ?)
        ORDER BY issued_at DESC LIMIT 500`,
-    ).bind(Date.now() - INSTALL_WINDOW, q || '', like, like, like, like, like).all();
-    return json({ licenses: results, dashboard: env.STRIPE_DASHBOARD || '', products: Object.fromEntries(Object.entries(PRODUCTS).map(([id, p]) => [id, p.name])) });
+    ).bind(Date.now() - INSTALL_WINDOW, only, only, q, like, like, like, like, like).all();
+    // Each product's licenses (families), those standing, and what its unrevoked sales took in.
+    const { results: totals } = await env.DB.prepare(
+      `SELECT product, count(DISTINCT root_id) AS licenses,
+              count(DISTINCT CASE WHEN revoked_at = 0 THEN root_id END) AS live,
+              coalesce(sum(CASE WHEN source = 'stripe' AND revoked_at = 0 THEN amount_total END), 0) AS taken,
+              max(currency) AS currency
+       FROM licenses GROUP BY product`,
+    ).all();
+    // Every product sold now, and any that's on record but no longer in src/products.js.
+    const products = Object.fromEntries(Object.entries(PRODUCTS).map(([id, p]) => [id, p.name]));
+    for (const t of totals) products[t.product] ??= t.product;
+    return json({ licenses: results, totals, dashboard: env.STRIPE_DASHBOARD || '', products, selling: Object.keys(PRODUCTS) });
   }
   if (path === '/admin/api/licenses' && request.method === 'POST') {
     const body = await request.json().catch(() => null);
@@ -567,8 +612,8 @@ async function admin(request, env, path) {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !licensee || !Number.isInteger(seats) || seats < 1) {
       return json({ error: 'Email, licensee and a whole number of seats, please.' }, 400);
     }
-    const product = productOf(String(body?.product || 'backseat-driver'));
-    if (!product) return json({ error: 'Unknown product.' }, 400);
+    const product = productOf(body?.product);
+    if (!product) return json({ error: 'Choose a product.' }, 400);
     const license = await issue(env, { product, licensee, email, seats, source: 'admin', note: String(body?.note || '').slice(0, 500) });
     const emailed = body?.send ? await emailOnce(env, license) : null;
     return json({ license: await byId(env, license.id), emailed });
@@ -636,18 +681,24 @@ export default {
       if (path === '/v1/stripe/webhook' && request.method === 'POST') return await webhook(request, env);
 
       if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: ANY_ORIGIN });
-      const key = path.match(/^\/v1\/keys\/([^/]+)$/);
+      // A product's own paths, /v1/products/<id>/...; the unscoped ones are FIRST_PRODUCT's.
+      const scoped = path.match(/^\/v1\/products\/([a-z0-9-]+)(\/.*)$/);
+      const product = scoped ? productOf(scoped[1]) : productOf(FIRST_PRODUCT);
+      if (scoped && !product) return json({ error: 'Unknown product.' }, 404, ANY_ORIGIN);
+      const key = scoped ? scoped[2].match(/^\/keys\/([^/]+)$/) : path.match(/^\/v1\/keys\/([^/]+)$/);
       if (key && request.method === 'GET') {
-        // Plugins ask about once a week; more than that from one address is someone else.
+        // Apps ask about once a week; more than that from one address is someone else.
         if (await limited(env, request)) return json({ error: 'Too many requests.' }, 429, ANY_ORIGIN);
-        return await keyStatus(env, ctx, decoded(key[1]), url.searchParams.get('install'));
+        return await keyStatus(env, ctx, product.id, decoded(key[1]), url.searchParams.get('install'));
       }
-      if (path === '/v1/public-keys' && request.method === 'GET') return json(await publicKeys(env), 200, ANY_ORIGIN);
+      if ((scoped ? scoped[2] === '/public-keys' : path === '/v1/public-keys') && request.method === 'GET') {
+        return json(await publicKeys(env, product), 200, ANY_ORIGIN);
+      }
       if (path === '/v1/verify' && request.method === 'POST') {
         if (await limited(env, request)) return json({ error: 'Too many requests.' }, 429, ANY_ORIGIN);
         return await verify(request, env);
       }
-      if (path === '/') return new Response('Backseat Driver license server. Buy at https://adamschaefers.com/backseat-driver/\n');
+      if (path === '/') return new Response('License server for adamschaefers.com. Buy at https://adamschaefers.com/store/\n');
       return json({ error: 'Not found.' }, 404);
     } catch (error) {
       console.log(JSON.stringify({ event: 'error', path, error: String(error?.stack || error) }));
