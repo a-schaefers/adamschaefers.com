@@ -170,13 +170,14 @@ function mountBuy(mount: HTMLElement) {
 // Paste a key: its licensee, seats and the installs using it, and a way to add seats.
 // It starts folded away behind an "Add seats to your license" link, like "Lost your license
 // key?": with several products, a box under each would repeat all down the page. A click
-// opens it, its card popping in.
+// opens it, its card popping in. The link and the card name the license (data-license).
 function mountKey(mount: HTMLElement) {
     const p = pricing(mount);
+    const title = `Add seats to your ${esc(mount.dataset.license || 'license')}`;
     mount.innerHTML = `
-<button type="button" class="key-open mt-[1.1rem] ${OPENER}" aria-expanded="false" aria-controls="key-card-${p.product}">Add seats to your license</button>
+<button type="button" class="key-open mt-[1.1rem] ${OPENER}" aria-expanded="false" aria-controls="key-card-${p.product}">${title}</button>
 <form class="key-card mt-4 ${CARD} motion-safe:[&.is-opening]:origin-top-left motion-safe:[&.is-opening]:animate-card-pop" id="key-card-${p.product}" novalidate hidden>
-  <h4 class="key-title m-0 mb-[.4rem] text-[1.15rem] font-[750] font-stretch-85% text-sand">Add seats to your license</h4>
+  <h4 class="key-title m-0 mb-[.4rem] text-[1.15rem] font-[750] font-stretch-85% text-sand">${title}</h4>
   <label class="mb-3 block text-[.9rem] text-dust" for="key-${p.product}">Growing team? Paste your license key, pick how many more seats, and pay for just those. ${money(p.price)} a seat, 25% off every seat once your license has ${p.volumeSeats} or more. You get one new key covering them all.</label>
   <textarea class="${FIELD} w-full resize-y break-all font-mono text-[.85rem] leading-[1.5]" id="key-${p.product}" rows="3" spellcheck="false" autocomplete="off" placeholder="Paste your license key"></textarea>
   <div class="key-result mt-4 empty:hidden" aria-live="polite"></div>
@@ -267,7 +268,7 @@ function mountRecover(mount: HTMLElement) {
   <div class="recover-body" hidden>
   <h3 class="m-0 mb-[.4rem] text-[1.15rem] font-[750] font-stretch-85%">Lost your key?</h3>
   <form novalidate>
-    <p class="m-0 mb-3 text-dust">Enter the email you bought with, and we'll email it every license key on file for it.</p>
+    <p class="m-0 mb-3 text-dust">Enter the email you bought with, and we'll email it every license key on file for it, for every product.</p>
     <div class="buy-row ${ROW}">
       <input class="${FIELD} w-72 max-w-full text-[1.1rem]" type="email" autocomplete="email" placeholder="you@company.com" aria-label="Email" required>
       <button class="${BUTTON} ${DISABLED}" type="submit">Email my keys</button>

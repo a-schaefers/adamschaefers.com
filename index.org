@@ -119,7 +119,8 @@ Things I make and sell. Payment is through Stripe; keys arrive the moment you've
 # Each product is an <article class="product"> (js/store.ts finds them, and its
 # image zooms on a click like the profile photo; data-share-image is its link-preview
 # picture, a PNG or JPEG): its image, its words in Org, then the buy form and the "already have a key" box,
-# mounted from the data-* attributes (prices must match license-worker's Stripe
+# mounted from the data-* attributes (the key box names the license from data-license;
+# prices must match license-worker's Stripe
 # prices). id="product-<id>" is where its address /store/<id>/ lands; site.el writes that page
 # from the article, and the address needs an entry in PAGES in js/app.ts. A new product
 # also needs its entry, signing key and prices in license-worker (src/products.js).
@@ -142,7 +143,7 @@ If a business uses Backseat Driver or has its people use it, training included, 
 
 #+BEGIN_EXPORT html
 <div class="buy-mount" data-product="backseat-driver" data-price="99" data-volume-price="74.25" data-volume-seats="10"></div>
-<div class="key-mount" data-product="backseat-driver" data-price="99" data-volume-price="74.25" data-volume-seats="10"></div>
+<div class="key-mount" data-product="backseat-driver" data-license="commercial Backseat Driver license" data-price="99" data-volume-price="74.25" data-volume-seats="10"></div>
 </div>
 </article>
 <div class="recover-mount"></div>
