@@ -1,0 +1,20 @@
+// adamschaefers.com. The built site is static assets (wrangler.jsonc), served without this
+// script; only /admin runs it: the asset manager (src/admin.ts), behind Cloudflare Access.
+import { admin } from './admin.ts';
+
+export interface Env {
+  ASSETS: Fetcher;
+  MEDIA: R2Bucket;
+  MEDIA_ORIGIN: string;
+  ACCESS_TEAM: string;
+  ACCESS_AUD: string;
+  ADMIN_EMAIL: string;
+}
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    if (url.pathname === '/admin' || url.pathname.startsWith('/admin/')) return admin(request, env, url);
+    return env.ASSETS.fetch(request);
+  },
+} satisfies ExportedHandler<Env>;

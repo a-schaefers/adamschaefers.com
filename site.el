@@ -47,14 +47,9 @@
 (defconst site-asset-list "assets.txt"
   "The styles and scripts given hashed names this build, one \"FILE HASHED\" a
 line, for make dist to publish under those names.")
-(defconst site-module-imports
-  '("js/lit/lit-html/lit-html.js"
-    "js/lit/lit-html/directives/unsafe-html.js"
-    "js/lit/lit-html/directive.js"
-    "js/contact.js"
-    "js/store.js")
-  "Every module js/app.js imports, directly or not. Each is preloaded with it, at
-its hashed URL, and the import map sends imports there too.")
+(defconst site-script "build/js/app.js"
+  "The page's script: js/app.ts and everything it imports, lit-html included, bundled
+by scripts/build.ts (make build runs it first).  Published as js/app.<hash>.js.")
 
 (defmacro site--with-export-settings (&rest body)
   `(let ((user-full-name "Adam Schaefers")
@@ -463,17 +458,18 @@ entries at real paths, which crawlers can read)."
 (defvar site--assets nil
   "The files given hashed names this build: (FILE . HASHED).")
 
-(defun site--asset (file)
-  "FILE's name with a hash of its contents in it: js/app.js -> js/app.1a2b3c4d5e.js.
-make dist publishes the file under that name (`site-asset-list'), so browsers
-keep it for good and a change is a new name; in the same folder, so a module's
-relative imports resolve as before (to the keys of the import map)."
-  (let* ((hash (substring (with-temp-buffer
+(defun site--asset (file &optional name)
+  "FILE's public NAME (default FILE) with a hash of FILE's contents in it:
+build/js/app.js named js/app.js -> js/app.1a2b3c4d5e.js.  make dist publishes the
+file under that name (`site-asset-list'), so browsers keep it for good and a
+change is a new name."
+  (let* ((name (or name file))
+         (hash (substring (with-temp-buffer
                             (set-buffer-multibyte nil)
                             (insert-file-contents-literally file)
                             (secure-hash 'sha1 (current-buffer)))
                           0 10))
-         (hashed (format "%s.%s.%s" (file-name-sans-extension file) hash (file-name-extension file))))
+         (hashed (format "%s.%s.%s" (file-name-sans-extension name) hash (file-name-extension name))))
     (cl-pushnew (cons file hashed) site--assets :test #'equal)
     hashed))
 
@@ -483,15 +479,6 @@ relative imports resolve as before (to the keys of the import map)."
                (mapconcat (lambda (a) (format "%s %s\n" (car a) (cdr a)))
                           (sort (copy-sequence site--assets) (lambda (a b) (string< (car a) (car b))))
                           "")))
-
-(defun site--import-map ()
-  "An import map sending each of `site-module-imports' to its hashed name.
-A module imports another by its plain name (./contact.js); this sends that to
-the copy of this build, so a browser never pairs a new module with an old one."
-  (let ((json-encoding-pretty-print nil))
-    (json-encode
-     `((imports . ,(mapcar (lambda (m) (cons (concat "./" m) (concat "./" (site--asset m))))
-                           site-module-imports))))))
 
 (defun site--json (data)
   "DATA as JSON that is safe inside a <script> element."
@@ -513,9 +500,7 @@ same page at every view's address."
               (home (site--summary (alist-get 'html (seq-find (lambda (v) (equal (alist-get 'id v) "about")) views))))
               (org-export-exclude-tags '("noexport" "view"))
               (org-html-head-extra
-               (concat ;; Before any module loads: browsers ignore an import map that comes later.
-                       "<script type=\"importmap\">" (site--import-map) "</script>\n"
-                       ;; Each page's link preview goes here (site--page).
+               (concat ;; Each page's link preview goes here (site--page).
                        site-page-tags "\n"
                        (format "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Adam Schaefers\" href=\"%s\">\n" site-feed)
                        (format "<link rel=\"stylesheet\" href=\"%s\">\n" (site--asset "nav.css"))
@@ -524,11 +509,7 @@ same page at every view's address."
                        "<script type=\"application/json\" id=\"site-data\">"
                        (site--json data)
                        "</script>\n"
-                       (format "<script type=\"module\" src=\"%s\"></script>\n" (site--asset "js/app.js"))
-                       ;; Fetch app.js's imports alongside it rather than one level at a time,
-                       ;; at the hashed URLs the import map sends them to.
-                       (mapconcat (lambda (m) (format "<link rel=\"modulepreload\" href=\"%s\">\n" (site--asset m)))
-                                  site-module-imports "")
+                       (format "<script type=\"module\" src=\"%s\"></script>\n" (site--asset site-script "js/app.js"))
                        ;; The Contact view's Turnstile check loads on first visit; connect early.
                        "<link rel=\"preconnect\" href=\"https://challenges.cloudflare.com\">"))
               (org-html-preamble

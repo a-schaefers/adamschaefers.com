@@ -170,7 +170,7 @@
 #+HTML_HEAD: </style>
 
 # The sections tagged :view: aren't in index.html: site.el puts them in the
-# page's data and js/app.js shows one at a time here, picked from the menu.
+# page's data and js/app.ts shows one at a time here, picked from the menu.
 #+BEGIN_EXPORT html
 <main id="app"></main>
 #+END_EXPORT
@@ -195,44 +195,6 @@
 <dialog class="photo-dialog" aria-label="Photo of Adam Schaefers">
   <img src="me.jpeg" width="1080" height="1920" alt="Adam Schaefers">
 </dialog>
-<script>
-// Profile photo: grows out of the avatar into a large view; click anywhere or Esc shrinks it back.
-(function () {
-  var thumb = document.querySelector('.profile-zoom');
-  var dialog = document.querySelector('.photo-dialog');
-  var big = dialog.querySelector('img');
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)');
-  function morph(reverse) {
-    var a = thumb.getBoundingClientRect(), b = big.getBoundingClientRect();
-    var dx = a.left + a.width / 2 - (b.left + b.width / 2);
-    var dy = a.top + a.height / 2 - (b.top + b.height / 2);
-    var frames = [
-      { transform: 'translate(' + dx + 'px, ' + dy + 'px) scale(' + a.width / b.width + ')', borderRadius: '50%' },
-      { transform: 'none', borderRadius: '24px' }
-    ];
-    if (reverse) frames.reverse();
-    return big.animate(frames, { duration: reduce.matches ? 0 : 450, easing: 'cubic-bezier(.2, .9, .25, 1)' });
-  }
-  thumb.addEventListener('click', function () {
-    dialog.classList.remove('is-closing');
-    dialog.showModal();
-    thumb.classList.add('is-open');
-    morph(false);
-  });
-  function close() {
-    if (dialog.classList.contains('is-closing')) return;
-    dialog.classList.add('is-closing');
-    morph(true).onfinish = function () {
-      dialog.close();
-      dialog.classList.remove('is-closing');
-      thumb.classList.remove('is-open');
-      thumb.focus({ preventScroll: true });
-    };
-  }
-  dialog.addEventListener('click', close);
-  dialog.addEventListener('cancel', function (e) { e.preventDefault(); close(); });
-})();
-</script>
 #+END_EXPORT
 
 - Latest Work: @@html:<a href="https://enchant.games" target="_blank" rel="noopener">@LandOfEnchantment</a>@@
@@ -258,43 +220,6 @@
     <li><button type="button" data-id="Rk8vngeJZOk" data-title="More CRUX goodies - Emacs Crash Course PT. 5" data-len="3:07" title="More CRUX goodies - Emacs Crash Course PT. 5" aria-label="Episode 05: More CRUX goodies - Emacs Crash Course PT. 5">05</button></li>
   </ol>
 </div>
-<script>
-// Emacs course: thumbnail until played, then a YouTube embed. Episode buttons swap the video.
-(function () {
-  var course = document.querySelector('.course');
-  var player = course.querySelector('.course-player');
-  var now = course.querySelector('.course-now');
-  var current = course.querySelector('.course-episodes [aria-current]');
-  function embed(btn) {
-    var f = document.createElement('iframe');
-    f.src = 'https://www.youtube-nocookie.com/embed/' + btn.dataset.id + '?autoplay=1&rel=0';
-    f.title = 'Episode ' + btn.textContent + ': ' + btn.dataset.title;
-    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
-    f.allowFullscreen = true;
-    player.replaceChildren(f);
-  }
-  function select(btn) {
-    current.removeAttribute('aria-current');
-    btn.setAttribute('aria-current', 'true');
-    current = btn;
-    now.children[0].textContent = btn.textContent;
-    now.childNodes[1].textContent = ' ' + btn.dataset.title + ' ';
-    now.children[1].textContent = btn.dataset.len;
-    var play = player.querySelector('.course-play');
-    if (play) {
-      play.querySelector('img').src = 'https://i.ytimg.com/vi/' + btn.dataset.id + '/hqdefault.jpg';
-      play.setAttribute('aria-label', 'Play episode ' + btn.textContent);
-    } else {
-      embed(btn);
-    }
-  }
-  player.addEventListener('click', function (e) { if (e.target.closest('.course-play')) embed(current); });
-  course.querySelector('.course-episodes').addEventListener('click', function (e) {
-    var btn = e.target.closest('button');
-    if (btn && btn !== current) select(btn);
-  });
-})();
-</script>
 #+END_EXPORT
 
 -----
@@ -348,12 +273,12 @@ My secondary GitHub, [[https://github.com/el-sloppo][@el-sloppo]], is where I pu
 
 Things I make and sell. Payment is through Stripe; keys arrive the moment you've paid, and by email.
 
-# Each product is an <article class="product"> (js/store.js finds them, and its
+# Each product is an <article class="product"> (js/store.ts finds them, and its
 # image zooms on a click like the profile photo; data-share-image is its link-preview
 # picture, a PNG or JPEG): its image, its words in Org, then the buy form and the "already have a key" box,
 # mounted from the data-* attributes (prices must match license-worker's Stripe
 # prices). id="product-<id>" is where its address /store/<id>/ lands; site.el writes that page
-# from the article, and the address needs an entry in PAGES in js/app.js. A new product
+# from the article, and the address needs an entry in PAGES in js/app.ts. A new product
 # also needs its entry, signing key and prices in license-worker (src/products.js).
 #+BEGIN_EXPORT html
 <article class="product" id="product-backseat-driver" data-share-image="images/store/backseat-driver.png">

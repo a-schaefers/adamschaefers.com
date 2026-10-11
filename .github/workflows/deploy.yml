@@ -47,7 +47,7 @@ jobs:
           set -eu
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "::error::CLOUDFLARE_API_TOKEN is not set in the production environment"; exit 1; fi
           if [ "$EVENT" != schedule ]; then echo go=yes >> "$GITHUB_OUTPUT"; exit 0; fi
-          live=$(node scripts/deployed.mjs adamschaefers-site)
+          live=$(node scripts/deployed.ts adamschaefers-site)
           if [ "$live" = "$GITHUB_SHA" ]; then echo "the site is live at $GITHUB_SHA"; echo go=no >> "$GITHUB_OUTPUT"
           else echo "the site is live at ${live:-an untagged version}, master is $GITHUB_SHA"; echo go=yes >> "$GITHUB_OUTPUT"; fi
 

@@ -1,4 +1,4 @@
--- Licenses for the products in src/products.js. Apply to a new database with
+-- Licenses for the products in src/products.ts. Apply to a new database with
 --   npx wrangler d1 execute <database> --remote --file schema.sql
 -- (safe to run again). A database made before root_id and installs existed
 -- also needs the files in migrations/, in order, once each.

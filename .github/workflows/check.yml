@@ -1,7 +1,7 @@
-# `make check` (the site built, every link, the Workers' tests, these workflows' rules) on
-# every pull request, and on every merge as the first job of deploy.yml, which then deploys
-# exactly the site this job built (its `site` artifact). CI is the build of record: what
-# this job's Emacs builds is what is served.
+# `make check` (the site built, every link, the types, the Workers' tests, these workflows'
+# rules) on every pull request, and on every merge as the first job of deploy.yml, which then
+# deploys exactly the site this job built (its `site` artifact). CI is the build of record:
+# what this job's esbuild, Tailwind and Emacs build is what is served.
 #
 # The `check` job is the required check on master (.github/rulesets/master.json, pinned to
 # GitHub Actions): a pull request merges only once it is green. A required check that never
@@ -50,7 +50,7 @@ jobs:
       - run: npm ci
       # make check in two halves: the site is built, checked and uploaded before any code
       # from another repository runs, so nothing but this commit can shape what deploys.
-      - run: make build check-dist
+      - run: make build check-dist typecheck
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: site
