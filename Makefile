@@ -39,7 +39,7 @@ typecheck: workers
 	@for p in $(TSCONFIGS); do echo "tsc -p $$p"; npx tsc -p $$p || exit 1; done
 
 test: workers
-	node --test site-worker/test/*.test.ts license-worker/test/*.test.ts
+	node --test site-worker/test/*.test.ts license-worker/test/*.test.ts scripts/*.test.ts
 	python3 scripts/test_workflows.py
 
 # The license server's tests, offline (license-worker/). CI deploys it on merge.

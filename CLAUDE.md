@@ -134,7 +134,12 @@ shared with merecatholicity.com); only `/admin` runs it. Never add `"cache"`
 (Workers caching) to its `wrangler.jsonc`: it would bill every asset request
 as the Worker's (a test keeps it out). A deploy uploads only the changed files
 and switches them all at once; `npx wrangler rollback -c
-site-worker/wrangler.jsonc` goes back a version, files and all.
+site-worker/wrangler.jsonc` goes back a version, files and all. No zone purge
+reaches these files (tested 2026-10-11) and none is needed: each deploy serves
+its own. `version.json` (`scripts/dist.sh`) names the script's and styles'
+hashes, and `src/version.ts` offers a tab left open over a deploy "Reload"
+(never reloading by itself). When checking the live site, add a throwaway
+query (`?probe=$RANDOM`), as `scripts/smoke.sh` does.
 
 Videos, pictures and files too big or too changeable for git live in R2, the
 bucket `adamschaefers-media`, which R2 itself serves at
@@ -144,9 +149,11 @@ https://adamschaefers.com/admin/ (`site-worker/src/admin.ts`, behind the
 Cloudflare Access application "adamschaefers.com assets admin",
 adam.schaefers@icloud.com): upload one (up to 100 MB), copy its Org line
 (`#+VIDEO: https://media.adamschaefers.com/evia.mp4`, `[[https://media.adamschaefers.com/photo.jpg]]`)
-or its address, delete one. An upload is kept in caches an hour, so a changed
-file gets a new name (the admin refuses a taken name unless Replace is
-ticked). `make check` asks for every media address a page names, and the feed
+or its address, delete one. An upload is kept in caches an hour; replacing or
+deleting one purges it from Cloudflare's edge at once (the Worker secret
+`PURGE_TOKEN`), but a browser that has it keeps it up to the hour, so a
+changed file still gets a new name (the admin refuses a taken name unless
+Replace is ticked). `purge-cache.yml` empties the media domain's cache by hand. `make check` asks for every media address a page names, and the feed
 gives each video's size from its answer. The old `/videos/<name>.mp4`
 addresses redirect there (`site-worker/_redirects`). Encode videos before
 uploading, with ffmpeg as H.264 High + AAC, yuv420p, `-movflags +faststart`

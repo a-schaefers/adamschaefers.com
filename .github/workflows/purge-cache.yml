@@ -1,0 +1,47 @@
+# A button that empties Cloudflare's cache of the media domain, or of the whole zone, without
+# a deploy (2026-10-11, as in ../merecatholicity.com): for a file served stale that shouldn't
+# be. The admin already purges each file it replaces or deletes (site-worker/src/admin.ts).
+# The site itself never needs this: Workers Static Assets serves each deploy's own files
+# and no zone purge reaches them (tested 2026-10-11: a purged page answered HIT after).
+#
+# It runs in the `production` environment, master only, for CLOUDFLARE_PURGE_TOKEN, and
+# fails loudly without it: a button pressed and quietly skipped would look like a purge.
+# Nothing from the repository runs: no checkout.
+
+name: purge cache
+
+on:
+  workflow_dispatch:
+    inputs:
+      everything:
+        description: "Purge the whole adamschaefers.com zone, not only media.adamschaefers.com"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: purge-cache
+  cancel-in-progress: false
+
+jobs:
+  purge:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    environment: production
+    steps:
+      - name: Purge
+        env:
+          TOKEN: ${{ secrets.CLOUDFLARE_PURGE_TOKEN }}
+          ZONE: ${{ vars.CLOUDFLARE_ZONE_ID }}
+          ALL: ${{ inputs.everything }}
+        run: |
+          set -eu
+          if [ -z "$TOKEN" ]; then echo "::error::CLOUDFLARE_PURGE_TOKEN is not set in the production environment: nothing purged"; exit 1; fi
+          if [ "$ALL" = true ]; then body='{"purge_everything":true}'; else body='{"hosts":["media.adamschaefers.com"]}'; fi
+          echo "purging $body"
+          answer=$(curl -sS -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE/purge_cache" \
+            -H "Authorization: Bearer $TOKEN" -H 'Content-Type: application/json' --data "$body")
+          echo "$answer"
+          printf '%s' "$answer" | grep -q '"success":true'
