@@ -202,10 +202,11 @@ function single(route: string, label: string, c: Collection, i: number) {
         </header>
         ${e.video ? video(e, 'mb-6') : nothing}
         ${unsafeHTML(e.html)}
+        ${newer || older ? html`
         <nav class="mt-12 grid grid-cols-[1fr_1fr] gap-4 border-t border-t-ridge pt-6 narrow:grid-cols-[1fr]" aria-label="More">
             ${newer ? html`<a class=${POST_LINK} href=${address(route, newer.slug)} rel="prev"><span class=${POST_LINK_LABEL}>← Newer</span>${newer.title}</a>` : nothing}
             ${older ? html`<a class="${POST_LINK} col-start-2 text-right narrow:col-auto" href=${address(route, older.slug)} rel="next"><span class=${POST_LINK_LABEL}>Older →</span>${older.title}</a>` : nothing}
-        </nav>
+        </nav>` : nothing}
     </article>`;
 }
 
