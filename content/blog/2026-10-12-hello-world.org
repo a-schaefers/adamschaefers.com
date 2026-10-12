@@ -7,6 +7,6 @@ Every view is prerendered at its own address, so crawlers and link previews see 
 
 It moved from GitHub Pages to Cloudflare Workers Static Assets, with content-hashed assets cached forever and media served from R2.
 
-Three Workers run the site, the contact form, and a Stripe license server that signs keys apps verify offline.
+Three Workers run the site, the contact form, and a Stripe-backed store built to sell anything, starting with software licenses.
 
 Every change is a pull request, a required check builds and tests everything, and the merge is the deploy.
