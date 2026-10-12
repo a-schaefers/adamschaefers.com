@@ -9,4 +9,4 @@ It moved from GitHub Pages to Cloudflare Workers Static Assets, with content-has
 
 Three Workers run the site, the contact form, and a Stripe-backed store built to sell anything, starting with software licenses.
 
-CI/CD is GitHub Actions: every change is a pull request on a protected =master=, gated by one required check that builds the site, checks every link, typechecks every TypeScript project and runs the Workers' tests in seconds. The merge is the deploy: the merged commit is built again, shipped to Cloudflare with only the changed files uploaded and switched atomically, then smoke-tested live, with one-command rollback. Actions are pinned to commits and bumped by Dependabot, and the only deploy credential is a token scoped to the three Workers that pull requests can never read.
+GitHub Actions gates every pull request on one required check, and every merge auto-deploys to Cloudflare and smoke-tests the live site.
