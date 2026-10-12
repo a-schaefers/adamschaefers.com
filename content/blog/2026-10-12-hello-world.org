@@ -1,36 +1,12 @@
 #+TITLE: Hello, world
 #+DESCRIPTION: How this site is built, served and shipped.
 
-How this site is built, served and shipped.
+This site is written in Emacs Org mode and built into a TypeScript, lit-html and Tailwind single-page app.
 
-** Stack
-- Content in Emacs Org mode, exported by Emacs at build time
-- TypeScript SPA with lit-html, bundled by esbuild
-- Tailwind v4, no preflight
-- Self-hosted fonts and thumbnails: no third-party requests on page load
-- Dependencies pinned in npm, nothing vendored
+Every view is prerendered at its own address, so crawlers and link previews see real pages without running JavaScript.
 
-** Site
-- One page, every view prerendered into =<main>= and a JSON blob in =<head>=
-- History API routing, with a real page at every address for crawlers and link previews
-- Per-page title, description and OG image from Org properties
-- Paginated collections (Blog, Off the clock), one @@html:<a href="/rss.xml">RSS feed</a>@@, =sitemap.xml=
+It moved from GitHub Pages to Cloudflare Workers Static Assets, with content-hashed assets cached forever and media served from R2.
 
-** Hosting
-- Migrated from GitHub Pages to Cloudflare Workers Static Assets
-- Content-hashed JS, CSS and fonts, cached forever; pages revalidate by ETag
-- Version check offers a Reload when a deploy lands under an open tab
-- Video and media on R2 with a custom domain and range requests
+Three Workers run the site, the contact form, and a Stripe license server that signs keys apps verify offline.
 
-** Workers
-- Site: static assets, plus an Access-gated admin for R2 uploads
-- Contact: Turnstile-verified form, delivered through Email Routing
-- Licenses: Stripe Checkout and webhooks, D1, Resend email, per-product signed keys verified offline, lifetime honor-system seats
-- No personal data in any cache: license API is =no-store=, checkout ids stay after the =#=
-
-** CI/CD
-- Every change is a PR; =master= is protected
-- Required =check=: full build, link check, typecheck, Worker tests, workflow lint
-- Merge is the deploy: GitHub Actions builds, deploys to Cloudflare, smoke-tests prod
-- One deploy credential, scoped to three Workers
-- Action pins and npm bumped weekly by Dependabot
+Every change is a pull request, a required check builds and tests everything, and the merge is the deploy.
