@@ -107,12 +107,22 @@ class OwnerMerge(unittest.TestCase):
 class Secrets(unittest.TestCase):
     """A pull request's code runs in check.yml: no secret may be anywhere it can read."""
 
-    def test_only_deploy_yml_names_a_secret(self):
+    def test_only_the_deploy_and_the_purge_name_a_secret(self):
         for path in sorted(WORKFLOWS.glob("*.yml")):
-            if path.name == "deploy.yml":
+            if path.name in ("deploy.yml", "purge-cache.yml"):
                 continue
             with self.subTest(file=path.name):
                 self.assertNotIn("secrets.", path.read_text())
+
+    def test_the_purge_button_runs_on_master_in_production_and_runs_no_code(self):
+        purge = text("purge-cache.yml")
+        on = purge.split("\njobs:")[0]
+        self.assertRegex(on, r"on:\n  workflow_dispatch:\n", "a button, nothing else")
+        self.assertNotIn("pull_request", on)
+        self.assertIn("environment: production", purge)
+        code = "\n".join(l for l in purge.splitlines() if not l.lstrip().startswith("#"))
+        self.assertNotRegex(code, r"\buses:", "no checkout: nothing from the repository runs")
+        self.assertEqual(set(re.findall(r"secrets\.(\w+)", purge)), {"CLOUDFLARE_PURGE_TOKEN"})
 
     def test_deploy_runs_on_master_only_and_its_secrets_in_production(self):
         deploy = text("deploy.yml")

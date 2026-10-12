@@ -30,7 +30,8 @@
     "MEDIA_ORIGIN": "https://media.adamschaefers.com",
     "ACCESS_TEAM": "adamschaefers.cloudflareaccess.com",
     "ACCESS_AUD": "fdaaaa23a991b3a2012281d42baec7df41dd0442c256ae40895dfdca83ed95ca",
-    "ADMIN_EMAIL": "adam.schaefers@icloud.com"
+    "ADMIN_EMAIL": "adam.schaefers@icloud.com",
+    "ZONE_ID": "8c24a36f8948b4e42d61ae9f69e6c434"
   },
   // A route, not a custom domain: the apex's DNS record is a proxied placeholder.
   "routes": [{ "pattern": "adamschaefers.com/*", "zone_name": "adamschaefers.com" }],

@@ -22,7 +22,9 @@
 #   - Secret scanning with push protection; Dependabot alerts and fixes.
 #   - The `production` environment, which only master may deploy from: it holds the
 #     Cloudflare token (CLOUDFLARE_API_TOKEN, set by hand: gh secret set CLOUDFLARE_API_TOKEN
-#     --env production). The account id is a repository variable (not a secret).
+#     --env production), and the token purge-cache.yml purges the media domain with
+#     (CLOUDFLARE_PURGE_TOKEN, the same way). The account and zone ids are repository
+#     variables (not secrets).
 #   - GitHub Pages off: Cloudflare serves the site (site-worker/).
 #
 # The emergency door: when the check itself is broken and its fix cannot pass
@@ -35,6 +37,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")/.."
 repo=${REPO:-a-schaefers/adamschaefers.com}
 ruleset=.github/rulesets/master.json
 account_id=6093bc0889c95a08f0a92a8df6750c66
+zone_id=8c24a36f8948b4e42d61ae9f69e6c434
 mode=${1:-}
 case "$mode" in
   check|apply) ;;
@@ -97,10 +100,13 @@ if [ "$mode" = check ]; then
     same "production deploys from" '["master"]' "$(gh api "repos/$repo/environments/production/deployment-branch-policies" --jq '[.branch_policies[].name]')"
     if gh api "repos/$repo/environments/production/secrets/CLOUDFLARE_API_TOKEN" --silent 2>/dev/null; then echo "ok     production has CLOUDFLARE_API_TOKEN"
     else echo "DRIFT  production has no CLOUDFLARE_API_TOKEN (gh secret set CLOUDFLARE_API_TOKEN --env production)"; drift=1; fi
+    if gh api "repos/$repo/environments/production/secrets/CLOUDFLARE_PURGE_TOKEN" --silent 2>/dev/null; then echo "ok     production has CLOUDFLARE_PURGE_TOKEN"
+    else echo "DRIFT  production has no CLOUDFLARE_PURGE_TOKEN (gh secret set CLOUDFLARE_PURGE_TOKEN --env production)"; drift=1; fi
   else
     echo "DRIFT  no production environment"; drift=1
   fi
   same "variables" "{\"value\": \"$account_id\"}" "$(gh api "repos/$repo/actions/variables/CLOUDFLARE_ACCOUNT_ID" 2>/dev/null || echo '{}')"
+  same "zone variable" "{\"value\": \"$zone_id\"}" "$(gh api "repos/$repo/actions/variables/CLOUDFLARE_ZONE_ID" 2>/dev/null || echo '{}')"
   if gh api "repos/$repo/pages" --silent 2>/dev/null; then echo "DRIFT  GitHub Pages is on"; drift=1; else echo "ok     GitHub Pages is off"; fi
   if [ -z "$id" ]; then
     echo "DRIFT  ruleset \"$name\" does not exist"; drift=1
@@ -128,6 +134,7 @@ if ! gh api "repos/$repo/environments/production/deployment-branch-policies" --j
   put POST "repos/$repo/environments/production/deployment-branch-policies" '{ "name": "master", "type": "branch" }'
 fi
 gh variable set CLOUDFLARE_ACCOUNT_ID --repo "$repo" --body "$account_id" && echo "set    variable CLOUDFLARE_ACCOUNT_ID"
+gh variable set CLOUDFLARE_ZONE_ID --repo "$repo" --body "$zone_id" && echo "set    variable CLOUDFLARE_ZONE_ID"
 if gh api "repos/$repo/pages" --silent 2>/dev/null; then
   gh api -X DELETE "repos/$repo/pages" --silent && echo "set    GitHub Pages off"
 fi

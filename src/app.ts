@@ -20,6 +20,7 @@ import { mountContactForms } from './contact.ts';
 import { mountStore, mountLicense } from './store.ts';
 import { mountProfileZoom } from './profile.ts';
 import { mountCourse } from './course.ts';
+import { watchVersion } from './version.ts';
 
 // The #site-data JSON (site.el): index.org's :view: sections and the collections.
 interface Section { id: string; title: string; html: string; description: string; image: string }
@@ -244,7 +245,7 @@ function notFound(path: string) {
     </div>`;
 }
 
-// Where Stripe sends a license buyer back; js/store.ts fills in the key.
+// Where Stripe sends a license buyer back; src/store.ts fills in the key.
 const license = (session: string) => html`
     <div class="outline-2 license">
         <h2>Thank you!</h2>
@@ -362,3 +363,4 @@ document.getElementById('year')!.textContent = String(new Date().getFullYear());
 addEventListener('popstate', show);
 addEventListener('hashchange', show);
 show();
+watchVersion();

@@ -1,5 +1,5 @@
 #+TITLE: Zakynthos, Greece 🇬🇷
 #+VIDEO: https://media.adamschaefers.com/zakynthos.mp4
-#+POSTER: videos/zakynthos.jpg
+#+POSTER: off-the-clock/zakynthos.jpg
 
 Holiday in Zakynthos (Zante), Greece 🇬🇷

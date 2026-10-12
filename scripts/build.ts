@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 // make build's first step: compile what the pages load, into build/ (git ignores it).
 //
-//   build/js/app.js    js/app.ts and everything it imports (lit-html from npm included), one
+//   build/js/app.js    src/app.ts and everything it imports (lit-html from npm included), one
 //                      module bundled by esbuild, minified, with its source map
-//   build/site.css     site.css and the Tailwind utilities the templates use (js/, site.el),
+//   build/site.css     src/site.css and the Tailwind utilities the templates use (src/, site.el),
 //                      compiled by Tailwind's CLI, minified
 //
-// site.el then names each by a hash of its contents (js/app.<hash>.js, site.<hash>.css), and
-// scripts/dist.sh publishes it under that name.
+// site.el then names each by a hash of its contents (js/app.<hash>.js, site.<hash>.css),
+// writes the pages beside them, and scripts/dist.sh publishes it all as public/.
 //
 // And each Worker's admin page (site-worker's assets, license-worker's licenses): its script
 // (src/admin-page.ts) and styles (src/admin-page.css), compiled the same way into
@@ -64,7 +64,7 @@ if (process.argv[2] !== 'workers') {
   rmSync(`${ROOT}build`, { recursive: true, force: true });
   await build({
     absWorkingDir: ROOT,
-    entryPoints: ['js/app.ts'],
+    entryPoints: ['src/app.ts'],
     outfile: 'build/js/app.js',
     bundle: true,
     format: 'esm',
@@ -75,7 +75,7 @@ if (process.argv[2] !== 'workers') {
   });
   console.log('build: build/js/app.js');
   mkdirSync(`${ROOT}build`, { recursive: true });
-  writeFileSync(`${ROOT}build/site.css`, tailwind('site.css'));
+  writeFileSync(`${ROOT}build/site.css`, tailwind('src/site.css'));
   console.log('build: build/site.css');
 }
 for (const worker of WORKERS) await adminPage(worker);

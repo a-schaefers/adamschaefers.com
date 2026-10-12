@@ -1,19 +1,30 @@
 # CLAUDE.md
 
-Edit the Org sources. The HTML, the feed and the sitemap are build output: git
-ignores them, and CI builds and deploys them on every merge. `README.md` covers
-repo setup only. After editing, build and look with:
+Edit the Org sources in `content/`. The HTML, the feed and the sitemap are
+build output: git ignores them, and CI builds and deploys them on every merge.
+`README.md` covers repo setup only. After editing, build and look with:
 
     make build      # make run serves it at http://localhost:8000
+
+The layout: `content/` is what the site says (`index.org`; `blog.org` and
+`blog/`; `off-the-clock.org` and `off-the-clock/`, each travelog's poster
+beside its entry). `static/` is served as it is at the site root (`images/`,
+`me.jpeg`, `robots.txt`; its `fonts/README.md` documents the fonts, which come
+from npm). `src/` is the TypeScript and `site.css`. `site.el` and `scripts/`
+are the build; the three Workers have their folders. Everything generated goes
+to `build/` (the compiled script and styles, every page, the feed, the sitemap)
+and then `public/` (exactly what is served); neither is committed. Paths in
+Org files and, unless said otherwise, in this file are the site's addresses:
+`images/og.jpg` is `static/images/og.jpg` in the repository.
 
 Every change reaches `master` through a pull request (`scripts/ship.sh`), and
 the merge is the deploy: `.claude/rules/cicd.md` is the pipeline.
 
-The site is one page, built by `site.el`. `index.html` is `index.org`
+The site is one page, built by `site.el`. `index.html` is `content/index.org`
 exported without its `:view:` sections; those sections and the collections
 (below) go into a JSON blob in the page head (`#site-data`), so the first
 load carries everything. The menu is static HTML (`site-tabs` in `site.el`:
-each tab's route, address, label and icon); `js/app.ts` (lit-html, from npm)
+each tab's route, address, label and icon); `src/app.ts` (lit-html, from npm)
 marks the open tab and renders one view at a time from it. The build also draws
 each page's own view into its `<main>` (the home's three sections, a view's
 section; the collections' listings and the sitemap only app.ts draws), so it is
@@ -23,7 +34,7 @@ each collection `/blog/`, `/blog/2/`, `/blog/<entry slug>/`), and the build
 writes the page at each: `index.html` again, with that view's title and
 preview tags (below), plus `404.html` for any other path (served with a
 404; app.ts shows Page not found, pointing at the view the path's first part
-names, if any). `js/app.ts` catches
+names, if any). `src/app.ts` catches
 links between views and switches without a page load (History API), so the
 address bar always holds the view's own address. The page has
 `<base href="/">`, so relative links reach the same files from every address,
@@ -31,13 +42,13 @@ and app.ts follows bare `#anchors` on the page they're on. Old hash routes
 (`/#store`, still in links out there) show the view and give way to its
 address. Link views by address (`<a href="/inquiries/">`), not `#inquiries`.
 A section is shown by tagging it `:view:` and listing it under a tab
-in `TABS` in `js/app.ts` (Projects shows About, the Quest Log and the slop
+in `TABS` in `src/app.ts` (Projects shows About, the Quest Log and the slop
 shelf); the tab itself is in `site-tabs` in `site.el`.
 All the code is TypeScript, and npm manages everything from outside
 (`package.json`, pinned; nothing vendored). `make build` compiles first
-(`scripts/build.ts`): esbuild bundles `js/app.ts` and all it imports (lit-html,
-`js/contact.ts`, `js/store.ts`, and the sidebar's `js/profile.ts` and
-`js/course.ts`) into one `js/app.<hash>.js`, and Tailwind compiles `site.css`
+(`scripts/build.ts`): esbuild bundles `src/app.ts` and all it imports (lit-html,
+`src/contact.ts`, `src/store.ts`, and the sidebar's `src/profile.ts` and
+`src/course.ts`) into one `js/app.<hash>.js`, and Tailwind compiles `src/site.css`
 into `site.<hash>.css`; a browser keeps both for good, a change being a new name.
 `make typecheck` checks every TypeScript project (each has its own
 `tsconfig.json`: the browser's code, each Worker, their tests, the Node scripts).
@@ -51,13 +62,13 @@ course's thumbnails are `images/course/<video id>.jpg`, served from here so a
 page view reaches no YouTube server.
 The privacy policy and terms of service (`/privacy-policy/`,
 `/terms-of-service/`) are `:view:` sections in index.org, routed through
-`PAGES` in `js/app.ts`; keep the policy in step with what the site and
+`PAGES` in `src/app.ts`; keep the policy in step with what the site and
 `license-worker/` actually collect and who they send it to.
 Link previews (social media, chat apps) and crawlers read HTML without running
 JavaScript and drop everything after `#`; that's why views have real
 addresses. Every view, product, entry and later listing page has its page
-(`store/index.html`, `store/backseat-driver/index.html`,
-`off-the-clock/<slug>/index.html`; listed in `share-pages.txt`, which the
+(`build/store/index.html`, `build/store/backseat-driver/index.html`,
+`build/off-the-clock/<slug>/index.html`; listed in `build/share-pages.txt`, which the
 build uses to drop pages that are gone), and each carries its
 title, a description and a picture. Set them in
 the Org sources: `:DESCRIPTION:` and `:IMAGE:` properties on a view's heading,
@@ -66,20 +77,20 @@ entry, `data-share-image` on a product's `<article>` (previews want PNG or
 JPEG, not WebP). Without them: the first paragraph or excerpt, a travelog's
 poster, and `images/og.jpg` (the 1200x630 card of the profile photo, name and
 roles). `index.html` carries the home page's preview tags.
-The styles are Tailwind (v4), configured in `site.css`: the palette, fonts and
+The styles are Tailwind (v4), configured in `src/site.css`: the palette, fonts and
 animations are its theme, and its breakpoints are `phone:` (the bottom tab bar
 and one column, up to 56rem), `narrow:` (40rem) and `tall:`. Markup the
-TypeScript renders (`js/`) and `site.el` writes (the menu's and footer's
+TypeScript renders (`src/`) and `site.el` writes (the menu's and footer's
 frames) carries utility classes. Markup Org writes and index.org's own HTML
 blocks (the sidebar, the products) keep semantic classes, styled in `site.css`
-with `@apply`; Tailwind reads only `js/` and `site.el` for classes, so a
+with `@apply`; Tailwind reads only `src/` and `site.el` for classes, so a
 utility class in index.org does nothing. No preflight: the browser's defaults
 are the reset, with `site.css`'s base layer on top. Org's section wrappers are
 `.outline-2`, which `site.css` keeps from becoming Tailwind's 2px outline.
 
 A collection is a folder of dated entries plus an index file, listed newest
-first and paginated: the Blog (`blog/`, `blog.org`) and Off the clock
-(`off-the-clock/`, `off-the-clock.org`). Both are declared in
+first and paginated: the Blog (`content/blog/`, `content/blog.org`) and Off the
+clock (`content/off-the-clock/`, `content/off-the-clock.org`). Both are declared in
 `site-collections` in `site.el` and as tabs with `collection:` in `TABS`.
 Entries are `DIR/YYYY-MM-DD-slug.org`: date from the file name, title from
 `#+TITLE`, listing excerpt from `#+DESCRIPTION` or the first paragraph. An
@@ -87,7 +98,8 @@ entry with `#+VIDEO` (and `#+POSTER`) shows as that video, its text the
 caption; that's every Off the clock entry (travelogs). The video is an
 address on the media domain (`#+VIDEO: https://media.adamschaefers.com/evia.mp4`,
 below). Entry HTML is shown from the site root, so link files in the repo as
-`blog/...`, `videos/...` (the posters).
+`blog/...`, `off-the-clock/...` (a travelog's poster, `off-the-clock/<name>.jpg`,
+sits beside its entry).
 Links out of the site open in a new tab. The index file holds the
 collection's title, intro and `#+POSTS_PER_PAGE` (Off the clock: 12).
 
@@ -98,15 +110,16 @@ https://adamschaefers.com/ and videos as enclosures. Items link to the
 entries' addresses; their guids keep the old `#route` form, so readers don't
 show every entry again. It also writes `sitemap.xml`, every page for
 crawlers; the `/sitemap/` view lists them for people.
-`robots.txt` points at `sitemap.xml`. Nothing the build writes is committed:
-git ignores every page's `index.html`, `404.html`, `rss.xml`, `sitemap.xml`,
-`share-pages.txt`, `assets.txt`, `build/` (the compiled script and styles),
-the Workers' `src/admin-page.gen.ts` (below) and `public/`. `make build` ends
-with `scripts/dist.sh`, which assembles `public/`: exactly what the site serves
-(the pages, the hashed styles, script (with its source map) and fonts, and the
-tracked files pages link to; not the TypeScript, `node_modules`, the Org
-sources or the Workers), plus `_headers` and `_redirects` from
-`site-worker/`.
+`static/robots.txt` points at `sitemap.xml`. Nothing the build writes is
+committed: git ignores `build/` (the compiled script and styles, every page,
+the feed, the sitemap, `share-pages.txt` and `assets.txt`), the Workers'
+`src/admin-page.gen.ts` (below) and `public/`. `make build` ends with
+`scripts/dist.sh`, which assembles `public/`: exactly what the site serves
+(from `build/`, the pages and the hashed styles, script (with its source map)
+and fonts; `static/` as it is, at the site root; every non-Org file under
+`content/`, at its path under the site root; not the TypeScript,
+`node_modules`, the Org sources or the Workers), plus `_headers` and
+`_redirects` from `site-worker/`.
 
 Hosting (2026-10-11; before it, GitHub Pages served the repository as it was):
 `site-worker/` is the Worker `adamschaefers-site`, on the route
@@ -121,7 +134,12 @@ shared with merecatholicity.com); only `/admin` runs it. Never add `"cache"`
 (Workers caching) to its `wrangler.jsonc`: it would bill every asset request
 as the Worker's (a test keeps it out). A deploy uploads only the changed files
 and switches them all at once; `npx wrangler rollback -c
-site-worker/wrangler.jsonc` goes back a version, files and all.
+site-worker/wrangler.jsonc` goes back a version, files and all. No zone purge
+reaches these files (tested 2026-10-11) and none is needed: each deploy serves
+its own. `version.json` (`scripts/dist.sh`) names the script's and styles'
+hashes, and `src/version.ts` offers a tab left open over a deploy "Reload"
+(never reloading by itself). When checking the live site, add a throwaway
+query (`?probe=$RANDOM`), as `scripts/smoke.sh` does.
 
 Videos, pictures and files too big or too changeable for git live in R2, the
 bucket `adamschaefers-media`, which R2 itself serves at
@@ -131,9 +149,11 @@ https://adamschaefers.com/admin/ (`site-worker/src/admin.ts`, behind the
 Cloudflare Access application "adamschaefers.com assets admin",
 adam.schaefers@icloud.com): upload one (up to 100 MB), copy its Org line
 (`#+VIDEO: https://media.adamschaefers.com/evia.mp4`, `[[https://media.adamschaefers.com/photo.jpg]]`)
-or its address, delete one. An upload is kept in caches an hour, so a changed
-file gets a new name (the admin refuses a taken name unless Replace is
-ticked). `make check` asks for every media address a page names, and the feed
+or its address, delete one. An upload is kept in caches an hour; replacing or
+deleting one purges it from Cloudflare's edge at once (the Worker secret
+`PURGE_TOKEN`), but a browser that has it keeps it up to the hour, so a
+changed file still gets a new name (the admin refuses a taken name unless
+Replace is ticked). `purge-cache.yml` empties the media domain's cache by hand. `make check` asks for every media address a page names, and the feed
 gives each video's size from its answer. The old `/videos/<name>.mp4`
 addresses redirect there (`site-worker/_redirects`). Encode videos before
 uploading, with ffmpeg as H.264 High + AAC, yuv420p, `-movflags +faststart`
@@ -147,7 +167,7 @@ Grotesque (Fontsource's variable font, latin and latin-ext subsets; the latin
 one is preloaded) and the flag font, which draws flag emoji Windows lacks.
 The build publishes each under a hashed name in `fonts/` and points `site.css`
 at it, so browsers keep them for good. Nothing loads from Google Fonts. See
-`fonts/README.md`.
+`static/fonts/README.md`.
 
 Each Worker's admin page (the assets at `/admin/` here, the licenses below)
 has its script in `src/admin-page.ts` and its styles in `src/admin-page.css`
@@ -161,7 +181,7 @@ real money (there is no sandbox). Each product is an
 `<article class="product" id="product-<id>">` with its image
 (`images/store/<id>.webp`, which zooms on a click; `data-share-image` names a
 PNG or JPEG copy for link previews), its words in Org, and two mounts that
-`js/store.ts` fills from their `data-*` attributes (product id, prices, volume
+`src/store.ts` fills from their `data-*` attributes (product id, prices, volume
 seats; they must match the Worker's): the buy form, and "Add seats to your
 license", a link (so several products don't repeat a box down the page) that
 opens a card which shows a key's seats and recent installs and adds seats. Below the products, "Lost your key?" emails an address every key
@@ -175,14 +195,14 @@ is opened. Buying and adding seats don't (owner, 2026-10-11): they only make
 a Stripe Checkout page, which has Stripe's own CAPTCHA and card-testing
 defenses, and adding seats needs a signed key. The server takes requests
 from the site's origin only, so locally the store shows but can't buy.
-`js/store.ts` renders the check with `loadTurnstile` from
-`js/contact.ts` (Turnstile's script must be on the page once), and shares its
+`src/store.ts` renders the check with `loadTurnstile` from
+`src/contact.ts` (Turnstile's script must be on the page once), and shares its
 "sent" card. A Cloudflare rate-limit rule on
 the zone allows 5 `POST /v1/checkout` or `/v1/recover` per IP per 10 seconds,
 and the Worker's own limit 20 a minute per IP on every site route.
 Bot Fight Mode stays off: on the free plan it can't be skipped, and it would
 challenge Stripe's webhooks, the plugin's key check and the contact form. A
-product's own address (`/store/backseat-driver/`, `PAGES` in `js/app.ts`;
+product's own address (`/store/backseat-driver/`, `PAGES` in `src/app.ts`;
 the old `/backseat-driver/` still leads there) shows the store at that
 product. Stripe returns buyers to `/#license/<checkout id>` (the
 one view left on a hash: private, so no page), where
@@ -255,7 +275,7 @@ The site (Workers Static Assets, above): its pages are revalidated on every
 visit, only hashed files are kept long, and a picture or video that changes
 gets a new name rather than replacing a file caches may hold.
 
-The Inquiries (Contact) view's form is mounted by `js/contact.ts`, the module
+The Inquiries (Contact) view's form is mounted by `src/contact.ts`, the module
 that began as `js/contact.js` in ../enchant.games (here TypeScript, its
 markup Tailwind's). It posts to `contact-worker/`, a
 Cloudflare Worker (`adamschaefers-contact`) at contact-api.adamschaefers.com.
@@ -277,7 +297,7 @@ Checks and where they run (owner, 2026-10-11: no slow suites on this old
 machine when CI already runs them). `make check` is CI's required check
 (`.claude/rules/cicd.md`): the build, every link, the types, the Workers'
 tests and the workflows' rules, in seconds, so running it before shipping is
-cheap. A headless-browser look is worth it after changing `js/` or the styles
+cheap. A headless-browser look is worth it after changing `src/` or the styles
 (`site.css`, or a template's classes), not after editing words. In
 ../backseat-driver, don't run its whole suite locally (`npm run check`,
 `npm test`): its pull requests' required `check` runs it on GitHub. Run there

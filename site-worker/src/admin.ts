@@ -9,9 +9,12 @@
      PUT    /admin/api/media/<name>       upload (the body is the file); ?replace=1 replaces
      DELETE /admin/api/media/<name>       delete
 
-   A replaced file can stay in caches for up to an hour (its Cache-Control), so a changed
-   file is better uploaded under a new name. An upload is one request, up to the Worker's
-   100 MB limit: encode videos first (CLAUDE.md), which keeps them far below it. */
+   Cloudflare's edge keeps a media file an hour (its Cache-Control), so a replaced or deleted
+   one is purged from it at once (2026-10-11, the zone's purge API with PURGE_TOKEN, a Worker
+   secret); the answer says whether that worked. A browser that already has the old file
+   keeps it up to that hour, which no purge reaches, so a changed file is still better
+   uploaded under a new name. An upload is one request, up to the Worker's 100 MB limit:
+   encode videos first (CLAUDE.md), which keeps them far below it. */
 
 import { adminEmail } from './access.ts';
 import { SCRIPT, STYLE } from './admin-page.gen.ts';
@@ -37,6 +40,22 @@ const json = (data: unknown, status = 200) => new Response(JSON.stringify(data),
   status,
   headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...SECURITY },
 });
+
+/** Clear Cloudflare's copy of URL. Never fails the change it follows: false when it didn't
+    happen (no PURGE_TOKEN, or Cloudflare refused), and the page says caches may lag. */
+async function purge(env: Env, url: string) {
+  if (!env.PURGE_TOKEN) return false;
+  try {
+    const r = await fetch(`https://api.cloudflare.com/client/v4/zones/${env.ZONE_ID}/purge_cache`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${env.PURGE_TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ files: [url] }),
+    });
+    return ((await r.json()) as { success?: boolean }).success === true;
+  } catch {
+    return false;
+  }
+}
 
 // A change must come from this page: not a form or script on another site riding the
 // Access cookie.
@@ -89,15 +108,18 @@ export async function admin(request: Request, env: Env, url: URL) {
   }
   if (request.method === 'DELETE') {
     await env.MEDIA.delete(name);
-    return json({ deleted: name });
+    return json({ deleted: name, purged: await purge(env, `${env.MEDIA_ORIGIN}/${name}`) });
   }
   if (request.method === 'PUT') {
     if (!request.body || !Number(request.headers.get('Content-Length'))) return json({ error: 'No file came with the upload.' }, 400);
-    if (url.searchParams.get('replace') !== '1' && (await env.MEDIA.head(name))) {
-      return json({ error: `${name} is taken. Upload it under a new name (caches may hold the old one for an hour), or tick Replace.`, taken: true }, 409);
+    const taken = Boolean(await env.MEDIA.head(name));
+    if (url.searchParams.get('replace') !== '1' && taken) {
+      return json({ error: `${name} is taken. Upload it under a new name (browsers may hold the old one for an hour), or tick Replace.`, taken: true }, 409);
     }
     const object = (await env.MEDIA.put(name, request.body, { httpMetadata: { contentType: type, cacheControl: CACHE_CONTROL } }))!;
-    return json({ name: object.key, url: `${env.MEDIA_ORIGIN}/${object.key}`, size: object.size, type });
+    const address = `${env.MEDIA_ORIGIN}/${object.key}`;
+    // A new name was never cached: only a replaced file needs its old copy purged.
+    return json({ name: object.key, url: address, size: object.size, type, ...(taken && { purged: await purge(env, address) }) });
   }
   return json({ error: 'Method not allowed' }, 405);
 }

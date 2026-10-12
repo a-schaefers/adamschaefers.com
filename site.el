@@ -4,17 +4,18 @@
 ;;
 ;;   emacs -Q --batch -l site.el -f site-build
 ;;
-;; The site is one page.  index.html is index.org exported without its
+;; The site is one page.  index.html is content/index.org exported without its
 ;; sections tagged :view:.  Those sections and the collections (below) go
-;; into a JSON blob in the page head instead, and js/app.ts renders the menu
+;; into a JSON blob in the page head instead, and src/app.ts renders the menu
 ;; and one view at a time from it.  Everything arrives with the first load,
 ;; so switching views never loads a page.  Each view still has an address of
 ;; its own (/store/, /blog/<slug>/), where the build writes the same page
 ;; with that view's title and link preview (see "Pages" below).
 ;;
 ;; A collection is a folder of dated entries with an index file, listed and
-;; paginated like a blog: the Blog (blog/, blog.org) and Off the clock
-;; (off-the-clock/, off-the-clock.org).  Entries are DIR/YYYY-MM-DD-slug.org.
+;; paginated like a blog: the Blog (content/blog/, content/blog.org) and Off the
+;; clock (content/off-the-clock/, content/off-the-clock.org).  Entries are
+;; DIR/YYYY-MM-DD-slug.org.
 ;; The date comes from the file name, the title from #+TITLE (or the slug),
 ;; and the listing excerpt from #+DESCRIPTION (or the first paragraph).  An
 ;; entry with #+VIDEO (and #+POSTER) is shown as that video, its text the
@@ -22,7 +23,10 @@
 ;; #+POSTS_PER_PAGE.
 ;;
 ;; The build also writes rss.xml, one feed of every collection's entries in
-;; full, and sitemap.xml.  Videos aren't in git: they are uploaded at /admin
+;; full, and sitemap.xml.  Everything it writes goes to build/ (`site-out'),
+;; beside the script and styles scripts/build.ts compiled there, and
+;; scripts/dist.sh assembles public/, what the site serves, from that and
+;; static/.  Videos aren't in git: they are uploaded at /admin
 ;; to R2 and named by their address there (#+VIDEO:
 ;; https://media.adamschaefers.com/evia.mp4), which also gives the feed their
 ;; size.
@@ -34,10 +38,18 @@
 (require 'url)
 (require 'xml)
 
+(defconst site-content "content/"
+  "The Org sources: index.org, and each collection's index file and folder.")
+(defconst site-out "build/"
+  "Where everything built goes (git ignores it): the pages, the feed, the sitemap,
+`site-asset-list' and `site-share-list', beside the script and styles
+scripts/build.ts compiled there.  scripts/dist.sh assembles public/ from it.")
 (defconst site-collections
-  '((blog :dir "blog/" :index "blog.org" :name "Blog")
-    (off-the-clock :dir "off-the-clock/" :index "off-the-clock.org" :name "Off the clock"))
-  "Each collection: its route (the symbol), entry folder, index file and name.")
+  '((blog :dir "content/blog/" :index "content/blog.org" :name "Blog")
+    (off-the-clock :dir "content/off-the-clock/" :index "content/off-the-clock.org" :name "Off the clock"))
+  "Each collection: its route (the symbol), entry folder, index file and name.
+Entries are served at /<route>/<slug>/, and the folder's other files (a
+travelog's poster) at /<route>/<file>.")
 (defconst site-feed "rss.xml"
   "The one feed: every collection's entries, newest first.")
 (defconst site-entry-re
@@ -45,14 +57,14 @@
 (defconst site-default-per-page 10)
 (defconst site-url "https://adamschaefers.com/")
 (defconst site-asset-list "assets.txt"
-  "The styles and scripts given hashed names this build, one \"FILE HASHED\" a
-line, for make dist to publish under those names.")
+  "The styles, scripts and fonts given hashed names this build, one \"FILE HASHED\"
+a line in `site-out', for make dist to publish under those names.")
 (defconst site-script "build/js/app.js"
-  "The page's script: js/app.ts and everything it imports, lit-html included, bundled
+  "The page's script: src/app.ts and everything it imports, lit-html included, bundled
 by scripts/build.ts (make build runs it first).  Published as js/app.<hash>.js.")
 (defconst site-style "build/site.css"
-  "The page's styles: site.css and the Tailwind utilities the templates use (here,
-in js/), compiled by scripts/build.ts.  Published as site.<hash>.css, from
+  "The page's styles: src/site.css and the Tailwind utilities the templates use (src/
+and this file), compiled by scripts/build.ts.  Published as site.<hash>.css, from
 `site-style-out'.")
 (defconst site-style-out "build/site.hashed.css"
   "`site-style' with its fonts at their hashed names (`site--style').")
@@ -63,7 +75,7 @@ in js/), compiled by scripts/build.ts.  Published as site.<hash>.css, from
      . "fonts/bricolage-grotesque-latin-ext.woff2")
     ("node_modules/country-flag-emoji-polyfill/dist/TwemojiCountryFlags.woff2"
      . "fonts/TwemojiCountryFlags.woff2"))
-  "The fonts (FILE . NAME), each from its npm package (fonts/README.md): site.css
+  "The fonts (FILE . NAME), each from its npm package (static/fonts/README.md): site.css
 names it /NAME, and `site--style' publishes it under a hashed name instead.")
 (defconst site-font-preload "fonts/bricolage-grotesque-latin.woff2"
   "The font every page needs (its NAME in `site-fonts'), fetched along with the page.")
@@ -247,7 +259,7 @@ Missing is an error in CI; a local build without the network writes 0."
                      ;; Stable, so same-day entries keep collection order.
                      (lambda (a b) (string> (alist-get 'date (cadr a))
                                             (alist-get 'date (cadr b)))))))
-    (with-temp-file site-feed
+    (with-temp-file (site--out site-feed)
       (insert "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
               "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:content=\"http://purl.org/rss/1.0/modules/content/\">\n"
               "<channel>\n"
@@ -284,15 +296,14 @@ Missing is an error in CI; a local build without the network writes 0."
 ;; Link previews (social media, chat apps) and search crawlers read a page's
 ;; HTML without running its JavaScript, and drop everything after #.  So every
 ;; view, product, entry and page of a listing has an address of its own, and
-;; the build writes the page there (store/index.html,
-;; off-the-clock/<slug>/index.html, ...): index.html again, with that view's
-;; title, description and picture.  js/app.ts shows the view an address names,
+;; the build writes the page there (build/store/index.html,
+;; build/off-the-clock/<slug>/index.html, ...): index.html again, with that view's
+;; title, description and picture.  src/app.ts shows the view an address names,
 ;; and links between views switch in place, so the address bar always holds
 ;; an address that previews right.  The page has <base href="/">, so its
 ;; relative links reach the same files from every address.  404.html, the same
 ;; again, catches any other path.  The pages made are listed in
-;; share-pages.txt, so the next build (and the pre-commit hook) can drop the
-;; ones that are gone.
+;; build/share-pages.txt, which scripts/dist.sh copies from.
 ;;
 ;; The words and pictures come from the Org sources: a view's DESCRIPTION and
 ;; IMAGE properties, #+DESCRIPTION and #+IMAGE in blog.org, off-the-clock.org and
@@ -307,10 +318,10 @@ Missing is an error in CI; a local build without the network writes 0."
     ("off-the-clock" "/off-the-clock/" "Off the clock" "<path d=\"M4 15v-3a8 8 0 0 1 16 0v3\"/><rect x=\"3\" y=\"14\" width=\"4\" height=\"7\" rx=\"1.5\"/><rect x=\"17\" y=\"14\" width=\"4\" height=\"7\" rx=\"1.5\"/>")
     ("store" "/store/" "Store" "<path d=\"M5 8h14l-1 12H6z\"/><path d=\"M9 8V6a3 3 0 0 1 6 0v2\"/>")
     ("inquiries" "/inquiries/" "Contact" "<rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"m3 7 9 6 9-6\"/>"))
-  "The menu, in order: each tab's route (TABS in js/app.ts says what it shows),
+  "The menu, in order: each tab's route (TABS in src/app.ts says what it shows),
 address, label and icon (24x24 paths drawn with currentColor; phones show it over
 the label in the bottom bar).  The first is the home page's.  The labels reach
-js/app.ts in #site-data.")
+src/app.ts in #site-data.")
 (defconst site-tab-class
   (concat "flex items-center rounded-full px-[.9rem] py-[.45rem] text-[.95rem] font-semibold text-dust no-underline "
           "hover:bg-mesa hover:text-sand aria-[current]:bg-mesa aria-[current]:text-turq aria-[current]:inset-ring aria-[current]:inset-ring-ridge [&>svg]:hidden "
@@ -323,7 +334,7 @@ a pill at the top on desktop; on phones, an icon over its label in the bottom ba
 (defconst site-home-views '("about" "quest-log" "slop-shelf")
   "Views shown together as the home page: no page of their own.")
 (defconst site-sitemap-description "Every page and post on adamschaefers.com."
-  "The sitemap view's preview text (js/app.ts draws the view; no Org section).")
+  "The sitemap view's preview text (src/app.ts draws the view; no Org section).")
 (defconst site-share-list "share-pages.txt")
 (defconst site-page-tags "<!-- site: preview tags -->"
   "Stands in the exported page for each page's preview tags.")
@@ -379,7 +390,7 @@ a pill at the top on desktop; on phones, an icon over its label in the bottom ba
 
 (defun site--share-pages (views collections)
   "Every page to make: (PATH TITLE DESCRIPTION IMAGE TYPE [ADDRESS]), PATH under
-the site root and the view's address in js/app.ts.  With ADDRESS, PATH is an old
+the site root and the view's address in src/app.ts.  With ADDRESS, PATH is an old
 address of that page (a product's /<id>/, from before /store/<id>/): the same
 page, its preview naming ADDRESS, and not in the sitemap."
   (let ((fallback (site--summary (alist-get 'html (seq-find (lambda (v) (equal (alist-get 'id v) "about")) views)))))
@@ -411,7 +422,7 @@ page, its preview naming ADDRESS, and not in the sitemap."
                             (push (append (cons pid (cdr page)) (list (car page))) products))))
                       (nreverse products)))))))
       views)
-     ;; The sitemap, which js/app.ts draws.
+     ;; The sitemap, which src/app.ts draws.
      (list (list "sitemap" "Sitemap" site-sitemap-description site-share-image "website"))
      ;; Collections, the later pages of their listings, and their entries.
      (mapcan
@@ -450,7 +461,7 @@ for the page at PATH (`site--frame')."
 
 (defun site--nav ()
   "The menu, static HTML on every page: there before the script runs, and crawlers
-read it.  js/app.ts marks the open tab (aria-current), and `site--frame' marks it
+read it.  src/app.ts marks the open tab (aria-current), and `site--frame' marks it
 first for a page that has one.  The classes are Tailwind's (site.css)."
   (concat "<nav id=\"site-nav\" class=\"site-nav mx-auto box-border max-w-[70rem] px-8 pt-6 pb-0 phone:p-0\" aria-label=\"Main\">"
           "<div class=\"site-tabs flex justify-end gap-1 phone:fixed phone:inset-x-0 phone:bottom-0 phone:z-10 phone:justify-around phone:gap-0 phone:border-t phone:border-t-ridge phone:bg-sky/95 phone:px-0 phone:pt-[.4rem] phone:pb-[calc(.4rem+env(safe-area-inset-bottom))] phone:backdrop-blur-[8px]\">"
@@ -461,10 +472,10 @@ first for a page that has one.  The classes are Tailwind's (site.css)."
           "</div></nav>"))
 
 (defvar site--sections nil
-  "This build's :view: sections as js/app.ts draws them: (ID . HTML).")
+  "This build's :view: sections as src/app.ts draws them: (ID . HTML).")
 
 (defun site--section-html (view)
-  "VIEW (one of `site--views') as js/app.ts's `section' draws it: wrapped the way
+  "VIEW (one of `site--views') as src/app.ts's `section' draws it: wrapped the way
 Org exports a section, so site.css's rules apply."
   (let ((id (alist-get 'id view)))
     (format "<div id=\"outline-container-%s\" class=\"outline-2\"><h2>%s</h2><div class=\"outline-text-2\" id=\"text-%s\">%s</div></div>"
@@ -498,28 +509,32 @@ the script's alone: their <main> stays empty, as does every page's with PATH nil
   (let ((coding-system-for-write 'utf-8-unix))
     (with-temp-file file (insert text))))
 
+(defun site--out (file)
+  "FILE's place under `site-out'."
+  (concat site-out file))
+
 (defun site--write-share-pages (pages template)
   "Write PAGES as PATH/index.html, each TEMPLATE with its own title and preview
 tags, drop the ones an earlier build made that are gone, and list them in
 `site-share-list'."
-  (let ((old (and (file-exists-p site-share-list)
-                  (split-string (with-temp-buffer (insert-file-contents site-share-list) (buffer-string)) "\n" t)))
+  (let ((old (and (file-exists-p (site--out site-share-list))
+                  (split-string (with-temp-buffer (insert-file-contents (site--out site-share-list)) (buffer-string)) "\n" t)))
         made)
     (pcase-dolist (`(,path ,title ,description ,image ,type ,address) pages)
       (let ((file (concat path "/index.html"))
             (url (concat site-url (or address path) "/"))
             (full (format "%s · %s" title site-name)))
-        (make-directory path t)
-        (site--write file (site--page template full
+        (make-directory (site--out path) t)
+        (site--write (site--out file) (site--page template full
                                       (site--meta full description url image (if (equal type "article") "article" "website"))
                                       (or address path)))
         (push file made)))
     (setq made (sort made #'string<))
     (dolist (gone (seq-difference old made))
-      (when (file-exists-p gone)
-        (delete-file gone)
-        (ignore-errors (delete-directory (file-name-directory gone)))))
-    (with-temp-file site-share-list
+      (when (file-exists-p (site--out gone))
+        (delete-file (site--out gone))
+        (ignore-errors (delete-directory (file-name-directory (site--out gone))))))
+    (with-temp-file (site--out site-share-list)
       (insert (mapconcat #'identity made "\n") "\n"))
     made))
 
@@ -528,7 +543,7 @@ tags, drop the ones an earlier build made that are gone, and list them in
 (defun site--write-sitemap (pages)
   "Write sitemap.xml: the home page, and every share page (the views and
 entries at real paths, which crawlers can read)."
-  (with-temp-file "sitemap.xml"
+  (with-temp-file (site--out "sitemap.xml")
     (insert "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n"
             "  <url><loc>" site-url "</loc></url>\n")
@@ -559,7 +574,7 @@ change is a new name."
 
 (defun site--write-asset-list ()
   "Write `site-asset-list' from `site--assets'."
-  (site--write site-asset-list
+  (site--write (site--out site-asset-list)
                (mapconcat (lambda (a) (format "%s %s\n" (car a) (cdr a)))
                           (sort (copy-sequence site--assets) (lambda (a b) (string< (car a) (car b))))
                           "")))
@@ -583,13 +598,17 @@ name, and the styles' hash follows."
     (string-replace "</" "<\\/" (json-encode data))))
 
 (defun site-build ()
-  "Export index.org to index.html, carrying every view's content, and the
-same page at every view's address."
+  "Export content/index.org to build/index.html, carrying every view's content,
+and the same page at every view's address under build/."
   (site--with-export-settings
-   (let ((collections (mapcar (lambda (c) (cons (car c) (site--collection (car c) (cdr c))))
+   (let ((root default-directory)
+         (collections (mapcar (lambda (c) (cons (car c) (site--collection (car c) (cdr c))))
                               site-collections)))
-     (with-current-buffer (find-file-noselect "index.org")
-       (let* ((views (site--views))
+     (make-directory site-out t)
+     (with-current-buffer (find-file-noselect (concat site-content "index.org"))
+       ;; The paths below are the repository's, not content/'s.
+       (let* ((default-directory root)
+              (views (site--views))
               (site--sections (mapcar (lambda (v) (cons (alist-get 'id v) (site--section-html v))) views))
               (data `((views . ,(vconcat views))
                       (collections . ,collections)
@@ -614,7 +633,7 @@ same page at every view's address."
               ;; The menu (`site--nav') and the footer frame every view.  Their classes are
               ;; Tailwind's (site.css): it reads this file for them.
               (org-html-preamble (lambda (_) (site--nav)))
-              ;; js/app.ts keeps the year current; the build year is the fallback.
+              ;; src/app.ts keeps the year current; the build year is the fallback.
               (org-html-postamble
                (lambda (_)
                  (format "<footer class=\"site-footer mx-auto max-w-[70rem] px-8 pt-0 pb-12 text-center text-[.85rem] text-dust\">© <span id=\"year\">%s</span> adamschaefers.com · <a href=\"/sitemap/\">Sitemap</a> · <a href=\"/privacy-policy/\">Privacy</a> · <a href=\"/terms-of-service/\">Terms</a></footer>"
@@ -628,10 +647,10 @@ same page at every view's address."
                 (home-tags (site--meta site-name home site-url site-share-image)))
            (when (equal template export)
              (error "site: no <meta charset> in the exported page to put <base> after"))
-           (site--write "index.html" (site--page template site-name home-tags ""))
-           ;; Any other path (a mistyped address, an entry since removed): js/app.ts
+           (site--write (site--out "index.html") (site--page template site-name home-tags ""))
+           ;; Any other path (a mistyped address, an entry since removed): src/app.ts
            ;; shows Page not found.  Not a page for search engines to keep.
-           (site--write "404.html" (site--page template (format "Page not found · %s" site-name)
+           (site--write (site--out "404.html") (site--page template (format "Page not found · %s" site-name)
                                                (concat "<meta name=\"robots\" content=\"noindex\">\n" home-tags)))
            (site--write-share-pages pages template))
          (site--write-feed collections)

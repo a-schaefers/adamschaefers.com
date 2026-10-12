@@ -59,7 +59,7 @@ $('#rows').addEventListener('click', async (e) => {
     const r = await fetch('/admin/api/media/' + encodeURI(item.name), { method: 'DELETE' });
     const data = await r.json().catch(() => ({}));
     if (!r.ok) return say(data.error || 'Delete failed (' + r.status + ')', true);
-    say('Deleted ' + item.name);
+    say('Deleted ' + item.name + (data.purged ? ', and cleared from Cloudflare\'s cache.' : '. Cloudflare may serve it for up to an hour (its cache could not be cleared).'), !data.purged);
     load();
   }
 });
@@ -88,10 +88,12 @@ $('#up').addEventListener('submit', (e) => {
   xhr.onloadend = () => {
     $<HTMLButtonElement>('#send').disabled = false;
     $('#bar').hidden = true;
-    let data: { error?: string; name?: string; size?: number; url?: string; type?: string } = {};
+    let data: { error?: string; name?: string; size?: number; url?: string; type?: string; purged?: boolean } = {};
     try { data = JSON.parse(xhr.responseText); } catch {}
     if (xhr.status !== 200) return say(data.error || 'Upload failed (' + (xhr.status || 'network') + ')', true);
-    say('Uploaded ' + data.name + ' (' + size(data.size!) + '). Org: ' + org(data as Item));
+    const cache = data.purged === undefined ? '' : data.purged ? ' The old file is cleared from Cloudflare\'s cache (a browser that has it may keep it up to an hour).'
+      : ' Cloudflare may serve the old file for up to an hour (its cache could not be cleared).';
+    say('Uploaded ' + data.name + ' (' + size(data.size!) + '). Org: ' + org(data as Item) + cache, data.purged === false);
     $<HTMLFormElement>('#up').reset();
     load();
   };

@@ -1,4 +1,4 @@
-// The site Worker, offline: static assets, R2 and Cloudflare Access are fakes.
+// The site Worker, offline: static assets, R2, Cloudflare Access and the purge API are fakes.
 //   node --test site-worker/test/*.test.ts
 
 import { test, beforeEach } from 'node:test';
@@ -17,8 +17,16 @@ const pair = await crypto.subtle.generateKey(
   { name: 'RSASSA-PKCS1-v1_5', modulusLength: 2048, publicExponent: new Uint8Array([1, 0, 1]), hash: 'SHA-256' },
   true, ['sign', 'verify']) as CryptoKeyPair;
 const jwk = { ...(await crypto.subtle.exportKey('jwk', pair.publicKey) as JsonWebKey), kid: 'k1' };
-globalThis.fetch = (async (url: RequestInfo | URL) => {
+// The purge API: each request's zone, token and files, answered `purgeAnswer`.
+let purges: { zone: string; token: string | null; files: string[] }[];
+let purgeAnswer: { success: boolean };
+globalThis.fetch = (async (url: RequestInfo | URL, init?: RequestInit) => {
   if (String(url) === 'https://team.cloudflareaccess.com/cdn-cgi/access/certs') return Response.json({ keys: [jwk] });
+  const purge = /^https:\/\/api\.cloudflare\.com\/client\/v4\/zones\/(\w+)\/purge_cache$/.exec(String(url));
+  if (purge && init?.method === 'POST') {
+    purges.push({ zone: purge[1], token: new Headers(init.headers).get('Authorization'), files: JSON.parse(String(init.body)).files });
+    return Response.json(purgeAnswer);
+  }
   throw new Error(`unexpected fetch ${url}`);
 }) as typeof fetch;
 async function token(claims: Record<string, unknown> = {}) {
@@ -37,6 +45,8 @@ const env = {
   ACCESS_TEAM: 'team.cloudflareaccess.com',
   ACCESS_AUD: 'aud123',
   ADMIN_EMAIL: 'adam.schaefers@icloud.com',
+  ZONE_ID: 'zone123',
+  PURGE_TOKEN: 'purge-token',
   ASSETS: { fetch: async (request: Request) => new Response(`asset ${new URL(request.url).pathname}`) },
   MEDIA: {
     async list() {
@@ -58,6 +68,9 @@ const env = {
 } as unknown as Env;
 
 beforeEach(() => {
+  purges = [];
+  purgeAnswer = { success: true };
+  env.PURGE_TOKEN = 'purge-token';
   bucket = new Map([['evia.mp4', { data: Buffer.from('0123456789'), type: 'video/mp4', uploaded: new Date('2026-10-01T00:00:00Z') }]]);
 });
 
@@ -104,6 +117,7 @@ test('an upload stores the file with its type and an hour of caching, and answer
   assert.equal(stored.data.toString(), 'jpegbytes');
   assert.equal(stored.type, 'image/jpeg');
   assert.equal(stored.cacheControl, 'public, max-age=3600');
+  assert.deepEqual(purges, [], 'a new name was never cached: nothing to purge');
 });
 
 test('a taken name is refused unless Replace is ticked', async () => {
@@ -112,6 +126,24 @@ test('a taken name is refused unless Replace is ticked', async () => {
   assert.equal(bucket.get('evia.mp4')!.data.toString(), '0123456789');
   assert.equal((await call('PUT', '/admin/api/media/evia.mp4?replace=1', { body: 'new' })).status, 200);
   assert.equal(bucket.get('evia.mp4')!.data.toString(), 'new');
+});
+
+test("a replaced file is purged from Cloudflare's cache, and the answer says so", async () => {
+  const r = await call('PUT', '/admin/api/media/evia.mp4?replace=1', { body: 'new' });
+  assert.equal((await r.json() as { purged?: boolean }).purged, true);
+  assert.deepEqual(purges, [{ zone: 'zone123', token: 'Bearer purge-token', files: ['https://media.adamschaefers.com/evia.mp4'] }]);
+});
+
+test('a purge that cannot happen never fails the change: the answer says the cache may lag', async () => {
+  purgeAnswer = { success: false };
+  let r = await call('PUT', '/admin/api/media/evia.mp4?replace=1', { body: 'new' });
+  assert.equal(r.status, 200);
+  assert.equal((await r.json() as { purged?: boolean }).purged, false);
+  env.PURGE_TOKEN = undefined;
+  r = await call('DELETE', '/admin/api/media/evia.mp4');
+  assert.deepEqual(await r.json(), { deleted: 'evia.mp4', purged: false });
+  assert.equal(bucket.size, 0);
+  assert.equal(purges.length, 1, 'no token, no request');
 });
 
 test('names an address can carry as is, nothing else', async () => {
@@ -134,8 +166,9 @@ test('a change from another origin is refused', async () => {
 
 test('delete removes the asset', async () => {
   const r = await call('DELETE', '/admin/api/media/evia.mp4');
-  assert.deepEqual(await r.json(), { deleted: 'evia.mp4' });
+  assert.deepEqual(await r.json(), { deleted: 'evia.mp4', purged: true });
   assert.equal(bucket.size, 0);
+  assert.deepEqual(purges.map((p) => p.files), [['https://media.adamschaefers.com/evia.mp4']]);
 });
 
 test('an upload with no file is refused', async () => {

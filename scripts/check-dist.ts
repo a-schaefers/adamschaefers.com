@@ -5,13 +5,19 @@
 // Every href, src and poster in the pages (also inside the #site-data JSON), every url() in
 // the styles, every preview picture and every link in the feed must name a file in public/
 // (or a page's directory). A script's relative imports must reach a published file: esbuild
-// bundles js/app.ts whole (scripts/build.ts), so it has none, and one that isn't published
+// bundles src/app.ts whole (scripts/build.ts), so it has none, and one that isn't published
 // (a chunk, were the bundle ever split) fails here rather than on the site. Links to the media
 // domain (videos and uploads, https://media.adamschaefers.com/...) are asked for with HEAD:
 // each must be there. And each file is under the 25 MiB a static asset may be.
 //
+// The cache names: every hashed file (js/app.<hash>.js, site.<hash>.css, the fonts) carries
+// the first ten hex of its own sha1, which browsers keep for good on the strength of; and
+// version.json names exactly the script and styles every page loads (src/version.ts asks it
+// whether an open tab is behind a deploy).
+//
 //   node scripts/check-dist.ts             MEDIA_ORIGIN overrides https://media.adamschaefers.com
 
+import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
@@ -77,7 +83,7 @@ for (const [key, path] of files) {
     const text = readFileSync(path, 'utf8');
     for (const m of text.matchAll(/(?:\bfrom\s*|\bimport\s*\(?\s*)['"](\.\.?\/[^'"]+)['"]/g)) {
       const imported = new URL(m[1], `${SITE}${key}`).pathname.slice(1);
-      if (!files.has(imported)) broken.push(`${key}: ${m[1]} (not published: scripts/build.ts bundles what js/app.ts imports)`);
+      if (!files.has(imported)) broken.push(`${key}: ${m[1]} (not published: scripts/build.ts bundles what src/app.ts imports)`);
     }
     continue;
   }
@@ -92,6 +98,26 @@ for (const [key, path] of files) {
   }
 }
 
+// The cache names.
+const hashed = [...files.keys()].filter((k) => /\.[0-9a-f]{10}\.(js|css|woff2)$/.test(k));
+for (const k of hashed) {
+  const want = createHash('sha1').update(readFileSync(files.get(k)!)).digest('hex').slice(0, 10);
+  if (!k.includes(`.${want}.`)) broken.push(`${k}: named for a hash that isn't its content's (${want})`);
+}
+let version: { build?: string, assets?: Record<string, string> } = {};
+try {
+  version = JSON.parse(readFileSync(join(PUBLIC, 'version.json'), 'utf8'));
+} catch {
+  broken.push('version.json: missing or not JSON');
+}
+const named = Object.entries(version.assets ?? {}).map(([name, hash]) => name.replace(/\.(js|css)$/, `.${hash}.$1`));
+if (!/^[0-9a-f]{12}$/.test(version.build ?? '') || named.length !== 2) broken.push(`version.json: not {build, assets: {app.js, site.css}}: ${JSON.stringify(version)}`);
+for (const [k, p] of files) {
+  if (!k.endsWith('.html')) continue;
+  const html = readFileSync(p, 'utf8');
+  for (const n of named) if (!html.includes(n)) broken.push(`${k}: doesn't load ${n}, which version.json names`);
+}
+
 // The media links: each must answer.
 await Promise.all([...media.keys()].map(async (url) => {
   let status: number | string;
@@ -104,4 +130,4 @@ await Promise.all([...media.keys()].map(async (url) => {
 }));
 
 if (broken.length) fail(`${broken.length} broken link(s):\n  ${[...new Set(broken)].join('\n  ')}`);
-console.log(`check-dist: ${files.size} files, every link resolves (${media.size} on the media domain)`);
+console.log(`check-dist: ${files.size} files, every link resolves (${media.size} on the media domain), ${hashed.length} hashed names true, version ${version.build}`);

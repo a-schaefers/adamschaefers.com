@@ -23,7 +23,7 @@ interface ContactForm extends HTMLFormElement {
 }
 
 // Its styles are Tailwind's utilities (site.css). The card that takes a form's place once it's
-// sent, its check drawing itself, is the store's too (js/store.ts, "Lost your key?").
+// sent, its check drawing itself, is the store's too (src/store.ts, "Lost your key?").
 export const SENT_CARD = 'inquiry-sent flex origin-[50%_0] items-center gap-5 rounded-2xl bg-mesa px-7 py-6 inset-ring inset-ring-ridge '
     + 'focus:outline-none [&.is-arriving]:animate-sent-arrive';
 export const SENT_CHECK = '<svg class="sent-check size-13 flex-none fill-none stroke-turq [stroke-linecap:round] [stroke-linejoin:round]" viewBox="0 0 52 52" aria-hidden="true">'
@@ -55,7 +55,7 @@ const FORM_HTML = `
 </div>`;
 
 // The page is rendered client-side, so Turnstile is loaded once and rendered explicitly
-// into each freshly mounted form rather than scanning the page on load. js/store.ts
+// into each freshly mounted form rather than scanning the page on load. src/store.ts
 // shares this loader: Turnstile's script must be on the page only once.
 let turnstileReady: Promise<Turnstile.Turnstile> | null = null;
 export function loadTurnstile(): Promise<Turnstile.Turnstile> {

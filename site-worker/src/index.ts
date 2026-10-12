@@ -9,6 +9,8 @@ export interface Env {
   ACCESS_TEAM: string;
   ACCESS_AUD: string;
   ADMIN_EMAIL: string;
+  ZONE_ID: string;          // adamschaefers.com's, whose cache serves the media domain
+  PURGE_TOKEN?: string;     // a secret (wrangler secret put): purges a replaced or deleted file
 }
 
 export default {
