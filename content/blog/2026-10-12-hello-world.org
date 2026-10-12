@@ -1,34 +1,36 @@
 #+TITLE: Hello, world
-#+DESCRIPTION: The first post on the new blog: a quick tour of how this site is built, served and shipped.
+#+DESCRIPTION: How this site is built, served and shipped.
 
-Hello, world! 👋 This is the first post on the new blog, so it seems fitting to start with the thing you're reading it on. This site is small, but there's a fair bit of plumbing behind it, and I had a lot of fun building it.
+How this site is built, served and shipped.
 
-** Written in Org mode
+** Stack
+- Content in Emacs Org mode, exported by Emacs at build time
+- TypeScript SPA with lit-html, bundled by esbuild
+- Tailwind v4, no preflight
+- Self-hosted fonts and thumbnails: no third-party requests on page load
+- Dependencies pinned in npm, nothing vendored
 
-Every word here starts as an [[https://orgmode.org/][Org mode]] file, edited in Emacs (of course). Emacs itself exports them at build time, so the blog is a folder of dated =.org= files and publishing a post is just adding one. The Blog and @@html:<a href="/off-the-clock/">Off the clock</a>@@ are both "collections": newest first, paginated, and gathered into one @@html:<a href="/rss.xml">RSS feed</a>@@, so a reader subscribes once and gets everything.
+** Site
+- One page, every view prerendered into =<main>= and a JSON blob in =<head>=
+- History API routing, with a real page at every address for crawlers and link previews
+- Per-page title, description and OG image from Org properties
+- Paginated collections (Blog, Off the clock), one @@html:<a href="/rss.xml">RSS feed</a>@@, =sitemap.xml=
 
-** One page, many addresses
+** Hosting
+- Migrated from GitHub Pages to Cloudflare Workers Static Assets
+- Content-hashed JS, CSS and fonts, cached forever; pages revalidate by ETag
+- Version check offers a Reload when a deploy lands under an open tab
+- Video and media on R2 with a custom domain and range requests
 
-It's a single-page app written in TypeScript, styled with Tailwind, and built from Org mode, so it's a static site with an SPA on top. The build packs every view into the first load, and a little TypeScript (with [[https://lit.dev/docs/libraries/standalone-templates/][lit-html]]) switches between them without a page load. Each view still has a real address, like =/blog/= or =/store/=, and the build writes a page at each one with its own title, description and preview image. That way link previews, chat apps and search engines see the right thing without running any JavaScript, and the page is already drawn before the script even starts.
+** Workers
+- Site: static assets, plus an Access-gated admin for R2 uploads
+- Contact: Turnstile-verified form, delivered through Email Routing
+- Licenses: Stripe Checkout and webhooks, D1, Resend email, per-product signed keys verified offline, lifetime honor-system seats
+- No personal data in any cache: license API is =no-store=, checkout ids stay after the =#=
 
-Styles are [[https://tailwindcss.com/][Tailwind]] v4, esbuild bundles the script, fonts are served from here rather than Google Fonts, and the course thumbnails in the sidebar are hosted locally too, so loading a page never touches a third-party server.
-
-** Served from the edge
-
-The site started out on GitHub Pages, which served the repository as it was. It now runs on [[https://developers.cloudflare.com/workers/static-assets/][Cloudflare Workers Static Assets]], next to the Workers that run the Store and the contact form. Pages are revalidated on every visit, while the script, styles and fonts are named by a hash of their contents and cached forever, so a deploy never leaves anyone with a stale mix. If you leave a tab open across a deploy, the site notices and politely offers a Reload button instead of reloading on you.
-
-Videos and big pictures, like the travelogs in Off the clock, live in R2 and are served from a media domain with range requests, so they seek instantly. They're encoded for fast start and uploaded through a small admin page of my own.
-
-** Three Workers
-
-- *The site*, as above.
-- *The contact form* on @@html:<a href="/inquiries/">Inquiries</a>@@: a Worker that checks [[https://www.cloudflare.com/products/turnstile/][Turnstile]] and forwards your message to my inbox. No tracking, no database.
-- *The license server* behind the @@html:<a href="/store/">Store</a>@@: real [[https://stripe.com/][Stripe]] checkouts, keys signed per product and checked offline by the apps, D1 for storage, and email through Resend. It sells licenses for my software, buy-once and lifetime; seats are on the honor system, and nothing is ever locked.
-
-None of them caches anything personal. Every answer from the license server is marked =no-store=, and your thank-you page keeps its checkout id after the =#=, which never leaves your browser.
-
-** Shipped by pull request
-
-Nothing reaches the live site by hand. Every change, this post included, goes through a pull request on GitHub. A required check builds the whole site, follows every link, type-checks every TypeScript project and runs the Workers' tests, all in a few seconds. Merging is the deploy: GitHub Actions builds it again, pushes it to Cloudflare, and then smoke-tests the live site to make sure it actually works. The deploy holds exactly one credential, scoped to deploying these three Workers and nothing else.
-
-That's the tour. More posts on Emacs, DevOps and gamedev to come. Thanks for stopping by! 🐧☁️🎮
+** CI/CD
+- Every change is a PR; =master= is protected
+- Required =check=: full build, link check, typecheck, Worker tests, workflow lint
+- Merge is the deploy: GitHub Actions builds, deploys to Cloudflare, smoke-tests prod
+- One deploy credential, scoped to three Workers
+- Action pins and npm bumped weekly by Dependabot
