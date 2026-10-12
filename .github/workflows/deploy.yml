@@ -5,9 +5,9 @@
 #
 # The Cloudflare token lives in the `production` environment, which only master may use
 # (scripts/github-settings.sh); no pull request ever sees it. Deploys never overlap, and a
-# running one is never cancelled. The hourly run catches a merge GitHub Actions made itself
-# (owner-merge.yml arming auto-merge), which starts no push run: it deploys only what isn't
-# live yet. Rollback: npx wrangler rollback -c <worker>/wrangler.jsonc (CLAUDE.md).
+# running one is never cancelled. A merge GitHub Actions made itself (owner-merge.yml
+# arming auto-merge) starts no push run, so owner-merge.yml dispatches this when the merge
+# lands; the hourly run is the safety net and deploys only what isn't live yet. Rollback: npx wrangler rollback -c <worker>/wrangler.jsonc (CLAUDE.md).
 
 name: deploy
 
