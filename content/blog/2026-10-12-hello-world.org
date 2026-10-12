@@ -1,0 +1,12 @@
+#+TITLE: Hello, world
+#+DESCRIPTION: How this site is built, served and shipped.
+
+This site is written in Emacs Org mode and built into a TypeScript, lit-html and Tailwind single-page app.
+
+Every view is prerendered at its own address, so crawlers and link previews see real pages without running JavaScript.
+
+It moved from GitHub Pages to Cloudflare Workers Static Assets, with content-hashed assets cached forever and media served from R2.
+
+Three Workers run the site, the contact form, and a Stripe-backed store built to sell anything, starting with software licenses.
+
+GitHub Actions gates every pull request on one required check, and every merge auto-deploys to Cloudflare and smoke-tests the live site.
