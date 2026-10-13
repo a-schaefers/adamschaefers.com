@@ -9,4 +9,6 @@ It moved from GitHub Pages to Cloudflare Workers Static Assets, with content-has
 
 Three Workers run the site, the contact form, and a Stripe-backed store built to sell anything, starting with software licenses.
 
-GitHub Actions gates every pull request on one required check, and every merge auto-deploys to Cloudflare and smoke-tests the live site.
+GitHub Actions gates every pull request on two required checks, and every merge auto-deploys to Cloudflare and smoke-tests the live site.
+
+The GitHub and Cloudflare settings are infrastructure as code in Terraform, planned on every merge and applied only after I approve.
