@@ -1,0 +1,85 @@
+# The license signing key's backup (2026-10-13). Cloudflare never shows a Worker secret again,
+# and unlike the Worker's other secrets a signing key can't just be made anew: its public half
+# ships inside the product's app (Backseat Driver's PUBLIC_KEYS), so a new one would take a
+# release, and copies older than that release couldn't check the keys it signs. So the license
+# server's SIGNING_KEY has one copy outside Cloudflare: the GitHub secret of the same name in
+# the `production` environment, set by hand (Settings, Environments, production), which nobody
+# can read back and only this workflow names (scripts/test_workflows.py holds both).
+#
+# A button. By default it only checks: the backup's public half must be live-1's (below), and
+# the license server must be signing with live-1 now (the first of its /v1/public-keys). With
+# `restore` ticked it first puts the backup back into the Worker through Cloudflare's API, as
+# `wrangler secret put` does. Nothing from the repository runs (no checkout), the `production`
+# environment admits master only, and only public halves are ever printed.
+#
+# Rotating the key (license-worker/wrangler.jsonc) changes KID, X and Y below and the secret.
+
+name: signing key
+
+on:
+  workflow_dispatch:
+    inputs:
+      restore:
+        description: "Put the backup back into the license server's SIGNING_KEY (otherwise only check it)"
+        type: boolean
+        default: false
+
+permissions: {}
+
+concurrency:
+  group: signing-key
+  cancel-in-progress: false
+
+jobs:
+  signing-key:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    environment: production
+    env:
+      # live-1's public half, as Backseat Driver ships it and the license server serves it.
+      KID: live-1
+      X: hWy4ZILsl3sWehBZqgO306REfeOpa9CPRclJCmlhnPg
+      Y: hMFPXHIIlTDVeOO2UltlMLMi3R11TJmsZNEA56PyHqw
+      SERVER: https://licenses.adamschaefers.com
+    steps:
+      - name: Check the backup
+        env:
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+        run: |
+          set -eu
+          if [ -z "$SIGNING_KEY" ]; then echo "::error::SIGNING_KEY is not set in the production environment: there is no backup"; exit 1; fi
+          # The public point is the last 64 bytes of the public key's DER: x, then y.
+          der() { printf '%s\n' "$SIGNING_KEY" | openssl pkey -pubout -outform DER; }
+          x=$(der | tail -c 64 | head -c 32 | basenc --base64url -w0 | tr -d =)
+          y=$(der | tail -c 32 | basenc --base64url -w0 | tr -d =)
+          echo "the backup's public half: x=$x y=$y"
+          if [ "$x" != "$X" ] || [ "$y" != "$Y" ]; then echo "::error::the backup is not $KID: nothing restored"; exit 1; fi
+          echo "the backup is $KID"
+
+      - name: Restore it
+        if: inputs.restore
+        env:
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          ACCOUNT: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -eu
+          if [ -z "$TOKEN" ]; then echo "::error::CLOUDFLARE_API_TOKEN is not set in the production environment: nothing restored"; exit 1; fi
+          jq -n --arg text "$SIGNING_KEY" '{name: "SIGNING_KEY", text: $text, type: "secret_text"}' |
+            curl -sS -X PUT "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT/workers/scripts/adamschaefers-licenses/secrets" \
+              -H "Authorization: Bearer $TOKEN" -H 'Content-Type: application/json' --data @- |
+            jq -e '.success == true' >/dev/null || { echo "::error::Cloudflare refused the secret"; exit 1; }
+          echo "SIGNING_KEY is back in adamschaefers-licenses"
+
+      - name: Check the license server signs with it
+        run: |
+          set -eu
+          for i in 1 2 3 4 5 6; do
+            keys=$(curl -fsS "$SERVER/v1/public-keys?probe=$GITHUB_RUN_ID-$i" || true)
+            if printf '%s' "$keys" | jq -e --arg kid "$KID" --arg x "$X" --arg y "$Y" \
+                '.[0].kid == $kid and .[0].x == $x and .[0].y == $y' >/dev/null 2>&1; then
+              echo "the license server signs with $KID"; exit 0
+            fi
+            sleep 10
+          done
+          echo "::error::the license server is not signing with $KID: $keys"; exit 1
