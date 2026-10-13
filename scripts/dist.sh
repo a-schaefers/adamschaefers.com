@@ -15,18 +15,23 @@
 # which src/version.ts asks to learn whether an open tab is behind a deploy. Pages, the
 # feed and version.json revalidate on every request (the default, _headers' first rule).
 # scripts/check-dist.ts fails on any link this leaves dangling.
+#
+# It is assembled in build/dist/, and public/ then takes it in place, never deleted and
+# remade: wrangler dev (make run) watches public/, and stops seeing changes for good once
+# that folder is deleted.
 set -eu
 cd "$(dirname "$0")/.."
 
-rm -rf public
-mkdir public
-copy() { # copy FILE [NAME]: FILE into public/ as NAME (default FILE)
+out=build/dist
+rm -rf "$out"
+mkdir -p "$out"
+copy() { # copy FILE [NAME]: FILE into the assembly as NAME (default FILE)
   if [ ! -f "$1" ]; then
     echo "dist: $1 is missing (run make build)" >&2
     exit 1
   fi
-  mkdir -p "public/$(dirname "${2:-$1}")"
-  cp "$1" "public/${2:-$1}"
+  mkdir -p "$out/$(dirname "${2:-$1}")"
+  cp "$1" "$out/${2:-$1}"
 }
 
 for f in index.html 404.html rss.xml sitemap.xml $(cat build/share-pages.txt); do copy "build/$f" "$f"; done
@@ -38,15 +43,30 @@ while read -r file hashed; do
   [ ! -f "$file.map" ] || copy "$file.map" "$(dirname "$hashed")/$(basename "$file").map"
 done < build/assets.txt
 
-cp site-worker/_redirects public/_redirects
+cp site-worker/_redirects "$out/_redirects"
 {
   cat site-worker/_headers
   while read -r file hashed; do
     printf '\n/%s\n  Cache-Control: public, max-age=31536000, immutable\n' "$hashed"
   done < build/assets.txt
-} > public/_headers
+} > "$out/_headers"
 # {"build": <12 hex of the hashed names>, "assets": {"app.js": <hash>, "site.css": <hash>}}
 assets=$(sed -n 's#^[^ ]* \(js/\)\{0,1\}\([a-z]*\)\.\([0-9a-f]\{10\}\)\.\(js\|css\)$#"\2.\4":"\3"#p' build/assets.txt | paste -sd, -)
 build=$(cut -d' ' -f2 build/assets.txt | sort | sha256sum | cut -c1-12)
-printf '{"build":"%s","assets":{%s}}\n' "$build" "$assets" > public/version.json
+printf '{"build":"%s","assets":{%s}}\n' "$build" "$assets" > "$out/version.json"
+# Into public/: new and changed files first and the pages last, so no page names a file
+# that isn't there yet; then what this build no longer has goes.
+mkdir -p public
+update() { # update FIND-TEST...: the assembled files passing the test, where public/ differs
+  (cd "$out" && find . -type f "$@") | while read -r f; do
+    if ! cmp -s "$out/$f" "public/$f"; then
+      mkdir -p "public/$(dirname "$f")"
+      cp "$out/$f" "public/$f"
+    fi
+  done
+}
+update ! -name '*.html'
+update -name '*.html'
+(cd public && find . ! -type d) | while read -r f; do [ -f "$out/$f" ] || rm "public/$f"; done
+find public -mindepth 1 -type d -empty -delete
 echo "dist: $(find public -type f ! -name '_*' | wc -l) files in public/ (version $build)"

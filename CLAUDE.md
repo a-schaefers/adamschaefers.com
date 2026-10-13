@@ -4,7 +4,7 @@ Edit the Org sources in `content/`. The HTML, the feed and the sitemap are
 build output: git ignores them, and CI builds and deploys them on every merge.
 `README.md` covers repo setup only. After editing, build and look with:
 
-    make build      # make run serves it at http://localhost:8000
+    make build      # or make run: http://localhost:8000, rebuilt on save
 
 The layout: `content/` is what the site says (`index.org`; `blog.org` and
 `blog/`; `off-the-clock.org` and `off-the-clock/`, each travelog's poster
@@ -306,10 +306,18 @@ only the tests of what you changed and its quick checks; the exceptions (CI
 down, a CI failure the logs can't explain, a change to its test kit, or the
 owner asks) are in its CLAUDE.md.
 
-`make run` builds and serves `public/` the way the site does (wrangler's
-local Workers Static Assets, so `404.html` and the headers too) at
-http://localhost:8000 (`PORT=` to change it; `npm ci` once first). Videos come
-from the media domain, so they play locally too.
+`make run` (`scripts/dev.ts`) builds and serves `public/` the way the site does
+(wrangler's local Workers Static Assets, so `404.html` and the headers too) at
+http://localhost:8000 (`PORT=` to change it; `npm ci` once first), and keeps it
+built: a save under `content/`, `src/`, `static/` or in `site.el` reruns only
+the steps it needs (an Org file: the export and dist; `src/` or `site.el`: the
+script and styles first), and once wrangler serves the result every open page
+reloads, over a WebSocket (`/__dev`) whose script the dev server adds to the
+pages it answers; it is never in `build/` or `public/`, so never on the site.
+A failed build shows its error over the page. `scripts/dist.sh` updates
+`public/` in place (wrangler stops watching a folder that is deleted), so a
+`make build` elsewhere shows too. Videos come from the media domain, so they
+play locally too.
 
 Secrets: those the Workers use are Worker secrets (Cloudflare), each backed up
 in a-schaefers/adamschaefers.com-private, whose README says how to restore or
