@@ -202,11 +202,11 @@ resource "github_actions_variable" "cloudflare_zone_id" {
 }
 
 # The private backups repository (adamschaefers.com-private) is retired (2026-10-13): no
-# repository holds a secret, as in ../merecatholicity.com and ../enchant.games. A Worker
-# secret is made again at its source when lost; a signing key's backup is the owner's
-# password manager (.claude/rules/cicd.md, Credentials). Terraform forgets the repository
-# and leaves it as it is (a plan shows "forget", never a delete); the owner deletes it by
-# hand.
+# secret is kept in git, as in ../merecatholicity.com and ../enchant.games. A Worker secret
+# is made again at its source when lost; a signing key's backup is a GitHub secret in the
+# production environment (.claude/rules/cicd.md, Credentials). Terraform forgets the
+# repository and leaves it as it is (a plan shows "forget", never a delete); the owner
+# deletes it by hand once signing-key.yml has proven the backup.
 
 removed {
   from = github_repository.private

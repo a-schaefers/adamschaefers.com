@@ -18,7 +18,7 @@ in front of the admin pages; and on GitHub this repository (its ruleset, the wor
 token's rights, the allowed actions, Dependabot, the `production` and
 `terraform-production` environments, the account and zone id variables). The private
 backups repository `adamschaefers.com-private`, which held the license server's secrets, is
-forgotten (the `removed` block in `github.tf`, 2026-10-13): no repository holds a secret.
+forgotten (the `removed` block in `github.tf`, 2026-10-13): no secret is kept in git.
 
 **wrangler owns** the three Workers (`site-worker/`, `license-worker/`,
 `contact-worker/`): their scripts, routes, custom domains, bindings, vars, secrets and D1

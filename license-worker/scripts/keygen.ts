@@ -3,9 +3,11 @@
 // The private half (PKCS #8 PEM) goes to the file, which must not exist yet and
 // must stay out of the repository: set it as the product's signing secret
 // (SIGNING_KEY for Backseat Driver, SIGNING_KEY_<PRODUCT> for another) and keep a
-// copy in the owner's password manager (never a repository), since a Worker secret
-// can't be read back. The public half is printed, for the product's app to ship
-// (Backseat Driver: PUBLIC_KEYS in ../backseat-driver's plugin/core/licensekey.ts).
+// copy as the GitHub secret of the same name in the production environment, never
+// in a repository, since a Worker secret can't be read back (signing-key.yml, in
+// .github/workflows, checks and restores Backseat Driver's). The public half is
+// printed, for the product's app to ship (Backseat Driver: PUBLIC_KEYS in
+// ../backseat-driver's plugin/core/licensekey.ts).
 
 import { generateKeyPairSync } from 'node:crypto';
 import { writeFileSync } from 'node:fs';
