@@ -182,9 +182,15 @@ function inject(html: string) {
 }
 
 let upstream = 0;
+let serving = false; // once wrangler answers
 let wrangler: ChildProcess | undefined;
 
 const server = createServer((req, res) => {
+  if (!serving) {
+    res.writeHead(503, { 'content-type': 'text/plain', 'retry-after': '2' });
+    res.end('make run: still building, reload in a moment\n');
+    return;
+  }
   const headers = { ...req.headers };
   delete headers['accept-encoding']; // plain bodies, so pages can take the script
   const up = request({ host: '127.0.0.1', port: upstream, method: req.method, path: req.url, headers }, (answer: IncomingMessage) => {
@@ -234,12 +240,24 @@ function freePort(): Promise<number> {
 }
 
 function stop(code = 0) {
-  // wrangler and its workerd processes: the group it leads.
-  if (wrangler?.pid) try { process.kill(-wrangler.pid, 'SIGTERM'); } catch { /* gone */ }
   process.exit(code);
 }
+// However this ends, wrangler and its workerd processes (the group it leads) end with it.
+process.on('exit', () => { if (wrangler?.pid) try { process.kill(-wrangler.pid, 'SIGTERM'); } catch { /* gone */ } });
 process.on('SIGINT', () => stop());
 process.on('SIGTERM', () => stop());
+process.on('uncaughtException', (err) => { console.error(err); stop(1); });
+
+// PORT first, so a make run already serving it is said before anything is built.
+await new Promise<void>((resolve) => {
+  server.once('error', (err: NodeJS.ErrnoException) => {
+    console.error(err.code === 'EADDRINUSE'
+      ? `dev: port ${PORT} is taken (another make run? stop it, or PORT=8001 make run)`
+      : `dev: can't listen on port ${PORT}: ${err.message}`);
+    stop(1);
+  });
+  server.listen(PORT, resolve);
+});
 
 // Built once, all of it, before anything is served.
 try {
@@ -270,8 +288,9 @@ for (const stream of [wrangler.stdout!, wrangler.stderr!]) {
 }
 wrangler.on('exit', (code) => { console.error(`dev: wrangler dev exited (${code})`); stop(1); });
 await up;
+serving = true;
 
-server.listen(PORT, () => console.log(`\ndev: http://localhost:${PORT}/ (rebuilds on save, reloads open pages; Ctrl-C stops)\n`));
+console.log(`\ndev: http://localhost:${PORT}/ (rebuilds on save, reloads open pages; Ctrl-C stops)\n`);
 
 for (const dir of ['content', 'src', 'static']) {
   watch(`${ROOT}${dir}`, { recursive: true }, (_, file) => file && changed(`${dir}/${file}`));
