@@ -1,0 +1,111 @@
+# The zone's rate limiting rule: the license store's checkout and key recovery, at most five
+# POSTs per ten seconds per address (license-worker/).
+
+resource "cloudflare_ruleset" "rate_limit" {
+  account_id = null
+  kind       = "zone"
+  name       = "default"
+  phase      = "http_ratelimit"
+  rules = [
+    {
+      action = "block"
+      action_parameters = {
+        additional_cacheable_ports = null
+        algorithms                 = null
+        asset_name                 = null
+        automatic_https_rewrites   = null
+        autominify                 = null
+        bic                        = null
+        browser_ttl                = null
+        cache                      = null
+        cache_key                  = null
+        cache_reserve              = null
+        content                    = null
+        content_converter          = null
+        content_type               = null
+        cookie_fields              = null
+        disable_apps               = null
+        disable_rum                = null
+        disable_zaraz              = null
+        edge_ttl                   = null
+        email_obfuscation          = null
+        expression                 = null
+        fonts                      = null
+        from_list                  = null
+        from_value                 = null
+        headers                    = null
+        host_header                = null
+        hotlink_protection         = null
+        id                         = null
+        immutable                  = null
+        increment                  = null
+        matched_data               = null
+        max_age                    = null
+        mirage                     = null
+        must_revalidate            = null
+        must_understand            = null
+        no_cache                   = null
+        no_store                   = null
+        no_transform               = null
+        operation                  = null
+        opportunistic_encryption   = null
+        origin                     = null
+        origin_cache_control       = null
+        origin_error_page_passthru = null
+        overrides                  = null
+        phases                     = null
+        polish                     = null
+        private                    = null
+        products                   = null
+        proxy_revalidate           = null
+        public                     = null
+        raw_response_fields        = null
+        read_timeout               = null
+        redirects_for_ai_training  = null
+        request_body_buffering     = null
+        request_fields             = null
+        respect_strong_etags       = null
+        response                   = null
+        response_body_buffering    = null
+        response_fields            = null
+        rocket_loader              = null
+        rules                      = null
+        ruleset                    = null
+        rulesets                   = null
+        s_maxage                   = null
+        security_level             = null
+        serve_stale                = null
+        server_side_excludes       = null
+        sni                        = null
+        ssl                        = null
+        stale_if_error             = null
+        stale_while_revalidate     = null
+        status_code                = null
+        strip_etags                = null
+        strip_last_modified        = null
+        strip_set_cookie           = null
+        sxg                        = null
+        transformed_request_fields = null
+        uri                        = null
+        values                     = null
+        vary                       = null
+      }
+      description              = "License store: at most 5 buy or key-recovery attempts per 10 seconds per IP"
+      enabled                  = true
+      exposed_credential_check = null
+      expression               = "(http.request.uri.path in {\"/v1/checkout\" \"/v1/recover\"} and http.request.method eq \"POST\")"
+      ratelimit = {
+        characteristics            = ["ip.src", "cf.colo.id"]
+        counting_expression        = null
+        mitigation_timeout         = 10
+        period                     = 10
+        requests_per_period        = 5
+        requests_to_origin         = false
+        score_per_period           = null
+        score_response_header_name = null
+      }
+      ref = "24353020ef1f4dc183f34d7c464d9718"
+    },
+  ]
+  zone_id = var.zone_id
+}

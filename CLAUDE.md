@@ -18,7 +18,10 @@ Org files and, unless said otherwise, in this file are the site's addresses:
 `images/og.jpg` is `static/images/og.jpg` in the repository.
 
 Every change reaches `master` through a pull request (`scripts/ship.sh`), and
-the merge is the deploy: `.claude/rules/cicd.md` is the pipeline.
+the merge is the deploy: `.claude/rules/cicd.md` is the pipeline. The
+repositories' GitHub settings and the zone's Cloudflare configuration are
+Terraform (`terraform/`, its README): change them there, never by hand; the
+merge plans in CI and applies after the owner's review.
 
 The site is one page, built by `site.el`. `index.html` is `content/index.org`
 exported without its `:view:` sections; those sections and the collections
@@ -312,11 +315,12 @@ from the media domain, so they play locally too.
 
 Secrets: those the Workers use are Worker secrets (Cloudflare), each backed up
 in a-schaefers/adamschaefers.com-private, whose README says how to restore or
-rotate it. The pipeline's one credential, a Cloudflare token scoped to
+rotate it. The deploy's one credential, a Cloudflare token scoped to
 deploying these three Workers, is the GitHub secret `CLOUDFLARE_API_TOKEN` in
 the `production` environment and nowhere else: a lost one is replaced, not
-restored (`.claude/rules/cicd.md` has its policy). Never one in this
-repository.
+restored (`.claude/rules/cicd.md` has its policy). Terraform's two are
+repository secrets only `terraform.yml` reads, blanked on every pull request
+(`terraform/README.md`). Never one in this repository.
 
 `master` takes no direct push (2026-10-11): commit on a branch (or in a
 worktree) and run `scripts/ship.sh`, which opens the pull request and arms
