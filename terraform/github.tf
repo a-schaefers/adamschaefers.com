@@ -201,41 +201,17 @@ resource "github_actions_variable" "cloudflare_zone_id" {
   variable_name = "CLOUDFLARE_ZONE_ID"
 }
 
-# The private backups (adamschaefers.com-private: the license server's signing keys and
-# Worker secrets, which Cloudflare can't read back), as ../merecatholicity.com declares its
-# private repository: its settings, and that it must never be destroyed. Rulesets on a
-# private repository need a paid plan, so it carries none.
+# The private backups repository (adamschaefers.com-private) is retired (2026-10-13): no
+# repository holds a secret, as in ../merecatholicity.com and ../enchant.games. A Worker
+# secret is made again at its source when lost; a signing key's backup is the owner's
+# password manager (.claude/rules/cicd.md, Credentials). Terraform forgets the repository
+# and leaves it as it is (a plan shows "forget", never a delete); the owner deletes it by
+# hand.
 
-resource "github_repository" "private" {
-  allow_auto_merge            = false
-  allow_forking               = true
-  allow_merge_commit          = true
-  allow_rebase_merge          = true
-  allow_squash_merge          = true
-  allow_update_branch         = false
-  archive_on_destroy          = null
-  archived                    = false
-  auto_init                   = false
-  delete_branch_on_merge      = false
-  description                 = null
-  gitignore_template          = null
-  has_discussions             = false
-  has_issues                  = true
-  has_projects                = true
-  has_wiki                    = false
-  homepage_url                = null
-  is_template                 = false
-  license_template            = null
-  merge_commit_message        = "PR_TITLE"
-  merge_commit_title          = "MERGE_MESSAGE"
-  name                        = "adamschaefers.com-private"
-  squash_merge_commit_message = "COMMIT_MESSAGES"
-  squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
-  topics                      = []
-  visibility                  = "private"
-  web_commit_signoff_required = false
+removed {
+  from = github_repository.private
 
   lifecycle {
-    prevent_destroy = true
+    destroy = false
   }
 }

@@ -1,8 +1,9 @@
 // License server for the products in src/products.ts (src/index.ts), at
 // licenses.adamschaefers.com: real Stripe, real money (there is no sandbox).
 //   make licenses-test   the tests, offline        make licenses   tests, then deploy
-// Secrets (wrangler secret put NAME), never in the repo; backed up in the private repo
-// a-schaefers/adamschaefers.com-private:
+// Secrets (wrangler secret put NAME), never in the repo or CI, and no copy kept: a lost or leaked
+// one is made again at its source (.claude/rules/cicd.md, Credentials), except a signing key,
+// whose public half ships in its app and whose backup is the owner's password manager:
 //   STRIPE_SECRET_KEY      live key (Checkout Sessions write is all it needs)
 //   STRIPE_WEBHOOK_SECRET  whsec_... of the webhook endpoint for /v1/stripe/webhook
 //   SIGNING_KEY            PKCS #8 PEM from scripts/keygen.ts (live-1): signs Backseat Driver's keys only
