@@ -33,7 +33,8 @@ npm ci
   styles compiled, then the pages, the RSS feed and the sitemap from
   `content/`, all into `build/`, then `public/` assembled from that and
   `static/`. None of it is committed.
-- `make run` serves it at http://localhost:8000, the way the site does.
+- `make run` serves it at http://localhost:8000, the way the site does,
+  rebuilding on every save and reloading the open page.
 - `make check` runs what CI's required check runs: the build, every link, the
   types (`make typecheck`), the Workers' tests (offline) and the workflows'
   rules.

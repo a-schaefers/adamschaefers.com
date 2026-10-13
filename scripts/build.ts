@@ -15,6 +15,7 @@
 // The Workers' tests, tsc and wrangler need those; `workers` makes only them.
 //
 //   node scripts/build.ts            everything (make build)
+//   node scripts/build.ts site       the page's script and styles only (make run, on a change)
 //   node scripts/build.ts workers    the admin pages only (make workers)
 
 import { build } from 'esbuild';
@@ -23,6 +24,7 @@ import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const WORKERS = ['site-worker', 'license-worker'];
+const ONLY = process.argv[2];
 
 /** Tailwind's CLI on one stylesheet: the CSS, minified; its own output only when it fails. */
 function tailwind(input: string) {
@@ -60,7 +62,7 @@ export const STYLE = ${JSON.stringify(style)};
   console.log(`build: ${dir}/admin-page.gen.ts`);
 }
 
-if (process.argv[2] !== 'workers') {
+if (ONLY !== 'workers') {
   rmSync(`${ROOT}build`, { recursive: true, force: true });
   await build({
     absWorkingDir: ROOT,
@@ -78,4 +80,4 @@ if (process.argv[2] !== 'workers') {
   writeFileSync(`${ROOT}build/site.css`, tailwind('src/site.css'));
   console.log('build: build/site.css');
 }
-for (const worker of WORKERS) await adminPage(worker);
+if (ONLY !== 'site') for (const worker of WORKERS) await adminPage(worker);

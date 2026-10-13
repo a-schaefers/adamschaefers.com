@@ -17,9 +17,10 @@ workers:
 	node scripts/build.ts workers
 
 # public/ served the way the site serves it (Workers Static Assets, locally), at
-# http://localhost:8000. A make build in another terminal shows on the next reload.
-run: build
-	npx wrangler dev -c site-worker/wrangler.jsonc --port $(PORT)
+# http://localhost:8000, rebuilt as the sources change, and open pages reloaded once the
+# change is served (scripts/dev.ts: a WebSocket only its local answers carry, never the site).
+run:
+	PORT=$(PORT) node scripts/dev.ts
 
 # What CI's required check runs: the build, every link, the types, the Workers' tests
 # (offline), the workflows' rules. (CI runs the two halves apart, uploading the site between
