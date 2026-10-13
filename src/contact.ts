@@ -1,5 +1,5 @@
-// Contact form, the same one as on enchant.games. It posts to the shared Cloudflare
-// Worker at contact-api.adamschaefers.com, which checks Turnstile and emails the message.
+// Contact form, in the same dress as enchant.games'. It posts to this site's own Worker at
+// contact-api.adamschaefers.com (contact-worker/), which checks Turnstile and emails the message.
 // A view opts in with an empty <div id="contact-mount"></div> in its index.org section.
 
 declare global {

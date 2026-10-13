@@ -1,12 +1,12 @@
 # This site's two widgets; each Worker holds its widget's secret as a Worker secret. The contact
-# form's also serves ../enchant.games' Press page (its domains name enchant.games): it is
-# this project's, and enchant.games' Terraform must never declare it.
+# form's served ../enchant.games' Press page too until 2026-10-12, when that site got its own
+# widget and Worker; now it is this site's alone.
 
 resource "cloudflare_turnstile_widget" "contact" {
   account_id      = var.account_id
   bot_fight_mode  = false
   clearance_level = "no_clearance"
-  domains         = ["adamschaefers.com", "enchant.games"]
+  domains         = ["adamschaefers.com"]
   ephemeral_id    = false
   mode            = "managed"
   name            = "adamschaefers contact form"

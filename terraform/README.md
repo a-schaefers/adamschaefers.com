@@ -34,9 +34,8 @@ is the line that keeps an apply in one from becoming drift in another:
   and widgets.
 - ../enchant.games': its zone, its repository and the LandOfEnchantment organization's
   workflow setting, and its own widget, database and state bucket.
-- This one's, though another site uses it: the "adamschaefers contact form" widget, whose
-  domains name enchant.games too (the Press page's contact form posts to the contact
-  Worker here). enchant.games' Terraform must never declare it.
+- Nothing of one site serves another: until 2026-10-12 enchant.games' Press page posted to
+  the contact Worker here with this site's widget; it has its own of both now.
 - Nobody's: the account itself, its API tokens, its Email Routing destination address,
   its Zero Trust organization (identity providers, the WARP login app), and every zone
   and widget of the account's other sites.
