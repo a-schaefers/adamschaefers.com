@@ -1,8 +1,10 @@
 // License server for the products in src/products.ts (src/index.ts), at
 // licenses.adamschaefers.com: real Stripe, real money (there is no sandbox).
 //   make licenses-test   the tests, offline        make licenses   tests, then deploy
-// Secrets (wrangler secret put NAME), never in the repo; backed up in the private repo
-// a-schaefers/adamschaefers.com-private:
+// Secrets (wrangler secret put NAME), never in the repo, and no copy kept: a lost or leaked one
+// is made again at its source (.claude/rules/cicd.md, Credentials), except a signing key, whose
+// public half ships in its app: its backup is the GitHub secret of the same name in the
+// production environment, which .github/workflows/signing-key.yml checks and restores:
 //   STRIPE_SECRET_KEY      live key (Checkout Sessions write is all it needs)
 //   STRIPE_WEBHOOK_SECRET  whsec_... of the webhook endpoint for /v1/stripe/webhook
 //   SIGNING_KEY            PKCS #8 PEM from scripts/keygen.ts (live-1): signs Backseat Driver's keys only
@@ -13,7 +15,8 @@
 // Rotating a product's signing key: add the old key's public half ({ kid, x, y }) to the var its
 // `signing.retired` names (OLD_PUBLIC_KEYS for Backseat Driver), so keys it signed can still be
 // looked up and have seats added, and ship the new public key in the product's app beside the old
-// one (Backseat Driver's PUBLIC_KEYS).
+// one (Backseat Driver's PUBLIC_KEYS); its backup (the GitHub secret) and public half
+// (signing-key.yml) change with it.
 // /admin, every product's licenses, sits behind the Cloudflare Access application
 // "Backseat Driver licenses admin" (the name is only a label).
 {

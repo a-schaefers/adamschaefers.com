@@ -6,7 +6,9 @@ container to a digest, every workflow with its own permissions, `check` never
 path-filtered and required by master's ruleset, owner-merge.yml approving only
 the owner's pull requests without ever running their code, the Cloudflare
 token only where a pull request can never reach it: deploy.yml's jobs in the
-production environment, which runs on master only; and terraform.yml (as
+production environment, which runs on master only; the license signing key's
+backup named by signing-key.yml alone, a button that runs no code and checks
+the key it was set for; and terraform.yml (as
 ../merecatholicity.com's) blanking every secret on a pull request, printing no
 plan, uploading no plan or state, refusing a destroy, and applying only from
 master behind the owner's review. The ruleset is read from terraform/github.tf.
@@ -129,12 +131,36 @@ class OwnerMerge(unittest.TestCase):
 class Secrets(unittest.TestCase):
     """A pull request's code runs in check.yml: no secret may be anywhere it can read."""
 
-    def test_only_the_deploy_the_purge_and_terraform_name_a_secret(self):
+    def test_only_the_deploy_the_two_buttons_and_terraform_name_a_secret(self):
         for path in sorted(WORKFLOWS.glob("*.yml")):
-            if path.name in ("deploy.yml", "purge-cache.yml", "terraform.yml"):
+            if path.name in ("deploy.yml", "purge-cache.yml", "signing-key.yml", "terraform.yml"):
                 continue
             with self.subTest(file=path.name):
                 self.assertNotIn("secrets.", path.read_text())
+
+    def test_only_the_signing_key_button_names_the_signing_key(self):
+        for path in sorted(WORKFLOWS.glob("*.yml")):
+            if path.name != "signing-key.yml":
+                with self.subTest(file=path.name):
+                    self.assertNotRegex(path.read_text(), r"secrets\.SIGNING_KEY")
+
+    def test_the_signing_key_button_runs_on_master_in_production_and_runs_no_code(self):
+        button = text("signing-key.yml")
+        on = button.split("\njobs:")[0]
+        self.assertRegex(on, r"on:\n  workflow_dispatch:\n", "a button, nothing else")
+        self.assertNotIn("pull_request", on)
+        self.assertIn("environment: production", button)
+        code = "\n".join(l for l in button.splitlines() if not l.lstrip().startswith("#"))
+        self.assertNotRegex(code, r"\buses:", "no checkout: nothing from the repository runs")
+        self.assertEqual(set(re.findall(r"secrets\.(\w+)", button)), {"SIGNING_KEY", "CLOUDFLARE_API_TOKEN"})
+        # The restore runs only after the check, in the same job: a key that isn't the one
+        # below never reaches the Worker.
+        self.assertLess(button.index("name: Check the backup"), button.index("name: Restore it"))
+
+    def test_the_signing_key_button_checks_the_key_the_license_server_signs_with(self):
+        kid = re.search(r'"SIGNING_KID": "([^"]+)"', (ROOT / "license-worker" / "wrangler.jsonc").read_text())
+        self.assertIsNotNone(kid)
+        self.assertRegex(text("signing-key.yml"), rf"(?m)^      KID: {re.escape(kid.group(1))}$")
 
     def test_the_purge_button_runs_on_master_in_production_and_runs_no_code(self):
         purge = text("purge-cache.yml")

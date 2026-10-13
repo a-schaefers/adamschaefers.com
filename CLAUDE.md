@@ -249,12 +249,13 @@ adam.schaefers@icloud.com) lists every license of every product (each one's
 totals, a filter) and email, and withdraws,
 restores (whole licenses), resends and issues by hand. Its per-request logs are
 off (no IP addresses kept). Secrets are Worker secrets only (`wrangler secret
-put`, listed in `wrangler.jsonc`); a local copy lives in the git-ignored
-`license-worker/.dev.vars` and the signing keys (one per product) in
-`~/.config/adamschaefers-licenses/`, never in the repo. All of them are backed
-up in the private repository a-schaefers/adamschaefers.com-private (cloned
-beside this one, not a submodule: this repo is public), whose README says how
-to restore them; update it when a secret changes. A database change is a new
+put`, listed in `wrangler.jsonc`), never in the repo, and no copy is kept: a
+lost or leaked one is made again at its source (`.claude/rules/cicd.md`,
+Credentials, says where). The signing keys (one per product) are the
+exception, since their public halves ship in the apps: each is backed up as
+the GitHub secret of the same name in the `production` environment, which the
+`signing-key.yml` button checks and restores; never in a repository. A
+database change is a new
 file in `license-worker/migrations/`, run once on the database by hand
 (`npx wrangler d1 execute adamschaefers-licenses --remote --file ...`) before
 the merge that needs it, since CI doesn't apply migrations, and `schema.sql`
@@ -319,12 +320,15 @@ A failed build shows its error over the page. `scripts/dist.sh` updates
 `make build` elsewhere shows too. Videos come from the media domain, so they
 play locally too.
 
-Secrets: those the Workers use are Worker secrets (Cloudflare), each backed up
-in a-schaefers/adamschaefers.com-private, whose README says how to restore or
-rotate it. The deploy's one credential, a Cloudflare token scoped to
-deploying these three Workers, is the GitHub secret `CLOUDFLARE_API_TOKEN` in
-the `production` environment and nowhere else: a lost one is replaced, not
-restored (`.claude/rules/cicd.md` has its policy). Terraform's two are
+Secrets: those the Workers use are Worker secrets (Cloudflare), with no copy
+kept: a lost or leaked one is made again, not restored (`.claude/rules/cicd.md`,
+Credentials, says where each comes from). The exception is a product's signing
+key, whose public half ships in its app: its backup is a GitHub secret in the
+`production` environment (`signing-key.yml`). The deploy's one credential, a
+Cloudflare token scoped to deploying these three Workers, is the GitHub secret
+`CLOUDFLARE_API_TOKEN` in the `production` environment and nowhere else: a lost
+one is replaced, not restored (`.claude/rules/cicd.md` has its policy).
+Terraform's two are
 repository secrets only `terraform.yml` reads, blanked on every pull request
 (`terraform/README.md`). Never one in this repository.
 

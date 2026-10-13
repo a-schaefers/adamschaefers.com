@@ -8,7 +8,7 @@ Terraform did not create the site.
 
 ## What Terraform owns, and what it must not touch
 
-**Terraform owns** (`terraform state list`, 46 resources): the zone, its three deliberate
+**Terraform owns** (`terraform state list`, 45 resources): the zone, its three deliberate
 settings (SSL strict, Always Use HTTPS, Browser Cache TTL 0), Smart Tiered Cache and the
 tiered caching under it, and bot management; all 16 DNS records; the license store's rate
 limiting rule; both Turnstile widgets (the contact form's and the store's); the license
@@ -16,8 +16,9 @@ server's D1 database *as a record that it exists*; the `adamschaefers-media` buc
 this state's own bucket, each with its r2.dev switch (off); the two Access applications
 in front of the admin pages; and on GitHub this repository (its ruleset, the workflow
 token's rights, the allowed actions, Dependabot, the `production` and
-`terraform-production` environments, the account and zone id variables) and the private
-backups repository `adamschaefers.com-private`.
+`terraform-production` environments, the account and zone id variables). The private
+backups repository `adamschaefers.com-private`, which held the license server's secrets, is
+forgotten (the `removed` block in `github.tf`, 2026-10-13): no secret is kept in git.
 
 **wrangler owns** the three Workers (`site-worker/`, `license-worker/`,
 `contact-worker/`): their scripts, routes, custom domains, bindings, vars, secrets and D1

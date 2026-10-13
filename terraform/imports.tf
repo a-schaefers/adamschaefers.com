@@ -183,11 +183,6 @@ import {
 }
 
 import {
-  to = github_repository.private
-  id = "adamschaefers.com-private"
-}
-
-import {
   to = github_repository_ruleset.master
   id = "adamschaefers.com:24870666"
 }

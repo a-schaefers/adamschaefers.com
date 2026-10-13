@@ -114,6 +114,9 @@ def attribute_lines(c):
             lines.append(f'{k} = (sensitive)' if k in secret else f'{k} = {fmt(after[k])}')
     elif act == 'delete':
         lines.append('(resource removed)')
+    elif act == 'forget':
+        # A `removed` block with destroy = false: out of state, the live resource untouched.
+        lines.append('(no longer managed here; the live resource is left as it is)')
     else:
         for k in sorted(set(before) | set(after) | unknown):
             b, a = before.get(k), after.get(k)
