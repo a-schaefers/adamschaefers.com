@@ -286,12 +286,10 @@ It checks Turnstile and emails the message to adam.schaefers@icloud.com
 through Email Routing, with Reply-To set to the sender. The sender's email
 is required, so every form that posts here needs an `email` field.
 
-The enchant.games Press page (`js/contact.js` in ../enchant.games) posts to
-the same Worker; its origin is in `SITES` in `contact-worker/src/index.ts`,
-which also labels each email with the site it came from. Both sites share
-one Turnstile widget ("adamschaefers contact form"), so a new site needs its
-hostname added to the widget in the Cloudflare dashboard and to
-`TURNSTILE_HOSTNAMES` in `wrangler.jsonc`.
+The Worker and its Turnstile widget ("adamschaefers contact form") serve this
+site alone. Until 2026-10-12 the enchant.games Press page posted here too; it
+has its own Worker and widget now. Cloudflare's free tier counts requests, not
+Workers, so each site keeps its own.
 
 CI deploys it when a merge changes `contact-worker/`. Its Turnstile secret is
 a Worker secret (`wrangler secret put TURNSTILE_SECRET`), not in the repo.
