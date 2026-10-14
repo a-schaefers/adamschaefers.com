@@ -360,3 +360,36 @@ repository secrets only `terraform.yml` reads, blanked on every pull request
 `master` takes no direct push (2026-10-11): commit on a branch (or in a
 worktree) and run `scripts/ship.sh`, which opens the pull request and arms
 auto-merge; it merges once `check` is green, and the merge deploys.
+
+Adam's writing (drawn from the whole ../enchant.games journal, live, disabled
+and retired, and his own revisions in its history; 2026-10-14). An edit of a
+post moves it toward this voice, never away from it.
+The voice: first person, plain and earnest, talking to the reader ("you",
+"friend"), wry at times ("Good grief.", "just sayin'", "If you made it this
+far through my insufferable writing, you're probably already, one of us.").
+He says what he believes, lays out why, then lands it in a short line. Weight
+comes from short lines: one-sentence paragraphs, runs of parallel ones ("We
+need less software engineers. / We need more software artisans."; "Because I
+am somebody who..."), questions put to the reader. A piece ends on a kicker,
+often bold or quoted ("It's about ownership of understanding."), which he
+reworks until it's tight. He quotes and links a lot: Chesterton above all,
+Aquinas, Pieper, Shakespeare, Scripture, Dijkstra, Knuth, Michael Jordan; the
+good, the beautiful and the true. He carries programming into life (stress
+tests, the Unix philosophy, borrow now pay later, NPCs,
+`s/basketball/art of programming/g`). His words: craft, artisan, integrity,
+ownership, soul, love of the game, mid, slop, grok, touch grass, sacred cows,
+"I reckon". Headings are short phrases or claims, some wry ("And you tolerate
+it", "Coming clean"). Faith and philosophy are his, not decoration: keep them.
+His own revisions show the editing he wants: split run-ons; cut gratuitous
+profanity ("too much shit") and anything advertisey; vary a word he's leaned
+on ("gamers" to "players"); a comma or a spaced hyphen ( - ), not an em dash;
+sharpen the last line; retire what doesn't hold up ("not up to standards",
+"aged like milk"). Quality over volume.
+His first drafts run sentences together with commas, hedge ("I think",
+"arguably in my opinion I'd say"), and leave typos, uneven names and capitals
+(KISS, Libera) and bare URLs. A pass fixes those, checks every fact, date and
+link against its source (GitHub's API, the page cited), puts each link on the
+words it's about, and gives a long post a few headings and an order that
+reads; it keeps his words, opinions, humor and sign-off, adds no claims and
+no polish he wouldn't write, and tells him what changed in substance (a fact
+corrected, a passage cut or moved) rather than slipping it in.
