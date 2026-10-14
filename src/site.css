@@ -267,7 +267,7 @@
   .post li + li { @apply mt-[.35rem]; }
   .post blockquote { @apply ml-0 border-l-3 border-l-turq pl-5 text-bone; }
   .post pre { @apply overflow-x-auto rounded-xl bg-mesa px-5 py-4 font-mono text-[.9rem] leading-[1.55] font-normal not-italic font-stretch-normal inset-ring inset-ring-ridge; }
-  .post :is(img, video) { @apply h-auto max-w-full rounded-xl; }
+  .post :is(img, video) { @apply h-auto max-w-full; }
   .post figure { @apply mx-0; }
   .post figcaption { @apply mt-2 text-[.9rem] text-dust; }
   #app .post hr { @apply mx-0 my-10 block border-0 border-t border-t-ridge; }

@@ -19,7 +19,10 @@
 ;; The date comes from the file name, the title from #+TITLE (or the slug),
 ;; and the listing excerpt from #+DESCRIPTION (or the first paragraph).  An
 ;; entry with #+VIDEO (and #+POSTER) is shown as that video, its text the
-;; caption.  The index file holds the collection's title, intro text and
+;; caption.  A post's #+FEATURED picture or video stands beside its opening
+;; text, and its listing shows it small: the picture, or the video's poster
+;; (#+POSTER, or the video's own address ending .jpg, which /admin uploads with
+;; it).  The index file holds the collection's title, intro text and
 ;; #+POSTS_PER_PAGE.
 ;;
 ;; The build also writes rss.xml, one feed of every collection's entries in
@@ -144,6 +147,10 @@ Org's heading ids are random; SEED keeps them the same from build to build."
   (replace-regexp-in-string "\\`<a href=\"\\(https?:\\)"
                             "<a target=\"_blank\" rel=\"noopener\" href=\"\\1" link t))
 
+(defun site--video-p (address)
+  "Whether ADDRESS names a video (by its extension)."
+  (string-match-p "\\.\\(mp4\\|webm\\|m4v\\|mov\\)\\'" address))
+
 (defun site--entries (route dir)
   "Every entry in DIR, newest first.  ROUTE seeds their heading ids."
   (let ((org-export-filter-link-functions '(site--new-tab))
@@ -158,10 +165,15 @@ Org's heading ids are random; SEED keeps them the same from build to build."
           (insert-file-contents (expand-file-name file dir))
           (setq default-directory (expand-file-name dir))
           (org-mode)
-          (let ((excerpt (or (site--keyword "DESCRIPTION") (site--first-paragraph)))
-                (video (site--keyword "VIDEO"))
-                (poster (site--keyword "POSTER"))
-                (image (site--keyword "IMAGE")))
+          (let* ((excerpt (or (site--keyword "DESCRIPTION") (site--first-paragraph)))
+                 (video (site--keyword "VIDEO"))
+                 (featured (site--keyword "FEATURED"))
+                 (poster (or (site--keyword "POSTER")
+                             (and featured (site--video-p featured)
+                                  (concat (file-name-sans-extension featured) ".jpg"))))
+                 ;; Link previews want a JPEG or PNG.
+                 (image (or (site--keyword "IMAGE")
+                            (and featured (string-match-p "\\.\\(jpe?g\\|png\\)\\'" featured) featured))))
             (push `((slug . ,slug)
                     (date . ,date)
                     (dateLabel . ,(site--date-label date))
@@ -174,6 +186,7 @@ Org's heading ids are random; SEED keeps them the same from build to build."
                     (html . ,(let ((org-html-toplevel-hlevel 3))
                                (site--body-html (format "%s:%s" route slug))))
                     ,@(and video `((video . ,video)))
+                    ,@(and featured `((featured . ,featured)))
                     ,@(and poster `((poster . ,poster)))
                     ,@(and image `((image . ,image))))
                   entries)))))
@@ -210,14 +223,22 @@ Org's heading ids are random; SEED keeps them the same from build to build."
 (defun site--cdata (s)
   (concat "<![CDATA[" (string-replace "]]>" "]]]]><![CDATA[>" s) "]]>"))
 
+(defun site--entry-video (entry)
+  "ENTRY's video: a travelog's, or a post's featured one."
+  (or (alist-get 'video entry)
+      (let ((featured (alist-get 'featured entry)))
+        (and featured (site--video-p featured) featured))))
+
 (defun site--entry-full-html (entry)
-  "ENTRY's full HTML: its video, if it has one, above its text."
-  (let ((video (alist-get 'video entry))
+  "ENTRY's full HTML: its video or featured picture, if it has one, above its text."
+  (let ((video (site--entry-video entry))
+        (featured (alist-get 'featured entry))
         (poster (alist-get 'poster entry)))
-    (concat (if video
-                (format "<p><video controls playsinline preload=\"metadata\"%s src=\"%s\"></video></p>\n"
-                        (if poster (format " poster=\"%s\"" poster) "") video)
-              "")
+    (concat (cond (video
+                   (format "<p><video controls playsinline preload=\"metadata\"%s src=\"%s\"></video></p>\n"
+                           (if poster (format " poster=\"%s\"" poster) "") video))
+                  (featured (format "<p><img src=\"%s\" alt=\"\"></p>\n" featured))
+                  (t ""))
             (alist-get 'html entry))))
 
 (defun site--url (path)
@@ -276,7 +297,7 @@ Missing is an error in CI; a local build without the network writes 0."
               ;; The address an entry had when views were #routes: readers know
               ;; entries by it, and would show them all again were it to change.
               (guid (format "%s#%s/%s" site-url route (alist-get 'slug entry)))
-              (video (alist-get 'video entry)))
+              (video (site--entry-video entry)))
           (insert "  <item>\n"
                   "    <title>" (xml-escape-string (alist-get 'title entry)) "</title>\n"
                   "    <link>" url "</link>\n"

@@ -26,7 +26,7 @@ import { watchVersion } from './version.ts';
 interface Section { id: string; title: string; html: string; description: string; image: string }
 interface Entry {
     slug: string; date: string; dateLabel: string; title: string; excerpt: string; html: string;
-    video?: string; poster?: string; image?: string;
+    video?: string; featured?: string; poster?: string; image?: string;
 }
 interface Collection { title: string; description: string; image: string; intro: string; perPage: number; entries: Entry[] }
 interface SiteData { views: Section[]; collections: Record<string, Collection>; tabs: Record<string, string>; feed: string }
@@ -151,7 +151,19 @@ const section = (s: Section) => html`
 const video = (e: Entry, cls = '') => html`
     <video controls playsinline preload="metadata" src=${e.video} poster=${e.poster || nothing} class="block aspect-[9/16] h-auto w-full rounded-xl bg-mesa ${cls}"></video>`;
 
-// A listing entry: a post's excerpt, or a travelog's video and caption.
+const isVideo = (address: string) => /\.(mp4|webm|m4v|mov)$/i.test(address);
+// A post's #+FEATURED picture or video: beside its opening text, or above it on a narrow
+// screen, no taller than most of the screen. Its listing shows it small (thumb).
+const featured = (e: Entry) => html`
+    <div class="float-right mb-5 ml-8 w-[min(18rem,45%)] narrow:float-none narrow:mx-0 narrow:w-full [&>*]:block [&>*]:h-auto [&>*]:w-full [&>*]:bg-mesa narrow:[&>*]:mx-auto narrow:[&>*]:max-h-[75vh] narrow:[&>*]:w-auto narrow:[&>*]:max-w-full">
+        ${isVideo(e.featured!)
+            ? html`<video controls playsinline preload="metadata" src=${e.featured} poster=${e.poster || nothing}></video>`
+            : html`<img src=${e.featured} alt="">`}
+    </div>`;
+const thumb = (e: Entry) => e.featured && (isVideo(e.featured) ? e.poster : e.featured);
+
+// A listing entry: a post's excerpt (and its featured picture, small), or a travelog's video
+// and caption.
 const entry = (route: string, e: Entry) => e.video ? html`
     <li class="travelog [&_p]:m-0 [&_p]:text-[.9rem] [&_p]:text-dust">
         ${video(e)}
@@ -159,7 +171,8 @@ const entry = (route: string, e: Entry) => e.video ? html`
         <h3 class="mx-0 mt-[.1rem] mb-[.35rem] text-[1.15rem] leading-[1.2] font-[750] font-stretch-85%"><a class=${TITLE_LINK} href=${address(route, e.slug)}>${e.title}</a></h3>
         ${unsafeHTML(e.excerpt)}
     </li>` : html`
-    <li class="entry border-t border-t-ridge py-7 [&_p]:m-0 [&_p]:mb-3 [&_p]:text-bone">
+    <li class="entry flow-root border-t border-t-ridge py-7 [&_p]:m-0 [&_p]:mb-3 [&_p]:text-bone">
+        ${thumb(e) ? html`<a class="float-right mb-2 ml-6 w-32 narrow:w-24" href=${address(route, e.slug)} tabindex="-1" aria-hidden="true"><img class="block aspect-[4/5] w-full bg-mesa object-cover" src=${thumb(e)} alt="" loading="lazy"></a>` : nothing}
         <time class="text-[.9rem] text-dust" datetime=${e.date}>${e.dateLabel}</time>
         <h3 class="mx-0 mt-1 mb-[.6rem] text-[1.45rem] leading-[1.2] font-[750] font-stretch-85% tracking-[-.01em]"><a class=${TITLE_LINK} href=${address(route, e.slug)}>${e.title}</a></h3>
         ${unsafeHTML(e.excerpt)}
@@ -194,16 +207,17 @@ function listing(route: string, c: Collection, page: number) {
 function single(route: string, label: string, c: Collection, i: number) {
     const e = c.entries[i], newer = c.entries[i - 1], older = c.entries[i + 1];
     return html`
-    <article class="outline-2 post">
+    <article class="outline-2 post flow-root">
         <header class="mb-10">
             <a class="mb-5 inline-block text-[.9rem] font-semibold text-dust no-underline hover:text-turq" href=${pageHref(route, Math.floor(i / c.perPage) + 1)}>← ${label}</a>
             <h2 class="mx-0 mt-0 mb-[.9rem] text-[clamp(2rem,4.6vw,3rem)] leading-[1.02] font-extrabold font-stretch-75% tracking-[-.02em]">${e.title}</h2>
             <time class="block text-dust" datetime=${e.date}>${e.dateLabel}</time>
         </header>
         ${e.video ? video(e, 'mb-6') : nothing}
+        ${e.featured ? featured(e) : nothing}
         ${unsafeHTML(e.html)}
         ${newer || older ? html`
-        <nav class="mt-12 grid grid-cols-[1fr_1fr] gap-4 border-t border-t-ridge pt-6 narrow:grid-cols-[1fr]" aria-label="More">
+        <nav class="clear-both mt-12 grid grid-cols-[1fr_1fr] gap-4 border-t border-t-ridge pt-6 narrow:grid-cols-[1fr]" aria-label="More">
             ${newer ? html`<a class=${POST_LINK} href=${address(route, newer.slug)} rel="prev"><span class=${POST_LINK_LABEL}>← Newer</span>${newer.title}</a>` : nothing}
             ${older ? html`<a class="${POST_LINK} col-start-2 text-right narrow:col-auto" href=${address(route, older.slug)} rel="next"><span class=${POST_LINK_LABEL}>Older →</span>${older.title}</a>` : nothing}
         </nav>` : nothing}

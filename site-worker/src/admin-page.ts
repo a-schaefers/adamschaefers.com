@@ -1,7 +1,7 @@
 /* The assets page's script (src/admin.ts serves the page): the list, filtered by name; an
    upload, with its progress; copying an asset's Org line or address; deleting one. A video is
    made an MP4 in the browser before it goes up (convert, below), so an iPhone's .mov can be
-   uploaded straight from the phone. Browser code: scripts/build.ts bundles it (Mediabunny
+   uploaded straight from the phone, and its poster (pickPoster, below) goes up beside it. Browser code: scripts/build.ts bundles it (Mediabunny
    too) into src/admin-page.gen.ts, which the page inlines. Its classes are Tailwind's
    (src/admin-page.css). */
 
@@ -38,6 +38,7 @@ function render() {
   $('#rows').innerHTML = shown.map((i, n) => '<tr><td>' + thumb(i) + '</td><td><span class="' + PATH + '">' + esc(i.name) + '</span><small>' + esc(i.type) + '</small></td><td>' + size(i.size) +
     '</td><td>' + esc(new Date(i.uploaded).toLocaleString()) + '</td><td class="' + ACTIONS + '">' +
     '<button class="' + SMALL + '" data-n="' + n + '" data-do="org">Copy Org</button><button class="' + SMALL + '" data-n="' + n + '" data-do="url">Copy address</button>' +
+    (i.type.startsWith('video/') ? '<button class="' + SMALL + '" data-n="' + n + '" data-do="poster">Poster</button>' : '') +
     '<a href="' + esc(i.url) + '" target="_blank" rel="noopener"><button class="' + SMALL + '" type="button">Open</button></a><button class="' + SMALL + '" data-n="' + n + '" data-do="delete">Delete</button></td></tr>').join('') ||
     '<tr><td colspan="5"><small>' + (items.length ? 'Nothing matches.' : 'No assets yet.') + '</small></td></tr>';
   $('#rows').dataset.shown = JSON.stringify(shown.map((i) => items.indexOf(i)));
@@ -58,6 +59,17 @@ $('#rows').addEventListener('click', async (e) => {
   const item = items[JSON.parse($('#rows').dataset.shown!)[b.dataset.n!]];
   if (b.dataset.do === 'org') return copy(org(item));
   if (b.dataset.do === 'url') return copy(item.url);
+  if (b.dataset.do === 'poster') {
+    const still = await pickPoster('/admin/api/media/' + encodeURI(item.name));
+    if (!still) return;
+    const name = posterName(item.name);
+    say('Uploading ' + name + '…');
+    const { status, data } = await put(name, still, true, () => {});
+    if (status !== 200) return say(data.error || 'Upload failed (' + (status || 'network') + ')', true);
+    say('Its poster is ' + data.url + '.' + (data.purged === false ? ' Cloudflare may serve the old one for up to an hour (its cache could not be cleared).'
+      : data.purged ? ' The old one is cleared from Cloudflare\'s cache; a browser that has it may keep it up to an hour.' : ''), data.purged === false);
+    return load();
+  }
   if (b.dataset.do === 'delete') {
     if (!confirm('Delete ' + item.name + '? Pages that name it will lose it, and make check fails until they stop.')) return;
     const r = await fetch('/admin/api/media/' + encodeURI(item.name), { method: 'DELETE' });
@@ -112,15 +124,63 @@ async function convert(f: File) {
   return { blob: new Blob([target.buffer!], { type: 'video/mp4' }), lost: lost.filter((t) => t.startsWith('audio')) };
 }
 
+/** A poster for the video at SRC (this origin's, so its frames can be read): the frame the
+    owner picks, playing or dragging to it, from a quarter of the way in (the first second is
+    often a transition). A JPEG, or undefined for none. The site finds a post's video's poster
+    by the video's address ending .jpg (#+FEATURED). */
+function pickPoster(src: string) {
+  const dialog = $<HTMLDialogElement>('#pick'), video = $<HTMLVideoElement>('#pick-video');
+  video.onloadedmetadata = () => { video.currentTime = video.duration / 4; };
+  video.src = src;
+  dialog.showModal();
+  return new Promise<Blob | undefined>((done) => {
+    const finish = (still?: Blob) => {
+      video.pause();
+      dialog.close();
+      video.removeAttribute('src');
+      video.load();
+      done(still);
+    };
+    $('#pick-skip').onclick = () => finish();
+    dialog.oncancel = (e) => { e.preventDefault(); finish(); };
+    $('#pick-use').onclick = () => {
+      if (!video.videoWidth) return;
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d')!.drawImage(video, 0, 0);
+      canvas.toBlob((still) => finish(still ?? undefined), 'image/jpeg', .85);
+    };
+  });
+}
+const posterName = (name: string) => name.replace(/\.[a-z0-9]+$/, '') + '.jpg';
+
+interface Uploaded { error?: string; name?: string; size?: number; url?: string; type?: string; purged?: boolean }
+/** Upload BODY as NAME (replacing a taken one if REPLACE), reporting the bytes sent. */
+function put(name: string, body: Blob, replace: boolean, sent: (bytes: number) => void) {
+  return new Promise<{ status: number; data: Uploaded }>((done) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('PUT', '/admin/api/media/' + encodeURI(name) + (replace ? '?replace=1' : ''));
+    xhr.setRequestHeader('Content-Type', body.type || 'application/octet-stream');
+    xhr.upload.onprogress = (p) => sent(p.loaded);
+    xhr.onloadend = () => {
+      let data: Uploaded = {};
+      try { data = JSON.parse(xhr.responseText); } catch {}
+      done({ status: xhr.status, data });
+    };
+    xhr.send(body);
+  });
+}
+
 // A name an Org link can carry: lowercase, dashes for spaces and oddities; a video's ends in .mp4.
 $('#file').addEventListener('change', () => {
   const f = $<HTMLInputElement>('#file').files![0];
   if (!f) return;
   const name = f.name.toLowerCase().replace(/[^a-z0-9._-]+/g, '-').replace(/^-+|-+$/g, '');
   $<HTMLInputElement>('#name').value = isVideo(f) ? name.replace(/\.[a-z0-9]+$/, '') + '.mp4' : name;
-  $('#note').innerHTML = isVideo(f) ? 'A video: made an MP4 (H.264, at most ' + LONG_SIDE + 'px, no location or other metadata) on this device first, then uploaded. Keep this page open until it\'s done.'
+  $('#note').innerHTML = isVideo(f) ? 'A video: made an MP4 (H.264, at most ' + LONG_SIDE + 'px, no location or other metadata) on this device first, then uploaded with a JPEG poster of the same name, from the frame you pick. Keep this page open until it\'s done.'
     : f.size > LIMIT ? '<span class="text-chile">Over 100 MB: too big for one upload. Make it smaller.</span>'
-    : 'Up to 100 MB. Videos are made MP4s here before they go up.';
+    : 'Up to 100 MB. Videos are made MP4s here before they go up, with a poster.';
 });
 $('#up').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -144,27 +204,37 @@ $('#up').addEventListener('submit', async (e) => {
     $<HTMLButtonElement>('#send').disabled = false;
     return say((isVideo(f) ? 'Converted, it is ' : 'It is ') + size(body.size) + ': over the 100 MB an upload can be. Trim it or split it.', true);
   }
-  say('Uploading ' + name + ' (' + size(body.size) + ')…');
-  const xhr = new XMLHttpRequest();
-  xhr.open('PUT', '/admin/api/media/' + encodeURI(name) + ($<HTMLInputElement>('#replace').checked ? '?replace=1' : ''));
-  xhr.setRequestHeader('Content-Type', body.type || 'application/octet-stream');
+  // A video's poster, picked before anything goes up; a video still goes up without one.
+  let still: Blob | undefined;
+  if (isVideo(f)) {
+    say('Pick its poster…');
+    const local = URL.createObjectURL(body);
+    still = await pickPoster(local);
+    URL.revokeObjectURL(local);
+  }
+  const stillName = posterName(name);
+  const replace = $<HTMLInputElement>('#replace').checked;
+  const total = body.size + (still?.size ?? 0);
+  say('Uploading ' + name + ' (' + size(body.size) + ')' + (still ? ' and its poster' : '') + '…');
   step('upload', 0);
-  xhr.upload.onprogress = (p) => { if (p.lengthComputable) step('upload', p.loaded / p.total); };
-  xhr.onloadend = () => {
-    $<HTMLButtonElement>('#send').disabled = false;
-    hideSteps();
-    let data: { error?: string; name?: string; size?: number; url?: string; type?: string; purged?: boolean } = {};
-    try { data = JSON.parse(xhr.responseText); } catch {}
-    if (xhr.status !== 200) return say(data.error || 'Upload failed (' + (xhr.status || 'network') + ')', true);
-    const cache = data.purged === undefined ? '' : data.purged ? ' The old file is cleared from Cloudflare\'s cache (a browser that has it may keep it up to an hour).'
-      : ' Cloudflare may serve the old file for up to an hour (its cache could not be cleared).';
-    const mute = lost.length ? ' Its sound couldn\'t be converted on this device, so it has none.' : '';
-    say('Uploaded ' + data.name + ' (' + size(data.size!) + '). Org: ' + org(data as Item) + cache + mute, data.purged === false || Boolean(mute));
-    $<HTMLFormElement>('#up').reset();
-    $('#note').textContent = 'Up to 100 MB. Videos are made MP4s here before they go up.';
-    load();
-  };
-  xhr.send(body);
+  const { status, data } = await put(name, body, replace, (bytes) => step('upload', bytes / total));
+  let stillNote = '';
+  if (status === 200 && still) {
+    const up = await put(stillName, still, replace, (bytes) => step('upload', (body.size + bytes) / total));
+    stillNote = up.status === 200 ? ' Its poster: ' + up.data.url + '.' : ' Its poster didn\'t go up: ' + (up.data.error || 'error ' + (up.status || 'network')) + '.';
+  } else if (status === 200 && isVideo(f)) stillNote = ' No poster: its Poster button picks one.';
+  $<HTMLButtonElement>('#send').disabled = false;
+  hideSteps();
+  if (status !== 200) return say(data.error || 'Upload failed (' + (status || 'network') + ')', true);
+  const cache = data.purged === undefined ? '' : data.purged ? ' The old file is cleared from Cloudflare\'s cache (a browser that has it may keep it up to an hour).'
+    : ' Cloudflare may serve the old file for up to an hour (its cache could not be cleared).';
+  const mute = lost.length ? ' Its sound couldn\'t be converted on this device, so it has none.' : '';
+  const featured = isVideo(f) ? ' (a travelog), or #+FEATURED: ' + data.url + ' (a post)' : '';
+  say('Uploaded ' + data.name + ' (' + size(data.size!) + '). Org: ' + org(data as Item) + featured + '.' + stillNote + cache + mute,
+    data.purged === false || Boolean(mute) || stillNote.includes('n\'t'));
+  $<HTMLFormElement>('#up').reset();
+  $('#note').textContent = 'Up to 100 MB. Videos are made MP4s here before they go up, with a poster.';
+  load();
 });
 load();
 
