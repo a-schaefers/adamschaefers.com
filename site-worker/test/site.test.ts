@@ -56,6 +56,18 @@ const env = {
     async head(key: string) {
       return bucket.has(key) ? { key } : null;
     },
+    // R2's ranges as the binding reads a Range header: bytes=a-b, bytes=a-, bytes=-n.
+    async get(key: string, options: { range: Headers }) {
+      const o = bucket.get(key);
+      if (!o) return null;
+      const m = /^bytes=(\d*)-(\d*)$/.exec(options.range.get('Range') ?? '');
+      if (options.range.has('Range') && !m) throw new Error('bad range');
+      const range = !m ? undefined : m[1] === '' ? { suffix: Number(m[2]) }
+        : { offset: Number(m[1]), length: (m[2] === '' ? o.data.length - 1 : Number(m[2])) - Number(m[1]) + 1 };
+      const start = !range ? 0 : 'suffix' in range ? o.data.length - range.suffix! : range.offset;
+      const end = !range ? o.data.length : 'suffix' in range ? o.data.length : range.offset + range.length;
+      return { size: o.data.length, range: range ?? { offset: 0, length: o.data.length }, body: new Response(o.data.subarray(start, end)).body };
+    },
     async put(key: string, body: BodyInit, options: { httpMetadata: { contentType: string; cacheControl: string } }) {
       const data = Buffer.from(await new Response(body).arrayBuffer());
       bucket.set(key, { data, type: options.httpMetadata.contentType, cacheControl: options.httpMetadata.cacheControl, uploaded: new Date() });
@@ -118,6 +130,24 @@ test('an upload stores the file with its type and an hour of caching, and answer
   assert.equal(stored.type, 'image/jpeg');
   assert.equal(stored.cacheControl, 'public, max-age=3600');
   assert.deepEqual(purges, [], 'a new name was never cached: nothing to purge');
+});
+
+test('a file reads back from this origin, by range too, never cached', async () => {
+  const whole = await call('GET', '/admin/api/media/evia.mp4');
+  assert.equal(whole.status, 200);
+  assert.equal(await whole.text(), '0123456789');
+  assert.equal(whole.headers.get('Content-Type'), 'video/mp4');
+  assert.equal(whole.headers.get('Cache-Control'), 'no-store');
+  assert.equal(whole.headers.get('Accept-Ranges'), 'bytes');
+  for (const [range, body, contentRange] of [['bytes=2-4', '234', 'bytes 2-4/10'], ['bytes=7-', '789', 'bytes 7-9/10'], ['bytes=-2', '89', 'bytes 8-9/10']]) {
+    const part = await call('GET', '/admin/api/media/evia.mp4', { headers: { Range: range } });
+    assert.equal(part.status, 206, range);
+    assert.equal(await part.text(), body, range);
+    assert.equal(part.headers.get('Content-Range'), contentRange, range);
+  }
+  assert.equal((await call('GET', '/admin/api/media/evia.mp4', { headers: { Range: 'pages=1' } })).status, 416);
+  assert.equal((await call('GET', '/admin/api/media/gone.mp4')).status, 404);
+  assert.equal((await call('GET', '/admin/api/media/evia.mp4', { signedIn: false })).status, 403);
 });
 
 test('a taken name is refused unless Replace is ticked', async () => {

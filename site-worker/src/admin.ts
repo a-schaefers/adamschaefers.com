@@ -6,6 +6,8 @@
    /admin/api/media on the same origin, and a change from any other origin is refused.
 
      GET    /admin/api/media              every asset
+     GET    /admin/api/media/<name>       the file itself, ranges too (a video seeks): from this
+                                          origin, the page can take a video's frame for its poster
      PUT    /admin/api/media/<name>       upload (the body is the file); ?replace=1 replaces
      DELETE /admin/api/media/<name>       delete
 
@@ -106,6 +108,22 @@ export async function admin(request: Request, env: Env, url: URL) {
   if (request.method === 'PUT' && !type) {
     return json({ error: `Only ${Object.keys(TYPES).join(', ')} files: nothing a browser would run as a page.` }, 400);
   }
+  if (request.method === 'GET') {
+    let object;
+    try {
+      object = await env.MEDIA.get(name, { range: request.headers });
+    } catch {
+      return json({ error: 'That range is not in the file.' }, 416);
+    }
+    if (!object) return json({ error: 'Not found' }, 404);
+    const headers = new Headers({ 'Content-Type': type || 'application/octet-stream', 'Cache-Control': 'no-store', 'Accept-Ranges': 'bytes', ...SECURITY });
+    const range = object.range as { offset?: number; length?: number; suffix?: number } | undefined;
+    if (!range || !request.headers.has('Range')) return new Response(object.body, { headers });
+    const offset = range.suffix !== undefined ? object.size - range.suffix : range.offset ?? 0;
+    const length = range.suffix ?? range.length ?? object.size - offset;
+    headers.set('Content-Range', `bytes ${offset}-${offset + length - 1}/${object.size}`);
+    return new Response(object.body, { status: 206, headers });
+  }
   if (request.method === 'DELETE') {
     await env.MEDIA.delete(name);
     return json({ deleted: name, purged: await purge(env, `${env.MEDIA_ORIGIN}/${name}`) });
@@ -138,10 +156,15 @@ const PAGE = `<!doctype html>
   <div class="flex flex-wrap items-center gap-2"><label><input type="checkbox" id="replace"> Replace if taken</label><button id="send">Upload</button></div>
   <div class="flex items-center gap-2 text-[.85rem]" id="convert" hidden><span class="w-20 text-dust">Converting</span><progress class="flex-1" max="1" value="0"></progress><output class="w-10 text-right tabular-nums">0%</output></div>
   <div class="flex items-center gap-2 text-[.85rem]" id="upload" hidden><span class="w-20 text-dust">Uploading</span><progress class="flex-1" max="1" value="0"></progress><output class="w-10 text-right tabular-nums">0%</output></div>
-  <p class="m-0 text-[.85rem] text-dust" id="note">Up to 100 MB. Videos are made MP4s here before they go up.</p>
+  <p class="m-0 text-[.85rem] text-dust" id="note">Up to 100 MB. Videos are made MP4s here before they go up, with a poster.</p>
 </form>
 <div class="mb-4 flex flex-wrap items-center gap-2"><input class="min-w-64 flex-1" type="text" id="q" placeholder="Filter by name"></div>
 <p class="min-h-[1.5em] text-turq [&.err]:text-chile" id="msg"></p>
 <table><thead><tr><th></th><th>Asset</th><th>Size</th><th>Uploaded</th><th></th></tr></thead><tbody id="rows"></tbody></table>
+<dialog class="m-auto max-w-[min(94vw,36rem)] rounded-xl border border-ridge bg-mesa p-4 text-sand backdrop:bg-black/70" id="pick">
+  <p class="m-0 mb-3">Its poster: play or drag to the frame you want, then use it.</p>
+  <video class="mx-auto mb-3 block max-h-[60vh] max-w-full bg-black" id="pick-video" controls playsinline muted preload="auto"></video>
+  <div class="flex flex-wrap gap-2"><button id="pick-use" type="button">Use this frame</button><button id="pick-skip" type="button">No poster</button></div>
+</dialog>
 <script>${SCRIPT}</script>
 </body></html>`;

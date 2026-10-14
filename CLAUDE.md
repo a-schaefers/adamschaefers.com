@@ -101,7 +101,12 @@ Entries are `DIR/YYYY-MM-DD-slug.org`: date from the file name, title from
 entry with `#+VIDEO` (and `#+POSTER`) shows as that video, its text the
 caption; that's every Off the clock entry (travelogs). The video is an
 address on the media domain (`#+VIDEO: https://media.adamschaefers.com/evia.mp4`,
-below). Entry HTML is shown from the site root, so link files in the repo as
+below). A post's `#+FEATURED` picture or video (`#+FEATURED:
+https://media.adamschaefers.com/farming.mp4`) stands beside its opening text
+on wide screens and above it on narrow ones, and its listing shows it small: the
+picture, or the video's poster, which is `#+POSTER` or else the video's own
+address ending `.jpg` (the admin uploads it with the video); it is the post's
+link-preview picture too, and the feed's item carries it. Entry HTML is shown from the site root, so link files in the repo as
 `blog/...`, `off-the-clock/...` (a travelog's poster, `off-the-clock/<name>.jpg`,
 sits beside its entry).
 Links out of the site open in a new tab. The index file holds the
@@ -151,7 +156,9 @@ https://media.adamschaefers.com/ (the bucket's custom domain: Cloudflare's
 edge cache, range requests so videos seek, no Worker involved). Manage them at
 https://adamschaefers.com/admin/ (`site-worker/src/admin.ts`, behind the
 Cloudflare Access application "adamschaefers.com assets admin",
-adam.schaefers@icloud.com): upload one (up to 100 MB), copy its Org line
+adam.schaefers@icloud.com): upload one (up to 100 MB), pick a video's poster (Poster: play or drag to a
+frame; the admin reads the file from its own origin, `GET
+/admin/api/media/<name>`, so it may copy the frame), copy its Org line
 (`#+VIDEO: https://media.adamschaefers.com/evia.mp4`, `[[https://media.adamschaefers.com/photo.jpg]]`)
 or its address, delete one. An upload is kept in caches an hour; replacing or
 deleting one purges it from Cloudflare's edge at once (the Worker secret
@@ -166,7 +173,9 @@ page makes any video it's given one before uploading it, in the browser
 (Mediabunny on WebCodecs, the device's own video hardware), so an iPhone's HEVC
 `.mov`, which many desktop browsers can't play, goes up from the phone as is:
 at most 1920px on its longer side, H.264 and AAC copied when they already are,
-location and other tags dropped, with bars for the conversion and the upload.
+location and other tags dropped, with bars for the conversion and the upload;
+then you pick its poster frame (from a quarter in), uploaded beside it as the
+same name with `.jpg`.
 A browser that can't (no H.264 encoder, or a codec it can't decode) says so;
 then encode it with ffmpeg (H.264 High + AAC, yuv420p, `-movflags +faststart`,
 `-map_metadata -1`). Several clips meant to play as one get joined into one
