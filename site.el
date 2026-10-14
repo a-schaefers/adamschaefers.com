@@ -83,6 +83,77 @@ names it /NAME, and `site--style' publishes it under a hashed name instead.")
 (defconst site-font-preload "fonts/bricolage-grotesque-latin.woff2"
   "The font every page needs (its NAME in `site-fonts'), fetched along with the page.")
 
+(defconst site-inline-media-rules
+  (let ((media "\\.\\(jpe?g\\|png\\|gif\\|webp\\|avif\\|mp4\\|webm\\|m4v\\)\\'"))
+    `(("file" . ,media) ("http" . ,media) ("https" . ,media)))
+  "Links Org shows in place rather than as links: a link with no description to a
+picture ([[file:blog/photo.jpg]], [[https://media.adamschaefers.com/photo.jpg]]),
+or to a video, which plays there (`site--format-media').")
+
+(defvar site--posters (make-hash-table :test #'equal)
+  "Each video's poster address, or nil when it has none, asked once per build.")
+
+(defun site--poster (video)
+  "VIDEO's poster: its address ending .jpg (the admin uploads it beside the video),
+when that answers; nil otherwise."
+  (let ((poster (concat (file-name-sans-extension video) ".jpg")))
+    (with-memoization (gethash video site--posters)
+      (and (string-match-p "\\`https?://" video) (site--remote-size poster) poster))))
+
+(defun site--format-media (format source attributes info)
+  "Org's picture in place (FORMAT, `org-html--format-image', with SOURCE, ATTRIBUTES
+and INFO), lazily loaded; or for a video, a player with its poster.  A picture's
+or video's #+ATTR_HTML :class reaches it (wide: `site--alternate-figures')."
+  (if (site--video-p source)
+      (let ((poster (site--poster source))
+            (class (plist-get attributes :class)))
+        (format "<video controls playsinline preload=\"metadata\" src=\"%s\"%s%s></video>"
+                (site--attr source)
+                (if poster (format " poster=\"%s\"" (site--attr poster)) "")
+                (if class (format " class=\"%s\"" (site--attr class)) "")))
+    (funcall format source (org-combine-plists '(:loading "lazy") attributes) info)))
+(advice-add 'org-html--format-image :around #'site--format-media)
+
+(defun site--alternate-figures (html right-first)
+  "HTML with each picture or video Org set apart (a div.figure) floated to a side
+by turns (right first when RIGHT-FIRST, else left: a post's featured one is on
+the right), so the text runs beside them; site.css stacks them on narrow screens.
+One whose picture has the class wide (#+ATTR_HTML: :class wide) spans the column
+and takes no turn.  Each starts below everything before it (a div.figure-clear
+ahead of it, or ahead of its heading when it opens a section), so the text that
+follows it starts beside it, not beside the one before."
+  (let ((turn (if right-first 0 1))
+        (start 0)
+        parts)
+    (while (string-match "<div\\(?: id=\"[^\"]*\"\\)? class=\"figure\">" html start)
+      (let* ((open (match-string 0 html))
+             (from (match-beginning 0))
+             (to (match-end 0))
+             (body (substring html to (or (string-search "</div>" html to) (length html))))
+             (side (if (string-match-p "class=\"\\(?:[^\"]* \\)?wide[\" ]" body)
+                       "wide"
+                     (prog1 (if (cl-evenp turn) "right" "left") (cl-incf turn)))))
+        (let ((clear (if (equal side "wide") from (site--section-start html start from))))
+          (push (substring html start clear) parts)
+          (unless (equal side "wide") (push "<div class=\"figure-clear\"></div>" parts))
+          (push (substring html clear from) parts))
+        (push (string-replace "class=\"figure\"" (format "class=\"figure %s\"" side) open) parts)
+        (setq start to)))
+    (push (substring html start) parts)
+    (apply #'concat (nreverse parts))))
+
+(defun site--section-start (html start from)
+  "Where the heading starts that HTML's figure at FROM opens the section of (only
+tags between them), if it is after START; else FROM."
+  (let ((before (substring html start from))
+        heading)
+    (if (not (string-match "</h[3-6]>\\(?:\\s-\\|<[^>]*>\\)*\\'" before))
+        from
+      (let ((close (match-beginning 0)) (i 0))
+        (while (and (string-match "<h[3-6][ >]" before i) (< (match-beginning 0) close))
+          (setq heading (match-beginning 0) i (match-end 0)))
+        (if heading (+ start heading) from)))))
+
 (defmacro site--with-export-settings (&rest body)
   `(let ((user-full-name "Adam Schaefers")
          (org-export-with-toc nil)
@@ -90,7 +161,8 @@ names it /NAME, and `site--style' publishes it under a hashed name instead.")
          (org-export-with-tags nil)
          (org-export-time-stamp-file nil)
          (org-export-use-babel nil)
-         (org-html-htmlize-output-type nil))
+         (org-html-htmlize-output-type nil)
+         (org-html-inline-image-rules site-inline-media-rules))
      ,@body))
 
 (defun site--keyword (key)
@@ -185,7 +257,8 @@ Org's heading ids are random; SEED keeps them the same from build to build."
                     ;; The entry title is the view's h2, so the entry's own
                     ;; top-level headings start at h3.
                     (html . ,(let ((org-html-toplevel-hlevel 3))
-                               (site--body-html (format "%s:%s" route slug))))
+                               (site--alternate-figures (site--body-html (format "%s:%s" route slug))
+                                                        (not featured))))
                     ,@(and video `((video . ,video)))
                     ,@(and featured `((featured . ,featured)))
                     ;; Under the featured picture: the description, never the

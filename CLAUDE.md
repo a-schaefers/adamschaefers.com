@@ -107,7 +107,15 @@ on wide screens and above it on narrow ones, its `#+DESCRIPTION` (if it has
 one) as the caption under it, and its listing shows it small: the
 picture, or the video's poster, which is `#+POSTER` or else the video's own
 address ending `.jpg` (the admin uploads it with the video); it is the post's
-link-preview picture too, and the feed's item carries it. Entry HTML is shown from the site root, so link files in the repo as
+link-preview picture too, and the feed's item carries it. Within any entry, a link with
+no description to a picture or video shows it there (`site-inline-media-rules`
+and `site--format-media` in `site.el`): `[[file:blog/photo.jpg]]` (a file in
+the repo, by its site address) or `[[https://media.adamschaefers.com/clip.mp4]]`
+(a video plays, with its poster when the `.jpg` beside it answers), pictures
+lazily, `#+CAPTION:` above it for a caption. They float beside the text by
+turns, right first (left first after a featured one), each starting below the
+last; `#+ATTR_HTML: :class wide` above one spans the column instead. Narrow
+screens stack them. Entry HTML is shown from the site root, so link files in the repo as
 `blog/...`, `off-the-clock/...` (a travelog's poster, `off-the-clock/<name>.jpg`,
 sits beside its entry).
 Links out of the site open in a new tab. The index file holds the

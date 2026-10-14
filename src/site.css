@@ -269,6 +269,24 @@
   .post pre { @apply overflow-x-auto rounded-xl bg-mesa px-5 py-4 font-mono text-[.9rem] leading-[1.55] font-normal not-italic font-stretch-normal inset-ring inset-ring-ridge; }
   .post :is(img, video) { @apply h-auto max-w-full; }
   .post figure { @apply mx-0; }
+  /* A picture or video in a post's text (Org's div.figure, site.el): floated to a side by
+     turns (site--alternate-figures), each below the last (its .figure-clear), the text running beside it; wide
+     ones span the column. On narrow screens each stands alone, centered, no taller than most
+     of the screen. Its #+CAPTION under it, without Org's "Figure 1:". */
+  .post .figure { @apply mx-0 mt-1 mb-5; }
+  .post .figure p { @apply m-0; }
+  .post .figure p + p { @apply mt-2 text-[.9rem] leading-[1.5] text-dust; }
+  .post .figure-number { @apply hidden; }
+  .post .figure :is(img, video) { @apply block h-auto w-full bg-mesa; }
+  .post .figure.right { @apply float-right ml-8 w-[min(18rem,45%)]; }
+  .post .figure.left { @apply float-left mr-8 w-[min(18rem,45%)]; }
+  .post .figure.wide { @apply clear-both; }
+  .post .figure-clear { @apply clear-both; }
+  .post .figure.wide :is(img, video) { @apply mx-auto max-h-[80vh] w-auto max-w-full; }
+  @variant narrow {
+    .post .figure:is(.left, .right) { @apply float-none m-0 mb-5 w-full; }
+    .post .figure :is(img, video) { @apply mx-auto max-h-[75vh] w-auto max-w-full; }
+  }
   .post figcaption { @apply mt-2 text-[.9rem] text-dust; }
   #app .post hr { @apply mx-0 my-10 block border-0 border-t border-t-ridge; }
   .post table { @apply w-full border-collapse text-[.95rem]; }
