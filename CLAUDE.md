@@ -159,12 +159,18 @@ deleting one purges it from Cloudflare's edge at once (the Worker secret
 changed file still gets a new name (the admin refuses a taken name unless
 Replace is ticked). `purge-cache.yml` empties the media domain's cache by hand. `make check` asks for every media address a page names, and the feed
 gives each video's size from its answer. The old `/videos/<name>.mp4`
-addresses redirect there (`site-worker/_redirects`). Encode videos before
-uploading, with ffmpeg as H.264 High + AAC, yuv420p, `-movflags +faststart`
-(index first, so playback starts while downloading) and `-map_metadata -1`;
-several clips meant to play as one get joined into one file. Give each a JPEG
-poster. iPhone uploads are often HEVC `.mov`, which many desktop browsers
-can't play, so always re-encode.
+addresses redirect there (`site-worker/_redirects`). Videos are served as
+MP4s of H.264 + AAC, yuv420p, index first (faststart, so playback starts while
+downloading), without metadata (an iPhone's holds where it was shot). The admin
+page makes any video it's given one before uploading it, in the browser
+(Mediabunny on WebCodecs, the device's own video hardware), so an iPhone's HEVC
+`.mov`, which many desktop browsers can't play, goes up from the phone as is:
+at most 1920px on its longer side, H.264 and AAC copied when they already are,
+location and other tags dropped, with bars for the conversion and the upload.
+A browser that can't (no H.264 encoder, or a codec it can't decode) says so;
+then encode it with ffmpeg (H.264 High + AAC, yuv420p, `-movflags +faststart`,
+`-map_metadata -1`). Several clips meant to play as one get joined into one
+file (ffmpeg). Give each a JPEG poster.
 
 The fonts are npm packages, listed in `site-fonts` in `site.el`: Bricolage
 Grotesque (Fontsource's variable font, latin and latin-ext subsets; the latin
