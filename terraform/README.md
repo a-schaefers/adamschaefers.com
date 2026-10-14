@@ -8,10 +8,12 @@ Terraform did not create the site.
 
 ## What Terraform owns, and what it must not touch
 
-**Terraform owns** (`terraform state list`, 45 resources): the zone, its three deliberate
+**Terraform owns** (`terraform state list`, 47 resources): the zone, its three deliberate
 settings (SSL strict, Always Use HTTPS, Browser Cache TTL 0), Smart Tiered Cache and the
 tiered caching under it, and bot management; all 16 DNS records; the license store's rate
-limiting rule; both Turnstile widgets (the contact form's and the store's); the license
+limiting rule; the media domain's CORS header, set at the edge on every answer, and the
+media bucket's CORS policy (both 2026-10-14, for the site's video player, hls.js); both
+Turnstile widgets (the contact form's and the store's); the license
 server's D1 database *as a record that it exists*; the `adamschaefers-media` bucket and
 this state's own bucket, each with its r2.dev switch (off); the two Access applications
 in front of the admin pages; and on GitHub this repository (its ruleset, the workflow
