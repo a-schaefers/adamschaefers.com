@@ -103,7 +103,8 @@ caption; that's every Off the clock entry (travelogs). The video is an
 address on the media domain (`#+VIDEO: https://media.adamschaefers.com/evia.mp4`,
 below). A post's `#+FEATURED` picture or video (`#+FEATURED:
 https://media.adamschaefers.com/farming.mp4`) stands beside its opening text
-on wide screens and above it on narrow ones, and its listing shows it small: the
+on wide screens and above it on narrow ones, its `#+DESCRIPTION` (if it has
+one) as the caption under it, and its listing shows it small: the
 picture, or the video's poster, which is `#+POSTER` or else the video's own
 address ending `.jpg` (the admin uploads it with the video); it is the post's
 link-preview picture too, and the feed's item carries it. Entry HTML is shown from the site root, so link files in the repo as

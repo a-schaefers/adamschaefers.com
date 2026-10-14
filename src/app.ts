@@ -26,7 +26,7 @@ import { watchVersion } from './version.ts';
 interface Section { id: string; title: string; html: string; description: string; image: string }
 interface Entry {
     slug: string; date: string; dateLabel: string; title: string; excerpt: string; html: string;
-    video?: string; featured?: string; poster?: string; image?: string;
+    video?: string; featured?: string; caption?: string; poster?: string; image?: string;
 }
 interface Collection { title: string; description: string; image: string; intro: string; perPage: number; entries: Entry[] }
 interface SiteData { views: Section[]; collections: Record<string, Collection>; tabs: Record<string, string>; feed: string }
@@ -152,14 +152,18 @@ const video = (e: Entry, cls = '') => html`
     <video controls playsinline preload="metadata" src=${e.video} poster=${e.poster || nothing} class="block aspect-[9/16] h-auto w-full rounded-xl bg-mesa ${cls}"></video>`;
 
 const isVideo = (address: string) => /\.(mp4|webm|m4v|mov)$/i.test(address);
-// A post's #+FEATURED picture or video: beside its opening text, or above it on a narrow
-// screen, no taller than most of the screen. Its listing shows it small (thumb).
+// A post's #+FEATURED picture or video, its #+DESCRIPTION under it: beside its opening text,
+// or above it on a narrow screen, no taller than most of the screen. Its listing shows it
+// small (thumb).
+const MEDIA = '[&>:is(img,video)]:block [&>:is(img,video)]:h-auto [&>:is(img,video)]:w-full [&>:is(img,video)]:bg-mesa '
+    + 'narrow:[&>:is(img,video)]:mx-auto narrow:[&>:is(img,video)]:max-h-[75vh] narrow:[&>:is(img,video)]:w-auto narrow:[&>:is(img,video)]:max-w-full';
 const featured = (e: Entry) => html`
-    <div class="float-right mb-5 ml-8 w-[min(18rem,45%)] narrow:float-none narrow:mx-0 narrow:w-full [&>*]:block [&>*]:h-auto [&>*]:w-full [&>*]:bg-mesa narrow:[&>*]:mx-auto narrow:[&>*]:max-h-[75vh] narrow:[&>*]:w-auto narrow:[&>*]:max-w-full">
+    <figure class="float-right mb-5 ml-8 w-[min(18rem,45%)] narrow:float-none narrow:mx-0 narrow:w-full ${MEDIA}">
         ${isVideo(e.featured!)
             ? html`<video controls playsinline preload="metadata" src=${e.featured} poster=${e.poster || nothing}></video>`
             : html`<img src=${e.featured} alt="">`}
-    </div>`;
+        ${e.caption ? html`<figcaption class="leading-[1.5] [&_p]:m-0">${unsafeHTML(e.caption)}</figcaption>` : nothing}
+    </figure>`;
 const thumb = (e: Entry) => e.featured && (isVideo(e.featured) ? e.poster : e.featured);
 
 // A listing entry: a post's excerpt (and its featured picture, small), or a travelog's video

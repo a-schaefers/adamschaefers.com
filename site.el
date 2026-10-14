@@ -20,7 +20,7 @@
 ;; and the listing excerpt from #+DESCRIPTION (or the first paragraph).  An
 ;; entry with #+VIDEO (and #+POSTER) is shown as that video, its text the
 ;; caption.  A post's #+FEATURED picture or video stands beside its opening
-;; text, and its listing shows it small: the picture, or the video's poster
+;; text, its #+DESCRIPTION under it, and its listing shows it small: the picture, or the video's poster
 ;; (#+POSTER, or the video's own address ending .jpg, which /admin uploads with
 ;; it).  The index file holds the collection's title, intro text and
 ;; #+POSTS_PER_PAGE.
@@ -165,7 +165,8 @@ Org's heading ids are random; SEED keeps them the same from build to build."
           (insert-file-contents (expand-file-name file dir))
           (setq default-directory (expand-file-name dir))
           (org-mode)
-          (let* ((excerpt (or (site--keyword "DESCRIPTION") (site--first-paragraph)))
+          (let* ((description (site--keyword "DESCRIPTION"))
+                 (excerpt (or description (site--first-paragraph)))
                  (video (site--keyword "VIDEO"))
                  (featured (site--keyword "FEATURED"))
                  (poster (or (site--keyword "POSTER")
@@ -187,6 +188,10 @@ Org's heading ids are random; SEED keeps them the same from build to build."
                                (site--body-html (format "%s:%s" route slug))))
                     ,@(and video `((video . ,video)))
                     ,@(and featured `((featured . ,featured)))
+                    ;; Under the featured picture: the description, never the
+                    ;; first paragraph, which is right beside it.
+                    ,@(and featured description
+                           `((caption . ,(string-trim (org-export-string-as description 'html t)))))
                     ,@(and poster `((poster . ,poster)))
                     ,@(and image `((image . ,image))))
                   entries)))))
