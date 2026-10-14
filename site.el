@@ -323,12 +323,13 @@ address, label and icon (24x24 paths drawn with currentColor; phones show it ove
 the label in the bottom bar).  The first is the home page's.  The labels reach
 src/app.ts in #site-data.")
 (defconst site-tab-class
-  (concat "flex items-center rounded-full px-[.9rem] py-[.45rem] text-[.95rem] font-semibold text-dust no-underline "
-          "hover:bg-mesa hover:text-sand aria-[current]:bg-mesa aria-[current]:text-turq aria-[current]:inset-ring aria-[current]:inset-ring-ridge [&>svg]:hidden "
-          "phone:flex-1 phone:flex-col phone:gap-[.2rem] phone:rounded-none phone:px-0 phone:py-[.3rem] phone:text-[.75rem] phone:font-medium "
-          "phone:font-stretch-85% phone:whitespace-nowrap phone:hover:bg-transparent phone:aria-[current]:bg-transparent phone:aria-[current]:inset-ring-0 phone:[&>svg]:block")
+  (concat "flex items-center border-b-2 border-transparent py-[.4rem] text-[.95rem] font-semibold text-dust no-underline "
+          "hover:text-sand aria-[current]:border-sand aria-[current]:text-sand [&>svg]:hidden "
+          "phone:flex-1 phone:flex-col phone:gap-[.2rem] phone:border-b-0 phone:py-[.3rem] phone:text-[.75rem] phone:font-medium "
+          "phone:font-stretch-85% phone:whitespace-nowrap phone:aria-[current]:text-turq phone:[&>svg]:block")
   "A tab's classes (Tailwind's utilities, site.css, which reads this file for them):
-a pill at the top on desktop; on phones, an icon over its label in the bottom bar.")
+plain words at the top on desktop, the open one underlined; on phones, an icon over
+its label in the bottom bar.")
 (defconst site-share-image "images/og.jpg"
   "The preview picture (1200x630): the profile photo, name and roles.")
 (defconst site-home-views '("about" "quest-log" "slop-shelf")
@@ -464,7 +465,7 @@ for the page at PATH (`site--frame')."
 read it.  src/app.ts marks the open tab (aria-current), and `site--frame' marks it
 first for a page that has one.  The classes are Tailwind's (site.css)."
   (concat "<nav id=\"site-nav\" class=\"site-nav mx-auto box-border max-w-[70rem] px-8 pt-6 pb-0 phone:p-0\" aria-label=\"Main\">"
-          "<div class=\"site-tabs flex justify-end gap-1 phone:fixed phone:inset-x-0 phone:bottom-0 phone:z-10 phone:justify-around phone:gap-0 phone:border-t phone:border-t-ridge phone:bg-sky/95 phone:px-0 phone:pt-[.4rem] phone:pb-[calc(.4rem+env(safe-area-inset-bottom))] phone:backdrop-blur-[8px]\">"
+          "<div class=\"site-tabs flex justify-end gap-7 phone:fixed phone:inset-x-0 phone:bottom-0 phone:z-10 phone:justify-around phone:gap-0 phone:border-t phone:border-t-ridge phone:bg-sky/95 phone:px-0 phone:pt-[.4rem] phone:pb-[calc(.4rem+env(safe-area-inset-bottom))] phone:backdrop-blur-[8px]\">"
           (mapconcat (pcase-lambda (`(,route ,href ,label ,icon))
                        (format "<a class=\"%s\" href=\"%s\" data-route=\"%s\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\">%s</svg><span>%s</span></a>"
                                site-tab-class href route icon label))

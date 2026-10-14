@@ -10,6 +10,7 @@
 // since the Turnstile widget and the license server accept only adamschaefers.com.
 
 import { loadTurnstile, SENT_CARD, SENT_CHECK, SENT_NOTE, SENT_TITLE } from './contact.ts';
+import { mountZoom } from './zoom.ts';
 
 const API = 'https://licenses.adamschaefers.com';
 // Buying, adding seats and recovery each pass a Turnstile check: the "adamschaefers store" widget.
@@ -388,9 +389,9 @@ function mountShare(product: HTMLElement) {
     });
 }
 
-// A product's image grows into a large view on a click, the way the profile photo does;
-// a click anywhere or Esc shrinks it back.
-function mountZoom(product: HTMLElement) {
+// A product's image grows into a large view on a click, the way the profile photo does
+// (zoom.ts).
+function mountProductZoom(product: HTMLElement) {
     const img = product.querySelector<HTMLImageElement>('.product-image');
     if (!img || img.src.endsWith('.svg')) return;
     const button = document.createElement('button');
@@ -406,43 +407,14 @@ function mountZoom(product: HTMLElement) {
     big.className = '';
     dialog.append(big);
     product.append(dialog);
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
-    const morph = (reverse: boolean) => {
-        const a = img.getBoundingClientRect(), b = big.getBoundingClientRect();
-        const dx = a.left + a.width / 2 - (b.left + b.width / 2);
-        const dy = a.top + a.height / 2 - (b.top + b.height / 2);
-        const frames = [
-            { transform: `translate(${dx}px, ${dy}px) scale(${a.width / b.width})`, borderRadius: '12px' },
-            { transform: 'none', borderRadius: '16px' },
-        ];
-        if (reverse) frames.reverse();
-        return big.animate(frames, { duration: reduce.matches ? 0 : 450, easing: 'cubic-bezier(.2, .9, .25, 1)' });
-    };
-    button.addEventListener('click', () => {
-        dialog.classList.remove('is-closing');
-        dialog.showModal();
-        button.classList.add('is-open');
-        morph(false);
-    });
-    const close = () => {
-        if (dialog.classList.contains('is-closing')) return;
-        dialog.classList.add('is-closing');
-        morph(true).onfinish = () => {
-            dialog.close();
-            dialog.classList.remove('is-closing');
-            button.classList.remove('is-open');
-            button.focus({ preventScroll: true });
-        };
-    };
-    dialog.addEventListener('click', close);
-    dialog.addEventListener('cancel', e => { e.preventDefault(); close(); });
+    mountZoom(button, img, dialog, big);
 }
 
 export function mountStore(root: ParentNode) {
     for (const product of root.querySelectorAll<HTMLElement>('.product:not([data-mounted])')) {
         product.dataset.mounted = '1';
         mountShare(product);
-        mountZoom(product);
+        mountProductZoom(product);
     }
     for (const mount of root.querySelectorAll<HTMLElement>('.buy-mount:not([data-mounted])')) {
         mount.dataset.mounted = '1';

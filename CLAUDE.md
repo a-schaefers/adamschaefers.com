@@ -50,8 +50,9 @@ shelf); the tab itself is in `site-tabs` in `site.el`.
 All the code is TypeScript, and npm manages everything from outside
 (`package.json`, pinned; nothing vendored). `make build` compiles first
 (`scripts/build.ts`): esbuild bundles `src/app.ts` and all it imports (lit-html,
-`src/contact.ts`, `src/store.ts`, and the sidebar's `src/profile.ts` and
-`src/course.ts`) into one `js/app.<hash>.js`, and Tailwind compiles `src/site.css`
+`src/contact.ts`, `src/store.ts`, the sidebar's `src/profile.ts` and `src/course.ts`,
+and `src/zoom.ts`, which both enlarge pictures with) into one `js/app.<hash>.js`, and
+Tailwind compiles `src/site.css`
 into `site.<hash>.css`; a browser keeps both for good, a change being a new name.
 `make typecheck` checks every TypeScript project (each has its own
 `tsconfig.json`: the browser's code, each Worker, their tests, the Node scripts).

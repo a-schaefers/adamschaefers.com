@@ -110,7 +110,7 @@
     /* Room for the bottom tab bar. */
     @apply phone:pb-[calc(4.5rem+env(safe-area-inset-bottom))];
   }
-  ::selection { @apply bg-turq text-sky; }
+  ::selection { @apply bg-dust/35 text-sand; }
   a { @apply text-turq underline decoration-turq/40 decoration-1 underline-offset-3; }
   a:hover { @apply decoration-current; }
   :focus-visible { @apply rounded-[3px] outline-[2px] outline-turq outline-offset-3; }
@@ -143,7 +143,7 @@
 
   /* ---- The sidebar: the profile photo (it grows into a large view on a click,
      js/profile.ts), the name as a link home, the roles. */
-  .hello-profile { @apply block size-34 rounded-[50%] object-cover object-[50%_30%] ring-2 ring-turq ring-offset-3 ring-offset-sky; }
+  .hello-profile { @apply block size-34 rounded-[50%] object-cover object-[50%_30%] ring-1 ring-sand/25 ring-offset-3 ring-offset-sky; }
   .name { @apply mx-0 mt-7 mb-[.6rem] text-[2.75rem] leading-[.95] font-extrabold font-stretch-75% tracking-[-.02em]; }
   .roles { @apply mx-0 mt-0 mb-7 text-[.95rem] text-dust; }
   .roles span { @apply whitespace-nowrap; }
@@ -151,10 +151,11 @@
   .profile-zoom.is-open img { @apply invisible; }
   .home-link { @apply block text-inherit no-underline; }
   .home-link:hover .name { @apply text-turq; }
-  .photo-dialog { @apply max-h-none max-w-none cursor-zoom-out overflow-visible border-0 bg-transparent p-0; }
+  .photo-dialog { @apply max-h-none max-w-none cursor-zoom-out touch-pinch-zoom overflow-visible border-0 bg-transparent p-0; }
   .photo-dialog:focus { @apply outline-none; }
-  .photo-dialog img { @apply block h-auto max-h-[86vh] w-auto max-w-[min(86vw,640px)] rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,.55)] ring-4 ring-turq; }
-  .photo-dialog::backdrop { @apply bg-[rgba(14,16,36,.82)] backdrop-blur-[6px]; }
+  .photo-dialog img { @apply block h-auto max-h-[86vh] w-auto max-w-[min(86vw,640px)] shadow-[0_30px_80px_rgba(0,0,0,.55)] ring-1 ring-sand/15; }
+  /* --drag: how far the photo has been swiped (zoom.ts), 0 to 1. */
+  .photo-dialog::backdrop { @apply bg-[rgba(14,16,36,.82)] backdrop-blur-[6px]; opacity: calc(1 - .7 * var(--drag, 0)); }
   .photo-dialog.is-closing::backdrop { @apply opacity-0 [transition:opacity_.35s]; }
   @variant motion-safe {
     .photo-dialog[open]::backdrop { @apply animate-backdrop-in; }
@@ -282,15 +283,16 @@
      The image grows into a large view on a click, the way the profile photo does: js/store.ts
      wraps it in a .product-zoom button and adds a .zoom-dialog. */
   .product { @apply mx-0 mt-7 mb-0 flow-root; }
-  .product-image { @apply float-left mt-[.35rem] mr-6 mb-3 ml-0 aspect-video h-auto w-60 max-w-[45%] rounded-xl bg-mesa object-cover; }
-  .product-zoom { all: unset; @apply float-left mt-[.35rem] mr-6 mb-3 ml-0 w-60 max-w-[45%] cursor-zoom-in rounded-xl; }
+  .product-image { @apply float-left mt-[.35rem] mr-6 mb-3 ml-0 aspect-video h-auto w-60 max-w-[45%] bg-mesa object-cover; }
+  .product-zoom { all: unset; @apply float-left mt-[.35rem] mr-6 mb-3 ml-0 w-60 max-w-[45%] cursor-zoom-in; }
   .product-zoom .product-image { @apply float-none m-0 block w-full max-w-none; }
   .product-zoom:focus-visible { @apply outline-[2px] outline-offset-4 outline-turq; }
   .product-zoom.is-open img { @apply invisible; }
-  .zoom-dialog { @apply max-h-none max-w-none cursor-zoom-out overflow-visible border-0 bg-transparent p-0; }
+  .zoom-dialog { @apply max-h-none max-w-none cursor-zoom-out touch-pinch-zoom overflow-visible border-0 bg-transparent p-0; }
   .zoom-dialog:focus { @apply outline-none; }
-  .zoom-dialog img { @apply block h-auto max-h-[90vh] w-auto max-w-[min(94vw,1220px)] rounded-2xl shadow-[0_30px_80px_rgba(0,0,0,.55)] ring-4 ring-turq; }
-  .zoom-dialog::backdrop { @apply bg-[rgba(14,16,36,.82)] backdrop-blur-[6px]; }
+  .zoom-dialog img { @apply block h-auto max-h-[90vh] w-auto max-w-[min(94vw,1220px)] shadow-[0_30px_80px_rgba(0,0,0,.55)] ring-1 ring-sand/15; }
+  /* --drag: how far the image has been swiped (zoom.ts), 0 to 1. */
+  .zoom-dialog::backdrop { @apply bg-[rgba(14,16,36,.82)] backdrop-blur-[6px]; opacity: calc(1 - .7 * var(--drag, 0)); }
   .zoom-dialog.is-closing::backdrop { @apply opacity-0 [transition:opacity_.35s]; }
   @variant motion-safe {
     .zoom-dialog[open]::backdrop { @apply animate-backdrop-in; }
