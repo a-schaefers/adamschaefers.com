@@ -109,3 +109,30 @@ resource "cloudflare_ruleset" "rate_limit" {
   ]
   zone_id = var.zone_id
 }
+
+# Every answer from the media domain (2026-10-14) says any site's script may read it (CORS),
+# the cached ones too. R2 adds that header only when a request carries an Origin, and the
+# edge's cache keeps whichever answer came first: a segment Safari's own player fetched
+# first (no Origin) would reach hls.js in another browser without it, and fail. Set here, on
+# the way out of the edge, it is on every answer. The bucket's policy (r2.tf) answers
+# preflights.
+resource "cloudflare_ruleset" "response_headers" {
+  kind  = "zone"
+  name  = "default"
+  phase = "http_response_headers_transform"
+  rules = [
+    {
+      action = "rewrite"
+      action_parameters = {
+        headers = {
+          "Access-Control-Allow-Origin"   = { operation = "set", value = "*" }
+          "Access-Control-Expose-Headers" = { operation = "set", value = "Content-Length, Content-Range" }
+        }
+      }
+      description = "Media domain: readable by any site's script (CORS), cached answers too"
+      enabled     = true
+      expression  = "(http.host eq \"media.adamschaefers.com\")"
+    },
+  ]
+  zone_id = var.zone_id
+}
