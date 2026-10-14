@@ -34,6 +34,8 @@
   button:hover { @apply border-turq text-turq; }
   button:disabled { @apply cursor-default opacity-50; }
   progress { @apply w-full accent-turq; }
+  /* hidden hides, whatever display a class gives (the progress rows are flex). */
+  [hidden] { display: none !important; }
   table { @apply w-full border-collapse; }
   th, td { @apply border-b border-b-ridge p-2 text-left align-middle; }
   th { @apply text-[.85rem] font-semibold text-dust; }

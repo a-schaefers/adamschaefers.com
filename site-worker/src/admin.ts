@@ -13,8 +13,8 @@
    one is purged from it at once (2026-10-11, the zone's purge API with PURGE_TOKEN, a Worker
    secret); the answer says whether that worked. A browser that already has the old file
    keeps it up to that hour, which no purge reaches, so a changed file is still better
-   uploaded under a new name. An upload is one request, up to the Worker's 100 MB limit:
-   encode videos first (CLAUDE.md), which keeps them far below it. */
+   uploaded under a new name. An upload is one request, up to the Worker's 100 MB limit: the
+   page makes a video an MP4 first (admin-page.ts), which keeps it far below that. */
 
 import { adminEmail } from './access.ts';
 import { SCRIPT, STYLE } from './admin-page.gen.ts';
@@ -136,8 +136,9 @@ const PAGE = `<!doctype html>
 <form class="m-0 mb-5 grid max-w-[44rem] gap-[.6rem] rounded-xl border border-ridge bg-mesa p-4" id="up">
   <div class="flex flex-wrap items-center gap-2"><input type="file" id="file" required><input class="min-w-64 flex-1" type="text" id="name" placeholder="Name: evia.mp4, posters/evia.jpg" required></div>
   <div class="flex flex-wrap items-center gap-2"><label><input type="checkbox" id="replace"> Replace if taken</label><button id="send">Upload</button></div>
-  <progress id="bar" max="1" value="0" hidden></progress>
-  <p class="m-0 text-[.85rem] text-dust" id="note">Up to 100 MB. Videos: encode first (H.264 + AAC, yuv420p, faststart; CLAUDE.md has the ffmpeg line).</p>
+  <div class="flex items-center gap-2 text-[.85rem]" id="convert" hidden><span class="w-20 text-dust">Converting</span><progress class="flex-1" max="1" value="0"></progress><output class="w-10 text-right tabular-nums">0%</output></div>
+  <div class="flex items-center gap-2 text-[.85rem]" id="upload" hidden><span class="w-20 text-dust">Uploading</span><progress class="flex-1" max="1" value="0"></progress><output class="w-10 text-right tabular-nums">0%</output></div>
+  <p class="m-0 text-[.85rem] text-dust" id="note">Up to 100 MB. Videos are made MP4s here before they go up.</p>
 </form>
 <div class="mb-4 flex flex-wrap items-center gap-2"><input class="min-w-64 flex-1" type="text" id="q" placeholder="Filter by name"></div>
 <p class="min-h-[1.5em] text-turq [&.err]:text-chile" id="msg"></p>

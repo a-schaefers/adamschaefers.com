@@ -9,7 +9,8 @@
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "5.3.0",
     "country-flag-emoji-polyfill": "0.1.10",
-    "lit-html": "3.3.3"
+    "lit-html": "3.3.3",
+    "mediabunny": "1.60.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "5.20261006.1",
