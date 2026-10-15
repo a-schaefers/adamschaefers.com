@@ -44,3 +44,25 @@ resource "cloudflare_r2_managed_domain" "dev_url" {
   bucket_name = each.value
   enabled     = false
 }
+
+# The media bucket's CORS (2026-10-14): any site's script may read its files, GET and HEAD,
+# asking for byte ranges. The site's player (src/video.ts, hls.js) fetches a video's HLS
+# playlists and segments from media.adamschaefers.com, another origin; a <video> fetching an
+# MP4 itself needs none of this. Nothing in the bucket is private: whatever is in it, R2
+# serves to anyone already. R2 answers a preflight from this; the answers themselves carry
+# their CORS headers from the edge (cloudflare_ruleset.response_headers), cached ones too.
+resource "cloudflare_r2_bucket_cors" "media" {
+  account_id  = var.account_id
+  bucket_name = cloudflare_r2_bucket.media.name
+  rules = [
+    {
+      allowed = {
+        origins = ["*"]
+        methods = ["GET", "HEAD"]
+        headers = ["range"]
+      }
+      expose_headers  = ["Content-Length", "Content-Range"]
+      max_age_seconds = 86400
+    },
+  ]
+}
