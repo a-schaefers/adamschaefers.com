@@ -51,7 +51,9 @@ All the code is TypeScript, and npm manages everything from outside
 (`package.json`, pinned; nothing vendored). `make build` compiles first
 (`scripts/build.ts`): esbuild bundles `src/app.ts` and all it imports (lit-html,
 `src/contact.ts`, `src/store.ts`, the sidebar's `src/profile.ts` and `src/course.ts`,
-and `src/zoom.ts`, which both enlarge pictures with) into one `js/app.<hash>.js`, and
+`src/zoom.ts`, which both enlarge pictures with, and `src/video.ts`, the videos'
+streaming) into one `js/app.<hash>.js`, and hls.js apart into `js/hls.<hash>.js`
+(which `src/video.ts` imports only when a video plays where it's needed), and
 Tailwind compiles `src/site.css`
 into `site.<hash>.css`; a browser keeps both for good, a change being a new name.
 `make typecheck` checks every TypeScript project (each has its own
@@ -165,30 +167,63 @@ https://media.adamschaefers.com/ (the bucket's custom domain: Cloudflare's
 edge cache, range requests so videos seek, no Worker involved). Manage them at
 https://adamschaefers.com/admin/ (`site-worker/src/admin.ts`, behind the
 Cloudflare Access application "adamschaefers.com assets admin",
-adam.schaefers@icloud.com): upload one (up to 100 MB), pick a video's poster (Poster: play or drag to a
+adam.schaefers@icloud.com): upload one (up to 100 MB a file), pick a video's poster (Poster: play or drag to a
 frame; the admin reads the file from its own origin, `GET
 /admin/api/media/<name>`, so it may copy the frame), copy its Org line
 (`#+VIDEO: https://media.adamschaefers.com/evia.mp4`, `[[https://media.adamschaefers.com/photo.jpg]]`)
-or its address, delete one. An upload is kept in caches an hour; replacing or
+or its address, delete one (a video with its streaming files). An upload is kept in caches an hour; replacing or
 deleting one purges it from Cloudflare's edge at once (the Worker secret
 `PURGE_TOKEN`), but a browser that has it keeps it up to the hour, so a
 changed file still gets a new name (the admin refuses a taken name unless
 Replace is ticked). `purge-cache.yml` empties the media domain's cache by hand. `make check` asks for every media address a page names, and the feed
 gives each video's size from its answer. The old `/videos/<name>.mp4`
-addresses redirect there (`site-worker/_redirects`). Videos are served as
-MP4s of H.264 + AAC, yuv420p, index first (faststart, so playback starts while
-downloading), without metadata (an iPhone's holds where it was shot). The admin
-page makes any video it's given one before uploading it, in the browser
-(Mediabunny on WebCodecs, the device's own video hardware), so an iPhone's HEVC
-`.mov`, which many desktop browsers can't play, goes up from the phone as is:
-at most 1920px on its longer side, H.264 and AAC copied when they already are,
-location and other tags dropped, with bars for the conversion and the upload;
-then you pick its poster frame (from a quarter in), uploaded beside it as the
-same name with `.jpg`.
-A browser that can't (no H.264 encoder, or a codec it can't decode) says so;
-then encode it with ffmpeg (H.264 High + AAC, yuv420p, `-movflags +faststart`,
-`-map_metadata -1`). Several clips meant to play as one get joined into one
-file (ffmpeg). Give each a JPEG poster.
+addresses redirect there (`site-worker/_redirects`).
+
+Videos stream adaptively (2026-10-14). A video `NAME.mp4` is a set of files
+(`site-worker/src/ladder.ts` makes and documents it): `NAME.mp4`, the largest
+size as a plain MP4 (what pages name, the feed's enclosure, and what plays
+without JavaScript or where HLS fails); `NAME.jpg`, its poster; and its HLS:
+`NAME.m3u8`, a master playlist of up to three sizes (720p, 480p, 360p, never
+larger than the source; bitrates about 1.25 Mbps, 630 and 385 kbps), each
+`NAME.hls/<h>.m3u8` with its 2-second segments by byte range in one fragmented
+`NAME.hls/<h>.mp4` (CMAF, picture and sound together; `.mp4` so the edge
+caches it). All are H.264 High + AAC, yuv420p, a key frame every 2 seconds in
+every size (so the player can change size at any segment), at most 30 fps,
+index first, without metadata (an iPhone's holds where it was shot); AAC sound
+is copied when it is no heavier than 160 kbps, else made 96 kbps. The build
+marks each video whose `.m3u8` answers (`site--hls` in `site.el`: `data-hls`
+on inline videos, `hls` on entries in `#site-data`), and `src/video.ts` streams
+it: Safari and every iOS browser play the playlist themselves; elsewhere, at
+the first play, hls.js (its light build, from npm, bundled apart as
+`js/hls.<hash>.js` and fetched only then, or when a pointer reaches the video)
+takes the video up where it was, choosing each segment's size from the
+bandwidth it measures and the player's size on screen, stepping down rather
+than stalling; anything failing puts the MP4 back. Measured 2026-10-14 at 1
+Mbps: the farm video stalled 15 times (52 s) as one 1080p MP4, and played
+straight through, after a 4 s start, as HLS. hls.js reads the media domain
+from another origin, so it answers CORS (Terraform: a response-header rule
+sets `Access-Control-Allow-Origin: *` on every answer, cached ones too, since
+R2 adds it only when a request carries an Origin and the edge keeps whichever
+answer came first; and the bucket's CORS policy answers preflights).
+`scripts/smoke.sh` checks a playlist answers with it.
+The admin page makes all of it in the browser before uploading (Mediabunny on
+WebCodecs, the device's own video hardware), so an iPhone's HEVC `.mov` goes up
+from the phone as is: each size encoded (rotation baked into the frames), the
+HLS files packaged from them, a poster frame picked (from a quarter in), then
+everything uploaded, the streaming files first and the MP4 and poster last,
+with bars for the conversion and the upload. Replacing a video clears its old
+streaming set first. A browser that can't encode the sound after all (some
+say they can and fail) copies AAC as it is, or leaves the sound out and says
+so; one that can't encode H.264, or decode the codec, says so. Then make it on
+a computer: `node scripts/video.ts <file or URL> <name>.mp4` (ffmpeg encodes
+each size, `ladder.ts` packages the same set into `build/video/`), and
+`--upload` puts it in R2 with wrangler (`--replace` for a taken name, which
+also purges the old copies), with `CLOUDFLARE_API_TOKEN` set to the account
+token (../merecatholicity.com's `ci.env`, `CLOUDFLARE_ROOT_TOKEN`). Several
+clips meant to play as one get joined into one file (ffmpeg) first. The five
+videos up on 2026-10-14 were remade with it from what was live (each MP4
+28-48% lighter, SSIM 0.96-0.99 against the old one); the old files are in
+`~/media-originals-2026-10-14/` on Adam's machine.
 
 The fonts are npm packages, listed in `site-fonts` in `site.el`: Bricolage
 Grotesque (Fontsource's variable font, latin and latin-ext subsets; the latin

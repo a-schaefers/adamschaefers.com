@@ -32,7 +32,8 @@
 ;; static/.  Videos aren't in git: they are uploaded at /admin
 ;; to R2 and named by their address there (#+VIDEO:
 ;; https://media.adamschaefers.com/evia.mp4), which also gives the feed their
-;; size.
+;; size; beside each, its HLS playlist (NAME.m3u8), which the pages name for
+;; src/video.ts to stream (`site--hls').
 
 (require 'cl-lib)
 (require 'json)
@@ -65,6 +66,10 @@ a line in `site-out', for make dist to publish under those names.")
 (defconst site-script "build/js/app.js"
   "The page's script: src/app.ts and everything it imports, lit-html included, bundled
 by scripts/build.ts (make build runs it first).  Published as js/app.<hash>.js.")
+(defconst site-hls-script "build/js/hls.js"
+  "hls.js (its light build), bundled by scripts/build.ts: src/video.ts imports it to
+stream a video in a browser without HLS of its own.  Published as js/hls.<hash>.js,
+its address in #site-data (hlsjs).")
 (defconst site-style "build/site.css"
   "The page's styles: src/site.css and the Tailwind utilities the templates use (src/
 and this file), compiled by scripts/build.ts.  Published as site.<hash>.css, from
@@ -100,15 +105,30 @@ when that answers; nil otherwise."
     (with-memoization (gethash video site--posters)
       (and (string-match-p "\\`https?://" video) (site--remote-size poster) poster))))
 
+;; A video's HLS (adaptive streaming): NAME.m3u8 beside NAME.mp4, the same video in up to
+;; three sizes (site-worker/src/ladder.ts), which the assets page (/admin) and
+;; scripts/video.ts upload with it.  A <video> keeps the MP4 as its src and names the
+;; playlist as data-hls, which src/video.ts streams where it can.
+(defvar site--playlists (make-hash-table :test #'equal)
+  "Each video's HLS playlist address, or nil when it has none, asked once per build.")
+
+(defun site--hls (video)
+  "VIDEO's HLS playlist: its address ending .m3u8, when that answers; nil otherwise."
+  (let ((playlist (concat (file-name-sans-extension video) ".m3u8")))
+    (with-memoization (gethash video site--playlists)
+      (and (string-match-p "\\`https?://" video) (site--head playlist) playlist))))
+
 (defun site--format-media (format source attributes info)
   "Org's picture in place (FORMAT, `org-html--format-image', with SOURCE, ATTRIBUTES
 and INFO), lazily loaded; or for a video, a player with its poster.  A picture's
 or video's #+ATTR_HTML :class reaches it (wide: `site--alternate-figures')."
   (if (site--video-p source)
       (let ((poster (site--poster source))
+            (hls (site--hls source))
             (class (plist-get attributes :class)))
-        (format "<video controls playsinline preload=\"metadata\" src=\"%s\"%s%s></video>"
+        (format "<video controls playsinline preload=\"metadata\" src=\"%s\"%s%s%s></video>"
                 (site--attr source)
+                (if hls (format " data-hls=\"%s\"" (site--attr hls)) "")
                 (if poster (format " poster=\"%s\"" (site--attr poster)) "")
                 (if class (format " class=\"%s\"" (site--attr class)) "")))
     (funcall format source (org-combine-plists '(:loading "lazy") attributes) info)))
@@ -266,6 +286,8 @@ Org's heading ids are random; SEED keeps them the same from build to build."
                     ,@(and featured description
                            `((caption . ,(string-trim (org-export-string-as description 'html t)))))
                     ,@(and poster `((poster . ,poster)))
+                    ,@(let ((stream (or video (and featured (site--video-p featured) featured))))
+                        (and stream (site--hls stream) `((hls . ,(site--hls stream)))))
                     ,@(and image `((image . ,image))))
                   entries)))))
     entries))
@@ -323,22 +345,29 @@ Org's heading ids are random; SEED keeps them the same from build to build."
   "PATH as an address: itself when it already is one, else under `site-url'."
   (if (string-match-p "\\`https?://" path) path (concat site-url path)))
 
-(defun site--remote-size (url)
-  "URL's size in bytes, asked of the server with a HEAD request; nil when it
-doesn't answer 200."
+(defun site--head (url)
+  "URL's answer to a HEAD request, its status line and headers, when it is 200;
+nil otherwise."
   (let ((url-request-method "HEAD")
-        (url-show-status nil)
-        (case-fold-search t))
+        (url-show-status nil))
     (condition-case nil
         (let ((buffer (url-retrieve-synchronously url t t 30)))
           (when buffer
             (with-current-buffer buffer
               (goto-char (point-min))
-              (prog1 (and (looking-at "HTTP/[0-9.]+ 200")
-                          (re-search-forward "^content-length: *\\([0-9]+\\)" nil t)
-                          (string-to-number (match-string 1)))
+              (prog1 (and (looking-at "HTTP/[0-9.]+ 200") (buffer-string))
                 (kill-buffer)))))
       (error nil))))
+
+(defun site--remote-size (url)
+  "URL's size in bytes, asked of the server with a HEAD request; nil when it
+doesn't answer 200, or gives no size (a text file the edge compresses as it
+sends it, an HLS playlist say: `site--head' tells those apart)."
+  (let ((head (site--head url))
+        (case-fold-search t))
+    (and head
+         (string-match "^content-length: *\\([0-9]+\\)" head)
+         (string-to-number (match-string 1 head)))))
 
 (defun site--video-size (video)
   "VIDEO's size in bytes, from wherever it is served (an upload at /admin).
@@ -713,7 +742,8 @@ and the same page at every view's address under build/."
               (data `((views . ,(vconcat views))
                       (collections . ,collections)
                       (tabs . ,(mapcar (lambda (tab) (cons (intern (car tab)) (nth 2 tab))) site-tabs))
-                      (feed . ,site-feed)))
+                      (feed . ,site-feed)
+                      (hlsjs . ,(concat "/" (site--asset site-hls-script "js/hls.js")))))
               (style (site--style))
               (preload (cdr (assoc (car (rassoc site-font-preload site-fonts)) site--assets)))
               (pages (site--share-pages views collections))

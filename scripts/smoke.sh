@@ -1,7 +1,8 @@
 #!/bin/sh
 # After a deploy, ask the live site what a visitor gets: this build's pages, revalidated on
 # every visit; a 404 for a path that names nothing; a video that seeks (206, Content-Range),
-# from the edge cache once warm; and the license server's answers never cached. Run by
+# from the edge cache once warm, and its HLS playlist readable by the player (CORS, which
+# hls.js needs); and the license server's answers never cached. Run by
 # deploy.yml after every deploy; anyone can run it (it needs public/ from the same build).
 #
 # The site's own pages and files are asked for with a nonce, ?probe=<commit>-<attempt>-<random>
@@ -43,10 +44,17 @@ if [ -n "$video" ]; then
   again=$(curl -sS -D - -o /dev/null -H 'Range: bytes=0-1' "$video")
   header "$again" cf-cache-status | grep -qi hit ||
     echo "smoke: note: $video's second read was $(header "$again" cf-cache-status || echo 'not cached'), not a HIT"
+  # Its HLS, when it has one: what the site's player streams (src/video.ts), from another origin.
+  playlist="${video%.mp4}.m3u8"
+  if grep -q "\"hls\":\"$playlist\"" public/index.html; then
+    p=$(curl -sS -D - -o /dev/null -H "Origin: $site" "$playlist")
+    printf '%s\n' "$p" | head -1 | grep -q ' 200' || fail "$playlist answered: $(printf '%s\n' "$p" | head -1)"
+    header "$p" access-control-allow-origin | grep -q . || fail "$playlist has no Access-Control-Allow-Origin: hls.js can't read it"
+  fi
 fi
 
 # GET, not HEAD: the license server answers its routes' methods only.
 k=$(curl -fsS -D - -o /dev/null https://licenses.adamschaefers.com/v1/public-keys) || fail "the license server doesn't answer"
 header "$k" cache-control | grep -qi no-store || fail "licenses /v1/public-keys isn't no-store"
 header "$k" cf-cache-status | grep -qi hit && fail "licenses /v1/public-keys came from a cache"
-echo "smoke: ok ($want live, version $(sed 's/.*"build":"\([0-9a-f]*\)".*/\1/' public/version.json); pages revalidate; video seeks; license answers uncached)"
+echo "smoke: ok ($want live, version $(sed 's/.*"build":"\([0-9a-f]*\)".*/\1/' public/version.json); pages revalidate; video seeks and streams; license answers uncached)"

@@ -21,15 +21,17 @@ import { mountStore, mountLicense } from './store.ts';
 import { mountProfileZoom } from './profile.ts';
 import { mountCourse } from './course.ts';
 import { watchVersion } from './version.ts';
+import { streamVideos } from './video.ts';
 
 // The #site-data JSON (site.el): index.org's :view: sections and the collections.
 interface Section { id: string; title: string; html: string; description: string; image: string }
 interface Entry {
     slug: string; date: string; dateLabel: string; title: string; excerpt: string; html: string;
     video?: string; featured?: string; caption?: string; poster?: string; image?: string;
+    hls?: string; // the video's (or featured video's) HLS playlist, when it has one (src/video.ts)
 }
 interface Collection { title: string; description: string; image: string; intro: string; perPage: number; entries: Entry[] }
-interface SiteData { views: Section[]; collections: Record<string, Collection>; tabs: Record<string, string>; feed: string }
+interface SiteData { views: Section[]; collections: Record<string, Collection>; tabs: Record<string, string>; feed: string; hlsjs: string }
 // A view in the menu (TABS) or off it (PAGES).
 interface View {
     route: string; label: string;
@@ -147,9 +149,10 @@ const section = (s: Section) => html`
         <div class="outline-text-2" id="text-${s.id}">${unsafeHTML(s.html)}</div>
     </div>`;
 
-// src on the element itself, not a <source>, so a reused element loads the new video.
+// src on the element itself, not a <source>, so a reused element loads the new video; its HLS,
+// data-hls, streams it where it can (src/video.ts).
 const video = (e: Entry, cls = '') => html`
-    <video controls playsinline preload="metadata" src=${e.video} poster=${e.poster || nothing} class="block aspect-[9/16] h-auto w-full rounded-xl bg-mesa ${cls}"></video>`;
+    <video controls playsinline preload="metadata" src=${e.video} data-hls=${e.hls || nothing} poster=${e.poster || nothing} class="block aspect-[9/16] h-auto w-full rounded-xl bg-mesa ${cls}"></video>`;
 
 const isVideo = (address: string) => /\.(mp4|webm|m4v|mov)$/i.test(address);
 // A post's #+FEATURED picture or video, its #+DESCRIPTION under it: beside its opening text,
@@ -160,7 +163,7 @@ const MEDIA = '[&>:is(img,video)]:block [&>:is(img,video)]:h-auto [&>:is(img,vid
 const featured = (e: Entry) => html`
     <figure class="float-right mb-5 ml-8 w-[min(18rem,45%)] narrow:float-none narrow:mx-0 narrow:w-full ${MEDIA}">
         ${isVideo(e.featured!)
-            ? html`<video controls playsinline preload="metadata" src=${e.featured} poster=${e.poster || nothing}></video>`
+            ? html`<video controls playsinline preload="metadata" src=${e.featured} data-hls=${e.hls || nothing} poster=${e.poster || nothing}></video>`
             : html`<img src=${e.featured} alt="">`}
         ${e.caption ? html`<figcaption class="leading-[1.5] [&_p]:m-0">${unsafeHTML(e.caption)}</figcaption>` : nothing}
     </figure>`;
@@ -330,6 +333,7 @@ function show() {
     // it the first time.
     if (shown === null) app.replaceChildren();
     render(view(r), app);
+    streamVideos(app, data.hlsjs);
     mountContactForms(app);
     mountStore(app);
     mountLicense(app);

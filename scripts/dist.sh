@@ -50,8 +50,9 @@ cp site-worker/_redirects "$out/_redirects"
     printf '\n/%s\n  Cache-Control: public, max-age=31536000, immutable\n' "$hashed"
   done < build/assets.txt
 } > "$out/_headers"
-# {"build": <12 hex of the hashed names>, "assets": {"app.js": <hash>, "site.css": <hash>}}
-assets=$(sed -n 's#^[^ ]* \(js/\)\{0,1\}\([a-z]*\)\.\([0-9a-f]\{10\}\)\.\(js\|css\)$#"\2.\4":"\3"#p' build/assets.txt | paste -sd, -)
+# {"build": <12 hex of the hashed names>, "assets": {"app.js": <hash>, "site.css": <hash>}}: the two
+# every page loads (js/hls.<hash>.js, which src/video.ts imports when it needs it, isn't one).
+assets=$(sed -n 's#^[^ ]* \(js/\)\{0,1\}\(app\|site\)\.\([0-9a-f]\{10\}\)\.\(js\|css\)$#"\2.\4":"\3"#p' build/assets.txt | paste -sd, -)
 build=$(cut -d' ' -f2 build/assets.txt | sort | sha256sum | cut -c1-12)
 printf '{"build":"%s","assets":{%s}}\n' "$build" "$assets" > "$out/version.json"
 # Into public/: new and changed files first and the pages last, so no page names a file
