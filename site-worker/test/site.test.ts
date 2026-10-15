@@ -49,8 +49,9 @@ const env = {
   PURGE_TOKEN: 'purge-token',
   ASSETS: { fetch: async (request: Request) => new Response(`asset ${new URL(request.url).pathname}`) },
   MEDIA: {
-    async list() {
-      const objects = [...bucket].map(([key, o]) => ({ key, size: o.data.length, uploaded: o.uploaded, httpMetadata: { contentType: o.type } }));
+    async list(options: { prefix?: string } = {}) {
+      const objects = [...bucket].filter(([key]) => key.startsWith(options.prefix ?? ''))
+        .map(([key, o]) => ({ key, size: o.data.length, uploaded: o.uploaded, httpMetadata: { contentType: o.type } }));
       return { objects, truncated: false };
     },
     async head(key: string) {
@@ -73,8 +74,9 @@ const env = {
       bucket.set(key, { data, type: options.httpMetadata.contentType, cacheControl: options.httpMetadata.cacheControl, uploaded: new Date() });
       return { key, size: data.length };
     },
-    async delete(key: string) {
-      bucket.delete(key);
+    // One key, or many, as R2's binding takes them.
+    async delete(keys: string | string[]) {
+      for (const key of [keys].flat()) bucket.delete(key);
     },
   },
 } as unknown as Env;
@@ -171,7 +173,7 @@ test('a purge that cannot happen never fails the change: the answer says the cac
   assert.equal((await r.json() as { purged?: boolean }).purged, false);
   env.PURGE_TOKEN = undefined;
   r = await call('DELETE', '/admin/api/media/evia.mp4');
-  assert.deepEqual(await r.json(), { deleted: 'evia.mp4', purged: false });
+  assert.deepEqual(await r.json(), { deleted: ['evia.mp4'], purged: false });
   assert.equal(bucket.size, 0);
   assert.equal(purges.length, 1, 'no token, no request');
 });
@@ -195,10 +197,50 @@ test('a change from another origin is refused', async () => {
 });
 
 test('delete removes the asset', async () => {
+  bucket.set('posters/evia.jpg', { data: Buffer.from('jpeg'), type: 'image/jpeg', uploaded: new Date() });
+  const r = await call('DELETE', '/admin/api/media/posters/evia.jpg');
+  assert.deepEqual(await r.json(), { deleted: ['posters/evia.jpg'], purged: true });
+  assert.deepEqual([...bucket.keys()], ['evia.mp4']);
+  assert.deepEqual(purges.map((p) => p.files), [['https://media.adamschaefers.com/posters/evia.jpg']]);
+});
+
+// A video's HLS set (ladder.ts), as the assets page uploads it beside the MP4.
+function streaming() {
+  for (const key of ['evia.m3u8', 'evia.hls/576.m3u8', 'evia.hls/576.mp4', 'evia.hls/360.m3u8', 'evia.hls/360.mp4', 'evia.jpg', 'eviatwo.hls/360.mp4']) {
+    bucket.set(key, { data: Buffer.from(key), type: key.endsWith('.m3u8') ? 'application/vnd.apple.mpegurl' : 'video/mp4', uploaded: new Date() });
+  }
+}
+
+test("a video's HLS playlists upload as such", async () => {
+  const r = await call('PUT', '/admin/api/media/evia.hls/360.m3u8', { body: '#EXTM3U' });
+  assert.equal(r.status, 200);
+  assert.equal(bucket.get('evia.hls/360.m3u8')!.type, 'application/vnd.apple.mpegurl');
+  assert.equal(bucket.get('evia.hls/360.m3u8')!.cacheControl, 'public, max-age=3600');
+});
+
+test('deleting a video deletes its HLS set with it, and purges each file', async () => {
+  streaming();
   const r = await call('DELETE', '/admin/api/media/evia.mp4');
-  assert.deepEqual(await r.json(), { deleted: 'evia.mp4', purged: true });
-  assert.equal(bucket.size, 0);
-  assert.deepEqual(purges.map((p) => p.files), [['https://media.adamschaefers.com/evia.mp4']]);
+  const { deleted, purged } = await r.json() as { deleted: string[]; purged: boolean };
+  assert.deepEqual(deleted.sort(), ['evia.hls/360.m3u8', 'evia.hls/360.mp4', 'evia.hls/576.m3u8', 'evia.hls/576.mp4', 'evia.m3u8', 'evia.mp4']);
+  assert.equal(purged, true);
+  assert.deepEqual([...bucket.keys()].sort(), ['evia.jpg', 'eviatwo.hls/360.mp4'], 'its poster and another video\'s files stay');
+  assert.deepEqual(purges.flatMap((p) => p.files).sort(), deleted.map((n) => `https://media.adamschaefers.com/${n}`).sort());
+});
+
+test('deleting a playlist clears the streaming set and keeps the MP4; a part inside one goes alone', async () => {
+  streaming();
+  let r = await call('DELETE', '/admin/api/media/evia.hls/360.mp4');
+  assert.deepEqual((await r.json() as { deleted: string[] }).deleted, ['evia.hls/360.mp4']);
+  r = await call('DELETE', '/admin/api/media/evia.m3u8');
+  assert.deepEqual(((await r.json() as { deleted: string[] }).deleted).sort(), ['evia.hls/360.m3u8', 'evia.hls/576.m3u8', 'evia.hls/576.mp4', 'evia.m3u8']);
+  assert.deepEqual([...bucket.keys()].sort(), ['evia.jpg', 'evia.mp4', 'eviatwo.hls/360.mp4']);
+});
+
+test('more than 30 files purge in batches of 30, as Cloudflare takes them', async () => {
+  for (let i = 0; i < 40; i++) bucket.set(`evia.hls/${i}.mp4`, { data: Buffer.from('x'), type: 'video/mp4', uploaded: new Date() });
+  await call('DELETE', '/admin/api/media/evia.mp4');
+  assert.deepEqual(purges.map((p) => p.files.length), [30, 11], "the MP4 and its 40 parts");
 });
 
 test('an upload with no file is refused', async () => {

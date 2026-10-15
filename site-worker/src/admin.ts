@@ -9,7 +9,11 @@
      GET    /admin/api/media/<name>       the file itself, ranges too (a video seeks): from this
                                           origin, the page can take a video's frame for its poster
      PUT    /admin/api/media/<name>       upload (the body is the file); ?replace=1 replaces
-     DELETE /admin/api/media/<name>       delete
+     DELETE /admin/api/media/<name>       delete; a video's (NAME.mp4) or its playlist's (NAME.m3u8)
+                                          takes its whole HLS set with it: NAME.m3u8 and NAME.hls/
+
+   A video streams as more than its MP4: the page uploads NAME.m3u8 and NAME.hls/ beside it,
+   the same video in up to three sizes (ladder.ts), which the site's player streams from.
 
    Cloudflare's edge keeps a media file an hour (its Cache-Control), so a replaced or deleted
    one is purged from it at once (2026-10-11, the zone's purge API with PURGE_TOKEN, a Worker
@@ -29,6 +33,7 @@ const TYPES: Record<string, string> = {
   mp4: 'video/mp4', webm: 'video/webm', mp3: 'audio/mpeg', m4a: 'audio/mp4',
   jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', avif: 'image/avif', gif: 'image/gif',
   pdf: 'application/pdf', zip: 'application/zip', txt: 'text/plain; charset=utf-8', json: 'application/json',
+  m3u8: 'application/vnd.apple.mpegurl', // a video's HLS playlists (ladder.ts)
 };
 // Only these: the media domain is same-site with the site and the license server, so nothing
 // that a browser would run as a page (HTML, SVG) may be served from it.
@@ -43,20 +48,42 @@ const json = (data: unknown, status = 200) => new Response(JSON.stringify(data),
   headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...SECURITY },
 });
 
-/** Clear Cloudflare's copy of URL. Never fails the change it follows: false when it didn't
-    happen (no PURGE_TOKEN, or Cloudflare refused), and the page says caches may lag. */
-async function purge(env: Env, url: string) {
+/** Clear Cloudflare's copy of each of URLS. Never fails the change it follows: false when it
+    didn't happen (no PURGE_TOKEN, or Cloudflare refused), and the page says caches may lag. */
+async function purge(env: Env, ...urls: string[]) {
   if (!env.PURGE_TOKEN) return false;
   try {
-    const r = await fetch(`https://api.cloudflare.com/client/v4/zones/${env.ZONE_ID}/purge_cache`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${env.PURGE_TOKEN}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ files: [url] }),
-    });
-    return ((await r.json()) as { success?: boolean }).success === true;
+    let purged = true;
+    // Cloudflare takes up to 30 addresses a request.
+    for (let i = 0; i < urls.length; i += 30) {
+      const r = await fetch(`https://api.cloudflare.com/client/v4/zones/${env.ZONE_ID}/purge_cache`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${env.PURGE_TOKEN}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ files: urls.slice(i, i + 30) }),
+      });
+      purged &&= ((await r.json()) as { success?: boolean }).success === true;
+    }
+    return purged;
   } catch {
     return false;
   }
+}
+
+/** What deleting NAME deletes: NAME, and for a video (NAME.mp4) or its playlist (NAME.m3u8)
+    the rest of its HLS set, NAME.m3u8 and everything in NAME.hls/. */
+async function deletion(env: Env, name: string) {
+  const names = [name];
+  const stream = /^(.+)\.(?:mp4|m3u8)$/.exec(name);
+  if (stream && !name.includes('.hls/')) {
+    if (await env.MEDIA.head(`${stream[1]}.m3u8`)) names.push(`${stream[1]}.m3u8`);
+    for (let cursor: string | undefined; ;) {
+      const page = await env.MEDIA.list({ prefix: `${stream[1]}.hls/`, cursor, limit: 1000 });
+      names.push(...page.objects.map((o) => o.key));
+      if (!page.truncated) break;
+      cursor = page.cursor;
+    }
+  }
+  return [...new Set(names)];
 }
 
 // A change must come from this page: not a form or script on another site riding the
@@ -125,8 +152,9 @@ export async function admin(request: Request, env: Env, url: URL) {
     return new Response(object.body, { status: 206, headers });
   }
   if (request.method === 'DELETE') {
-    await env.MEDIA.delete(name);
-    return json({ deleted: name, purged: await purge(env, `${env.MEDIA_ORIGIN}/${name}`) });
+    const names = await deletion(env, name);
+    await env.MEDIA.delete(names);
+    return json({ deleted: names, purged: await purge(env, ...names.map((n) => `${env.MEDIA_ORIGIN}/${n}`)) });
   }
   if (request.method === 'PUT') {
     if (!request.body || !Number(request.headers.get('Content-Length'))) return json({ error: 'No file came with the upload.' }, 400);
@@ -156,7 +184,7 @@ const PAGE = `<!doctype html>
   <div class="flex flex-wrap items-center gap-2"><label><input type="checkbox" id="replace"> Replace if taken</label><button id="send">Upload</button></div>
   <div class="flex items-center gap-2 text-[.85rem]" id="convert" hidden><span class="w-20 text-dust">Converting</span><progress class="flex-1" max="1" value="0"></progress><output class="w-10 text-right tabular-nums">0%</output></div>
   <div class="flex items-center gap-2 text-[.85rem]" id="upload" hidden><span class="w-20 text-dust">Uploading</span><progress class="flex-1" max="1" value="0"></progress><output class="w-10 text-right tabular-nums">0%</output></div>
-  <p class="m-0 text-[.85rem] text-dust" id="note">Up to 100 MB. Videos are made MP4s here before they go up, with a poster.</p>
+  <p class="m-0 text-[.85rem] text-dust" id="note">Up to 100 MB. Videos are made here, in each size the site streams them at, before they go up, with a poster.</p>
 </form>
 <div class="mb-4 flex flex-wrap items-center gap-2"><input class="min-w-64 flex-1" type="text" id="q" placeholder="Filter by name"></div>
 <p class="min-h-[1.5em] text-turq [&.err]:text-chile" id="msg"></p>

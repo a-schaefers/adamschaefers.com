@@ -17,6 +17,7 @@
     "types": ["@cloudflare/workers-types"]
   },
   "include": ["src/**/*.ts"],
-  // The admin page's script runs in the browser: the site's project checks it (../tsconfig.json).
-  "exclude": ["src/admin-page.ts"]
+  // The admin page's script runs in the browser: the site's project checks it (../tsconfig.json),
+  // and ladder.ts with it, which scripts/video.ts also runs in Node (scripts/tsconfig.json).
+  "exclude": ["src/admin-page.ts", "src/ladder.ts"]
 }

@@ -2,11 +2,13 @@
 // Check public/ (make dist) before it ships: every link resolves, and it fits Workers
 // Static Assets. make check runs it; so does CI, on every pull request.
 //
-// Every href, src and poster in the pages (also inside the #site-data JSON), every url() in
-// the styles, every preview picture and every link in the feed must name a file in public/
-// (or a page's directory). A script's relative imports must reach a published file: esbuild
+// Every href, src, poster and data-hls in the pages (also inside the #site-data JSON, with each
+// entry's video playlist, hls, and hls.js's address, hlsjs), every url() in the styles, every
+// preview picture and every link in the feed must name a file in public/ (or a page's
+// directory). A script's relative imports must reach a published file: esbuild
 // bundles src/app.ts whole (scripts/build.ts), so it has none, and one that isn't published
-// (a chunk, were the bundle ever split) fails here rather than on the site. Links to the media
+// (a chunk, were the bundle ever split) fails here rather than on the site. (The one script it
+// loads later, js/hls.<hash>.js, it names by the address in #site-data, checked as a link.) Links to the media
 // domain (videos and uploads, https://media.adamschaefers.com/...) are asked for with HEAD:
 // each must be there. And each file is under the 25 MiB a static asset may be.
 //
@@ -89,7 +91,8 @@ for (const [key, path] of files) {
   }
   if (!/\.(html|css|xml)$/.test(key)) continue;
   const text = readFileSync(path, 'utf8');
-  for (const m of text.matchAll(/\b(?:href|src|poster)=\\?"([^"\\]*)\\?"/g)) note(key, m[1]);
+  for (const m of text.matchAll(/\b(?:href|src|poster|data-hls)=\\?"([^"\\]*)\\?"/g)) note(key, m[1]);
+  for (const m of text.matchAll(/"(?:hls|hlsjs)":"([^"]*)"/g)) note(key, m[1].replaceAll('\\/', '/'));
   for (const m of text.matchAll(/\bcontent=\\?"(https:\/\/[^"\\]*)\\?"/g)) note(key, m[1]);
   for (const m of text.matchAll(/url\(\s*['"]?([^'")]+)['"]?\s*\)/g)) if (!m[1].startsWith('data:')) note(key, m[1]);
   if (key.endsWith('.xml')) {
