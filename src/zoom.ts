@@ -30,7 +30,11 @@ export function mountZoom(thumb: HTMLButtonElement, small: HTMLImageElement, dia
         if (reverse) frames.reverse();
         return big.animate(frames, { duration: reduce.matches ? 0 : 450, easing: 'cubic-bezier(.2, .9, .25, 1)' });
     }
-    thumb.addEventListener('click', () => {
+    // Opened or closed by keyboard, the button gets focus back (and its ring); after a tap or
+    // a click it is left unfocused, so no ring lingers on the picture.
+    let keyboard = false;
+    thumb.addEventListener('click', e => {
+        keyboard = e.detail === 0;
         dialog.classList.remove('is-closing');
         dialog.showModal();
         thumb.classList.add('is-open');
@@ -44,7 +48,8 @@ export function mountZoom(thumb: HTMLButtonElement, small: HTMLImageElement, dia
             dialog.close();
             dialog.classList.remove('is-closing');
             thumb.classList.remove('is-open');
-            thumb.focus({ preventScroll: true });
+            if (keyboard) thumb.focus({ preventScroll: true });
+            else if (document.activeElement === thumb) thumb.blur();
         };
     }
     // A swipe: the picture follows the finger, shrinking and letting the page show through
@@ -86,5 +91,5 @@ export function mountZoom(thumb: HTMLButtonElement, small: HTMLImageElement, dia
         if (dragged) dragged = false;
         else close();
     });
-    dialog.addEventListener('cancel', e => { e.preventDefault(); close(); });
+    dialog.addEventListener('cancel', e => { e.preventDefault(); keyboard = true; close(); });
 }
