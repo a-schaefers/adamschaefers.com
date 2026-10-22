@@ -22,6 +22,8 @@ import { mountProfileZoom } from './profile.ts';
 import { mountCourse } from './course.ts';
 import { watchVersion } from './version.ts';
 import { streamVideos } from './video.ts';
+import { zoomable } from './zoom.ts';
+import { copyLink } from './copylink.ts';
 
 // The #site-data JSON (site.el): index.org's :view: sections and the collections.
 interface Section { id: string; title: string; html: string; description: string; image: string }
@@ -157,9 +159,9 @@ const video = (e: Entry, cls = '') => html`
 const isVideo = (address: string) => /\.(mp4|webm|m4v|mov)$/i.test(address);
 // A post's #+FEATURED picture or video, its #+DESCRIPTION under it: beside its opening text,
 // or above it on a narrow screen, no taller than most of the screen. Its listing shows it
-// small (thumb).
-const MEDIA = '[&>:is(img,video)]:block [&>:is(img,video)]:h-auto [&>:is(img,video)]:w-full [&>:is(img,video)]:bg-mesa '
-    + 'narrow:[&>:is(img,video)]:mx-auto narrow:[&>:is(img,video)]:max-h-[75vh] narrow:[&>:is(img,video)]:w-auto narrow:[&>:is(img,video)]:max-w-full';
+// small (thumb). A picture sits in its zoom button (zoomPictures).
+const MEDIA = '[&_:is(img,video)]:block [&_:is(img,video)]:h-auto [&_:is(img,video)]:w-full [&_:is(img,video)]:bg-mesa '
+    + 'narrow:[&_:is(img,video)]:mx-auto narrow:[&_:is(img,video)]:max-h-[75vh] narrow:[&_:is(img,video)]:w-auto narrow:[&_:is(img,video)]:max-w-full';
 const featured = (e: Entry) => html`
     <figure class="float-right mb-5 ml-8 w-[min(18rem,45%)] narrow:float-none narrow:mx-0 narrow:w-full ${MEDIA}">
         ${isVideo(e.featured!)
@@ -168,6 +170,25 @@ const featured = (e: Entry) => html`
         ${e.caption ? html`<figcaption class="leading-[1.5] [&_p]:m-0">${unsafeHTML(e.caption)}</figcaption>` : nothing}
     </figure>`;
 const thumb = (e: Entry) => e.featured && (isVideo(e.featured) ? e.poster : e.featured);
+
+// A post's pictures, its featured one and those in its text (not one a link wraps), grow into
+// a large view on a click, the way the profile photo does (zoom.ts). Each one's dialog goes
+// after its figure, out of reach of the figure's styles.
+function zoomPictures(root: ParentNode) {
+    for (const img of root.querySelectorAll<HTMLImageElement>('.post figure > img, .post .figure img')) {
+        if (img.closest('button, a')) continue;
+        img.closest('figure, .figure')!.after(zoomable(img, 'post-zoom'));
+    }
+}
+
+// A post's headings each get a link that copies the post's address at that heading
+// (copylink.ts). Their ids are made from their titles (site--heading-ids in site.el).
+function linkHeadings(root: ParentNode) {
+    for (const h of root.querySelectorAll<HTMLElement>('.post :is(h3, h4, h5)[id]:not([data-linked])')) {
+        h.dataset.linked = '1';
+        copyLink(h, `https://adamschaefers.com${location.pathname}#${h.id}`);
+    }
+}
 
 // A listing entry: a post's excerpt (and its featured picture, small), or a travelog's video
 // and caption.
@@ -337,6 +358,8 @@ function show() {
     mountContactForms(app);
     mountStore(app);
     mountLicense(app);
+    zoomPictures(app);
+    linkHeadings(app);
     document.title = title(r);
     toStart(r, !shown);
     shown = at;

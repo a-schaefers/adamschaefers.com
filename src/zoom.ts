@@ -1,6 +1,32 @@
 // A picture that grows out of its small copy (SMALL, in the button THUMB) into a large view
 // (BIG, alone in DIALOG), and shrinks back on a click anywhere, Esc or a swipe: the profile
-// photo (profile.ts) and the products' images (store.ts).
+// photo (profile.ts), the products' images (store.ts) and a post's pictures (app.ts).
+
+// IMG, made to grow that way into a large copy of itself: wrapped in a button of class CLS,
+// its large copy in the dialog this returns, for the caller to place outside anything that
+// styles IMG. The large copy takes its picture as it opens, from the small one, already
+// loaded, so its size is known at once (and it follows lit swapping the picture in place).
+export function zoomable(img: HTMLImageElement, cls: string) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = cls;
+    button.setAttribute('aria-label', img.alt ? `Enlarge: ${img.alt}` : 'Enlarge the picture');
+    img.replaceWith(button);
+    button.append(img);
+    const dialog = document.createElement('dialog');
+    dialog.className = 'zoom-dialog';
+    if (img.alt) dialog.setAttribute('aria-label', img.alt);
+    const big = document.createElement('img');
+    big.alt = img.alt;
+    dialog.append(big);
+    // Before mountZoom's own click listener, which opens it.
+    button.addEventListener('click', () => {
+        const src = img.currentSrc || img.src;
+        if (big.src !== src) big.src = src;
+    });
+    mountZoom(button, img, dialog, big);
+    return dialog;
+}
 
 export function mountZoom(thumb: HTMLButtonElement, small: HTMLImageElement, dialog: HTMLDialogElement, big: HTMLImageElement) {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)');

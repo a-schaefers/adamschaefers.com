@@ -39,6 +39,7 @@
 (require 'json)
 (require 'ox-html)
 (require 'subr-x)
+(require 'ucs-normalize)
 (require 'url)
 (require 'xml)
 
@@ -174,6 +175,61 @@ tags between them), if it is after START; else FROM."
           (setq heading (match-beginning 0) i (match-end 0)))
         (if heading (+ start heading) from)))))
 
+(defun site--section-footnotes (html)
+  "HTML with each footnote taken from Org's list at the end and put at the end of
+the section or subsection that first refers to it (a div.footnotes), before
+any subsection of its own, so a section's notes follow its text; notes the text
+before the first heading refers to follow that text.  HTML without footnotes or
+headings comes back as it is."
+  (let* ((at (string-search "<div id=\"footnotes\">" html))
+         (open "<div id=\"outline-container-[^\"]*\" class=\"outline-[0-9]\">"))
+    (if (not (and at (string-match-p open html)))
+        html
+      (let* ((notes (replace-regexp-in-string "\\(?:\\s-*</div>\\)\\{2\\}\\s-*\\'" "" (substring html at)))
+             (body (substring html 0 at))
+             defs starts parts)
+        ;; Each note, by its number: from its div.footdef to the next one.
+        (let ((i 0) found)
+          (while (string-match "<div class=\"footdef\"><sup><a id=\"fn\\.\\([^\"]+\\)\"" notes i)
+            (push (cons (match-string 1 notes) (match-beginning 0)) found)
+            (setq i (match-end 0)))
+          (setq found (nreverse found))
+          (while found
+            (push (cons (caar found)
+                        (string-trim (substring notes (cdar found) (and (cadr found) (cdadr found)))))
+                  defs)
+            (setq found (cdr found))))
+        (setq defs (nreverse defs))
+        ;; The text before the first heading, then each section's own text.
+        (let ((i 0))
+          (while (string-match open body i)
+            (push (match-beginning 0) starts)
+            (setq i (match-end 0))))
+        (setq starts (nreverse starts))
+        (let ((from 0))
+          (dolist (to (append starts (list (length body))))
+            (let* ((part (substring body from to))
+                   (mine (let ((i 0) ids)
+                           (while (string-match "id=\"fnr\\.\\([^\".]+\\)" part i)
+                             (let ((def (assoc (match-string 1 part) defs)))
+                               (when def (push (cdr def) ids) (setq defs (delq def defs))))
+                             (setq i (match-end 0)))
+                           (nreverse ids)))
+                   (block (and mine (concat "<div class=\"footnotes\">\n"
+                                            (mapconcat #'identity mine "\n")
+                                            "\n</div>\n"))))
+              (push (cond ((not block) part)
+                          ;; A section's text: its notes go before the tag that closes it.
+                          ((and (> from 0) (string-match "</div>\\s-*\\'" part))
+                           (concat (substring part 0 (match-beginning 0)) block (substring part (match-beginning 0))))
+                          (t (concat part block)))
+                    parts)
+              (setq from to))))
+        ;; Any note nothing refers to stays at the end.
+        (when defs
+          (push (concat "<div class=\"footnotes\">\n" (mapconcat #'cdr defs "\n") "\n</div>\n") parts))
+        (apply #'concat (nreverse parts))))))
+
 (defmacro site--with-export-settings (&rest body)
   `(let ((user-full-name "Adam Schaefers")
          (org-export-with-toc nil)
@@ -221,6 +277,37 @@ Org's heading ids are random; SEED keeps them the same from build to build."
   (let ((s (replace-regexp-in-string "-" " " slug)))
     (concat (upcase (substring s 0 1)) (substring s 1))))
 
+(defun site--heading-slug (title)
+  "\"Don't forget [[#code][how]] to code\" -> \"dont-forget-how-to-code\"."
+  (let* ((s (replace-regexp-in-string "\\[\\[\\(?:[^]]*\\]\\[\\)?\\([^]]*\\)\\]\\]" "\\1" title))
+         ;; é -> e (decomposed, its accent then dropped with the rest).
+         (s (ucs-normalize-NFD-string (downcase s)))
+         (s (replace-regexp-in-string "['’]" "" s))
+         (s (replace-regexp-in-string "[^a-z0-9]+" "-" s))
+         (s (replace-regexp-in-string "\\`-+\\|-+\\'" "" s)))
+    (if (string-empty-p s) "section" s)))
+
+(defun site--heading-ids ()
+  "Give each heading in the current buffer without a CUSTOM_ID one made from
+its title, so its address (which app.ts offers to copy) reads well and stays the
+same from build to build, as Org's own random ones don't.  A taken one, or one
+the page itself uses, gets a number."
+  (let ((taken (list "app" "content" "contact" "year" "site-data" "site-nav"
+                     "preamble" "postamble" "footnotes"))
+        bare)
+    (org-map-entries
+     (lambda ()
+       (let ((id (org-entry-get nil "CUSTOM_ID")))
+         (if id (push id taken)
+           (push (cons (point-marker) (site--heading-slug (org-get-heading t t t t)))
+                 bare)))))
+    (dolist (heading (nreverse bare))
+      (let* ((base (cdr heading)) (id base) (n 1))
+        (while (member id taken)
+          (setq n (1+ n) id (format "%s-%d" base n)))
+        (push id taken)
+        (org-entry-put (car heading) "CUSTOM_ID" id)))))
+
 (defun site--first-paragraph ()
   "Org source of the current buffer's first paragraph, or nil."
   (when-let* ((p (org-element-map (org-element-parse-buffer) 'paragraph
@@ -257,6 +344,7 @@ Org's heading ids are random; SEED keeps them the same from build to build."
           (insert-file-contents (expand-file-name file dir))
           (setq default-directory (expand-file-name dir))
           (org-mode)
+          (site--heading-ids)
           (let* ((description (site--keyword "DESCRIPTION"))
                  (excerpt (or description (site--first-paragraph)))
                  (video (site--keyword "VIDEO"))
@@ -277,8 +365,9 @@ Org's heading ids are random; SEED keeps them the same from build to build."
                     ;; The entry title is the view's h2, so the entry's own
                     ;; top-level headings start at h3.
                     (html . ,(let ((org-html-toplevel-hlevel 3))
-                               (site--alternate-figures (site--body-html (format "%s:%s" route slug))
-                                                        (not featured))))
+                               (site--alternate-figures
+                                (site--section-footnotes (site--body-html (format "%s:%s" route slug)))
+                                (not featured))))
                     ,@(and video `((video . ,video)))
                     ,@(and featured `((featured . ,featured)))
                     ;; Under the featured picture: the description, never the

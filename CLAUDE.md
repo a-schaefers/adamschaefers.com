@@ -51,7 +51,8 @@ All the code is TypeScript, and npm manages everything from outside
 (`package.json`, pinned; nothing vendored). `make build` compiles first
 (`scripts/build.ts`): esbuild bundles `src/app.ts` and all it imports (lit-html,
 `src/contact.ts`, `src/store.ts`, the sidebar's `src/profile.ts` and `src/course.ts`,
-`src/zoom.ts`, which both enlarge pictures with, and `src/video.ts`, the videos'
+`src/zoom.ts`, which they, the store and posts enlarge pictures with, `src/copylink.ts`,
+the copy-link icon on products and post headings, and `src/video.ts`, the videos'
 streaming) into one `js/app.<hash>.js`, and hls.js apart into `js/hls.<hash>.js`
 (which `src/video.ts` imports only when a video plays where it's needed), and
 Tailwind compiles `src/site.css`
@@ -119,7 +120,14 @@ turns, right first (left first after a featured one), each starting below the
 last; `#+ATTR_HTML: :class wide` above one spans the column instead. Narrow
 screens stack them. Entry HTML is shown from the site root, so link files in the repo as
 `blog/...`, `off-the-clock/...` (a travelog's poster, `off-the-clock/<name>.jpg`,
-sits beside its entry).
+sits beside its entry). A post's pictures (featured and in the text) enlarge on a
+tap, as the profile photo does. Each heading gets an id from its title
+(`site--heading-ids`: "Don't forget how to code" is `#dont-forget-how-to-code`)
+unless it has a `:CUSTOM_ID:`, and app.ts gives it an icon that copies the
+post's address at it. Footnotes (`[fn:name]`, defined at the end of the
+section that uses them, before the next heading) show at the end of the section
+that first refers to each, small (`site--section-footnotes`); a number and its
+note link to each other.
 Links out of the site open in a new tab. The index file holds the
 collection's title, intro and `#+POSTS_PER_PAGE` (Off the clock: 12).
 
@@ -414,19 +422,30 @@ Aquinas, Pieper, Shakespeare, Scripture, Dijkstra, Knuth, Michael Jordan; the
 good, the beautiful and the true. He carries programming into life (stress
 tests, the Unix philosophy, borrow now pay later, NPCs,
 `s/basketball/art of programming/g`). His words: craft, artisan, integrity,
-ownership, soul, love of the game, mid, slop, grok, touch grass, sacred cows,
-"I reckon". Headings are short phrases or claims, some wry ("And you tolerate
+ownership, soul, love of the game, mid, slop, grok, touch grass, sacred cows
+(not "I reckon": archaic, he says, 2026-10-22). No drama ("a reckoning"): a
+post that changes his mind accounts for it plainly, with integrity. Headings are short phrases or claims, some wry ("And you tolerate
 it", "Coming clean"). Faith and philosophy are his, not decoration: keep them.
 His own revisions show the editing he wants: split run-ons; cut gratuitous
 profanity ("too much shit") and anything advertisey; vary a word he's leaned
 on ("gamers" to "players"); a comma or a spaced hyphen ( - ), not an em dash;
 sharpen the last line; retire what doesn't hold up ("not up to standards",
 "aged like milk"). Quality over volume.
+His posts never use a semicolon, a long dash (em or en) or a curly quote
+(straight " and ' only, owner, 2026-10-21):
+simple sentences, joined by commas when they join at all. His mind is
+Aristotelian: Aristotle is The Philosopher and Aquinas the authority, and a
+question of philosophy put in a post goes through them. As a lens, not a
+name to drop: name them (or Chesterton) only for a quote that earns its place,
+applied straight to the case at hand. Chat logs and notes he hands over are
+raw ideas, not text to keep: write them in his voice, sharpened, and summarize
+other people's views generally (no who-said-what, no play-by-play of when).
 His first drafts run sentences together with commas, hedge ("I think",
 "arguably in my opinion I'd say"), and leave typos, uneven names and capitals
 (KISS, Libera) and bare URLs. A pass fixes those, checks every fact, date and
 link against its source (GitHub's API, the page cited), puts each link on the
-words it's about, and gives a long post a few headings and an order that
+words it's about (a phrase or a title, never a lone "said" or "here") and links
+each source once (later mentions name it, quote it or pass it by), and gives a long post a few headings and an order that
 reads; it keeps his words, opinions, humor and sign-off, adds no claims and
 no polish he wouldn't write, and tells him what changed in substance (a fact
 corrected, a passage cut or moved) rather than slipping it in.
