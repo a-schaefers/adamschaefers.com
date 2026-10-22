@@ -1,6 +1,6 @@
 #+TITLE: Embracing the dark side
 #+FEATURED: blog/ai-crusades.jpg
-#+DESCRIPTION: Can a machine think? Can it improve itself into a mind? Aristotle and Aquinas say no. It doesn't need to. A programmer's case for using it anyway, and on whose terms.
+#+DESCRIPTION: Can a machine think? Can it improve itself into a mind? Aristotle and Aquinas say no. It doesn't need to. A programmer's case for using it anyway.
 
 In March I made a video telling you to "tell your AI-pushing boss to get
 wrecked."[fn:artisan]
