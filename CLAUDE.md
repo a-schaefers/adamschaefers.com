@@ -372,7 +372,9 @@ owner asks) are in its CLAUDE.md.
 http://localhost:8000 (`PORT=` to change it; `npm ci` once first), and keeps it
 built: a save under `content/`, `src/`, `static/` or in `site.el` reruns only
 the steps it needs (an Org file: the export and dist; `src/` or `site.el`: the
-script and styles first), and once wrangler serves the result every open page
+script and styles first; the export in an Emacs it keeps running, `site-build-loop`,
+each build starting afresh all the same, so a save shows in about two seconds),
+and once wrangler serves the result every open page
 reloads, over a WebSocket (`/__dev`) whose script the dev server adds to the
 pages it answers; it is never in `build/` or `public/`, so never on the site.
 A failed build shows its error over the page. `scripts/dist.sh` updates

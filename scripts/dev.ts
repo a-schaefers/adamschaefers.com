@@ -50,6 +50,52 @@ function stepsFor(file: string): Step[] {
   return [];
 }
 
+/** The Org export runs in an Emacs kept for it (site.el's site-build-loop, a build for each
+    line it reads): a new Emacs spends most of a build starting up and loading Org, so a save
+    shows a second or so sooner. Each build starts afresh all the same, and a change to
+    site.el gets a new Emacs. One that dies is started again at the next build. */
+type Emacs = { child: ChildProcess; site: number; output: string; done?: (error?: string) => void };
+let emacs: Emacs | undefined;
+
+function exportOrg(): Promise<string> {
+  const site = statSync(`${ROOT}site.el`).mtimeMs;
+  if (emacs && emacs.site !== site) { emacs.child.kill(); emacs = undefined; }
+  if (!emacs) {
+    const child = spawn('emacs', ['-Q', '--batch', '-l', 'site.el', '-f', 'site-build-loop'], { cwd: ROOT, stdio: ['pipe', 'pipe', 'pipe'] });
+    const e: Emacs = { child, site, output: '' };
+    for (const stream of [child.stdout, child.stderr]) {
+      let rest = '';
+      stream.on('data', (d: Buffer) => {
+        const lines = (rest + d).split('\n');
+        rest = lines.pop() ?? '';
+        for (const line of lines) {
+          if (line === 'site: built') { e.done?.(); continue; }
+          e.output += `${line}\n`;
+          process.stderr.write(`${line}\n`);
+          if (line.startsWith('site: failed: ')) e.done?.(line);
+        }
+      });
+    }
+    const gone = (why: string) => { if (emacs === e) emacs = undefined; e.done?.(why); };
+    child.on('error', (err) => gone(err.message));
+    child.on('exit', (code) => gone(`emacs exited (${code})`));
+    child.stdin.on('error', () => { /* it exited; 'exit' says so */ });
+    emacs = e;
+  }
+  const e = emacs;
+  return new Promise((resolve, reject) => {
+    e.output = '';
+    e.done = (error) => {
+      e.done = undefined;
+      if (error) reject(new Error(`${STEPS.org.flat().join(' ')} failed:\n${e.output.trim() || error}`));
+      else resolve(e.output);
+    };
+    e.child.stdin!.write('\n');
+  });
+}
+
+const runStep = (step: Step) => (step === 'org' ? exportOrg() : run(STEPS[step]));
+
 function run([cmd, args]: [string, string[]]): Promise<string> {
   return new Promise((resolve, reject) => {
     const child = spawn(cmd, args, { cwd: ROOT, stdio: ['ignore', 'pipe', 'pipe'] });
@@ -74,7 +120,7 @@ async function build() {
   const started = Date.now();
   try {
     const before = snapshot();
-    for (const step of steps) await run(STEPS[step]);
+    for (const step of steps) await runStep(step);
     failed = '';
     const after = snapshot();
     await served([...after.keys()].filter((f) => after.get(f) !== before.get(f)));
@@ -267,8 +313,8 @@ function freePort(): Promise<number> {
 function stop(code = 0) {
   process.exit(code);
 }
-// However this ends, wrangler and its workerd processes (the group it leads) end with it.
-process.on('exit', () => { if (wrangler?.pid) try { process.kill(-wrangler.pid, 'SIGTERM'); } catch { /* gone */ } });
+// However this ends, Emacs, wrangler and its workerd processes (the group it leads) end with it.
+process.on('exit', () => { emacs?.child.kill(); if (wrangler?.pid) try { process.kill(-wrangler.pid, 'SIGTERM'); } catch { /* gone */ } });
 process.on('SIGINT', () => stop());
 process.on('SIGTERM', () => stop());
 process.on('uncaughtException', (err) => { console.error(err); stop(1); });
@@ -286,7 +332,7 @@ await new Promise<void>((resolve) => {
 
 // Built once, all of it, before anything is served.
 try {
-  for (const step of ORDER) await run(STEPS[step]);
+  for (const step of ORDER) await runStep(step);
 } catch (err) {
   console.error((err as Error).message);
   process.exit(1);

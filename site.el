@@ -345,19 +345,58 @@ Org's heading ids are random; SEED keeps them the same from build to build."
   "PATH as an address: itself when it already is one, else under `site-url'."
   (if (string-match-p "\\`https?://" path) path (concat site-url path)))
 
+(defvar site--heads (make-hash-table :test #'equal)
+  "Answers to the HEAD requests `site--ask-heads' sent at once: each address's
+status line and size when it is 200, or `none'.")
+
 (defun site--head (url)
   "URL's answer to a HEAD request, its status line and headers, when it is 200;
 nil otherwise."
-  (let ((url-request-method "HEAD")
-        (url-show-status nil))
-    (condition-case nil
-        (let ((buffer (url-retrieve-synchronously url t t 30)))
-          (when buffer
-            (with-current-buffer buffer
-              (goto-char (point-min))
-              (prog1 (and (looking-at "HTTP/[0-9.]+ 200") (buffer-string))
-                (kill-buffer)))))
-      (error nil))))
+  (let ((known (gethash url site--heads)))
+    (if known
+        (and (stringp known) known)
+      (let ((url-request-method "HEAD")
+            (url-show-status nil))
+        (condition-case nil
+            (let ((buffer (url-retrieve-synchronously url t t 30)))
+              (when buffer
+                (with-current-buffer buffer
+                  (goto-char (point-min))
+                  (prog1 (and (looking-at "HTTP/[0-9.]+ 200") (buffer-string))
+                    (kill-buffer)))))
+          (error nil))))))
+
+(defun site--ask-heads ()
+  "Ask, all at once, every HEAD the build will about the videos content/ names:
+each one's MP4 (its size, for the feed), poster and HLS playlist, for `site--head'.
+One after another they took about a second a build; curl asks them together over
+one connection in a quarter of one.  Without curl, or for one it couldn't ask,
+`site--head' asks itself."
+  (let ((urls nil))
+    (dolist (file (directory-files-recursively site-content "\\.org\\'"))
+      (with-temp-buffer
+        (insert-file-contents file)
+        (while (re-search-forward "https?://[^][ \t\n\"<>]+\\.mp4\\b" nil t)
+          (let ((video (file-name-sans-extension (match-string 0))))
+            (dolist (ext '(".mp4" ".jpg" ".m3u8"))
+              (cl-pushnew (concat video ext) urls :test #'equal))))))
+    (when (and urls (executable-find "curl"))
+      (with-temp-buffer
+        ;; A line each: the address, its status, and its size when it gives one.
+        (apply #'call-process "curl" nil t nil "--silent" "--head" "--parallel" "--max-time" "30"
+               "--write-out" "%{url}\t%{http_code}\t%header{content-length}\n"
+               (mapcan (lambda (url) (list "--output" null-device url)) urls))
+        (goto-char (point-min))
+        (while (re-search-forward "^\\([^\t\n]+\\)\t\\([0-9]+\\)\t\\([0-9]*\\)$" nil t)
+          (let ((code (match-string 2))
+                (size (match-string 3)))
+            ;; 000: no answer at all, which site--head asks again.
+            (unless (equal code "000")
+              (puthash (match-string 1)
+                       (if (equal code "200")
+                           (concat "HTTP/1.1 200\n" (if (equal size "") "" (format "content-length: %s\n" size)))
+                         'none)
+                       site--heads))))))))
 
 (defun site--remote-size (url)
   "URL's size in bytes, asked of the server with a HEAD request; nil when it
@@ -729,6 +768,7 @@ name, and the styles' hash follows."
 (defun site-build ()
   "Export content/index.org to build/index.html, carrying every view's content,
 and the same page at every view's address under build/."
+  (site--ask-heads)
   (site--with-export-settings
    (let ((root default-directory)
          (collections (mapcar (lambda (c) (cons (car c) (site--collection (car c) (cdr c))))
@@ -790,5 +830,23 @@ and the same page at every view's address under build/."
                   (length (alist-get 'views data))
                   (mapconcat (lambda (c) (format "%d %s" (length (alist-get 'entries (cdr c))) (car c)))
                              collections ", ")))))))
+
+(defun site-build-loop ()
+  "make run's export (scripts/dev.ts): `site-build' for each line on stdin, in this
+one Emacs, which keeps Org loaded (a new Emacs spends most of a build starting and
+loading it).  Each build starts as a new Emacs's would, nothing kept from the last:
+the answers and names it noted (`site--heads', `site--assets'...) and the files it
+visited.  Each ends with \"site: built\" or \"site: failed: ...\"."
+  (while (progn (read-from-minibuffer "") t)
+    (clrhash site--posters)
+    (clrhash site--playlists)
+    (clrhash site--heads)
+    (setq site--assets nil)
+    (unwind-protect
+        (condition-case err
+            (progn (site-build) (message "site: built"))
+          (error (message "site: failed: %s" (error-message-string err))))
+      (dolist (buffer (buffer-list))
+        (when (buffer-file-name buffer) (kill-buffer buffer))))))
 
 ;;; site.el ends here
