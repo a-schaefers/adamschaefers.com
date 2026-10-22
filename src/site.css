@@ -282,6 +282,11 @@
   .post .figure.left { @apply float-left mr-8 w-[min(18rem,45%)]; }
   .post .figure.wide { @apply clear-both; }
   .post .figure-clear { @apply clear-both; }
+  /* A post's picture grows into a large view on a click (app.ts, zoom.ts): its button takes
+     no room of its own, and its .zoom-dialog (below) follows the figure. */
+  .post-zoom { all: unset; @apply block cursor-zoom-in; }
+  .post-zoom:focus-visible { @apply outline-[2px] outline-offset-4 outline-turq; }
+  .post-zoom.is-open img { @apply invisible; }
   .post .figure.wide :is(img, video) { @apply mx-auto max-h-[80vh] w-auto max-w-full; }
   @variant narrow {
     .post .figure:is(.left, .right) { @apply float-none m-0 mb-5 w-full; }
@@ -294,7 +299,15 @@
   .post th { @apply font-semibold text-dust; }
   .post #footnotes { @apply mt-12 border-t border-t-ridge pt-6 text-[.9rem] text-bone; }
   .post #footnotes h3 { @apply mx-0 mt-0 mb-4 text-[1rem] text-dust; }
+  /* A section's own notes after its text (site--section-footnotes): smaller, set off by a
+     rule. A number in the text jumps to its note, and the note's number jumps back. */
+  .post .footnotes { @apply mt-6 mb-8 border-t border-t-ridge pt-3 text-[.8rem] leading-[1.5] text-dust; }
+  .post .footnotes p { @apply my-1; }
   .post .footdef { @apply flex gap-2; }
+  .post .footdef > sup { @apply min-w-5 text-right tabular-nums; }
+  .post :is(.footnum, .footref) { @apply scroll-mt-6; }
+  .post .footdef:has(:target) { @apply text-bone; }
+  .post .footref { @apply no-underline; }
 
   /* ---- The Store: index.org's products. The image floats left, the words run beside it,
      then wrap under it at full width; the buy and key boxes (js/store.ts) start below both.

@@ -10,7 +10,8 @@
 // since the Turnstile widget and the license server accept only adamschaefers.com.
 
 import { loadTurnstile, SENT_CARD, SENT_CHECK, SENT_NOTE, SENT_TITLE } from './contact.ts';
-import { mountZoom } from './zoom.ts';
+import { zoomable } from './zoom.ts';
+import { copyLink } from './copylink.ts';
 
 const API = 'https://licenses.adamschaefers.com';
 // Buying, adding seats and recovery each pass a Turnstile check: the "adamschaefers store" widget.
@@ -356,37 +357,12 @@ function mountRecover(mount: HTMLElement) {
     });
 }
 
-// A product's title gets a link icon that copies its address (/store/<id>/, which opens the store
-// at that product, and whose page carries the product's link preview), always the live one
-// so a shared link works anywhere.
-const LINK_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.1 1.1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.1-1.1"/></svg>';
-
+// A product's title gets a link that copies its address (/store/<id>/, which opens the store
+// at that product, and whose page carries the product's link preview): copylink.ts.
 function mountShare(product: HTMLElement) {
     const title = product.querySelector('.product-body > h3');
     const id = product.id.replace(/^product-/, '');
-    if (!title || !id) return;
-    const url = `https://adamschaefers.com/store/${id}/`;
-    // timer: the note's, which clears it.
-    const button = document.createElement('button') as HTMLButtonElement & { timer?: number };
-    button.type = 'button';
-    button.className = 'product-link relative inline-flex cursor-pointer items-center gap-[.4rem] rounded-md border-0 bg-transparent p-[.2rem] align-middle text-dust '
-        + 'hover:text-turq focus-visible:text-turq focus-visible:outline-[2px] focus-visible:outline-offset-1 focus-visible:outline-turq';
-    button.title = `Copy link: ${url}`;
-    button.setAttribute('aria-label', `Copy a link to ${title.textContent!.trim()}`);
-    button.innerHTML = `${LINK_ICON}<span class="product-link-note absolute top-1/2 left-full ml-[.3rem] -translate-y-1/2 whitespace-nowrap rounded-md bg-mesa px-2 py-[.15rem] `
-        + 'text-[.8rem] font-medium font-stretch-100% tracking-[0] text-turq inset-ring inset-ring-ridge empty:hidden" aria-live="polite"></span>';
-    title.append(' ', button);
-    const note = button.querySelector('.product-link-note')!;
-    button.addEventListener('click', async () => {
-        try {
-            await navigator.clipboard.writeText(url);
-            note.textContent = 'Link copied';
-        } catch {
-            note.textContent = url;
-        }
-        clearTimeout(button.timer);
-        button.timer = setTimeout(() => { note.textContent = ''; }, 2500);
-    });
+    if (title && id) copyLink(title, `https://adamschaefers.com/store/${id}/`);
 }
 
 // A product's image grows into a large view on a click, the way the profile photo does
@@ -394,20 +370,7 @@ function mountShare(product: HTMLElement) {
 function mountProductZoom(product: HTMLElement) {
     const img = product.querySelector<HTMLImageElement>('.product-image');
     if (!img || img.src.endsWith('.svg')) return;
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'product-zoom';
-    button.setAttribute('aria-label', `Enlarge: ${img.alt}`);
-    img.replaceWith(button);
-    button.append(img);
-    const dialog = document.createElement('dialog');
-    dialog.className = 'zoom-dialog';
-    dialog.setAttribute('aria-label', img.alt);
-    const big = img.cloneNode() as HTMLImageElement;
-    big.className = '';
-    dialog.append(big);
-    product.append(dialog);
-    mountZoom(button, img, dialog, big);
+    product.append(zoomable(img, 'product-zoom'));
 }
 
 export function mountStore(root: ParentNode) {
