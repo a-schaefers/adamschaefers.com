@@ -331,10 +331,13 @@ function menu(active: string) {
     }
 }
 
-// A new view starts at the top of the page, or at its product.
+// A new view starts at the top of the page, at its product, or at the anchor its address
+// names (/blog/<slug>/#heading).
 function toStart(r: Route, first?: boolean) {
     const product = PAGES.find(p => p.route === r.tab && p.product) && document.getElementById(`product-${r.tab}`);
+    const anchor = !r.hash && location.hash.length > 1 && document.getElementById(decode(location.hash.slice(1)));
     if (product) product.scrollIntoView({ behavior: 'instant', block: 'start' });
+    else if (anchor && !first) anchor.scrollIntoView({ behavior: 'instant', block: 'start' });
     else if (!first) scrollTo({ top: 0, behavior: 'instant' });
 }
 
@@ -383,8 +386,8 @@ function linkRoute(a: HTMLAnchorElement) {
     return url.origin === location.origin ? routeAt(url, true) : null;
 }
 
-// A link to a view switches to it here, without loading a page; one to the view on screen
-// goes back to its start, or to its anchor if it names one. A bare #anchor (one outside
+// A link to a view switches to it here, without loading a page, at its anchor if it names
+// one; one to the view on screen goes back to its start, or to its anchor. A bare #anchor (one outside
 // the view, which anchorLinks doesn't reach) is followed here on the page it's on.
 document.addEventListener('click', e => {
     const a = (e.target as Element).closest<HTMLAnchorElement>('a[href]');
@@ -394,11 +397,12 @@ document.addEventListener('click', e => {
     if (r) {
         e.preventDefault();
         const at = addressOf(r);
-        if (at === shown && !r.hash && a.hash.length > 1) {
+        const to = !r.hash && a.hash.length > 1 ? at + a.hash : at;
+        if (at === shown && to !== at) {
             location.hash = a.hash;
             return;
         }
-        if (location.pathname + location.hash !== at) history.pushState(null, '', at);
+        if (location.pathname + location.hash !== to) history.pushState(null, '', to);
         if (at === shown) toStart(r);
         else show();
     } else if (a.getAttribute('href')!.startsWith('#')) {
