@@ -892,10 +892,11 @@ and the same page at every view's address under build/."
               ;; The menu (`site--nav') and the footer frame every view.  Their classes are
               ;; Tailwind's (site.css): it reads this file for them.
               (org-html-preamble (lambda (_) (site--nav)))
-              ;; src/app.ts keeps the year current; the build year is the fallback.
+              ;; src/app.ts keeps the year current; the build year is the fallback.  The
+              ;; Emacs icon is Emacs's own (static/images/emacs.svg, GPLv3+, its notice kept).
               (org-html-postamble
                (lambda (_)
-                 (format "<footer class=\"site-footer mx-auto max-w-[70rem] px-8 pt-0 pb-12 text-center text-[.85rem] text-dust\">© <span id=\"year\">%s</span> adamschaefers.com · <a href=\"/sitemap/\">Sitemap</a> · <a href=\"/privacy-policy/\">Privacy</a> · <a href=\"/terms-of-service/\">Terms</a></footer>"
+                 (format "<footer class=\"site-footer mx-auto max-w-[70rem] px-8 pt-0 pb-12 text-center text-[.85rem] text-dust\">© <span id=\"year\">%s</span> adamschaefers.com · <a href=\"/sitemap/\">Sitemap</a> · <a href=\"/privacy-policy/\">Privacy</a> · <a href=\"/terms-of-service/\">Terms</a><br><span class=\"mt-2 inline-flex flex-wrap items-center justify-center gap-1\">Made with <svg class=\"text-chile\" role=\"img\" aria-label=\"love\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M12 21s-7.5-4.6-10-9.3C.4 8.5 2 4.5 5.8 4c2.3-.3 4.4 1 6.2 3.2C13.8 5 15.9 3.7 18.2 4 22 4.5 23.6 8.5 22 11.7 19.5 16.4 12 21 12 21z\"/></svg> in <a class=\"inline-flex\" target=\"_blank\" rel=\"noopener\" href=\"https://www.gnu.org/software/emacs/\"><img src=\"images/emacs.svg\" alt=\"GNU Emacs\" width=\"16\" height=\"16\" loading=\"lazy\"></a><span>Emacs <a target=\"_blank\" rel=\"noopener\" href=\"https://orgmode.org/\">Org mode</a> · <a target=\"_blank\" rel=\"noopener\" href=\"https://github.com/a-schaefers/adamschaefers.com/tree/master/content\">the source</a></span></span></footer>"
                          (format-time-string "%Y")))))
          (random "index")
          (let* ((export (org-export-as 'html))
