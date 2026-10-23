@@ -431,7 +431,8 @@ profanity ("too much shit") and anything advertisey; vary a word he's leaned
 on ("gamers" to "players"); a comma or a spaced hyphen ( - ), not an em dash;
 sharpen the last line; retire what doesn't hold up ("not up to standards",
 "aged like milk"). Quality over volume.
-His posts never use a semicolon, a long dash (em or en) or a curly quote
+His posts never use a semicolon, a colon (except inside a
+quotation, a title or a citation, owner, 2026-10-23), a long dash (em or en) or a curly quote
 (straight " and ' only, owner, 2026-10-21):
 simple sentences, joined by commas when they join at all. His mind is
 Aristotelian: Aristotle is The Philosopher and Aquinas the authority, and a
