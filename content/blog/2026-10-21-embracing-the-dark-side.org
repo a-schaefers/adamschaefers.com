@@ -635,8 +635,8 @@ graphics card. The models aren't the frontier yet, but they do real work. Make
 them cheaper still, and a town could own a datacenter the way it owns its
 library, a shop could own its model, and the little workshops get their chance.
 
-America's founders protected a machine once already. [[https://constitution.congress.gov/constitution/amendment-1/][The 1st Amendment]] guards "the
-freedom of speech, or of the press," and the press was a machine. England licensed
+America's founders protected a machine once already. The 1st Amendment guards "the
+freedom of speech, or of the press,"[fn:first] and the press was a machine. England licensed
 its presses until 1695, and the founders made sure Congress never could.
 Nobody needs a license to run one. A model on your own hardware is the press of our day, and
 nobody should need a license to run that either. The law can only keep the door
@@ -701,6 +701,7 @@ Theologiae/ II-II q.64 a.7, [[https://www.newadvent.org/summa/3064.htm#article7]
 [fn:divorce] G. K. Chesterton, [[https://www.gutenberg.org/cache/epub/62680/pg62680-images.html#page_47][The Superstition of Divorce]] (1920).
 [fn:sanity] /The Outline of Sanity/, pp. 193 and 252 ([[https://archive.org/details/theoutlineofsanity][Internet Archive]]), in "The Free
 Man and the Ford Car" and "A Summary."
+[fn:first] U.S. Constitution, [[https://constitution.congress.gov/constitution/amendment-1/][Amendment I]] (1791).
 [fn:saass] Richard Stallman, [[https://www.gnu.org/philosophy/who-does-that-server-really-serve.html][Who Does That Server Really Serve?]], GNU Project.
 [fn:yoda] /Star Wars: Episode I, The Phantom Menace/ (1999), [[https://imsdb.com/scripts/Star-Wars-The-Phantom-Menace.html][the script]].
 [fn:eth2] Aristotle, /Nicomachean Ethics/ II.6 ([[https://classics.mit.edu/Aristotle/nicomachaen.2.ii.html][MIT]]).
