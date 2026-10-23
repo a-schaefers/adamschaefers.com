@@ -734,8 +734,8 @@ and answers for it.
 
 *Master the machine, or the machine will master you.*
 
-/Written by me, with Claude as reviewer and editor, and drafting some passages
-at my direction. The irony isn't lost on me. I tried to use it the way [[#linus][Linus does]],
+/Written by me, with Claude as reviewer and editor.
+I tried to use it the way [[#linus][Linus does]],
 with integrity, and without losing my brain or my understanding./
 
 [fn:eth21] Aristotle, /Nicomachean Ethics/ II.1.
