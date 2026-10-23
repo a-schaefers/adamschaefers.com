@@ -264,7 +264,7 @@ so it scales. The infrastructure is code too, in Terraform. Every change goes th
 for my approval before it reaches production, rolls out in stages, and gets
 tested against production every night.
 
-It took a week to get it standing, and [[https://github.com/merecatholicity/merecatholicity.com][the history is public]].
+It took a week to get it standing.[fn:history]
 That's when I knew software engineers were cooked.
 
 I said the guessing machine can't be counted on. It still guesses, but with a
@@ -285,8 +285,9 @@ me, too. I'm not convinced it's better than the best of us.
 It doesn't have to be.
 
 So how does a thing that can't think beat me at my own job? That's the question
-I started with, and I answer it in [[#improve][Can it improve itself?]]
+I started with.
 
+[fn:history] The history is public, [[https://github.com/merecatholicity/merecatholicity.com][on GitHub]].
 [fn:j3] The same post as the first note, the one with the video.
 
 * AGI doesn't matter
