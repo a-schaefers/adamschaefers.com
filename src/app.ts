@@ -360,9 +360,19 @@ function show() {
     mountLicense(app);
     zoomPictures(app);
     linkHeadings(app);
+    anchorLinks(app, at);
     document.title = title(r);
     toStart(r, !shown);
     shown = at;
+}
+
+// The page has <base href="/"> (site.el), so a bare #anchor (a footnote's, say) would name
+// the home page wherever it's copied from: point each at the view it's on.
+function anchorLinks(root: ParentNode, at: string) {
+    for (const a of root.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')) {
+        const href = a.getAttribute('href')!;
+        if (href.length > 1 && !parse(decode(href.slice(1)))) a.setAttribute('href', at + href);
+    }
 }
 
 // Where a link goes, if to a view: its route, else null (a file, another site, an anchor).
@@ -374,8 +384,8 @@ function linkRoute(a: HTMLAnchorElement) {
 }
 
 // A link to a view switches to it here, without loading a page; one to the view on screen
-// goes back to its start. The page has <base href="/"> (site.el), which would send a bare
-// #anchor to the home page, so those are followed here on the page they're on.
+// goes back to its start, or to its anchor if it names one. A bare #anchor (one outside
+// the view, which anchorLinks doesn't reach) is followed here on the page it's on.
 document.addEventListener('click', e => {
     const a = (e.target as Element).closest<HTMLAnchorElement>('a[href]');
     if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey
@@ -384,6 +394,10 @@ document.addEventListener('click', e => {
     if (r) {
         e.preventDefault();
         const at = addressOf(r);
+        if (at === shown && !r.hash && a.hash.length > 1) {
+            location.hash = a.hash;
+            return;
+        }
         if (location.pathname + location.hash !== at) history.pushState(null, '', at);
         if (at === shown) toStart(r);
         else show();
