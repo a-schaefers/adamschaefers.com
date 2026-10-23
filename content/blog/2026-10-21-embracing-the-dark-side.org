@@ -588,8 +588,8 @@ that we cannot abolish the machine, that we must use the machine, are
 themselves refusing to use the mind."[fn:outline] I'm choosing it, with my
 mind, knowing what it costs.
 
-PauseAI US asks people to sign [[https://www.pauseai-us.org/petition/][a petition]] for "a global AI Treaty to ban
-superintelligent AI systems until they can be made safe." In March I'd have
+PauseAI US asks people to sign a petition for "a global AI Treaty to ban
+superintelligent AI systems until they can be made safe."[fn:petition] In March I'd have
 signed it. Would I still? No. Men can stop it, but can isn't should.
 Prudence weighs what a pause would give up, and I'd take
 the cures. It also asks whether the means can work, and a treaty that can't be
@@ -691,6 +691,7 @@ and I was already there. What I'm embracing is a tool, used with a mind.
 
 [fn:stallman] Richard Stallman, who founded the free software movement ([[https://stallman.org/][stallman.org]]).
 [fn:outline] G. K. Chesterton, [[https://archive.org/details/theoutlineofsanity][The Outline of Sanity]] (1926).
+[fn:petition] PauseAI US, [[https://www.pauseai-us.org/petition/][Demand a Global Treaty to Pause AI]].
 [fn:st49] Foresight, which looks ahead to what an act will bring about, is a part
 of prudence (/Summa Theologiae/ II-II q.49 a.6, [[https://www.newadvent.org/summa/3049.htm#article6][New Advent]]).
 [fn:mh] Pope Leo XIV, [[https://www.vatican.va/content/leo-xiv/en/encyclicals/documents/20260515-magnifica-humanitas.html][Magnifica Humanitas]], May 15, 2026, §107.
