@@ -65,6 +65,9 @@ class can corner it. The catch is energy. Frontier compute eats power, so the
 least of us get only what the overlords allow. Make self-hosted AI efficient
 and this road could win. It could be the best one.
 
+Pope Leo XIV would disarm AI, and he means "freeing technology from monopolistic
+control."[fn:mh110] That's what the 2nd Amendment was for, no monopoly on force.
+
 I have my doubts.
 
 The second is the Empire. Merge the corporations with the state. Pay every
@@ -84,6 +87,9 @@ looking over their shoulders, and nobody answering for any of it. Nobody is
 happy, and everybody gets the short end. It's also where we're headed. Flying cars before GTA 6. A boring
 dystopia where my phone snitches on me if it suspects a mental health risk.
 
+[fn:mh110] Pope Leo XIV, [[https://www.vatican.va/content/leo-xiv/en/encyclicals/documents/20260515-magnifica-humanitas.html][Magnifica Humanitas]], May 15, 2026, §110: "To
+disarm does not mean rejecting technology, but preventing it from dominating
+humanity."
 [fn:stallman] Richard Stallman, who founded the free software movement ([[https://stallman.org/][stallman.org]]).
 [fn:deregno] Thomas Aquinas, /De Regno/ I.3-4 ([[https://isidore.co/aquinas/english/DeRegno.htm#3][Isidore]]), in Gerald Phelan's
 translation. Editions number the chapters differently, and Isidore's follow the
