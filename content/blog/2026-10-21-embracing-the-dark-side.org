@@ -540,7 +540,7 @@ Linus is how he uses it, not that he does.
 [fn:lore] [[https://lore.kernel.org/all/CAHk-=wjLjgfwgSZ1RDk4YdNFcV0ntosMO5AmBoHD76Zb3HFY7Q@mail.gmail.com/][His post]] on the kernel mailing list.
 [fn:rcu] The [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/?h=rcu-free-v3][rcu-free-v3]] branch, two of its ten patches Kiryl's.
 [fn:race] [[https://lwn.net/ml/all/as6vBoWQGglxXxb0@thinkstation/][Kiryl Shutsemau on the mailing list]], October 13, 2026: "If the folio is
-replaced under us with a new one and then i_size is extended, we can read data
+replaced under us with a new one and then ~i_size~ is extended, we can read data
 that never got written there."
 [fn:st62] "The instrumental cause works not by the power of its form, but only
 by the motion whereby it is moved by the principal agent" (/Summa Theologiae/
