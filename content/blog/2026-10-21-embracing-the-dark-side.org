@@ -633,7 +633,8 @@ The models are the electricity this time. Friends of mine already run open
 models on hardware they own. One of them runs four agents at once on a single
 graphics card. The models aren't the frontier yet, but they do real work. Make
 them cheaper still, and a town could own a datacenter the way it owns its
-library, a shop could own its model, and the little workshops get their chance.
+library, a shop could own its model, and the common
+man gets his workshop back.
 
 America's founders protected a machine once already. The 1st Amendment guards "the
 freedom of speech, or of the press,"[fn:first] and the press was a machine. England licensed
