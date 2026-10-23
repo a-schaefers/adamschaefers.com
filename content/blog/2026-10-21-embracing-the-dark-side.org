@@ -382,8 +382,8 @@ Stone Than It?", p. 338.
 :CUSTOM_ID: improve
 :END:
 
-Here's the case for recursive self-improvement, and its believers say nothing
-in principle stops it. The model writes better code. Then it writes a better model. That one writes a
+Here's the case for recursive self-improvement.
+The model writes better code. Then it writes a better model. That one writes a
 better one still. Where's the wall?
 
 There is one, and it's old. Nothing, Aquinas says, "can be reduced from
