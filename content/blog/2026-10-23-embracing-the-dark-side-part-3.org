@@ -1,0 +1,245 @@
+#+TITLE: Who holds the tokens | Embracing the dark side Part 3
+#+DESCRIPTION: Part 1 said use the machine and stay its master. Who owns it?
+
+# Draft: assembled from the passages cut from Part 1 on 2026-10-22, word
+# for word. Still to write: the intro, and the joins between
+# sections. Rename the file to its publish date.
+
+@@html:<a href="/blog/2026-10-21-embracing-the-dark-side/">Part 1</a>@@ said
+the machine can't think, and that a tool with no mind needs a master.
+
+So who gets to hold the tokens?
+
+* So-called Machines of Loving Grace
+:PROPERTIES:
+:CUSTOM_ID: grace
+:END:
+
+Dario Amodei, the CEO of Anthropic, wrote /Machines of Loving Grace/.[fn:molg]
+
+The essay takes for granted that equality and democracy are the answer.
+Equality isn't the same as justice. And the old test of a government was never
+how many rule. It's whether they rule "with a view to the common
+interest."[fn:pol3]
+
+For all its talk of liberty and democracy, it imagines "a country of geniuses
+in a datacenter," and a technocracy where a few men hold the tokens. Pope Leo
+XIV, who took his name for "another industrial revolution,"[fn:leoname] put it
+plainly in /Magnifica Humanitas/: "A more moral AI is not enough if that
+morality is determined by a few."[fn:mh]
+
+It's the marketing of a megalomaniac. A country of geniuses, run by a few men,
+needs nobody. Aristotle said the man who needs nobody "must be either a beast
+or a god."[fn:pol1]
+
+The 20th century killed some 231 million people by human
+decision,[fn:leitenberg] in two world wars, under communism, in genocides and
+man-made famines. If Amodei's machines of loving grace come true as written,
+even those sins may pale beside them.
+
+[fn:molg] Dario Amodei, [[https://www.darioamodei.com/essay/machines-of-loving-grace][Machines of Loving Grace]], October 2024. The quotes from
+it here are his.
+[fn:pol3] Aristotle, /Politics/ III.7, trans. Benjamin Jowett ([[https://classics.mit.edu/Aristotle/politics.3.three.html][MIT]]). He
+counts rule by the one, the few or the many as true forms when they rule for
+the common interest, and as perversions when they rule for themselves.
+[fn:leoname] Pope Leo XIV, [[https://www.vatican.va/content/leo-xiv/en/speeches/2025/may/documents/20250510-collegio-cardinalizio.html][address to the College of Cardinals]], May 10, 2025.
+Leo XIII met the first industrial revolution with /Rerum Novarum/ (1891).
+[fn:mh] Pope Leo XIV, [[https://www.vatican.va/content/leo-xiv/en/encyclicals/documents/20260515-magnifica-humanitas.html][Magnifica Humanitas]], May 15, 2026.
+[fn:pol1] Aristotle, /Politics/ I.2, trans. Benjamin Jowett ([[https://classics.mit.edu/Aristotle/politics.1.one.html][MIT]]).
+[fn:leitenberg] Milton Leitenberg, [[https://gpi.umd.edu/research-impact/publications/deaths-wars-and-conflicts-20th-century][Deaths in Wars and Conflicts in the 20th Century]],
+Cornell University Peace Studies Program, 3rd ed., 2006. He counts everyone
+"killed or allowed to die by human decision," famines governments made
+included. Other tallies run lower, but his is the most thoroughly sourced.
+
+* The crossroads
+:PROPERTIES:
+:CUSTOM_ID: crossroads
+:END:
+
+So who gets to hold the tokens? The genie is out of the bottle, and AI is at a
+crossroads. I only see two roads.
+
+The first is the American road. Decentralize it as far as it'll go, and protect
+it the way the 1st and 2nd Amendments protect speech and arms, so no ruling
+class can corner it. The catch is energy. Frontier compute eats power, so the
+least of us get only what the overlords allow. Make self-hosted AI efficient
+and this road could win. It could be the best one.
+
+I have my doubts.
+
+The second is the Empire. Merge the corporations with the state. Pay every
+citizen a dividend. Military service for all. A strong hand at the top. Call it
+what it is, fascism, the dark side of Star Wars. Darth Vader is a pragmatist.
+We join the Empire, the robots serve us, and we expand. The hippies like
+Stallman lost.[fn:stallman] The Jedi are dying out and turning into myth.
+
+Does the man at the top rule for everybody, or for himself? One is a king, the
+other a tyrant. Aquinas grants this much: "The rule of one man is more useful
+than the rule of many," and yet "just as the government of a king is the best,
+so the government of a tyrant is the worst."[fn:deregno] The trouble is which
+one you get.
+
+And the middle of the road? A few labs renting us the tokens, a few agencies
+looking over their shoulders, and nobody answering for any of it. Nobody is
+happy, and everybody gets the short end. It's also where we're headed. Flying cars before GTA 6. A boring
+dystopia where my phone snitches on me if it suspects a mental health risk.
+
+[fn:stallman] Richard Stallman, who founded the free software movement ([[https://stallman.org/][stallman.org]]).
+[fn:deregno] Thomas Aquinas, /De Regno/ I.3-4 ([[https://isidore.co/aquinas/english/DeRegno.htm#3][Isidore]]), in Gerald Phelan's
+translation. Editions number the chapters differently, and Isidore's follow the
+Latin, as every De Regno citation here does.
+
+* Raise the voters
+:PROPERTIES:
+:CUSTOM_ID: vote
+:END:
+
+I'd have made anyone who wants to vote write a dissertation
+defending their right to vote, and defend it in front of a panel. Fail, and you
+lose the vote.
+
+But a panel deciding who gets to vote is just the experts again, a few men
+holding the tokens. It's the same thing I can't stand in Amodei's essay.
+
+So I'll amend it. Keep the dissertation. Drop the panel. Teach every citizen
+grammar, logic and rhetoric until every one of them could write it and defend
+it.
+
+Don't shrink the vote to fit the voters. Raise the voters to fit the vote.
+
+* Power to the people
+:PROPERTIES:
+:CUSTOM_ID: power
+:END:
+
+The path forward is the American one.
+
+Decentralize the tool. Defend it like speech and arms.
+
+Push the tech companies to make it efficient enough to run anywhere. And keep
+the weights open. A datacenter in every town running a closed model is just
+renting closer to home.
+
+And local leaders, put AI datacenters everywhere, as common as the public
+library. That's how you actually decentralize power in the USA. It takes the
+power out of a few private hands, and it ends the pay to code, pay to win
+racket that OpenAI and Anthropic are running now.
+
+Add hardware prices coming back down, productivity and wealth going up, and
+consumer AI coming into its own, and this could be the power to the people
+move.
+
+It's the old answer to kings and tyrants, too, a mixed government where the
+people hold a share.[fn:st105] And "the best political community is formed by
+citizens of the middle class."[fn:pol4] A datacenter in every town, owned by
+the town, is a middle class of compute.
+
+Or as Chesterton said in /The Superstition of Divorce/:[fn:divorce]
+
+#+BEGIN_QUOTE
+Too much capitalism does not mean too many capitalists, but too few
+capitalists.
+#+END_QUOTE
+
+Too much AI doesn't mean too many people running it. It means too few.
+
+I've always been about power to the people. Power to the common man.
+
+Doesn't the mean say to split the difference, and take the middle of the road?
+No. The mean is "relative to us," not the halfway point, and one extreme can
+sit nearer to it than the other.[fn:eth28] Owning the tool sits a lot nearer
+than renting from the overlords. A compromise between the two is renting with
+extra steps.
+
+And if we can't decentralize it? Then we're renting either way, and the
+question is from whom. The middle is a few landlords. The Empire is one.
+
+I'd still take the Empire over the middle. Aquinas weighed one ruler against
+several, and found that rule by several "deviates into tyranny not less but
+perhaps more frequently than a monarchy."[fn:deregno6] Either one can go bad.
+The middle goes bad more often, and nobody answers for it.
+
+Belloc would say the middle doesn't hold anyway. It slides into servility with
+nobody choosing it. In /The Servile State/:[fn:servile]
+
+#+BEGIN_QUOTE
+If we do not restore the Institution of Property we cannot escape restoring the
+Institution of Slavery... there is no third course.
+#+END_QUOTE
+
+The Empire's dividend sits on the servile side of that fork too, and he has a
+point. A dividend you can lose for disobedience is a leash, and once the robots
+do the work, you can't even go on strike.
+
+Choosing it doesn't make the king good. It lets you set terms. Aquinas says a
+king's power "should be so tempered that he cannot easily fall into tyranny,"
+and that a people who gave themselves a king can see him "deposed or have his
+power restricted" if he turns tyrant. He means the people acting together, by
+"public authority," not "the private presumption of a few," and he'd sooner
+tolerate a milder tyranny for a while than risk worse.[fn:deregno7] Slide into
+it, and there are no terms to hold anybody to.
+
+So if it's the Empire, the terms come first, while our labor, our votes and the
+2nd Amendment still count for something. A king who rules for everybody. A mixed government, with the
+people holding a share. And a state that knows it isn't God. That last one is
+the line between a king and the fascism I named at the crossroads.[fn:statolatry]
+The day it asks to be worshiped, it's an idol like any other, and I'm out.
+
+Look at those terms and you're most of the way back to the American road.
+That's the point.
+
+Aquinas goes to the root: "Sin must therefore be done away with in order that
+the scourge of tyrants may cease." No arrangement of compute saves a people that
+has lost its virtue. That's church and the trivium again.
+
+Either way, the middle of the road is where you get run over.
+
+Slop will ship.
+
+Slop will get better.
+
+Humans will still be needed. Just fewer of them.
+
+So we'd better learn to share the wealth, and share it justly. Evil will try to
+use all this to build a communist utopia. Don't let it.
+
+[fn:st105] The best polity is "partly kingdom... partly aristocracy... partly
+democracy, i.e. government by the people" (/Summa Theologiae/ I-II q.105 a.1,
+[[https://www.newadvent.org/summa/2105.htm#article1][New Advent]]).
+[fn:pol4] Aristotle, /Politics/ IV.11 ([[https://classics.mit.edu/Aristotle/politics.4.four.html][MIT]]).
+[fn:divorce] G. K. Chesterton, [[https://www.gutenberg.org/cache/epub/62680/pg62680-images.html#page_47][The Superstition of Divorce]] (1920).
+[fn:eth28] Aristotle, /Nicomachean Ethics/ II.8.
+[fn:deregno6] Thomas Aquinas, /De Regno/ I.6, which concludes: "Monarchy is
+therefore to be preferred to polyarchy, although either form of government
+might become dangerous."
+[fn:servile] Hilaire Belloc, [[https://www.gutenberg.org/cache/epub/64882/pg64882-images.html][The Servile State]] (1912).
+[fn:deregno7] /De Regno/ I.7, "How provision might be made that the king may
+not fall into tyranny." The line about sin closes the same chapter. Read his
+way, the 2nd Amendment is a right the people hold together, under the law, not
+a license for a few.
+[fn:statolatry] Pius XI drew the same line against Mussolini's regime in
+[[https://www.vatican.va/content/pius-xi/en/encyclicals/documents/hf_p-xi_enc_29061931_non-abbiamo-bisogno.html][Non abbiamo bisogno]] (1931), calling its ideology "a real pagan worship of the
+State."
+
+* Set aside from Part 1 :noexport:
+
+And hate wants a target. When a whole trade gets flattened, a scared crowd
+turns on the hype men, the luddites, the CEO, or the machine itself.
+
+Girard spent his life on that move.[fn:scapegoat] The crowd blames its victim
+for the crisis, then worships him for the peace after. Myth tells it from the
+crowd's side, and the victim is guilty. The Gospel tells it from the victim's
+side, and he's innocent.
+
+Hating the machine as a devil is the same mistake as worshiping it, turned
+upside down. And I've made it.
+
+So I checked my own targets. I still mean every sharp word about that essay,
+and about software engineers. But hanging the whole mess on one target is the
+crowd's old trick.
+
+We'll see wealth like the world has never seen, with a robot army at our
+service.
+
+[fn:scapegoat] René Girard, /The Scapegoat/ (1982) and /I See Satan Fall Like
+Lightning/ (1999).
