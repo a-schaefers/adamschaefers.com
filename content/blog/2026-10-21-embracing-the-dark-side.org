@@ -1,6 +1,6 @@
 #+TITLE: Embracing the dark side
 #+FEATURED: blog/ai-crusades.jpg
-#+DESCRIPTION: Can a machine think? Aristotle and Aquinas say no. It grows in degree, never in kind, and it doesn't need a mind to master you. Fear of falling behind isn't the right fear. Fear of being mastered is.
+#+DESCRIPTION: An Aristotelian analysis of large language models.
 
 In March I made a video telling you to "tell your AI-pushing boss to get
 wrecked."[fn:artisan]
