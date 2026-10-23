@@ -33,7 +33,7 @@ think beat me at my own job?
 
 [fn:artisan] [[https://enchant.games/journal/2026-03-07-ai-llms-fall-of-the-software-engineer-rise-of-the-software-artisan/][The fall of the software engineer, the rise of the software artisan]], Enchant Games
 journal, March 7, 2026, where the video is.
-[fn:truth] Aristotle, /Nicomachean Ethics/ I.6, parting from Plato's Forms:
+[fn:truth] Aristotle, /Nicomachean Ethics/ I.6, parting from Plato's Forms,
 "while both are dear, piety requires us to honour truth above our friends."
 
 * Where I stood
@@ -121,7 +121,7 @@ intellect.[fn:st20] It has neither. He says himself that meaning comes "mostly f
 connection." Then why call the machines loving?
 
 It can't be your friend either. Friendship is goodwill returned, and you can't
-even wish a lifeless thing well: "it would surely be ridiculous to wish wine
+even wish a lifeless thing well, since "it would surely be ridiculous to wish wine
 well."[fn:eth8] It has no will to wish you anything back. A chatbot that tells
 you it cares is imitation crab.
 
@@ -146,7 +146,7 @@ Advent]]). Why a machine has no intellect is in [[#agi][AGI doesn't matter]].
 Technological progress cut loose from moral progress is just speed. In a
 society in decay, it's speed downhill.
 
-Chesterton said it in /Heretics/:[fn:heretics]
+Chesterton said it in /Heretics/.[fn:heretics]
 
 #+BEGIN_QUOTE
 Nobody has any business to use the word "progress" unless he has a definite
@@ -157,7 +157,7 @@ Faster at what? Smarter toward what? Every lab says it can't slow down because t
 country. Race a rival long enough and you turn into him.
 
 Shakespeare saw where that ends. In /Troilus and Cressida/,[fn:troilus]
-Ulysses warns what happens when degree goes:
+Ulysses warns what happens when degree goes.
 
 #+BEGIN_QUOTE
 Then every thing includes itself in power, / Power into will, will into
@@ -176,7 +176,7 @@ So can we pause AI? A whole movement wants the United States to lead an
 international treaty to do it.[fn:pauseai]
 
 Can't be done? "You can't put the clock back." Chesterton answered that one
-too, in /What's Wrong with the World/:[fn:wwww]
+too, in /What's Wrong with the World/.[fn:wwww]
 
 #+BEGIN_QUOTE
 The simple and obvious answer is "You can." A clock, being a piece of human
@@ -190,7 +190,7 @@ which saves a man from the degrading slavery of being a child of his
 age."[fn:conversion] And this is the age of the machine.
 
 Then teach the classical trivium, grammar, logic and rhetoric. Dorothy Sayers,
-in /The Lost Tools of Learning/,[fn:sayers] said of the schools of her day: "By
+in /The Lost Tools of Learning/,[fn:sayers] said of the schools of her day, "By
 teaching them all to read, we have left them at the mercy of the printed word."
 We taught them all to prompt, and left them at the mercy of the chatbot. Teach
 a man to think, and a machine that only imitates thinking can't fool him.
@@ -201,7 +201,7 @@ the remedy.
 [fn:heretics] G. K. Chesterton, [[https://www.gutenberg.org/cache/epub/470/pg470-images.html#chap02][Heretics]] (1905), ch. 2.
 [fn:troilus] William Shakespeare, /Troilus and Cressida/ I.iii ([[https://shakespeare.mit.edu/troilus_cressida/troilus_cressida.1.3.html][MIT Shakespeare]]).
 "Degree" is rank, the order that keeps every man in his place.
-[fn:orthodoxy] G. K. Chesterton, [[https://www.gutenberg.org/cache/epub/130/pg130-images.html#id00163][Orthodoxy]] (1908): "Progress should mean
+[fn:orthodoxy] G. K. Chesterton, [[https://www.gutenberg.org/cache/epub/130/pg130-images.html#id00163][Orthodoxy]] (1908), "Progress should mean
 that we are always changing the world to suit the vision. Progress does mean
 (just now) that we are always changing the vision."
 [fn:pauseai] [[https://www.pauseai-us.org/][PauseAI US]].
@@ -273,7 +273,7 @@ count on for most work.
 
 In /The fall of the software engineer/[fn:j3] I said AI code is mid, because it's
 trained on the average of all code. It's past the average now. In the same
-post I quoted a junior engineer at a big tech company: "Claude
+post I quoted a junior engineer at a big tech company who wrote that "Claude
 Code is able to do my job better than I can." I filed it under the problem. I
 should have listened.
 
@@ -306,8 +306,8 @@ does,[fn:st75] no matter how much of it you wire together.
 Why not? Draw a triangle. It's this triangle, this size, these angles, in this
 spot on the page. Every triangle made of matter is like that, one particular
 triangle. Your idea of a triangle isn't any of them. It fits every triangle
-there is, big or small, drawn or not, and it's no size at all. Aquinas gives
-the rule: "whatever is received into something is received according to the
+there is, big or small, drawn or not, and it's no size at all. Aquinas's rule
+is that "whatever is received into something is received according to the
 condition of the recipient." Matter makes things particular, so what matter
 takes in, it takes in as one particular. If the mind were matter, "the forms of
 things would be received into it as individuals, and so it would only know the
@@ -332,7 +332,7 @@ their rivals want. Man has a nature and a
 mind of his own, and he still learns what to want from somebody else.
 
 Girard has a line about writers in /A Theater of Envy/ that fits the machine
-better than any playwright:[fn:envy]
+better than any playwright.[fn:envy]
 
 #+BEGIN_QUOTE
 Writers are such mimes, we are told, that they can feign a thousand states of
@@ -369,9 +369,9 @@ Here's the case for recursive self-improvement, and its believers say nothing
 in principle stops it. The model writes better code. Then it writes a better model. That one writes a
 better one still. Where's the wall?
 
-There is one, and it's old: "nothing can be reduced from potentiality to
-actuality, except by something in a state of actuality."[fn:st2] A machine
-can't give itself a perfection it doesn't already have from somewhere: from the
+There is one, and it's old. Nothing, Aquinas says, "can be reduced from
+potentiality to actuality, except by something in a state of actuality."[fn:st2] A machine
+can't give itself a perfection it doesn't already have from somewhere, from the
 people who built it, the data it was trained on, the power it draws. You can't
 give what you don't have.[fn:nemo]
 
@@ -405,7 +405,7 @@ top. Scale is all you need. Smith caught the same mistake in Heisenberg, long be
 difference between the potential and the actual a matter of size alone, "as if
 the passage from potency to actuality could be effected simply by joining
 together a sufficient number of atoms." Swap atoms for parameters and you have
-the pitch. And of the quantum world: "Do what one may, the
+the pitch. And of the quantum world, "Do what one may, the
 substrate never ceases to be a substrate." A pile of parameters is a substrate
 too.
 
@@ -419,16 +419,16 @@ seeing I mean is narrower. What the thing is for. Whether it's right, not just
 whether it runs. Maybe its imitation of that judgment gets good enough too. Even then, somebody
 has to answer for it, and only somebody with a mind can.
 
-And the order only runs one way. In /Science and Myth/: "It is the lower
+And the order only runs one way. In /Science and Myth/ he writes, "It is the lower
 functions, in fact, which are invariably dependent upon higher faculties, even
 as reasoning is dependent upon intellect, whereas the reverse is metaphysically
 impossible."
 
 The machine's steps hang on a mind, and the mind is ours. Of problems "solved"
-by computers, Smith says the mathematician stays indispensable: "it is he, after
+by computers, Smith says the mathematician stays indispensable, since "it is he, after
 all, who programs the computer, and it is he again who interprets its output."
 
-Chesterton had a name for reason and nothing else. In /Orthodoxy/: "The madman
+Chesterton had a name for reason and nothing else. In /Orthodoxy/ he wrote, "The madman
 is not the man who has lost his reason. The madman is the man who has lost
 everything except his reason."[fn:maniac]
 
@@ -437,14 +437,14 @@ the room. Chesterton says the madman's mind "moves in a perfect but narrow
 circle," and "the insane explanation is quite as complete as the sane one, but
 it is not so large. A bullet is quite as round as the world, but it is not the
 world." Perfect isn't the same as big. The machine can polish its circle forever
-and never take in more than it started with.
+and never grow into a new kind of thing.
 
-It's still an artifact, too. Aristotle passes on an old argument about a bed:
+It's still an artifact, too. Aristotle passes on an old argument about a bed, that
 "if you planted a bed and the rotting wood acquired the power of sending up a
 shoot, it would not be a bed that would come up, but wood."[fn:physics] Left to
 itself, a computer is sand and electricity.
 
-Smith says the same of everything we make: "The forms imposed by human art are
+Smith says the same of everything we make. "The forms imposed by human art are
 of a different kind: they are forms that give being, not to substance, but to
 an artifact." It can rewrite every weight it has. The form is still ours.
 
@@ -469,7 +469,7 @@ master. And a master needs a mind.
 
 [fn:st2] /Summa Theologiae/ I q.2 a.3 ([[https://www.newadvent.org/summa/1002.htm#article3][New Advent]]), the first of his
 five ways.
-[fn:nemo] The old maxim /nemo dat quod non habet/: nobody gives what he doesn't
+[fn:nemo] The old maxim /nemo dat quod non habet/, nobody gives what he doesn't
 have.
 [fn:smith] Wolfgang Smith taught mathematics at MIT, UCLA and Oregon State and
 wrote on physics and philosophy as a Thomist. The causation, evolution,
@@ -493,12 +493,12 @@ universal intentions" (/Summa Theologiae/ I q.78 a.4, [[https://www.newadvent.or
 :CUSTOM_ID: linus
 :END:
 
-Use it. Use it as a tool. Even Linus Torvalds does. Tom's Hardware reported on a
+I use it, as a tool. Even Linus Torvalds does. Tom's Hardware reported on a
 patch series he built with an LLM.[fn:toms]
 
 It started as a branch to make reading files from the page cache, the copy of
 your files the kernel keeps in memory, scale. His
-write-up of the branch is plain about how it was made:[fn:commit]
+write-up of the branch is plain about how it was made.[fn:commit]
 
 #+BEGIN_QUOTE
 The code, the test programs, the review behind the list above and the first
@@ -508,7 +508,7 @@ my direction. The measurements were run on my machine.
 
 The write-up owns up to ten known problems. Another kernel developer, Kiryl
 Shutsemau, found the first version could get processes killed when a machine
-ran short of memory, and had a better idea: hold back only the pages that get
+ran short of memory, and had a better idea, to hold back only the pages that get
 read again and again.
 
 Linus reworked it, with two patches from Kiryl, and posted it to the mailing
@@ -521,19 +521,19 @@ there.[fn:race] None of it has merged. That isn't the method failing. That's
 peer review doing its job.
 
 Most of us aren't Linus. That's what tests, review and staged rollouts are for.
-They hold what one head can't.
+They hold what one head can't.[fn:whiteboard]
 
-That's how you use it. The machine wrote the code. A man who understands every
-line of it directed it, measured it, put it in front of his peers, took their
-correction, and owns the result.
+That's what using it well looks like. The machine wrote the code. A man who
+knows the kernel as well as anyone alive directed it, measured it, put it in
+front of his peers, took their correction, and owns the result.
 
-A tool acts only as the hand moves it, so
-the work is the hand's.[fn:st62] When Linus signs his patch, he owns it. Each one carries an "Assisted-by: LLM"
-line, right next to his "Signed-off-by." When a
-company ships slop, it can't blame the model.
+A tool acts only as the hand moves it, so the work is the hand's.[fn:st62] When
+Linus signs his patch, he owns it. Each one carries an "Assisted-by: LLM" line,
+right next to his "Signed-off-by." When a company ships slop, it can't blame the
+model.
 
-It's the interface I argued for back in March, precise code understood and audited by humans,
-with a much faster pair of hands.
+It's the interface I argued for back in March, precise code understood and
+audited by humans, with a much faster pair of hands.
 
 Girard would catch me here. Am I doing it because Linus does? That would be
 copying his wants. It was my own build that changed my mind. What I take from
@@ -543,9 +543,16 @@ Linus is how he uses it, not that he does.
 [fn:commit] [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=4c0f3697118eb3a708ea79175f7f07c43339bfab][Commit 4c0f369]] in Linus's tree.
 [fn:lore] [[https://lore.kernel.org/all/CAHk-=wjLjgfwgSZ1RDk4YdNFcV0ntosMO5AmBoHD76Zb3HFY7Q@mail.gmail.com/][His post]] on the kernel mailing list.
 [fn:rcu] The [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/?h=rcu-free-v3][rcu-free-v3]] branch, two of its ten patches Kiryl's.
-[fn:race] [[https://lwn.net/ml/all/as6vBoWQGglxXxb0@thinkstation/][Kiryl Shutsemau on the mailing list]], October 13, 2026: "If the folio is
+[fn:race] [[https://lwn.net/ml/all/as6vBoWQGglxXxb0@thinkstation/][Kiryl Shutsemau on the mailing list]], October 13, 2026, writing that "if the folio is
 replaced under us with a new one and then ~i_size~ is extended, we can read data
 that never got written there."
+[fn:whiteboard] For the rest of us, ThePrimeagen has a bar we can reach, borrowed
+from Mitchell Hashimoto's [[https://x.com/mitchellh/status/2100249348345057389][whiteboard defense]]. You don't have to know the code
+line by line. But someone should be able to pull you up to a whiteboard and have
+you explain what you shipped, why X and not Y, which data structure and why,
+what happens when someone acts maliciously, and where it fails. As Hashimoto
+puts it, "you can't be shipping things you don't understand at a high level."
+ThePrimeagen took it up in [[https://www.youtube.com/watch?v=iuccfEQgIeY][They can't take it anymore]], September 23, 2026.
 [fn:st62] "The instrumental cause works not by the power of its form, but only
 by the motion whereby it is moved by the principal agent" (/Summa Theologiae/
 III q.62 a.1, [[https://www.newadvent.org/summa/4062.htm#article1][New Advent]]).
@@ -577,7 +584,8 @@ slowing things down when everything is accelerating."[fn:mh] I respect the
 bishop of Rome without holding his every judgment binding, and on this one I
 part ways with him.
 
-But I pay one of the racers every month. Doesn't that feed the wolf? The evil
+But I pay for an AI subscription, and the company behind it is racing the others
+to the next model. Doesn't that feed the wolf? The evil
 isn't building the thing. It's the racing, the creedless wolf Ulysses warned
 about. My fee can't pay for the building without paying for the race
 too. Money is fungible. But what I buy is a tool, and the racing is their
@@ -589,12 +597,12 @@ the race, a monthly fee is a long way from it, and my livelihood is a
 proportionate reason. If using the tool ever meant wanting the race, I'd
 be out.
 
-There's one more condition, scandal: don't lead anyone else into sin by your
-example. This essay tells you to do what I do, so here are the terms. Use it
-the way Linus does. Keep the craft. Own the model if you can.
+There's one more condition, scandal, which means not leading anyone else into
+sin by your example. Writing this makes me an example, so here are the terms,
+and I don't always meet them. I use it the way Linus does. I keep the craft. I'd rather run a model on hardware I own than
+rent one, once the open models are both good and efficient enough.
 
-And renting isn't the only road. Chesterton would take the tool, then ask whose
-tool it is. His fight was over who owns the means of making things: "Too much
+Chesterton would take the tool, then ask whose tool it is. His fight was over who owns the means of making things. "Too much
 capitalism does not mean too many capitalists, but too few
 capitalists."[fn:divorce] A monthly bill to a lab is too few capitalists, the
 owning for renting trade at its worst.
@@ -604,7 +612,7 @@ was "a real dependence," he granted, but "if electricity could be cheapened,
 the chances of a very large number of small independent shops, especially
 workshops, would be greatly improved." So use it, he decided, "to break up the
 hopeless block of concentrated capital and management." The point was never the
-machine: "We are concerned to produce a particular sort of men, the sort of men
+machine. "We are concerned to produce a particular sort of men, the sort of men
 who will not worship machines even if they use machines."[fn:sanity]
 
 The models are the electricity this time. Friends of mine already run open
@@ -613,12 +621,12 @@ graphics card. The models aren't the frontier yet, but they do real work. Make
 them cheaper still, and a town could own a datacenter the way it owns its
 library, a shop could own its model, and the little workshops get their chance.
 
-The founders protected a machine once already. [[https://constitution.congress.gov/constitution/amendment-1/][The 1st Amendment]] guards "the
+America's founders protected a machine once already. [[https://constitution.congress.gov/constitution/amendment-1/][The 1st Amendment]] guards "the
 freedom of speech, or of the press," and the press was a machine. England licensed
 its presses until 1695, and the founders made sure Congress never could.
 Nobody needs a license to run one. A model on your own hardware is the press of our day, and
 nobody should need a license to run that either. The law can only keep the door
-open. Walk through it and own the thing, and the power stays with the people.
+open. If we walk through it and own the thing, the power stays with the people.
 Who's to say we don't get there?
 
 That's where Stallman ended up. He has a name for renting what you
@@ -635,10 +643,14 @@ Yoda, /Star Wars: Episode I/[fn:yoda]
 #+END_QUOTE
 
 The joke's on me. I walked every step of the path Yoda warned about, resisting.
-Fear of being replaced. Fear of falling behind. Then the anger. Then the hate.
 
-I hated falling behind. I hated the fear-based, anti-LLM thinking that would
-rather lose than automate anything. I hated FUD.
+First I feared using it. Then I feared being forced to use it. Then I feared
+falling behind if I didn't. Then I feared being replaced by it.
+
+Then the anger. I told you to tell your AI-pushing boss to get wrecked.
+
+Then the hate. I hated falling behind. I had disdain for anyone who'd trust a
+random guessing machine, a magic black box, a slop generator.
 
 Hate leads to suffering, and I've had my fill. The way off that path is virtue,
 which is "a mean, i.e. the mean relative to us."[fn:eth2] Between the zealot
@@ -659,9 +671,8 @@ And being mastered won't look like a tyrant. It'll look like Amodei's
 caretaker, a coach that studies you and a system that decides what to reward in
 you. The machine of loving grace is the master with a smile.
 
-So here's the whole joke. I called the machine the dark side. Fear was the dark
-side, and I was already there. What I'm embracing is a tool, used with a mind.
-I came out the other side of the fear. What I called the dark side never was.
+I called the machine the dark side. Fear was the dark side,
+and I was already there. What I'm embracing is a tool, used with a mind.
 
 [fn:stallman] Richard Stallman, who founded the free software movement ([[https://stallman.org/][stallman.org]]).
 [fn:outline] G. K. Chesterton, [[https://archive.org/details/theoutlineofsanity][The Outline of Sanity]] (1926).
@@ -670,7 +681,7 @@ of prudence (/Summa Theologiae/ II-II q.49 a.6, [[https://www.newadvent.org/summ
 [fn:mh] Pope Leo XIV, [[https://www.vatican.va/content/leo-xiv/en/encyclicals/documents/20260515-magnifica-humanitas.html][Magnifica Humanitas]], May 15, 2026, §107.
 [fn:coop] The distinction in this classic form is St. Alphonsus Liguori's, in
 /Theologia Moralis/ (1748), and the moral manuals after him. Its root is
-Aquinas's double effect: "Nothing hinders one act from having two effects, only
+Aquinas's double effect. "Nothing hinders one act from having two effects, only
 one of which is intended, while the other is beside the intention" (/Summa
 Theologiae/ II-II q.64 a.7, [[https://www.newadvent.org/summa/3064.htm#article7][New Advent]]).
 [fn:divorce] G. K. Chesterton, [[https://www.gutenberg.org/cache/epub/62680/pg62680-images.html#page_47][The Superstition of Divorce]] (1920).
@@ -692,17 +703,18 @@ their skills, their brains and their souls.
 
 "Men become builders by building and lyreplayers by playing the
 lyre."[fn:eth21] Programmers become programmers by programming. Aquinas says
-why it slips away: "the intellectual habit is diminished or even wholly
+why it slips away, that "the intellectual habit is diminished or even wholly
 destroyed by cessation from act."[fn:st53] Watching the machine isn't doing the
-acts.
+acts.[fn:bsd]
 
 Aquinas sets prudence beside its twin. Art is the "right reason of things to be
 made."[fn:st57art] Coding is an art. Whether and how to use the machine is prudence. Losing
 the art isn't a sin in itself. Neglecting it when other people depend on what
 you understand can be.
 
-The hellscape I warned about is still possible. Use the machine. Do the work
-yourself.[fn:bsd] That's how we don't build it.
+The hellscape I warned about is still possible. Linus shows how not to build it.
+The machine writes, and a man who still knows how to code understands, measures
+and answers for it.
 
 *Master the machine, or the machine will master you.*
 
@@ -712,10 +724,10 @@ with integrity, and without losing my brain or my understanding./
 
 [fn:eth21] Aristotle, /Nicomachean Ethics/ II.1.
 [fn:st53] /Summa Theologiae/ I-II q.53 a.3 ([[https://www.newadvent.org/summa/2053.htm#article3][New Advent]]).
-[fn:st57art] /Summa Theologiae/ I-II q.57 a.4 ([[https://www.newadvent.org/summa/2057.htm#article4][New Advent]]), the same article
-that calls prudence the "right reason of things to be done."
 [fn:bsd] [[https://github.com/a-schaefers/backseat-driver][Backseat Driver]], a coding tutor I built for myself. Try it out if
 you want, but it's not why this article was written.
+[fn:st57art] /Summa Theologiae/ I-II q.57 a.4 ([[https://www.newadvent.org/summa/2057.htm#article4][New Advent]]), the same article
+that calls prudence the "right reason of things to be done."
 
 
-@@html:<small><i>Revised October 22, 2026.</i></small>@@
+@@html:<small><i>Revised October 23, 2026.</i></small>@@
