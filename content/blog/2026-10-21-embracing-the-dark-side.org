@@ -31,7 +31,8 @@ think beat me at my own job?
    being afraid of.
 8. [[#code][Don't forget how to code]] - use it or lose it.
 
-[fn:artisan] Adam Schaefers, [[https://www.youtube.com/watch?v=ZMau2o7KWYM][What This World Really Needs | The Rise of the Software Artisan]], YouTube, March 10, 2026.
+[fn:artisan] [[https://enchant.games/journal/2026-03-07-ai-llms-fall-of-the-software-engineer-rise-of-the-software-artisan/][The fall of the software engineer, the rise of the software artisan]], Enchant Games
+journal, March 7, 2026, where the video is.
 [fn:truth] Aristotle, /Nicomachean Ethics/ I.6, parting from Plato's Forms:
 "while both are dear, piety requires us to honour truth above our friends."
 
@@ -286,7 +287,7 @@ It doesn't have to be.
 So how does a thing that can't think beat me at my own job? That's the question
 I started with, and I answer it in [[#improve][Can it improve itself?]]
 
-[fn:j3] [[https://enchant.games/journal/2026-03-07-ai-llms-fall-of-the-software-engineer-rise-of-the-software-artisan/][The fall of the software engineer, the rise of the software artisan]], Enchant Games journal, March 7, 2026.
+[fn:j3] The same post as the first note, the one with the video.
 
 * AGI doesn't matter
 :PROPERTIES:
