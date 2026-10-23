@@ -382,8 +382,8 @@ Stone Than It?", p. 338.
 :CUSTOM_ID: improve
 :END:
 
-Here's the case for recursive self-improvement, and its believers say nothing
-in principle stops it. The model writes better code. Then it writes a better model. That one writes a
+Here's the case for recursive self-improvement.
+The model writes better code. Then it writes a better model. That one writes a
 better one still. Where's the wall?
 
 There is one, and it's old. Nothing, Aquinas says, "can be reduced from
@@ -588,8 +588,8 @@ that we cannot abolish the machine, that we must use the machine, are
 themselves refusing to use the mind."[fn:outline] I'm choosing it, with my
 mind, knowing what it costs.
 
-PauseAI US asks people to sign [[https://www.pauseai-us.org/petition/][a petition]] for "a global AI Treaty to ban
-superintelligent AI systems until they can be made safe." In March I'd have
+PauseAI US asks people to sign a petition for "a global AI Treaty to ban
+superintelligent AI systems until they can be made safe."[fn:petition] In March I'd have
 signed it. Would I still? No. Men can stop it, but can isn't should.
 Prudence weighs what a pause would give up, and I'd take
 the cures. It also asks whether the means can work, and a treaty that can't be
@@ -657,7 +657,7 @@ hate... hate leads to suffering.
 Yoda, /Star Wars: Episode I/[fn:yoda]
 #+END_QUOTE
 
-The joke's on me. I walked every step of the path Yoda warned about, resisting.
+I walked every step of the path Yoda warned about, resisting.
 
 First I feared using it. Then I feared being forced to use it. Then I feared
 falling behind if I didn't. Then I feared being replaced by it.
@@ -691,6 +691,7 @@ and I was already there. What I'm embracing is a tool, used with a mind.
 
 [fn:stallman] Richard Stallman, who founded the free software movement ([[https://stallman.org/][stallman.org]]).
 [fn:outline] G. K. Chesterton, [[https://archive.org/details/theoutlineofsanity][The Outline of Sanity]] (1926).
+[fn:petition] PauseAI US, [[https://www.pauseai-us.org/petition/][Demand a Global Treaty to Pause AI]].
 [fn:st49] Foresight, which looks ahead to what an act will bring about, is a part
 of prudence (/Summa Theologiae/ II-II q.49 a.6, [[https://www.newadvent.org/summa/3049.htm#article6][New Advent]]).
 [fn:mh] Pope Leo XIV, [[https://www.vatican.va/content/leo-xiv/en/encyclicals/documents/20260515-magnifica-humanitas.html][Magnifica Humanitas]], May 15, 2026, §107.
@@ -734,8 +735,8 @@ and answers for it.
 
 *Master the machine, or the machine will master you.*
 
-/Written by me, with Claude as reviewer and editor, and drafting some passages
-at my direction. The irony isn't lost on me. I tried to use it the way [[#linus][Linus does]],
+/Written by me, with Claude as reviewer and editor.
+I tried to use it the way [[#linus][Linus does]],
 with integrity, and without losing my brain or my understanding./
 
 [fn:eth21] Aristotle, /Nicomachean Ethics/ II.1.
