@@ -5,7 +5,7 @@
 # for word. Still to write: the intro, and the joins between
 # sections. Rename the file to its publish date.
 
-@@html:<a href="/blog/2026-10-21-embracing-the-dark-side/">Part 1</a>@@ said
+@@html:<a href="/blog/2026-10-22-embracing-the-dark-side/">Part 1</a>@@ said
 the machine can't think, and that a tool with no mind needs a master.
 
 So who gets to hold the tokens?
