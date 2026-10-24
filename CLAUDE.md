@@ -429,6 +429,11 @@ repository secrets only `terraform.yml` reads, blanked on every pull request
 `master` takes no direct push (2026-10-11): commit on a branch (or in a
 worktree) and run `scripts/ship.sh`, which opens the pull request and arms
 auto-merge; it merges once `check` is green, and the merge deploys.
+Ship only when the owner says "ship" (owner, 2026-10-24), drafts too, though
+merging one releases nothing. A go on an edit, a choice of wording or an
+answer to a question is not that word, so don't fold "and ship it?" into a
+question: make the edit, show it (`make run`), and wait for "ship". Once he
+says it, ship without asking again.
 
 Adam's writing (drawn from the whole ../enchant.games journal, live, disabled
 and retired, and his own revisions in its history; 2026-10-14). An edit of a
