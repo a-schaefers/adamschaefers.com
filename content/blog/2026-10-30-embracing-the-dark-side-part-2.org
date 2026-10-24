@@ -17,7 +17,15 @@ The claim is about what it is. Understanding isn't something matter does.[fn:p1a
 
 No benchmark touches either one. Ace every test the AI companies can write, and it's still more of the same.
 
-James Ross put it sharply. "Some thinking (judgment) is determinate in a way no physical process can be." He builds on Saul Kripke's quus, a rule that agrees with plus whenever both numbers are under 57, and answers 5 otherwise.[fn:kripke] Whatever a circuit does, some rule like quus fits it as well as plus does, and which one it's doing is settled by whoever reads it.
+Some grant all of that, and say it was never in dispute. Nobody serious expects a mind to pop out of more compute, they say. The scores just keep climbing, past most of us already, and past all of us if the scaling holds. What's new won't be the machine. It'll be what happens to the world.
+
+Then we agree. Degree without a ceiling, and never a mind, is the whole claim. And Part 1 already said the trouble comes first.[fn:p1first]
+
+Not everybody stops there. The company that makes Claude calls it "a genuinely novel kind of entity in the world," and says, "We are not sure whether Claude is a moral patient."[fn:kind] A moral patient is something that can be wronged.
+
+So it matters which. A tool's work belongs to the hand that moves it.[fn:p1hand] A mind's would be its own.
+
+James Ross put the claim sharply. "Some thinking (judgment) is determinate in a way no physical process can be." He builds on Saul Kripke's quus, a rule that agrees with plus whenever both numbers are under 57, and answers 5 otherwise.[fn:kripke] Whatever a circuit does, some rule like quus fits it as well as plus does, and which one it's doing is settled by whoever reads it.
 
 So "the machine cannot in principle add." It "adds, calculates, recalls, etc., by simulation." As he puts it, "The machine adds the way puppets walk."[fn:ross] Edward Feser has spent years defending that argument.[fn:feser13]
 
@@ -25,6 +33,9 @@ The meaning in the machine's answer is ours. We put it in, and we read it out.
 
 [fn:p1agi] Part 1 argues it in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#agi">AGI doesn't matter</a>@@, with a triangle. A type called Triangle in a program "means every triangle only because a programmer reads it that way."
 [fn:p1improve] Part 1 owns the lost bet in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#wrong">What I got wrong</a>@@, and makes this case in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#improve">Can it improve itself?</a>@@
+[fn:p1first] In @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#agi">AGI doesn't matter</a>@@. "Nothing says a thing needs a mind to be powerful."
+[fn:kind] Anthropic, [[https://www.anthropic.com/constitution][Claude's constitution]], January 2026, quoted from the web version.
+[fn:p1hand] Part 1 gets it from Aquinas, in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#linus">Even Linus</a>@@. "A tool acts only as the hand moves it, so the work is the hand's."
 [fn:kripke] Saul Kripke, /Wittgenstein on Rules and Private Language/ (1982), p. 9. In Kripke it's a skeptic's puzzle about what anybody means. Ross turns it on the machine.
 [fn:ross] James Ross, [[https://newdualism.org/papers/J.Ross/Ross-immateriality.htm][Immaterial Aspects of Thought]], /The Journal of Philosophy/ 89, no. 3 (1992).
 [fn:feser13] Edward Feser, [[https://www.pdcnet.org/acpq/content/acpq_2013_0087_0001_0001_0032][Kripke, Ross, and the Immaterial Aspects of Thought]], /American Catholic Philosophical Quarterly/ 87, no. 1 (2013).
@@ -117,6 +128,45 @@ If a model ever does, it won't refute Aristotle. Its causes will still be the da
 [fn:pauli] It has happened. In 1930 beta decay seemed to break the conservation of energy, and Niels Bohr was ready to give the law up. Wolfgang Pauli posited an unseen particle instead, the one Fermi later named the neutrino. Clyde Cowan and Frederick Reines found it in 1956 ([[https://doi.org/10.1126/science.124.3212.103][Detection of the Free Neutrino: a Confirmation]], /Science/). The hidden battery was real.
 [fn:ball] Philip Ball, [[https://www.nature.com/articles/d41586-026-02804-x][The Einstein test: what happens when AI tries to rediscover relativity?]], /Nature/, September 9, 2026. Hassabis proposed it at the India AI Summit in February. A team including Alec Radford, who built the first GPT, has [[https://talkie-lm.com/introducing-talkie][a model trained on text from before 1931]]. Relativity is already in its reading, so the test it can take is on later discoveries, like Turing's machines (1936).
 [fn:p1surprise] As Part 1 put it in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#improve">Can it improve itself?</a>@@, "It can even surprise the people who built it. Surprise is still degree."
+
+* Couldn't we give it one?
+:PROPERTIES:
+:CUSTOM_ID: give
+:END:
+
+Grant that nothing gives itself what it doesn't have. The machine doesn't have to. We have minds, and we built it. Part 1 even quoted Wolfgang Smith saying something new can come from "the free act of an intelligent agent."[fn:p1smith] What's an engineer, if not that?
+
+And nature has done it all along. Chemistry became life, life became animals, and animals, on most accounts, became us, one horizontal cause after another. So either the principle forbids every new kind in nature, which is absurd, or it allows them, and then why not a mind in a machine?
+
+That lands on a loose phrase. "Never in kind" sounds like no new kind of anything, ever. Aquinas never said that, and Part 1's argument was narrower. It was about one thing, the mind.[fn:p1one]
+
+Start with the things we make. A compiler isn't an adder, and a learning algorithm is neither. Their forms are real, and Aristotle is the last man who'd say it's all just atoms. But they're forms of art. "In artifacts the matter alone is held to be substance, whereas the forms of artifacts are accidents," Aquinas says, and art "operates only on that which is already constituted in existence by nature."[fn:art] A model can rewrite itself into a new kind of tool forever. It's still the machine, arranged.
+
+Then nature. Aquinas allows more here than people expect. Natural causes really do bring forth new things, new living things among them. New species, "if any such appear, existed beforehand in various active powers."[fn:st73] Whether the theory of evolution fits that, Thomists still argue. Either way, the line holds at the mind. The rational soul, he says, "is not educed from the potentiality of matter."[fn:st90a2] The Church draws the line in the same place. The human body may have come "from pre-existent and living matter," but "souls are immediately created by God."[fn:hg]
+
+Grant evolution everything it claims, and it gets you a body. It can't get you a mind, any more than the engineer can.
+
+Is "God makes the mind" just a way to make sure I can't lose? No. It stands on the argument that the mind isn't matter, Part 1's triangle and Ross's quus. Refute those, and this falls with them.
+
+Couldn't God give a machine a mind, the way he gives one to every child? Then God made it, not the engineer, and not the scale.[fn:st76]
+
+Now the minds we have. A father has one, and so does his son, and the father really is a cause of the son. He still doesn't make the mind. "Man begets his like," Aquinas says, "forasmuch as by his seminal power the matter is disposed." That's as far as a body's power reaches, since "it is impossible for an active power existing in matter to extend its action to the production of an immaterial effect." The body comes by way of the parents. "The intellectual soul is from God alone."[fn:st118]
+
+Having a mind isn't enough to give one. A creature acts on what's already there, by changing it, and a mind isn't made out of anything. "God alone can create... everything else acts by producing a change."[fn:st90]
+
+A father begets his son and still can't make his son's mind.
+
+The engineer isn't even a father.
+
+[fn:p1smith] In @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#improve">Can it improve itself?</a>@@ "A truly productive cause is either the primary causation itself, or else it is the free act of an intelligent agent who 'participates' in the primary causality."
+[fn:p1one] Part 1's triangle, in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#agi">AGI doesn't matter</a>@@, is about what matter can't do, receive a universal. It says nothing against new kinds of bodies.
+[fn:art] Thomas Aquinas, /Commentary on Aristotle's Metaphysics/ VIII, lect. 3, n. 1719, trans. John P. Rowan ([[https://isidore.co/aquinas/english/Metaphysics8.htm#3][Isidore]]), and /The Principles of Nature/ n. 8, trans. R. A. Kocourek ([[https://isidore.co/aquinas/english/DePrincNaturae.htm][Isidore]]). It's the point of Part 1's bed. Plant it, and wood comes up.
+[fn:st73] /Summa Theologiae/ I q.73 a.1 ad 3 ([[https://www.newadvent.org/summa/1073.htm#article1][New Advent]]). He had the biology of his day in mind, animals bred from rotting matter, and the mule.
+[fn:st90a2] /Summa Theologiae/ I q.90 a.2 ad 2 ([[https://www.newadvent.org/summa/1090.htm#article2][New Advent]]).
+[fn:hg] Pope Pius XII, [[https://www.vatican.va/content/pius-xii/en/encyclicals/documents/hf_p-xii_enc_12081950_humani-generis.html][Humani Generis]], August 12, 1950, §36.
+[fn:st76] Aquinas says the soul is united to "a body fitted to be a convenient organ of sense," since "the form is not for the matter, but rather the matter for the form" (/Summa Theologiae/ I q.76 a.5, [[https://www.newadvent.org/summa/1076.htm#article5][New Advent]]). A computer isn't alive and senses nothing. It isn't even one thing, but many, held in an arrangement, and a soul is the form of one living body. Could God move matter straight to a form anyway? He can, Aquinas says (I q.105 a.1, [[https://www.newadvent.org/summa/1105.htm#article1][New Advent]]). That would be a miracle and a new creature, not a product.
+[fn:st118] /Summa Theologiae/ I q.118 a.2, ad 3 and ad 4 ([[https://www.newadvent.org/summa/1118.htm#article2][New Advent]]).
+[fn:st90] /Summa Theologiae/ I q.90 a.3 ([[https://www.newadvent.org/summa/1090.htm#article3][New Advent]]).
 
 * When not to believe them
 :PROPERTIES:
