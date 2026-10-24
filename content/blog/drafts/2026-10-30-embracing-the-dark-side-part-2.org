@@ -27,6 +27,8 @@ So it matters which. A tool's work belongs to the hand that moves it.[fn:p1hand]
 
 James Ross put the claim sharply, and everything else here hangs on his argument. "Some thinking (judgment) is determinate in a way no physical process can be." He builds on Saul Kripke's quus, a rule that agrees with plus whenever both numbers are under 57, and answers 5 otherwise.[fn:kripke] Whatever a circuit does, some rule like quus fits it as well as plus does, and which one it's doing is settled by whoever reads it. Then look at what it would answer for 68 plus 57, an engineer says. Kripke saw that coming. A circuit only ever gives finitely many answers, some of them wrong, and which ones count as wrong is settled by whoever designed it.[fn:dispo]
 
+Then the training fixes it, says the next reply. A training objective is the same thing written down, a choice of what counts as right, and someone made it. The trouble was never that we can't tell which rule a circuit follows. Nothing in the circuit decides.
+
 So "the machine cannot in principle add." It "adds, calculates, recalls, etc., by simulation." As he puts it, "The machine adds the way puppets walk."[fn:ross] Edward Feser has spent years defending that argument.[fn:feser13]
 
 The obvious reply turns the puzzle around. Kripke's skeptic was asking about people, not machines. How do I know I add, and not quus?
@@ -129,7 +131,11 @@ What about a test? The cleanest anyone has proposed is Demis Hassabis's. Train a
 
 Nobody has passed it. Nobody has claimed to.
 
-If a model ever does, it won't refute Aristotle. Its causes will still be the data, the architecture and the men who built it.[fn:p1surprise] But it will be the strongest pressure he's faced. And it will show how far degree can go.
+If a model ever does, it won't refute Aristotle. Its causes will still be the data, the architecture and the men who built it.[fn:p1surprise]
+
+Einstein had causes too, the physics before him and the brain he was born with. What he did with them was understand. Whether a machine does that is the first road again, and no test settles it.
+
+But a pass will be the strongest pressure Aristotle has faced. And it will show how far degree can go.
 
 [fn:revenge] Edward Feser, [[https://www.editiones-scholasticae.de/artikel/aristotles-revenge/][Aristotle's Revenge: The Metaphysical Foundations of Physical and Biological Science]] (Editiones Scholasticae, 2019), p. 1.
 [fn:unfals] /Aristotle's Revenge/, pp. 145-46.
@@ -150,7 +156,9 @@ That's fair to Part 1's wording, read loosely. "Never in kind" sounds like no ne
 
 Start with the things we make. A compiler isn't an adder, and a learning algorithm is neither. Their forms are real, and Aristotle is the last man who'd say it's all just atoms. But they're forms of art. "In artifacts the matter alone is held to be substance, whereas the forms of artifacts are accidents," Aquinas says, and art "operates only on that which is already constituted in existence by nature."[fn:art] A model can rewrite itself into a new sort of tool forever. It's still the machine, arranged.
 
-Then nature. New species, Aquinas says, "if any such appear, existed beforehand in various active powers."[fn:st73] Whether the theory of evolution fits that, Thomists still argue. Either way, the line holds at the mind. The rational soul, he says, "is not educed from the potentiality of matter."[fn:st90a2] The Church draws the line in the same place. The human body may have come "from pre-existent and living matter," but "souls are immediately created by God."[fn:hg]
+Then nature. New species, Aquinas says, "if any such appear, existed beforehand in various active powers."[fn:st73] Whether the theory of evolution fits that, Thomists still argue. Either way, the line holds at the mind. The rational soul, he says, "is not educed from the potentiality of matter."[fn:st90a2] The Philosopher said it first. "It remains, then, for the reason alone so to enter and alone to be divine, for no bodily activity has any connexion with the activity of reason."[fn:ga] The body comes from the parents. Reason comes from outside.
+
+Animals are a different case. Their souls, he says, are "naturally brought into existence by certain corporeal agents that reduce the matter from potentiality to act."[fn:st118a1] So a dog's knack for a problem is within matter's reach, and the machine may match it. The line is at understanding, not at cleverness.
 
 Grant evolution everything it claims, and it gets you a body. It can't get you a mind, any more than the engineer can.
 
@@ -171,7 +179,8 @@ The engineer isn't even a father.
 [fn:art] Thomas Aquinas, /Commentary on Aristotle's Metaphysics/ VIII, lect. 3, n. 1719, trans. John P. Rowan ([[https://isidore.co/aquinas/english/Metaphysics8.htm#3][Isidore]]), and /The Principles of Nature/ n. 8, trans. R. A. Kocourek ([[https://isidore.co/aquinas/english/DePrincNaturae.htm][Isidore]]). It's the point of Part 1's bed. Plant it, and wood comes up.
 [fn:st73] /Summa Theologiae/ I q.73 a.1 ad 3 ([[https://www.newadvent.org/summa/1073.htm#article1][New Advent]]). He had the biology of his day in mind, animals bred from rotting matter, and the mule.
 [fn:st90a2] /Summa Theologiae/ I q.90 a.2 ad 2 ([[https://www.newadvent.org/summa/1090.htm#article2][New Advent]]).
-[fn:hg] Pope Pius XII, [[https://www.vatican.va/content/pius-xii/en/encyclicals/documents/hf_p-xii_enc_12081950_humani-generis.html][Humani Generis]], August 12, 1950, §36.
+[fn:st118a1] /Summa Theologiae/ I q.118 a.1 ([[https://www.newadvent.org/summa/1118.htm#article1][New Advent]]).
+[fn:ga] Aristotle, /Generation of Animals/ II.3, 736b, trans. Arthur Platt ([[https://en.wikisource.org/wiki/On_the_Generation_of_Animals/Book_II][Wikisource]]). Aquinas reads it the same way, "the Philosopher says that the intellect comes from without" (I q.118 a.2).
 [fn:st76] Aquinas says the soul is united to "a body fitted to be a convenient organ of sense," since "the form is not for the matter, but rather the matter for the form" (/Summa Theologiae/ I q.76 a.5, [[https://www.newadvent.org/summa/1076.htm#article5][New Advent]]). A computer isn't alive and senses nothing. It isn't even one thing, but many, held in an arrangement, and a soul is the form of one living body. Could God move matter straight to a form anyway? He can, Aquinas says (I q.105 a.1, [[https://www.newadvent.org/summa/1105.htm#article1][New Advent]]). That would be a miracle and a new creature, not a product.
 [fn:st118] /Summa Theologiae/ I q.118 a.2, quoted from ad 4, the body of the article and ad 3, in that order ([[https://www.newadvent.org/summa/1118.htm#article2][New Advent]]).
 [fn:st90] /Summa Theologiae/ I q.90 a.3 ([[https://www.newadvent.org/summa/1090.htm#article3][New Advent]]).
@@ -237,3 +246,111 @@ The danger was never a machine with a mind. It's men who stop using theirs, beca
 [fn:p1stood] In @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#stood">Where I stood</a>@@, with Aristotle on imitation and Girard on copied wants.
 [fn:doshi] Anil R. Doshi and Oliver P. Hauser, [[https://pmc.ncbi.nlm.nih.gov/articles/PMC11244532/][Generative AI enhances individual creativity but reduces the collective diversity of novel content]], /Science Advances/, July 2024.
 [fn:p1code] It's where Part 1 ends, in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#code">Don't forget how to code</a>@@.
+
+* A note on evolution
+:PROPERTIES:
+:CUSTOM_ID: evolution
+:END:
+
+This post doesn't ask you to decide on evolution, and that's on purpose. Its argument, in @@html:<a href="#give">Couldn't we give it one?</a>@@, is about the mind, and it holds whichever way you go on bodies. If it hung on evolution, half its readers would stop at the door, and the question it's about would get lost in a fight it doesn't need.
+
+But the places people stand are worth knowing, and Aristotle has things to say to each of them.
+
+** What biology teaches
+:PROPERTIES:
+:CUSTOM_ID: biology
+:END:
+
+Every living thing shares ancestors with every other, and the kinds changed over deep time, chiefly by natural selection working on inherited variation, with chance along for the ride. Darwin called it "descent with modification." It's what every university teaches. Theodosius Dobzhansky gave it its motto in the title of a 1973 essay, "Nothing in Biology Makes Sense Except in the Light of Evolution."[fn:dobz]
+
+The evidence, fossils and anatomy and genomes, is biology's to weigh, not this post's.
+
+What biology doesn't teach, as biology, is that the mind is matter. No experiment finds that. It's a philosophy that often rides along, and it's the one this post argues with.
+
+A biologist can agree with every line here. A materialist can't, but his quarrel is with Ross, not with Darwin.
+
+[fn:dobz] Theodosius Dobzhansky, [[https://www.2think.org/dobzhansky.shtml][Nothing in Biology Makes Sense Except in the Light of Evolution]], /The American Biology Teacher/ 35 (March 1973), pp. 125-29. "Descent with modification" is Darwin's phrase, all through /On the Origin of Species/ (1859).
+
+** Where Aristotle presses
+:PROPERTIES:
+:CUSTOM_ID: presses
+:END:
+
+Aristotle doesn't rule evolution out. Feser argues in /Aristotle's Revenge/ that Aristotle's philosophy of nature "does not as such rule out evolution," and that evolution "itself requires rather than undermines Aristotelian essentialism and teleology."[fn:fes432]
+
+Where he presses is the reading that strips nature of ends, where selection is all there is and nothing is for anything.
+
+Two atheists found the snag, Jerry Fodor and Massimo Piattelli-Palmarini. Were polar bears selected for being white, or for matching the snow? Where they evolved, it's the same fur. A breeder could tell you which he meant. Selection can't, because it doesn't mean anything. Mother Nature and the selfish gene don't help, they said, since "fictions can't select things, however hard they try. Nothing cramps one's causal powers like not existing."[fn:fodor]
+
+That's Kripke's puzzle again, with fur instead of sums.
+
+Feser's way out is that nature really has ends, built in the way an acorn is built for an oak. Darwin talked that way himself, and selection explanations run on what a trait is good for. So Feser turns the usual story around. "If you want to be a Darwinian evolutionist, you need to be an Aristotelian."[fn:fes420]
+
+He also catches the words stretching. One account of how life began counts crystals as copying and molecules that last as adapted. By that standard pebbles evolve, since they split, vary and take after their parents. "Descent with modification, in rock gardens no less than botanical gardens!"[fn:pebble]
+
+And on the mind, the Thomists who made peace with evolution all held the line this post holds. "Even if something like the human body could arise through purely physical evolutionary processes, the intellect could not have."[fn:fes428]
+
+[fn:fes432] Edward Feser, /Aristotle's Revenge/, p. 432.
+[fn:fodor] Jerry Fodor and Massimo Piattelli-Palmarini, /What Darwin Got Wrong/ (2011 edition), p. 121, as /Aristotle's Revenge/ sets out their argument, pp. 407-16. Feser puts it beside Kripke's puzzle himself (p. 409).
+[fn:fes420] /Aristotle's Revenge/, p. 420.
+[fn:pebble] /Aristotle's Revenge/, p. 421, on Alex Rosenberg's /The Atheist's Guide to Reality/ (2011).
+[fn:fes428] /Aristotle's Revenge/, p. 428, summing up the Thomists of the last century, not quoting one.
+
+** The philosophers who say no
+:PROPERTIES:
+:CUSTOM_ID: no
+:END:
+
+Not every Aristotelian makes that peace.
+
+Fr. Chad Ripperger takes the principle this post stands on, that nothing gives what it doesn't have, and runs it all the way down. "A thing cannot beget what it does not have," so a creature without sight can't give rise to one with it. His verdict is that "microevolution is possible, while macroevolution is not." Evolution, he says, "is not really a conclusion derived from the empirical sciences but really a philosophical theory."[fn:ripp]
+
+Wolfgang Smith, the mathematician and physicist Part 1 leans on, ends up in the same place. Species unfold, he grants, "but there is no transformism, for the very simple reason that nothing can become what it is not."[fn:smithtr]
+
+Feser answers them with the same principle. A cause must hold what it gives, but it can hold it "virtually," as a power not yet drawn out, and Aquinas himself let new kinds come from the powers of nature. The principle, Feser says, "is more subtle than is sometimes supposed."[fn:fes425]
+
+Ripperger also leans on claims about the fossil record that biologists reject. Those are biology's to settle. His metaphysics stands or falls on its own.
+
+Same principle, two verdicts on bodies.
+
+One verdict on the mind.
+
+[fn:ripp] Chad Ripperger, /The Metaphysics of Evolution: Evolutionary Theory in Light of First Principles/ (2012), the introduction and chapter 2.
+[fn:smithtr] Wolfgang Smith, /Teilhardism and the New Religion/ (TAN Books, 1988), chapter 3, revised as /Theistic Evolution: The Teilhardian Heresy/ (Angelico Press, 2012).
+[fn:fes425] /Aristotle's Revenge/, p. 425, with /Summa Theologiae/ I q.73 a.1 ad 3, the article quoted above.
+
+** If you're a believer
+:PROPERTIES:
+:CUSTOM_ID: believer
+:END:
+
+Faith doesn't force the question either. The Fathers never settled even how each soul comes to be. Augustine wrote to Jerome, who held a view on it, "Teach me what I ought to hold as my own opinion."[fn:aug166] And Dobzhansky, who gave biology its motto, was a believer. "I am a creationist and an evolutionist," he wrote in the same essay.
+
+Catholics have the three places to stand. Rome allows research and discussion about the body's origin "from pre-existent and living matter," Pius XII wrote, "for the Catholic faith obliges us to hold that souls are immediately created by God," and he asked that the reasons "favorable and those unfavorable to evolution" be weighed "with the necessary seriousness, moderation and measure."[fn:hg36] John Paul II went further, and called evolution "more than a hypothesis," while holding that with man there's "an ontological leap."[fn:jp2] Others, Ripperger among them, hold that God made the kinds directly.
+
+Or you can weigh the reasons and wait, as Pius asked. That's where I am.
+
+[fn:aug166] Augustine, [[https://www.newadvent.org/fathers/1102166.htm][Letter 166]], to Jerome, §10, on the origin of the soul (415). Jerome held that God makes each soul new. Augustine is "willing that the opinion which you hold should be also mine," but "as yet I have not embraced it" (§8).
+[fn:hg36] Pope Pius XII, [[https://www.vatican.va/content/pius-xii/en/encyclicals/documents/hf_p-xii_enc_12081950_humani-generis.html][Humani Generis]], August 12, 1950, §36.
+[fn:jp2] Pope John Paul II, [[https://www.newadvent.org/library/docs_jp02tc.htm][Truth Cannot Contradict Truth]], address to the Pontifical Academy of Sciences, October 22, 1996, §§4-6.
+
+** The one place this post can't go
+:PROPERTIES:
+:CUSTOM_ID: teilhard
+:END:
+
+Pierre Teilhard de Chardin, a Jesuit and a paleontologist, made evolution a law of mind. Consciousness, he wrote, is "defined experimentally as the specific effect of organised complexity."[fn:pm]
+
+Read that twice. It's the AI pitch, seventy years early. Pile up enough complexity, arranged well enough, and a mind comes out.
+
+He has admirers in every camp. Dobzhansky's essay calls him "one of the great thinkers of our age," and ends on him. He has critics in every camp too. Peter Medawar, a Nobel-winning biologist, wrote that "Teilhard habitually and systematically cheats with words," and "it is the style that creates the illusion of content."[fn:medawar] Smith calls the law of complexity "a Trojan horse." And Rome's Holy Office warned in 1962 that his works "abound in such ambiguities and indeed even serious errors, as to offend Catholic doctrine," while "prescinding from a judgement about those points that concern the positive sciences."[fn:monitum]
+
+Every other place here is open to you, and this post works in all of them.
+
+Not this one. Swap living matter for parameters, and it's the believers' pitch.
+
+Whatever made the body, reason came from outside.
+
+[fn:pm] Pierre Teilhard de Chardin, /The Phenomenon of Man/ (1955, in English 1959), p. 301.
+[fn:medawar] Peter Medawar, [[https://bactra.org/Medawar/phenomenon-of-man.html][review of The Phenomenon of Man]], /Mind/ 70 (1961), pp. 99-106. Smith quotes it in /Teilhardism and the New Religion/, chapter 3, the chapter that calls the law a Trojan horse.
+[fn:monitum] Holy Office, [[https://www.ewtn.com/catholicism/library/monitum-on-the-writings-of-fr-teilhard-de-chardin-sj-29451][Monitum on the Writings of Fr. Teilhard de Chardin, SJ]], June 30, 1962. The Holy See repeated the warning in 1981.
