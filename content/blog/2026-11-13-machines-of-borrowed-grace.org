@@ -311,7 +311,7 @@ Cures, policies, forecasts, hopes. Some of it is good. Some of it is borrowed. S
 :CUSTOM_ID: happiness
 :END:
 
-The first essay has five chapters on what AI will give us. "Biology and physical health." "Neuroscience and mental health." "Economic development and poverty." "Peace and governance." "Work and meaning."
+The first essay picks five areas where AI could do the most good, and gives each a chapter. "Biology and physical health." "Neuroscience and mental health." "Economic development and poverty." "Peace and governance." "Work and meaning."
 
 Aquinas wrote the same table of contents over seven hundred years ago, as a list of where happiness isn't. In one question of the /Summa/ he asks, article by article, whether happiness consists in wealth, honor, fame, power, the goods of the body, pleasure, some good of the soul, or any created good at all.
 
@@ -402,7 +402,7 @@ You can't outsource virtue. Not to a pill, and not to a judge made of sand.
 
 Everyone?
 
-A few lines up the same list, "Greatly improved embryo screening will likely make it possible to prevent most genetic disease." Mental illness too, "via embryo screening."
+A few lines up the same list, "Greatly improved embryo screening will likely make it possible to prevent most genetic disease." In the next section, mental illness too, "via embryo screening."
 
 Screening doesn't cure the sick embryo. It discards it and picks another. The one screened out never got to choose what it wanted to become.
 
@@ -435,7 +435,7 @@ The "malicious (but otherwise average)" man who rents a powerful AI, and Amodei'
 
 That's a hard sentence for a CEO to write. I'll give him that one gladly.
 
-But on his floor, what went wrong with all of us? In the first essay, it's chemistry, "something went wrong biochemically." And if the problem is chemistry, so is the fix.
+But on his floor, what went wrong with all of us? He doesn't say. Evil, for him, is a frequency, "a motive that will probably arise sooner or later." And if evil is a frequency, the fix is a filter.
 
 Chesterton had a better answer.
 
@@ -480,7 +480,7 @@ Brilliance doesn't protect you from it. Aquinas says that in the fallen angels "
 
 So how does Amodei's story end? "humanity has a way of gathering, seemingly at the last minute, the strength and wisdom needed to prevail." And "we can use AI itself to anticipate and prevent these problems."
 
-Van Til had a picture for that. A man made of water, in a bottomless sea, wants out. "Desiring to get out of water, he makes a ladder of water. He sets this ladder upon the water and against the water and then attempts to climb out of the water."[fn:vta528] Using AI to save us from AI is a ladder of water.
+Van Til had a picture for that. A man made of water, in a bottomless sea, wants out. "Desiring to get out of water, he makes a ladder of water. He sets this ladder upon the water and against the water and then attempts to climb out of the water."[fn:vta528]
 
 Aristotle had a name for an ending like that. The resolution of a plot "must not be brought about by the Deus ex Machina,"[fn:poetics] the god lowered onto the stage by a crane to fix what the story couldn't.
 
