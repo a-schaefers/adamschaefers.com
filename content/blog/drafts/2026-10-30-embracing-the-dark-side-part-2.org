@@ -156,7 +156,7 @@ That's fair to Part 1's wording, read loosely. "Never in kind" sounds like no ne
 
 Start with the things we make. A compiler isn't an adder, and a learning algorithm is neither. Their forms are real, and Aristotle is the last man who'd say it's all just atoms. But they're forms of art. "In artifacts the matter alone is held to be substance, whereas the forms of artifacts are accidents," Aquinas says, and art "operates only on that which is already constituted in existence by nature."[fn:art] A model can rewrite itself into a new sort of tool forever. It's still the machine, arranged.
 
-Then nature. New species, Aquinas says, "if any such appear, existed beforehand in various active powers."[fn:st73] Whether the theory of evolution fits that, Thomists still argue. Either way, the line holds at the mind. The rational soul, he says, "is not educed from the potentiality of matter."[fn:st90a2] The Church draws the line in the same place. The human body may have come "from pre-existent and living matter," but "souls are immediately created by God."[fn:hg]
+Then nature. New species, Aquinas says, "if any such appear, existed beforehand in various active powers."[fn:st73] Whether the theory of evolution fits that, Thomists still argue. Either way, the line holds at the mind. The rational soul, he says, "is not educed from the potentiality of matter."[fn:st90a2] The Philosopher said it first. "It remains, then, for the reason alone so to enter and alone to be divine, for no bodily activity has any connexion with the activity of reason."[fn:ga] The body comes from the parents. Reason comes from outside.
 
 Animals are a different case. Their souls, he says, are "naturally brought into existence by certain corporeal agents that reduce the matter from potentiality to act."[fn:st118a1] So a dog's knack for a problem is within matter's reach, and the machine may match it. The line is at understanding, not at cleverness.
 
@@ -180,7 +180,7 @@ The engineer isn't even a father.
 [fn:st73] /Summa Theologiae/ I q.73 a.1 ad 3 ([[https://www.newadvent.org/summa/1073.htm#article1][New Advent]]). He had the biology of his day in mind, animals bred from rotting matter, and the mule.
 [fn:st90a2] /Summa Theologiae/ I q.90 a.2 ad 2 ([[https://www.newadvent.org/summa/1090.htm#article2][New Advent]]).
 [fn:st118a1] /Summa Theologiae/ I q.118 a.1 ([[https://www.newadvent.org/summa/1118.htm#article1][New Advent]]).
-[fn:hg] Pope Pius XII, [[https://www.vatican.va/content/pius-xii/en/encyclicals/documents/hf_p-xii_enc_12081950_humani-generis.html][Humani Generis]], August 12, 1950, §36.
+[fn:ga] Aristotle, /Generation of Animals/ II.3, 736b, trans. Arthur Platt ([[https://en.wikisource.org/wiki/On_the_Generation_of_Animals/Book_II][Wikisource]]). Aquinas reads it the same way, "the Philosopher says that the intellect comes from without" (I q.118 a.2).
 [fn:st76] Aquinas says the soul is united to "a body fitted to be a convenient organ of sense," since "the form is not for the matter, but rather the matter for the form" (/Summa Theologiae/ I q.76 a.5, [[https://www.newadvent.org/summa/1076.htm#article5][New Advent]]). A computer isn't alive and senses nothing. It isn't even one thing, but many, held in an arrangement, and a soul is the form of one living body. Could God move matter straight to a form anyway? He can, Aquinas says (I q.105 a.1, [[https://www.newadvent.org/summa/1105.htm#article1][New Advent]]). That would be a miracle and a new creature, not a product.
 [fn:st118] /Summa Theologiae/ I q.118 a.2, quoted from ad 4, the body of the article and ad 3, in that order ([[https://www.newadvent.org/summa/1118.htm#article2][New Advent]]).
 [fn:st90] /Summa Theologiae/ I q.90 a.3 ([[https://www.newadvent.org/summa/1090.htm#article3][New Advent]]).
@@ -254,11 +254,13 @@ The danger was never a machine with a mind. It's men who stop using theirs, beca
 
 This post doesn't ask you to decide on evolution, and that's on purpose. Its argument, in @@html:<a href="#give">Couldn't we give it one?</a>@@, is about the mind, and it holds whichever way you go on bodies. If it hung on evolution, readers on one side would stop at the door, and the question this post is about would get lost in a fight it doesn't need.
 
-I haven't settled it myself, and the Church leaves it open. Pius XII allowed research and discussion about evolution "in as far as it inquires into the origin of the human body as coming from pre-existent and living matter - for the Catholic faith obliges us to hold that souls are immediately created by God." He asked that the reasons for both opinions, "those favorable and those unfavorable to evolution, be weighed and judged with the necessary seriousness, moderation and measure."[fn:hg36]
+I haven't settled it myself, and the Church never has. No council ever defined how bodies came to be. The Fathers didn't even settle how each soul does. Augustine put it to Jerome, "Teach me, I beseech you, what I may teach to others, teach me what I ought to hold as my own opinion."[fn:aug166] What the early catechisms hand on is the soul as God's own work. "Know also that thou hast a soul self-governed, the noblest work of God, made after the image of its Creator," Cyril of Jerusalem told the people he was preparing for baptism.[fn:cyril]
+
+Rome has kept it open in our own time. Pius XII allowed research and discussion about evolution "in as far as it inquires into the origin of the human body as coming from pre-existent and living matter - for the Catholic faith obliges us to hold that souls are immediately created by God." He asked that the reasons for both opinions, "those favorable and those unfavorable to evolution, be weighed and judged with the necessary seriousness, moderation and measure."[fn:hg36]
 
 So there are three honest places to stand.
 
-You can hold that bodies evolved and every soul is created. Many Thomists do. John Paul II called evolution "more than a hypothesis," and in the same message drew the line where Pius did. Theories that "consider the spirit as emerging from the forces of living matter or as a mere epiphenomenon of this matter, are incompatible with the truth about man." With man, he said, there's "an ontological leap."[fn:jp2]
+You can hold that bodies evolved and every soul comes from God. Many Thomists do, and so did John Paul II. He called evolution "more than a hypothesis," and in the same message drew the line where Pius did. Theories that "consider the spirit as emerging from the forces of living matter or as a mere epiphenomenon of this matter, are incompatible with the truth about man." With man, he said, there's "an ontological leap."[fn:jp2]
 
 You can hold that bodies didn't evolve. Wolfgang Smith, whom Part 1 leans on, wrote a whole book against Teilhard de Chardin's evolution, and Fr. Chad Ripperger argues from first principles against macroevolution.[fn:critics]
 
@@ -266,25 +268,15 @@ Or you can weigh the reasons and wait, as Pius asked. That's where I am.
 
 All three can sign what this post says. Grant evolution everything it claims about bodies, and you still don't get a mind.
 
-What none of them can sign is evolutionism, the belief that mind itself rises out of matter once there's enough of it, arranged well enough. Teilhard made that a law of the universe. The Holy Office warned in 1962 that his works "abound in such ambiguities and indeed even serious errors, as to offend Catholic doctrine." It said so while "prescinding from a judgement about those points that concern the positive sciences."[fn:monitum] It left the science alone and judged the philosophy.
+What none of them can sign is evolutionism, the belief that mind itself rises out of matter once there's enough of it, arranged well enough. Teilhard made that a law of the universe. Rome's Holy Office warned in 1962 that his works "abound in such ambiguities and indeed even serious errors, as to offend Catholic doctrine." It said so while "prescinding from a judgement about those points that concern the positive sciences."[fn:monitum] It left the science alone and judged the philosophy.
 
 That philosophy is the one this post argues against. Swap living matter for parameters, and it's the believers' pitch.
 
 Whatever made the body, the mind was given.
 
-[fn:hg36]
-
-John Paul II went further on the science. He called evolution "more than a hypothesis." In the same message he drew the same line. Theories that "consider the spirit as emerging from the forces of living matter or as a mere epiphenomenon of this matter, are incompatible with the truth about man." With man, he said, there's "an ontological leap."[fn:jp2]
-
-So Catholics stand on both sides of the question about bodies. Some Thomists accept that bodies evolved, and hold with the Church that every soul is created. Others reject it. Wolfgang Smith, whom Part 1 leans on, wrote a whole book against Teilhard de Chardin's evolution, and Fr. Chad Ripperger argues from first principles against macroevolution.[fn:critics] All of them can sign what this post says. Grant evolution everything it claims about bodies, and you still don't get a mind.
-
-What none of them can sign is evolutionism, the belief that mind itself rises out of matter once there's enough of it, arranged well enough. Teilhard made that a law of the universe. The Holy Office warned in 1962 that his works "abound in such ambiguities and indeed even serious errors, as to offend Catholic doctrine." It said so while "prescinding from a judgement about those points that concern the positive sciences."[fn:monitum] It left the science alone and judged the philosophy.
-
-That philosophy is the one this post argues against. Swap living matter for parameters, and it's the believers' pitch.
-
-Whatever made the body, the mind was given.
-
-[fn:hg36] /Humani Generis/ §36, the same paragraph as above.
+[fn:aug166] Augustine, [[https://www.newadvent.org/fathers/1102166.htm][Letter 166]], to Jerome, §10, on the origin of the soul (415). Jerome held that God makes each soul new. Augustine is "willing that the opinion which you hold should be also mine," but "as yet I have not embraced it" (§8).
+[fn:cyril] Cyril of Jerusalem, [[https://www.newadvent.org/fathers/310104.htm][Catechetical Lecture IV]], §18, trans. Edwin Hamilton Gifford.
+[fn:hg36] Pope Pius XII, [[https://www.vatican.va/content/pius-xii/en/encyclicals/documents/hf_p-xii_enc_12081950_humani-generis.html][Humani Generis]], August 12, 1950, §36.
 [fn:jp2] Pope John Paul II, [[https://www.newadvent.org/library/docs_jp02tc.htm][Truth Cannot Contradict Truth]], address to the Pontifical Academy of Sciences, October 22, 1996, §§4-6.
 [fn:critics] Wolfgang Smith, /Teilhardism and the New Religion/ (TAN Books, 1988), revised as /Theistic Evolution: The Teilhardian Heresy/ (Angelico Press, 2012). Chad Ripperger, /The Metaphysics of Evolution: Evolutionary Theory in Light of First Principles/ (2012).
 [fn:monitum] Holy Office, [[https://www.ewtn.com/catholicism/library/monitum-on-the-writings-of-fr-teilhard-de-chardin-sj-2144][Monitum on the Writings of Fr. Teilhard de Chardin, SJ]], June 30, 1962. The Holy See repeated the warning in 1981. Teilhard's "law of complexity-consciousness" is in /The Phenomenon of Man/ (1955).
