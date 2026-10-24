@@ -5,7 +5,8 @@ PORT ?= 8000
 # The site: its script and styles compiled (scripts/build.ts: esbuild and Tailwind, into
 # build/), the Org export (site.el: content/ into pages in build/), then public/, exactly
 # what the site serves (scripts/dist.sh, from build/ and static/). None of it is committed:
-# CI builds and deploys it on every merge.
+# CI builds and deploys it on every merge. Here it has the drafts too (content/*/drafts/);
+# CI's build never does, nor DRAFTS=0 make build, exactly what the site serves.
 build:
 	node scripts/build.ts
 	emacs -Q --batch -l site.el -f site-build
@@ -19,12 +20,14 @@ workers:
 # public/ served the way the site serves it (Workers Static Assets, locally), at
 # http://localhost:8000, rebuilt as the sources change, and open pages reloaded once the
 # change is served (scripts/dev.ts: a WebSocket only its local answers carry, never the site).
+# Always with the drafts.
 run:
 	PORT=$(PORT) node scripts/dev.ts
 
 # What CI's required check runs: the build, every link, the types, the Workers' tests
 # (offline), the workflows' rules. (CI runs the two halves apart, uploading the site between
-# them.)
+# them.) The site as CI builds it, without the drafts, which check-dist holds it to.
+check: export DRAFTS = 0
 check: build check-dist typecheck test
 
 check-dist:
