@@ -24,12 +24,12 @@ So I'll stand on his, "just for argument's sake," as Cornelius Van Til put it,[f
 
 Van Til was a Reformed apologist, and I'm using his method as his student Greg Bahnsen laid it out.[fn:vta] My lens, as always, is Aristotle and Aquinas. Van Til wouldn't have liked the company.[fn:vtaquinas]
 
-1. [[#case][His case, at its strongest]]
-2. [[#mind][Machines that think]]
-3. [[#aligned][Aligned to what?]]
-4. [[#arc][The arc]]
-5. [[#undressed][Undressed]]
-6. [[#seas][Black seas]]
+1. [[#case][His case, at its strongest]] - the cures are real, and so is his candor.
+2. [[#mind][Machines that think]] - he never says what thinking is.
+3. [[#aligned][Aligned to what?]] - a letter its authors can rewrite.
+4. [[#arc][The arc]] - Parker's arc, and the One who bends it.
+5. [[#undressed][Undressed]] - his hopes, one by one, without the floor.
+6. [[#seas][Black seas]] - Lovecraft, Sagan, and who's playing the music.
 
 [fn:molg] Dario Amodei, [[https://darioamodei.com/essay/machines-of-loving-grace][Machines of Loving Grace: How AI Could Transform the World for the Better]], October 2024. Every quote of Amodei's here is from it or the next one.
 [fn:aot] Dario Amodei, [[https://darioamodei.com/essay/the-adolescence-of-technology][The Adolescence of Technology: Confronting and Overcoming the Risks of Powerful AI]], January 2026.
