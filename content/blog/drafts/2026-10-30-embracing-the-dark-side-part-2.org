@@ -35,6 +35,12 @@ The obvious reply turns the puzzle around. Kripke's skeptic was asking about peo
 
 Because the doubt has to mean exactly what it doubts. "To become convinced that I can only simulate the recognition that two Euclidean right triangles with equal sides are congruent, I have to judge negatively with all the determinateness that has just been denied." The rejoinder, Ross says, "defeats itself." And its price is everything. "We can do nothing logical at all, and no pure mathematics either. Now, who believes that?"[fn:rossself]
 
+So what settles it for us? Not more answers. Adding, Ross says, "is a form of understanding," "the ability exercised in a single case, the ability to think in a form that is sum-giving for every sum." The rule is in the act itself. "The function is the form by which inputs yield outputs." It doesn't "consist in the array of inputs and outcomes."
+
+That's why a wrong sum is still adding. "There is a great difference between adding incorrectly and doing something else."
+
+And it's why the training can't supply the rule. A training set is an array of inputs and outcomes, and a loss is a score kept on it. Make it as big as you like. "Adding cases even to infinity, unless they are all the possible cases, will not exclude incompossible forms."[fn:rossform]
+
 The meaning in the machine's answer is ours. We put it in, and we read it out.
 
 [fn:p1agi] Part 1 argues it in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#agi">AGI doesn't matter</a>@@, with a triangle. A type called Triangle in a program "means every triangle only because a programmer reads it that way."
@@ -44,9 +50,10 @@ The meaning in the machine's answer is ours. We put it in, and we read it out.
 [fn:p1hand] Part 1 gets it from Aquinas, in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#linus">Even Linus</a>@@. "A tool acts only as the hand moves it, so the work is the hand's."
 [fn:kripke] Saul Kripke, /Wittgenstein on Rules and Private Language/ (1982), p. 9. In Kripke it's a skeptic's puzzle about what anybody means. Ross turns it on the machine.
 [fn:dispo] Kripke answers that reply, about people, in the same book, with both points. What anyone would answer is finite, and it includes mistakes.
-[fn:ross] James Ross, [[https://newdualism.org/papers/J.Ross/Ross-immateriality.htm][Immaterial Aspects of Thought]], /The Journal of Philosophy/ 89, no. 3 (1992).
+[fn:ross] James Ross, [[https://newdualism.org/papers/J.Ross/Ross-immateriality.htm][Immaterial Aspects of Thought]], /The Journal of Philosophy/ 89, no. 3 (1992), pp. 136-50.
 [fn:rossself] Ross, [[https://newdualism.org/papers/J.Ross/Ross-immateriality.htm][Immaterial Aspects of Thought]]. Kripke drew the skeptical conclusion, that there's no fact of the matter about what anyone means. Ross says he "ought to conclude, instead," of the machine, "that it is not adding."
-[fn:feser13] Edward Feser, [[https://www.pdcnet.org/acpq/content/acpq_2013_0087_0001_0001_0032][Kripke, Ross, and the Immaterial Aspects of Thought]], /American Catholic Philosophical Quarterly/ 87, no. 1 (2013).
+[fn:rossform] Ross, "Immaterial Aspects of Thought." Feser makes the same point about machines in /Aristotle's Revenge/, p. 363. There are "no physical features of a computer that can determine whether it is carrying out addition or quaddition, no matter how far we extend its outputs."
+[fn:feser13] Edward Feser, [[https://www.pdcnet.org/acpq/content/acpq_2013_0087_0001_0001_0032][Kripke, Ross, and the Immaterial Aspects of Thought]], /American Catholic Philosophical Quarterly/ 87, no. 1 (2013), pp. 1-32.
 
 * How far can it go
 :PROPERTIES:
@@ -113,7 +120,7 @@ No benchmark can do it. The claim is metaphysics, so what would refute it is an 
 
 There are two places to push. Show that Ross is wrong, that a circuit really adds, or that we don't either. Or show that a thing can give itself what it doesn't have, an effect bigger than all of its causes.
 
-Few believers take the second road. Most say the data, the architecture and the compute account for everything the machine does, and on what it does, I agree. So the whole fight is on the first road, whether understanding is something matter does.
+Few believers take the second road. They don't say the machine broke a law. They say ordinary causes are enough, the data, the architecture and the compute. On what the machine does, I agree. What I deny is that understanding is among the things those causes make, an act that's adding even when it gets the sum wrong. That's Ross's argument, and the whole fight is there, on the first road.
 
 The second road is closed anyway. Feser's /Aristotle's Revenge/ argues that Aristotle's metaphysics, act and potency and the four causes, "is not only compatible with modern science, but is implicitly presupposed by modern science."[fn:revenge] A bug has a cause. A loss curve falls because something makes it fall. Every engineer who built these AI models leans on that every day.
 
