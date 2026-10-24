@@ -1,4 +1,5 @@
 #+TITLE: Machines of borrowed grace
+#+FEATURED: blog/borrowed-grace.jpg
 #+DESCRIPTION: Two essays from the CEO of Anthropic, and the one question neither of them asks.
 
 # Rough draft. Links into Part 2 point at /blog/2026-10-23-embracing-the-dark-side-part-2/.
