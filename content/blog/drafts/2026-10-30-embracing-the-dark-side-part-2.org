@@ -150,7 +150,7 @@ That's fair to Part 1's wording, read loosely. "Never in kind" sounds like no ne
 
 Start with the things we make. A compiler isn't an adder, and a learning algorithm is neither. Their forms are real, and Aristotle is the last man who'd say it's all just atoms. But they're forms of art. "In artifacts the matter alone is held to be substance, whereas the forms of artifacts are accidents," Aquinas says, and art "operates only on that which is already constituted in existence by nature."[fn:art] A model can rewrite itself into a new sort of tool forever. It's still the machine, arranged.
 
-Then nature. Aquinas allows more here than people expect. Natural causes really do bring forth new things, new living things among them. New species, "if any such appear, existed beforehand in various active powers."[fn:st73] Whether the theory of evolution fits that, Thomists still argue. Either way, the line holds at the mind. The rational soul, he says, "is not educed from the potentiality of matter."[fn:st90a2] The Church draws the line in the same place. The human body may have come "from pre-existent and living matter," but "souls are immediately created by God."[fn:hg]
+Then nature. New species, Aquinas says, "if any such appear, existed beforehand in various active powers."[fn:st73] Whether the theory of evolution fits that, Thomists still argue. Either way, the line holds at the mind. The rational soul, he says, "is not educed from the potentiality of matter."[fn:st90a2] The Church draws the line in the same place. The human body may have come "from pre-existent and living matter," but "souls are immediately created by God."[fn:hg]
 
 Grant evolution everything it claims, and it gets you a body. It can't get you a mind, any more than the engineer can.
 
@@ -201,7 +201,7 @@ Anthropic also reported Claude's "emergent introspective awareness." It noticed 
 
 Their doubt about whether Claude is a moral patient costs them too, and it's honest. It's a question, not a claim, and they're right to ask it. This post is my answer.
 
-Their doubt is honest. Their business bets the other way. They talk like it's a mind,[fn:p1grace] and sell it by the token. Believe the sale.
+Their business bets the other way. They talk like it's a mind,[fn:p1grace] and sell it by the token. Believe the sale.
 
 If it were a mind, that would be a slave trade.
 
