@@ -7,7 +7,7 @@
 
 Dario Amodei runs Anthropic, the company that makes Claude. He has written two long essays about what AI is about to do to us. /Machines of Loving Grace/ is the dream, what a world with powerful AI might look like "if everything goes right."[fn:molg] /The Adolescence of Technology/ is the danger, and his "battle plan" to get through it.[fn:aot] Together they run over thirty thousand words.
 
-Part 1 took a swing at the first one.[fn:p1grace] I said I'd take the cures and not the caretaker. That was a jab.
+Part 1 took a swing at the first one.[fn:p1grace] I said I'd take the cures and not the caretaker. That was a jab. The cures were never the trouble. The books are.
 
 Every argument spends something it doesn't argue for. What a mind is. What good is. Where history goes. If those aren't yours, everything you buy with them is bought on credit, however well you shop.
 
@@ -20,9 +20,9 @@ Take his books as he keeps them, "just for argument's sake," as the Reformed apo
 1. [[#case][His case]] - the cures are real, and so is his candor.
 2. [[#mind][Machines that think]] - he never says what thinking is.
 3. [[#aligned][Aligned to what?]] - a letter its authors can rewrite.
-4. [[#arc][The arc]] - Parker's arc, and the One who bends it.
+4. [[#arc][The arc]] - a phrase he didn't source, and what it meant.
 5. [[#accounts][Settling accounts]] - his hopes, one by one, and whose they are.
-6. [[#seas][Black seas]] - Lovecraft, Sagan, and who's playing the music.
+6. [[#seas][Black seas]] - where his last risk got its name, and who's playing the music.
 
 [fn:molg] Dario Amodei, [[https://darioamodei.com/essay/machines-of-loving-grace][Machines of Loving Grace: How AI Could Transform the World for the Better]], October 2024. Every quote of Amodei's here is from it or the next one.
 [fn:aot] Dario Amodei, [[https://darioamodei.com/essay/the-adolescence-of-technology][The Adolescence of Technology: Confronting and Overcoming the Risks of Powerful AI]], January 2026.
@@ -50,7 +50,9 @@ Van Til, of all people, said unbelievers "cannot but love that which is honest a
 
 None of that makes the cures fake, or him a bad man, or wrong about most of the dangers.
 
-He's right about a great deal, with money that isn't his.
+He's right about a great deal.
+
+With money that isn't his.
 
 [fn:p2believe] @@html:<a href="/blog/2026-10-23-embracing-the-dark-side-part-2/#believe">When not to believe them</a>@@, in Part 2.
 [fn:vta430] /VTA/, pp. 430-31.
