@@ -343,7 +343,7 @@ Pierre Teilhard de Chardin, a Jesuit and a paleontologist, made evolution a law 
 
 Read that twice. It's the AI pitch, seventy years early. Pile up enough complexity, arranged well enough, and a mind comes out.
 
-He has admirers in every camp. Dobzhansky's essay calls him "one of the great thinkers of our age," and ends on him. He has critics in every camp too. Peter Medawar, a Nobel-winning biologist, wrote that "Teilhard habitually and systematically cheats with words," and "It is the style that creates the illusion of content."[fn:medawar] Smith calls the law of complexity "a Trojan horse." And Rome's Holy Office warned in 1962 that his works "abound in such ambiguities and indeed even serious errors, as to offend Catholic doctrine," while "prescinding from a judgement about those points that concern the positive sciences."[fn:monitum]
+He has admirers in every camp. Dobzhansky's essay calls him "one of the great thinkers of our age," and ends on him. He has critics in every camp too. Peter Medawar, a Nobel-winning biologist, wrote that "Teilhard habitually and systematically cheats with words," and "it is the style that creates the illusion of content."[fn:medawar] Smith calls the law of complexity "a Trojan horse." And Rome's Holy Office warned in 1962 that his works "abound in such ambiguities and indeed even serious errors, as to offend Catholic doctrine," while "prescinding from a judgement about those points that concern the positive sciences."[fn:monitum]
 
 Every other place here is open to you, and this post works in all of them.
 
@@ -352,5 +352,5 @@ Not this one. Swap living matter for parameters, and it's the believers' pitch.
 Whatever made the body, reason came from outside.
 
 [fn:pm] Pierre Teilhard de Chardin, /The Phenomenon of Man/ (1955, in English 1959), p. 301.
-[fn:medawar] Peter Medawar, review of /The Phenomenon of Man/, /Mind/ 70 (1961), as Smith quotes it in /Teilhardism and the New Religion/, chapter 3, the chapter that calls the law a Trojan horse.
-[fn:monitum] Holy Office, [[https://www.ewtn.com/catholicism/library/monitum-on-the-writings-of-fr-teilhard-de-chardin-sj-2144][Monitum on the Writings of Fr. Teilhard de Chardin, SJ]], June 30, 1962. The Holy See repeated the warning in 1981.
+[fn:medawar] Peter Medawar, [[https://bactra.org/Medawar/phenomenon-of-man.html][review of The Phenomenon of Man]], /Mind/ 70 (1961), pp. 99-106. Smith quotes it in /Teilhardism and the New Religion/, chapter 3, the chapter that calls the law a Trojan horse.
+[fn:monitum] Holy Office, [[https://www.ewtn.com/catholicism/library/monitum-on-the-writings-of-fr-teilhard-de-chardin-sj-29451][Monitum on the Writings of Fr. Teilhard de Chardin, SJ]], June 30, 1962. The Holy See repeated the warning in 1981.
