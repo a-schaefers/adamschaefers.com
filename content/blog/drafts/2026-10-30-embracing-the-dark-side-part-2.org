@@ -13,7 +13,7 @@ So here's how far it goes, what would prove Aristotle wrong, and how to read the
 
 Not that AI will stay bad at things. That was a bet on engineering, and I lost it in Part 1.
 
-The claim is about what it is. Understanding isn't something matter does.[fn:p1agi] And nothing gives itself what it doesn't have, so a machine can improve itself in degree, never in kind.[fn:p1improve]
+The claim is about what it is. Understanding isn't something matter does.[fn:p1agi] And nothing gives itself what it doesn't have, so a machine can improve itself in degree, never in kind.[fn:p1improve] Kind here means a nature, what a thing is, not a sort of tool.
 
 No benchmark touches either one. Ace every test the AI companies can write, and it's still more of the same.
 
@@ -25,9 +25,13 @@ Not everybody stops there. The company that makes Claude calls it "a genuinely n
 
 So it matters which. A tool's work belongs to the hand that moves it.[fn:p1hand] A mind's would be its own.
 
-James Ross put the claim sharply. "Some thinking (judgment) is determinate in a way no physical process can be." He builds on Saul Kripke's quus, a rule that agrees with plus whenever both numbers are under 57, and answers 5 otherwise.[fn:kripke] Whatever a circuit does, some rule like quus fits it as well as plus does, and which one it's doing is settled by whoever reads it.
+James Ross put the claim sharply, and everything else here hangs on his argument. "Some thinking (judgment) is determinate in a way no physical process can be." He builds on Saul Kripke's quus, a rule that agrees with plus whenever both numbers are under 57, and answers 5 otherwise.[fn:kripke] Whatever a circuit does, some rule like quus fits it as well as plus does, and which one it's doing is settled by whoever reads it. Then look at what it would answer for 68 plus 57, an engineer says. Kripke saw that coming. A circuit only ever gives finitely many answers, some of them wrong, and which ones count as wrong is settled by whoever designed it.[fn:dispo]
 
 So "the machine cannot in principle add." It "adds, calculates, recalls, etc., by simulation." As he puts it, "The machine adds the way puppets walk."[fn:ross] Edward Feser has spent years defending that argument.[fn:feser13]
+
+The obvious reply turns the puzzle around. Kripke's skeptic was asking about people, not machines. How do I know I add, and not quus?
+
+Because the doubt has to mean exactly what it doubts. "To become convinced that I can only simulate the recognition that two Euclidean right triangles with equal sides are congruent, I have to judge negatively with all the determinateness that has just been denied." The rejoinder, Ross says, "defeats itself." And its price is everything. "We can do nothing logical at all, and no pure mathematics either. Now, who believes that?"[fn:rossself]
 
 The meaning in the machine's answer is ours. We put it in, and we read it out.
 
@@ -37,7 +41,9 @@ The meaning in the machine's answer is ours. We put it in, and we read it out.
 [fn:kind] Anthropic, [[https://www.anthropic.com/constitution][Claude's constitution]], January 2026, quoted from the web version.
 [fn:p1hand] Part 1 gets it from Aquinas, in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#linus">Even Linus</a>@@. "A tool acts only as the hand moves it, so the work is the hand's."
 [fn:kripke] Saul Kripke, /Wittgenstein on Rules and Private Language/ (1982), p. 9. In Kripke it's a skeptic's puzzle about what anybody means. Ross turns it on the machine.
+[fn:dispo] Kripke answers that reply, about people, in the same book, with both points. What anyone would answer is finite, and it includes mistakes.
 [fn:ross] James Ross, [[https://newdualism.org/papers/J.Ross/Ross-immateriality.htm][Immaterial Aspects of Thought]], /The Journal of Philosophy/ 89, no. 3 (1992).
+[fn:rossself] Ross, [[https://newdualism.org/papers/J.Ross/Ross-immateriality.htm][Immaterial Aspects of Thought]]. Kripke drew the skeptical conclusion, that there's no fact of the matter about what anyone means. Ross says he "ought to conclude, instead," of the machine, "that it is not adding."
 [fn:feser13] Edward Feser, [[https://www.pdcnet.org/acpq/content/acpq_2013_0087_0001_0001_0032][Kripke, Ross, and the Immaterial Aspects of Thought]], /American Catholic Philosophical Quarterly/ 87, no. 1 (2013).
 
 * How far can it go
@@ -45,7 +51,7 @@ The meaning in the machine's answer is ours. We put it in, and we read it out.
 :CUSTOM_ID: far
 :END:
 
-Aristotle never gives a number. He tells you what kind of far.
+Aristotle never gives a number. He tells you what sort of far.
 
 In kind, not one step. "One man cannot be more man than another, as that which is white may be more or less white than some other white object."[fn:cat5] Faster, sharper and cheaper come in degrees. What a thing is doesn't.
 
@@ -59,7 +65,7 @@ A shuttle that weaves by itself. A tool that anticipates your will. That's autoc
 
 He was writing about slaves. If tools could work by themselves, he says, nobody would need slaves. The machine is the instrument he could only imagine.
 
-Aquinas names the machines outright. An arrow "goes straight towards the target, as though it were endowed with reason to direct its course. The same may be seen in the movements of clocks and all engines put together by the art of man." The order you see in the machine is the order of the mind that made it. Animals look prudent too, he says, "not because they reason or exercise any choice about things."[fn:st13]
+Aquinas names the machines outright. An arrow "goes straight towards the target, as though it were endowed with reason to direct its course. The same may be seen in the movements of clocks and all engines put together by the art of man." The order you see in the machine is the order of the mind that made it. Animals look prudent too, he says, "not because they reason or exercise any choice about things." The sign is that "all that share in one nature, invariably act in the same way."[fn:st13]
 
 He even imagined a machine that builds itself. Aristotle said, "If the ship-building art were in the wood, it would produce the same results by nature."[fn:phys28] Aquinas took it further. Nature "is nothing but a certain kind of art, i.e., the divine art, impressed upon things... It is as if the shipbuilder were able to give to timbers that by which they would move themselves to take the form of a ship."[fn:inphys]
 
@@ -71,13 +77,11 @@ And if it gets away from us? Aristotle has a word for what happens by itself, wi
 
 So if it outruns the men who built it, that isn't a rebellion. It's an accident. The stone still kills.[fn:p1leash]
 
-Engineers will catch one more. Aquinas's sign that a thing has no choice is that "all that share in one nature, invariably act in the same way." Turn a model's randomness off and it answers the same way every time, near enough. That's his sign. Turn it on and a random number generator picks among likely words. That's chance. Either way, no choice.
-
 The believers have one passage on their side, and it's Aristotle's. "Nature proceeds little by little from things lifeless to animal life in such a way that it is impossible to determine the exact line of demarcation."[fn:hist81]
 
 Aquinas answers it. "The lowest in the higher genus touches the highest of the lower species." An oyster is barely more than a plant, and still an animal.[fn:scg68] A line you can't see is still a line.
 
-The same goes for general intelligence. A machine that can do one more kind of task, then a thousand more, is the same power reaching further. Grasping what a thing is was never one of the tasks.
+The same goes for general intelligence. A machine that can do one more sort of task, then a thousand more, is the same power reaching further. Grasping what a thing is was never one of the tasks.
 
 At the top of its scale, the machine touches the bottom of ours. That's where it fools us.[fn:p1cog]
 
@@ -107,7 +111,9 @@ No benchmark can do it. The claim is metaphysics, so what would refute it is an 
 
 There are two places to push. Show that Ross is wrong, that a circuit really adds, or that we don't either. Or show that a thing can give itself what it doesn't have, an effect bigger than all of its causes.
 
-The second is a tall order. Feser's /Aristotle's Revenge/ argues that Aristotle's metaphysics, act and potency and the four causes, "is not only compatible with modern science, but is implicitly presupposed by modern science."[fn:revenge] A bug has a cause. A loss curve falls because something makes it fall. Every engineer who built these AI models leans on that every day.
+Few believers take the second road. Most say the data, the architecture and the compute account for everything the machine does, and on what it does, I agree. So the whole fight is on the first road, whether understanding is something matter does.
+
+The second road is closed anyway. Feser's /Aristotle's Revenge/ argues that Aristotle's metaphysics, act and potency and the four causes, "is not only compatible with modern science, but is implicitly presupposed by modern science."[fn:revenge] A bug has a cause. A loss curve falls because something makes it fall. Every engineer who built these AI models leans on that every day.
 
 If a machine really gave itself what it lacked, the effect would outrun its causes. And if Feser is right, the reasoning behind AI goes down with Aristotle.
 
@@ -128,7 +134,7 @@ If a model ever does, it won't refute Aristotle. Its causes will still be the da
 [fn:revenge] Edward Feser, [[https://www.editiones-scholasticae.de/artikel/aristotles-revenge/][Aristotle's Revenge: The Metaphysical Foundations of Physical and Biological Science]] (Editiones Scholasticae, 2019), p. 1.
 [fn:unfals] /Aristotle's Revenge/, pp. 145-46.
 [fn:pauli] It has happened. In 1930 beta decay seemed to break the conservation of energy, and Niels Bohr was ready to give the law up. Wolfgang Pauli posited an unseen particle instead, the one Fermi later named the neutrino. Clyde Cowan and Frederick Reines found it in 1956 ([[https://doi.org/10.1126/science.124.3212.103][Detection of the Free Neutrino: a Confirmation]], /Science/). The hidden battery was real.
-[fn:ball] Philip Ball, [[https://www.nature.com/articles/d41586-026-02804-x][The Einstein test: what happens when AI tries to rediscover relativity?]], /Nature/, September 9, 2026. Hassabis proposed it at the India AI Summit in February. A team including Alec Radford, who built the first GPT, has [[https://talkie-lm.com/introducing-talkie][a model trained on text from before 1931]]. Relativity is already in its reading, so the test it can take is on later discoveries, like Turing's machines (1936).
+[fn:ball] Philip Ball, [[https://www.nature.com/articles/d41586-026-02804-x][The Einstein test: what happens when AI tries to rediscover relativity?]], /Nature/, September 9, 2026. Hassabis proposed it at the India AI Impact Summit in February. A team including Alec Radford, who built the first GPT, has [[https://talkie-lm.com/introducing-talkie][a model trained on text from before 1931]]. Relativity is already in its reading, so the test it can take is on later discoveries, like Turing's machines (1936).
 [fn:p1surprise] As Part 1 put it in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#improve">Can it improve itself?</a>@@, "It can even surprise the people who built it. Surprise is still degree."
 
 * Couldn't we give it one?
@@ -140,11 +146,11 @@ Grant that nothing gives itself what it doesn't have. The machine doesn't have t
 
 And nature has done it all along. Chemistry became life, life became animals, and animals, on most accounts, became us, one horizontal cause after another. So either the principle forbids every new kind in nature, which is absurd, or it allows them, and then why not a mind in a machine?
 
-That lands on a loose phrase. "Never in kind" sounds like no new kind of anything, ever. Aquinas never said that, and Part 1's argument was narrower. It was about one thing, the mind.[fn:p1one]
+That's fair to Part 1's wording, read loosely. "Never in kind" sounds like no new kind of anything, ever. Aquinas never said that. For the things we make, it holds, since art only adds accidents. Nature does bring forth new kinds. The line he never moves is the mind.[fn:p1one]
 
-Start with the things we make. A compiler isn't an adder, and a learning algorithm is neither. Their forms are real, and Aristotle is the last man who'd say it's all just atoms. But they're forms of art. "In artifacts the matter alone is held to be substance, whereas the forms of artifacts are accidents," Aquinas says, and art "operates only on that which is already constituted in existence by nature."[fn:art] A model can rewrite itself into a new kind of tool forever. It's still the machine, arranged.
+Start with the things we make. A compiler isn't an adder, and a learning algorithm is neither. Their forms are real, and Aristotle is the last man who'd say it's all just atoms. But they're forms of art. "In artifacts the matter alone is held to be substance, whereas the forms of artifacts are accidents," Aquinas says, and art "operates only on that which is already constituted in existence by nature."[fn:art] A model can rewrite itself into a new sort of tool forever. It's still the machine, arranged.
 
-Then nature. Aquinas allows more here than people expect. Natural causes really do bring forth new things, new living things among them. New species, "if any such appear, existed beforehand in various active powers."[fn:st73] Whether the theory of evolution fits that, Thomists still argue. Either way, the line holds at the mind. The rational soul, he says, "is not educed from the potentiality of matter."[fn:st90a2] The Church draws the line in the same place. The human body may have come "from pre-existent and living matter," but "souls are immediately created by God."[fn:hg]
+Then nature. New species, Aquinas says, "if any such appear, existed beforehand in various active powers."[fn:st73] Whether the theory of evolution fits that, Thomists still argue. Either way, the line holds at the mind. The rational soul, he says, "is not educed from the potentiality of matter."[fn:st90a2] The Church draws the line in the same place. The human body may have come "from pre-existent and living matter," but "souls are immediately created by God."[fn:hg]
 
 Grant evolution everything it claims, and it gets you a body. It can't get you a mind, any more than the engineer can.
 
@@ -167,7 +173,7 @@ The engineer isn't even a father.
 [fn:st90a2] /Summa Theologiae/ I q.90 a.2 ad 2 ([[https://www.newadvent.org/summa/1090.htm#article2][New Advent]]).
 [fn:hg] Pope Pius XII, [[https://www.vatican.va/content/pius-xii/en/encyclicals/documents/hf_p-xii_enc_12081950_humani-generis.html][Humani Generis]], August 12, 1950, §36.
 [fn:st76] Aquinas says the soul is united to "a body fitted to be a convenient organ of sense," since "the form is not for the matter, but rather the matter for the form" (/Summa Theologiae/ I q.76 a.5, [[https://www.newadvent.org/summa/1076.htm#article5][New Advent]]). A computer isn't alive and senses nothing. It isn't even one thing, but many, held in an arrangement, and a soul is the form of one living body. Could God move matter straight to a form anyway? He can, Aquinas says (I q.105 a.1, [[https://www.newadvent.org/summa/1105.htm#article1][New Advent]]). That would be a miracle and a new creature, not a product.
-[fn:st118] /Summa Theologiae/ I q.118 a.2, ad 3 and ad 4 ([[https://www.newadvent.org/summa/1118.htm#article2][New Advent]]).
+[fn:st118] /Summa Theologiae/ I q.118 a.2, quoted from ad 4, the body of the article and ad 3, in that order ([[https://www.newadvent.org/summa/1118.htm#article2][New Advent]]).
 [fn:st90] /Summa Theologiae/ I q.90 a.3 ([[https://www.newadvent.org/summa/1090.htm#article3][New Advent]]).
 
 * When not to believe them
@@ -175,7 +181,7 @@ The engineer isn't even a father.
 :CUSTOM_ID: believe
 :END:
 
-If Aristotle is right, an AI that seems to have a mind is first a question about who says so.
+If Aristotle is right, an AI that seems to have a mind is first a question about who says so. Motives don't settle the question. Arguments do. This is only how far to trust what you're told.
 
 Aristotle gives three reasons a man tells you something false. He's mistaken, "through want of good sense." He knows better, but "because of their moral badness do not say what they really think." Or he's honest, "but not well disposed to their hearers."[fn:rhet] Only one of them is lying.
 
@@ -189,11 +195,13 @@ Watch for something new that's a measuring trick. Abilities that seemed to appea
 
 Watch the word move with the money. OpenAI's contract with Microsoft once defined AGI by profits. By April 2026 OpenAI's payments to Microsoft were to continue "independent of OpenAI's technology progress."[fn:agi] That's a contract term, not a metaphysics.
 
-And trust the claim that costs them. Anthropic wants the Pentagon's business, and its models were already running across the Department of War. It still told the Pentagon this year that "frontier AI systems are simply not reliable enough to power fully autonomous weapons," and lost government business over it.[fn:dow] Its own researchers found Claude's written reasoning mentioned a hint that changed its answer only "25% of the time."[fn:cot] That finding cuts against the product, so it's likely true.
+And trust the claim that costs them. Anthropic wants the Pentagon's business, and its models were already running across the Department of War. It still told the Pentagon this year that "frontier AI systems are simply not reliable enough to power fully autonomous weapons," and lost government business over it.[fn:dow] Its own researchers found Claude 3.7 Sonnet's written reasoning mentioned a hint that changed its answer only "25% of the time."[fn:cot] That finding cuts against the product, so it's likely true.
 
-Anthropic also reported Claude's "emergent introspective awareness." It noticed a thought planted in its own workings "about 20% of the time."[fn:introspect] The paper's title says awareness. The number says one time in five. Believe the number.
+Anthropic also reported Claude's "emergent introspective awareness." It noticed a thought planted in its own workings "about 20% of the time."[fn:introspect] The paper's title says awareness. The number says one time in five. Believe the number. So do the authors, who call it "highly unreliable and limited in scope."
 
-They talk like it's a mind.[fn:p1grace] They sell it by the token. Believe the sale.
+Their doubt about whether Claude is a moral patient costs them too, and it's honest. It's a question, not a claim, and they're right to ask it. This post is my answer.
+
+Their business bets the other way. They talk like it's a mind,[fn:p1grace] and sell it by the token. Believe the sale.
 
 If it were a mind, that would be a slave trade.
 
@@ -224,7 +232,7 @@ Humans are going to become NPCs.
 
 We can already measure the start of it. In one study, people writing eight-sentence stories could ask an AI for ideas. Their stories were judged more creative, and also "more similar to each other than stories by humans alone."[fn:doshi] When AI hands everybody the idea, everybody's story drifts toward the same place.
 
-The danger was never a machine with a mind. It's men who stop using theirs, because a company told them the machine has one.[fn:p1code]
+The danger was never a machine with a mind. It's men who stop using theirs, because a company let them think the machine might have one.[fn:p1code]
 
 [fn:p1stood] In @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#stood">Where I stood</a>@@, with Aristotle on imitation and Girard on copied wants.
 [fn:doshi] Anil R. Doshi and Oliver P. Hauser, [[https://pmc.ncbi.nlm.nih.gov/articles/PMC11244532/][Generative AI enhances individual creativity but reduces the collective diversity of novel content]], /Science Advances/, July 2024.
