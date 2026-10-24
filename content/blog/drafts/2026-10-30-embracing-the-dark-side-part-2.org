@@ -27,6 +27,8 @@ So it matters which. A tool's work belongs to the hand that moves it.[fn:p1hand]
 
 James Ross put the claim sharply, and everything else here hangs on his argument. "Some thinking (judgment) is determinate in a way no physical process can be." He builds on Saul Kripke's quus, a rule that agrees with plus whenever both numbers are under 57, and answers 5 otherwise.[fn:kripke] Whatever a circuit does, some rule like quus fits it as well as plus does, and which one it's doing is settled by whoever reads it. Then look at what it would answer for 68 plus 57, an engineer says. Kripke saw that coming. A circuit only ever gives finitely many answers, some of them wrong, and which ones count as wrong is settled by whoever designed it.[fn:dispo]
 
+Then the training fixes it, says the next reply. A training objective is the same thing written down, a choice of what counts as right, and someone made it. The trouble was never that we can't tell which rule a circuit follows. Nothing in the circuit decides.
+
 So "the machine cannot in principle add." It "adds, calculates, recalls, etc., by simulation." As he puts it, "The machine adds the way puppets walk."[fn:ross] Edward Feser has spent years defending that argument.[fn:feser13]
 
 The obvious reply turns the puzzle around. Kripke's skeptic was asking about people, not machines. How do I know I add, and not quus?
@@ -129,7 +131,11 @@ What about a test? The cleanest anyone has proposed is Demis Hassabis's. Train a
 
 Nobody has passed it. Nobody has claimed to.
 
-If a model ever does, it won't refute Aristotle. Its causes will still be the data, the architecture and the men who built it.[fn:p1surprise] But it will be the strongest pressure he's faced. And it will show how far degree can go.
+If a model ever does, it won't refute Aristotle. Its causes will still be the data, the architecture and the men who built it.[fn:p1surprise]
+
+Einstein had causes too, the physics before him and the brain he was born with. What he did with them was understand. Whether a machine does that is the first road again, and no test settles it.
+
+But a pass will be the strongest pressure Aristotle has faced. And it will show how far degree can go.
 
 [fn:revenge] Edward Feser, [[https://www.editiones-scholasticae.de/artikel/aristotles-revenge/][Aristotle's Revenge: The Metaphysical Foundations of Physical and Biological Science]] (Editiones Scholasticae, 2019), p. 1.
 [fn:unfals] /Aristotle's Revenge/, pp. 145-46.
@@ -152,6 +158,8 @@ Start with the things we make. A compiler isn't an adder, and a learning algorit
 
 Then nature. New species, Aquinas says, "if any such appear, existed beforehand in various active powers."[fn:st73] Whether the theory of evolution fits that, Thomists still argue. Either way, the line holds at the mind. The rational soul, he says, "is not educed from the potentiality of matter."[fn:st90a2] The Church draws the line in the same place. The human body may have come "from pre-existent and living matter," but "souls are immediately created by God."[fn:hg]
 
+Animals are a different case. Their souls, he says, are "naturally brought into existence by certain corporeal agents that reduce the matter from potentiality to act."[fn:st118a1] So a dog's knack for a problem is within matter's reach, and the machine may match it. The line is at understanding, not at cleverness.
+
 Grant evolution everything it claims, and it gets you a body. It can't get you a mind, any more than the engineer can.
 
 Is "God makes the mind" just a way to make sure I can't lose? No. It stands on the argument that the mind isn't matter, Part 1's triangle and Ross's quus. Refute those, and this falls with them.
@@ -171,6 +179,7 @@ The engineer isn't even a father.
 [fn:art] Thomas Aquinas, /Commentary on Aristotle's Metaphysics/ VIII, lect. 3, n. 1719, trans. John P. Rowan ([[https://isidore.co/aquinas/english/Metaphysics8.htm#3][Isidore]]), and /The Principles of Nature/ n. 8, trans. R. A. Kocourek ([[https://isidore.co/aquinas/english/DePrincNaturae.htm][Isidore]]). It's the point of Part 1's bed. Plant it, and wood comes up.
 [fn:st73] /Summa Theologiae/ I q.73 a.1 ad 3 ([[https://www.newadvent.org/summa/1073.htm#article1][New Advent]]). He had the biology of his day in mind, animals bred from rotting matter, and the mule.
 [fn:st90a2] /Summa Theologiae/ I q.90 a.2 ad 2 ([[https://www.newadvent.org/summa/1090.htm#article2][New Advent]]).
+[fn:st118a1] /Summa Theologiae/ I q.118 a.1 ([[https://www.newadvent.org/summa/1118.htm#article1][New Advent]]).
 [fn:hg] Pope Pius XII, [[https://www.vatican.va/content/pius-xii/en/encyclicals/documents/hf_p-xii_enc_12081950_humani-generis.html][Humani Generis]], August 12, 1950, §36.
 [fn:st76] Aquinas says the soul is united to "a body fitted to be a convenient organ of sense," since "the form is not for the matter, but rather the matter for the form" (/Summa Theologiae/ I q.76 a.5, [[https://www.newadvent.org/summa/1076.htm#article5][New Advent]]). A computer isn't alive and senses nothing. It isn't even one thing, but many, held in an arrangement, and a soul is the form of one living body. Could God move matter straight to a form anyway? He can, Aquinas says (I q.105 a.1, [[https://www.newadvent.org/summa/1105.htm#article1][New Advent]]). That would be a miracle and a new creature, not a product.
 [fn:st118] /Summa Theologiae/ I q.118 a.2, quoted from ad 4, the body of the article and ad 3, in that order ([[https://www.newadvent.org/summa/1118.htm#article2][New Advent]]).
