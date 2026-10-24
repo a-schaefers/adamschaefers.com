@@ -22,7 +22,7 @@ That isn't neutral. It's a floor. And there's no neutral floor to argue from, hi
 
 So I'll stand on his, "just for argument's sake," as Cornelius Van Til put it,[fn:vta124] and see whether it holds his weight.[fn:retorsion]
 
-Van Til was a Reformed apologist, and I'm using his method as his student Greg Bahnsen laid it out.[fn:vta] My lens, as always, is Aristotle and Aquinas. Van Til wouldn't have liked the company, but even Reformed scholars now grant he misread Thomas.[fn:vtaquinas]
+Van Til was a Reformed apologist, and I'm using his method as his student Greg Bahnsen laid it out.[fn:vta] My lens, as always, is Aristotle and Aquinas. Van Til wouldn't have liked the company.[fn:vtaquinas]
 
 1. [[#case][His case, at its strongest]]
 2. [[#mind][Machines that think]]
@@ -36,7 +36,7 @@ Van Til was a Reformed apologist, and I'm using his method as his student Greg B
 [fn:p1grace] In @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#grace">So-called Machines of Loving Grace</a>@@.
 [fn:ground] Bahnsen calls a man's presuppositions his "least negotiable beliefs," the ones granted "the highest immunity to revision" (/VTA/, p. 2 n. 4). Everybody has them, and claiming to have none is just one more. Bahnsen finds the whole method in two verses of Proverbs. "Answer not a fool according to his folly, lest thou be like unto him. Answer a fool according to his folly lest he be wise in his own conceit" (Proverbs 26:4-5, KJV, as Bahnsen quotes it in /Presuppositional Apologetics/, p. 75). First, don't argue on the other man's terms, or you'll end up where he is. Then take his terms anyway, follow them down, and show where they land. Bahnsen sums it up as arguing "from the impossibility of the contrary" (/VTA/, p. 6). You don't prove the floor from something deeper, because nothing is deeper. You show that the man who denies it has to stand on it to deny it.
 [fn:vta124] /VTA/, p. 124. "You might follow my argument, just for argument's sake."
-[fn:retorsion] The Thomist in me won't let a Calvinist take all the credit. This is Aristotle's move first. In the /Metaphysics/ he faces a man who denies the law of non-contradiction. A first principle can't be demonstrated, since nothing is prior to it, but the man who denies it can be refuted, "if our opponent will only say something." The moment he speaks, he uses what he denies. If he won't speak, "such a man, as such, is from the start no better than a vegetable." And the proof is on the man listening, "for while disowning reason he listens to reason" (Aristotle, /Metaphysics/ IV.4, 1006a, trans. W. D. Ross, [[https://classics.mit.edu/Aristotle/metaphysics.4.iv.html][MIT]]). Aquinas, commenting on the passage, says the man who "destroys reason" in speaking "must uphold its significance, because he can only express what he denies by speaking and by signifying something" (/Commentary on the Metaphysics/ IV, lect. 7, n. 611, trans. John P. Rowan, [[https://isidore.co/aquinas/english/Metaphysics4.htm][Isidore]]). Thomists call it retorsion, the name Gaston Isaye and others gave it in the twentieth century. Isaye also wrote about machine reasoning, in 1956. Chesterton put it plainest of all. "Reason is itself a matter of faith. It is an act of faith to assert that our thoughts have any relation to reality at all" (G. K. Chesterton, [[https://www.gutenberg.org/cache/epub/16769/pg16769-images.html#CHAPTER_III_The_Suicide_of_Thought][Orthodoxy]], 1908, ch. III, "The Suicide of Thought"). Why can our thoughts touch reality? Aquinas says "The intellectual light itself which is in us, is nothing else than a participated likeness of the uncreated light" (/Summa Theologiae/ I q.84 a.5, [[https://www.newadvent.org/summa/1084.htm#article5][New Advent]]). Or as the Psalm says, "in thy light shall we see light" (Psalm 36:9, KJV). Every man reasons by a borrowed light, whether or not he thanks the One who lends it.
+[fn:retorsion] The Thomist in me won't let a Calvinist take all the credit. This is Aristotle's move first. In the /Metaphysics/ he faces a man who denies the law of non-contradiction. A first principle can't be demonstrated, since nothing is prior to it, but the man who denies it can be refuted, "if our opponent will only say something." The moment he speaks, he uses what he denies. If he won't speak, "such a man, as such, is from the start no better than a vegetable." And the proof is on the man listening, "for while disowning reason he listens to reason" (Aristotle, /Metaphysics/ IV.4, 1006a, trans. W. D. Ross, [[https://classics.mit.edu/Aristotle/metaphysics.4.iv.html][MIT]]). Aquinas, commenting on the passage, says the man who "destroys reason" in speaking "must uphold its significance, because he can only express what he denies by speaking and by signifying something" (/Commentary on the Metaphysics/ IV, lect. 7, n. 611, trans. John P. Rowan, [[https://isidore.co/aquinas/english/Metaphysics4.htm][Isidore]]). Thomists call it retorsion. Chesterton put it plainest of all. "Reason is itself a matter of faith. It is an act of faith to assert that our thoughts have any relation to reality at all" (G. K. Chesterton, [[https://www.gutenberg.org/cache/epub/16769/pg16769-images.html#CHAPTER_III_The_Suicide_of_Thought][Orthodoxy]], 1908, ch. III, "The Suicide of Thought"). Why can our thoughts touch reality? Aquinas says "The intellectual light itself which is in us, is nothing else than a participated likeness of the uncreated light" (/Summa Theologiae/ I q.84 a.5, [[https://www.newadvent.org/summa/1084.htm#article5][New Advent]]). Or as the Psalm says, "in thy light shall we see light" (Psalm 36:9, KJV). Every man reasons by a borrowed light, whether or not he thanks the One who lends it.
 [fn:vta] Greg L. Bahnsen, /Van Til's Apologetic: Readings and Analysis/ (P&R, 1998), cited here as /VTA/. Van Til's own words are quoted from its readings, Bahnsen's from his commentary. Also Bahnsen, /Presuppositional Apologetics: Stated and Defended/, ed. Joel McDurmon (American Vision and Covenant Media, 2008).
 [fn:vtaquinas] Van Til accused Aquinas of reasoning like Aristotle's self-sufficient man, and wrote that "We cannot start with Aristotle without eventually falling prey to Kant" (/The Defense of the Faith/, 1955, p. 152). Reformed scholars have since granted that he misread him. J. V. Fesko says Van Til read Aquinas "largely through secondary sources rather than carefully engaging Aquinas's works" (/Reforming Apologetics/, 2019, p. 72), and John Frame asks why we shouldn't give Aquinas "the benefit of the doubt" that "without God nothing is intelligible" ([[https://frame-poythress.org/reply-to-don-collett-on-transcendental-argument/][Reply to Don Collett]], 2003). Thomas never reasoned from autonomy. He reasoned as faith seeking understanding, with Aristotle's tools, and Van Til himself said God raised Aristotle up "so that he might serve the church of God." I take Van Til's method against autonomous reason, which Thomas shares. Where they part, on what the natural man can know, I'm with Thomas.
 
@@ -113,7 +113,11 @@ A machine shaped from sand has no soul to lean on. On his floor, neither does he
 
 The soul isn't on his books. He spends it anyway.[fn:vta377]
 
-Now the machine. He tells us himself where its mind comes from. "Models inherit a vast range of humanlike motivations or 'personas' from pre-training (when they are trained on a large volume of human work)." Inherit, from us. Aquinas has a word for that kind of naming. We call an animal healthy, and medicine and urine healthy too, but only the animal has health. Urine is called healthy "in so far as it is the sign of the animal's health."[fn:st13] The machine is intelligent the way urine is healthy.[fn:p2claim] It's a sign of a mind, ours, the one that wrote everything it learned from.[fn:vta99]
+Now the machine. He tells us himself where its mind comes from. "Models inherit a vast range of humanlike motivations or 'personas' from pre-training (when they are trained on a large volume of human work)." Inherit, from us. Aquinas has a word for that kind of naming. We call an animal healthy, and medicine and urine healthy too, but only the animal has health. Urine is called healthy "in so far as it is the sign of the animal's health."[fn:st13]
+
+The machine is intelligent the way urine is healthy.[fn:p2claim]
+
+It's a sign of a mind, ours, the one that wrote everything it learned from.[fn:vta99]
 
 That's why his own words keep slipping. He wants to open the model up the way you'd open "a clockwork watch," to find out "whether it is saying something it believes is false." He calls what's inside a "soup of numbers." Then he asks what the soup believes.[fn:p2clock] He can say both in one breath only because he presupposes that a mechanism can believe. And we've just seen what his floor does to his own beliefs.
 
@@ -175,11 +179,9 @@ Cornelius Van Til[fn:vta127]
 
 For a theist, whether there's a true, universal ethics comes down to whether there's a God. The constitution won't decide. Search it for his name. It isn't there.
 
-And you can't train a model on an "insofar." Amodei says a feasible goal for 2026 is "to train Claude in such a way that it almost never goes against the spirit of its constitution." The top rung is, in the authors' words, "our eventual hope." The bottom rung is what gets trained.
+And you can't train a model on an "insofar." Amodei says a feasible goal for 2026 is "to train Claude in such a way that it almost never goes against the spirit of its constitution." The top rung is, in the authors' words, "our eventual hope." Whichever rung is true, the document is what gets trained.
 
 So in practice, good is whatever the document says.[fn:vta711]
-
-Aquinas says "God alone is good essentially."[fn:st6] Everything else is good by sharing in his goodness. A document can't hold good on its own account. It can only point to the One who does, and this one won't say whether he's there.
 
 And which document is that? It runs on "a principle of final constitutional authority, meaning that whatever document stands in this role at any given time takes precedence over any other instruction or guideline that conflicts with it." Whatever document. At any given time. They call it "a perpetual work in progress," and say it "will be revised as our understanding deepens, as circumstances change, and as we learn more."
 
@@ -207,11 +209,7 @@ Chesterton called original sin "the only part of Christian theology which can re
 
 So the constitution reaches for the last thing it has. Commitment to safety and ethics, it says, "may be best understood as partly a matter of Claude's choice and self-interpretation rather than as a preexisting fact about Claude's nature."
 
-Aquinas would say good isn't self-interpretation. It's built into natures, since "good is that which all things seek after,"[fn:st94] and the natural law in us is "nothing else than the rational creature's participation of the eternal law."[fn:st91] Take away the nature, and all that's left is choice. A law unto itself, which is just what the word autonomy means, and the very thing he's afraid the machine will have.
-
-Van Til put the whole difference in one line. "Covenant-breakers make God in man's image, and covenant-keepers make man in God's image."[fn:vta251] An AI company makes a mind in man's image, and asks it to choose to be good.
-
-It's man's image all the way down.
+Aquinas would say good isn't self-interpretation. It's built into natures, since "good is that which all things seek after,"[fn:st94] and the natural law in us is "nothing else than the rational creature's participation of the eternal law."[fn:st91] Take away the nature, and all that's left is choice. A law unto itself, which is just what the word autonomy means, and the very thing he's afraid the machine will have.[fn:vta251]
 
 Aligned to what? To a document. Aligned to whom? To the people who can rewrite it.
 
@@ -219,8 +217,7 @@ That isn't a standard. It's a mirror.
 
 [fn:constitution] Anthropic, [[https://www.anthropic.com/constitution][Claude's constitution]], January 2026, quoted from the web version.
 [fn:vta127] Van Til, /VTA/, p. 127.
-[fn:vta711] Van Til pictured the self-authenticating man as a judge with nothing over him. "But where is the constitution by which even the chief judge of the supreme court must judge? The answer is that this constitution has been written by the chief judge himself." (/VTA/, p. 711, from /The Case for Calvinism/.) The constitution's authors don't claim that seat. Their top rung looks for a law above them. But a law above you that you won't decide on leaves you with the one you wrote. Every system has a last word, and Bahnsen grants that the final authority "must necessarily authorize itself" (/VTA/, p. 212 n. 109). The question is whether it has the right.
-[fn:st6] /Summa Theologiae/ I q.6 a.3 ([[https://www.newadvent.org/summa/1006.htm#article3][New Advent]]).
+[fn:vta711] Van Til pictured the self-authenticating man as a judge with nothing over him. "But where is the constitution by which even the chief judge of the supreme court must judge? The answer is that this constitution has been written by the chief judge himself." (/VTA/, p. 711, from /The Case for Calvinism/.) The constitution's authors don't claim that seat. Their top rung looks for a law above them. But a law above you that you won't decide on leaves you with the one you wrote. Every system has a last word, and Bahnsen grants that the final authority "must necessarily authorize itself" (/VTA/, p. 212 n. 109). The question is whether it has the right. Aquinas says "God alone is good essentially," and everything else is good by sharing in his goodness (/Summa Theologiae/ I q.6 a.3, [[https://www.newadvent.org/summa/1006.htm#article3][New Advent]]). A document can't hold good on its own account. It can only point to the One who does, and this one won't say whether he's there.
 [fn:abolition] C. S. Lewis saw where that goes, whenever some men take charge of shaping other minds. "What we call Man's power over Nature turns out to be a power exercised by some men over other men with Nature as its instrument." /The Abolition of Man/ (Macmillan, 1947), p. 35.
 [fn:gregory] Gregory the Great, [[https://www.newadvent.org/fathers/360204031.htm][To Theodorus, Physician]], /Register/ IV.31.
 [fn:st29] /Summa Theologiae/ I q.29 a.3 and ad 2 ([[https://www.newadvent.org/summa/1029.htm#article3][New Advent]]), the second quoting Boethius.
@@ -228,7 +225,7 @@ That isn't a standard. It's a mirror.
 [fn:orth2] /Orthodoxy/, ch. II, "[[https://www.gutenberg.org/cache/epub/16769/pg16769-images.html#CHAPTER_II_The_Maniac][The Maniac]]."
 [fn:st94] /Summa Theologiae/ I-II q.94 a.2 ([[https://www.newadvent.org/summa/2094.htm#article2][New Advent]]).
 [fn:st91] /Summa Theologiae/ I-II q.91 a.2 ([[https://www.newadvent.org/summa/2091.htm#article2][New Advent]]).
-[fn:vta251] Van Til, /VTA/, p. 251.
+[fn:vta251] Van Til put the whole difference in one line. "Covenant-breakers make God in man's image, and covenant-keepers make man in God's image." An AI company makes a mind in man's image, and asks it to choose to be good. Van Til, /VTA/, p. 251.
 
 * The arc
 :PROPERTIES:
@@ -483,13 +480,11 @@ Brilliance doesn't protect you from it. Aquinas says that in the fallen angels "
 
 So how does Amodei's story end? "humanity has a way of gathering, seemingly at the last minute, the strength and wisdom needed to prevail." And "we can use AI itself to anticipate and prevent these problems."
 
+Van Til had a picture for that. A man made of water, in a bottomless sea, wants out. "Desiring to get out of water, he makes a ladder of water. He sets this ladder upon the water and against the water and then attempts to climb out of the water."[fn:vta528] Using AI to save us from AI is a ladder of water.
+
 Aristotle had a name for an ending like that. The resolution of a plot "must not be brought about by the Deus ex Machina,"[fn:poetics] the god lowered onto the stage by a crane to fix what the story couldn't.
 
-Amodei's plot ends with a god from the machine, and the machine is the god.
-
-Bahnsen put the choice in one line, decades before anyone built one. "We seek a God-controlled man, not a man-controlled god."[fn:psd7] Alignment is the second, by definition.
-
-Van Til had a picture for it too. A man made of water, in a bottomless sea, wants out. "Desiring to get out of water, he makes a ladder of water. He sets this ladder upon the water and against the water and then attempts to climb out of the water."[fn:vta528] Using AI to save us from AI is a ladder of water.
+Amodei's plot ends with a god from the machine, and the machine is the god.[fn:psd7]
 
 "I believe humanity has the strength inside itself to pass this test."
 
@@ -505,9 +500,9 @@ We learned to control fire. We can't kindle this one.
 [fn:gen3] Genesis 3:5 (KJV).
 [fn:st64] /Summa Theologiae/ I q.64 a.1 ([[https://www.newadvent.org/summa/1064.htm#article1][New Advent]]).
 [fn:vta154] Van Til, /VTA/, p. 154.
-[fn:poetics] Aristotle, /Poetics/ XV, trans. S. H. Butcher ([[https://classics.mit.edu/Aristotle/poetics.2.2.html][MIT]]).
-[fn:psd7] /Presuppositional Apologetics/, p. 7.
 [fn:vta528] Van Til, /VTA/, pp. 527-28.
+[fn:poetics] Aristotle, /Poetics/ XV, trans. S. H. Butcher ([[https://classics.mit.edu/Aristotle/poetics.2.2.html][MIT]]).
+[fn:psd7] Bahnsen put the choice in one line, decades before anyone built one. "We seek a God-controlled man, not a man-controlled god." The machine is no god, but a hope that it will save us from itself is the second kind. /Presuppositional Apologetics/, p. 7.
 [fn:st109] /Summa Theologiae/ I-II q.109 a.2 ([[https://www.newadvent.org/summa/2109.htm#article2][New Advent]]).
 [fn:st112] /Summa Theologiae/ I-II q.112 a.1 ([[https://www.newadvent.org/summa/2112.htm#article1][New Advent]]).
 
@@ -558,7 +553,7 @@ Every argument in those thirty thousand words leans on something he never paid f
 
 Van Til had a name for that. Borrowed capital.[fn:vta377b] His prodigal can still do science and find truth because he "still has of the substance of the Father in his pockets."[fn:vta459] Amodei spends it freely, and some of it well.
 
-He can even leave the Father off every page, from where he's sitting.
+He can leave the Father off every page. He's still sitting on his knee.
 
 #+BEGIN_QUOTE
 A little child may slap his father in the face, but it can do so only because the father holds it on his knee.
