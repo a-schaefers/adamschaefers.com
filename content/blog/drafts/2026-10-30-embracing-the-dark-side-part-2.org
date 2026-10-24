@@ -295,7 +295,7 @@ No faith required.
 
 Noble leaves one door open, and it's the best objection this post faces. "The equivalent to the human writing a program for a computer is the evolutionary process."[fn:noble260] If evolution can play programmer, why can't training?
 
-Because training has a programmer. A training objective is someone's choice of what counts as right, the way a breeder picks which pups to keep. Evolution, on Aristotle's view, works through natures that already have ends. Training works on a thing with none, toward ends someone else picked.
+Because training has a programmer. A training objective is someone's choice of what counts as right, the way a breeder picks which pups to keep. Natural selection has no one choosing. It explains anything at all, Feser argues, only because the natures it sifts are already for something. Training works on a thing with none, toward ends someone else picked.
 
 Noble stops short of the intellect, mind you. The mind "is not my brain. It is not a material substance," he writes. Yet reasoning "is what animals do." He gets purpose back into biology and stops at the door this post walks through.
 
@@ -381,6 +381,8 @@ Pierre Teilhard de Chardin, a Jesuit and a paleontologist, made evolution a law 
 Read that twice. It's the AI pitch, seventy years early. Pile up enough complexity, arranged well enough, and a mind comes out.
 
 Swap living matter for parameters, and it's the believers' pitch.
+
+My quarrel is with that one step, from complexity to mind, not with all he wrote.
 
 His heirs say it out loud. Robert Wright, writing about AI in 2023, boiled it down to eight words. "Artificial intelligence is the crystallization of the noosphere," Teilhard's name for the planet's layer of thought.[fn:wright] David Sloan Wilson calls his own book on evolution "an updated version of The Phenomenon of Man."[fn:wilson]
 
