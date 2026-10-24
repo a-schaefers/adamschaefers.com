@@ -146,7 +146,7 @@ Grant that nothing gives itself what it doesn't have. The machine doesn't have t
 
 And nature has done it all along. Chemistry became life, life became animals, and animals, on most accounts, became us, one horizontal cause after another. So either the principle forbids every new kind in nature, which is absurd, or it allows them, and then why not a mind in a machine?
 
-That's fair to Part 1's wording, read loosely. "Never in kind" sounds like no new kind of anything, ever. Aquinas never said that. For the things we make, it holds, since art only adds accidents. Nature does bring forth new kinds. The line he never moves is the mind.[fn:p1one]
+That's fair to Part 1's wording, read loosely. "Never in kind" sounds like no new kind of anything, ever. Aquinas never said that. For the things we make, it holds, since art only adds accidents. Nature, many would say, brings forth new kinds. The line he never moves is the mind.[fn:p1one]
 
 Start with the things we make. A compiler isn't an adder, and a learning algorithm is neither. Their forms are real, and Aristotle is the last man who'd say it's all just atoms. But they're forms of art. "In artifacts the matter alone is held to be substance, whereas the forms of artifacts are accidents," Aquinas says, and art "operates only on that which is already constituted in existence by nature."[fn:art] A model can rewrite itself into a new sort of tool forever. It's still the machine, arranged.
 
