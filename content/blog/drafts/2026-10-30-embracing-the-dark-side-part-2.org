@@ -6,6 +6,14 @@
 
 So here's how far it goes, what would prove Aristotle wrong, and how to read the AI companies in the meantime.
 
+1. [[#claim][What they claim]] - degree without a ceiling and never a mind, and why it hangs on Ross.
+2. [[#far][How far can it go]] - the work of every servant there is, and still no will of its own.
+3. [[#wrong][What would prove them wrong]] - an argument, not a demo, and the one test worth watching.
+4. [[#give][Couldn't we give it one?]] - the engineer can't, and evolution only gets you a body.
+5. [[#believe][When not to believe them]] - follow the money, and trust the claims that cost them.
+6. [[#npc][The likely world]] - AI won't become human, humans will become NPCs.
+7. [[#evolution][A note on evolution]] - where people stand, and why the argument holds wherever you do.
+
 * What they claim
 :PROPERTIES:
 :CUSTOM_ID: claim
