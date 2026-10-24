@@ -8,6 +8,7 @@
 //   /inquiries/  /sitemap/
 //   /privacy-policy/  /terms-of-service/ (linked from the footer)
 //   /blog/  /blog/2/  /blog/<entry slug>/, and the same under /off-the-clock/
+//   (and in a local build, /blog/<draft slug>/: the address it will have once it's live)
 //   /#license/<Stripe checkout id>, where Stripe sends a license buyer back (private: no page)
 // Any other path gets 404.html, which shows Page not found.
 // Links to a view switch to it here. A view's old hash route (/#store, still in links out
@@ -28,11 +29,15 @@ import { copyLink } from './copylink.ts';
 // The #site-data JSON (site.el): index.org's :view: sections and the collections.
 interface Section { id: string; title: string; html: string; description: string; image: string }
 interface Entry {
-    slug: string; date: string; dateLabel: string; title: string; excerpt: string; html: string;
+    slug: string; date?: string; dateLabel?: string; title: string; excerpt: string; html: string;
     video?: string; featured?: string; caption?: string; poster?: string; image?: string;
     hls?: string; // the video's (or featured video's) HLS playlist, when it has one (src/video.ts)
+    draft?: boolean; // in drafts/ (only a local build has them); its date, if it has one, is the one it's meant for
 }
-interface Collection { title: string; description: string; image: string; intro: string; perPage: number; entries: Entry[] }
+interface Collection {
+    title: string; description: string; image: string; intro: string; perPage: number; entries: Entry[];
+    drafts?: Entry[]; // a local build's drafts (site.el's site--drafts-p), never the site's
+}
 interface SiteData { views: Section[]; collections: Record<string, Collection>; tabs: Record<string, string>; feed: string; hlsjs: string }
 // A view in the menu (TABS) or off it (PAGES).
 interface View {
@@ -41,14 +46,15 @@ interface View {
 }
 // What an address names: a view (its tab), and in a collection a page of its listing or an
 // entry; Stripe's thank-you page (session); a path that names nothing (path).
-interface Route { tab: string; page?: number; entry?: number; session?: string; path?: string; hash?: boolean }
+interface Route { tab: string; page?: number; entry?: number; draft?: number; session?: string; path?: string; hash?: boolean }
 
 const SITE = 'Adam Schaefers';
 const data: SiteData = JSON.parse(document.getElementById('site-data')!.textContent!);
 const sections = Object.fromEntries(data.views.map(v => [v.id, v]));
 // Collections (blog.org and blog/, off-the-clock.org and off-the-clock/): dated entries,
 // newest first, listed a page at a time. An entry with a video is shown as that video.
-// One RSS feed (data.feed) carries every collection.
+// One RSS feed (data.feed) carries every collection. A local build has their drafts too
+// (blog/drafts/), listed above the entries on the first page.
 const collections = data.collections;
 
 // Menu tabs, in the menu's order (site-tabs in site.el draws the menu: each tab's address,
@@ -94,7 +100,9 @@ function parse(route: string): Route | null {
     if (rest === undefined) return { tab: name, page: 1 };
     if (/^\d+$/.test(rest)) return { tab: name, page: Math.min(Math.max(Number(rest), 1), pageCount(c)) };
     const i = c.entries.findIndex(e => e.slug === rest);
-    return i < 0 ? null : { tab: name, entry: i };
+    if (i >= 0) return { tab: name, entry: i };
+    const d = c.drafts?.findIndex(e => e.slug === rest) ?? -1;
+    return d < 0 ? null : { tab: name, draft: d };
 }
 
 function decode(s: string) {
@@ -119,7 +127,9 @@ const pageHref = (route: string, n: number) => address(route, n > 1 ? n : '');
 function addressOf(r: Route): string {
     if (r.tab === 'license') return `/#license/${r.session}`;
     if (r.tab === 'not-found') return r.path!;
-    if (r.entry !== undefined) return address(r.tab, collections[findView(r.tab)!.collection!].entries[r.entry].slug);
+    const c = collections[findView(r.tab)?.collection ?? ''];
+    if (r.entry !== undefined) return address(r.tab, c.entries[r.entry].slug);
+    if (r.draft !== undefined) return address(r.tab, c.drafts![r.draft].slug);
     return pageHref(r.tab, r.page || 1);
 }
 
@@ -171,6 +181,12 @@ const featured = (e: Entry) => html`
     </figure>`;
 const thumb = (e: Entry) => e.featured && (isVideo(e.featured) ? e.poster : e.featured);
 
+// Where an entry's date goes (CLS places it): its date, or for a draft, Draft (and the date
+// it's meant for).
+const dated = (e: Entry, cls: string) => e.draft
+    ? html`<span class="${cls} font-semibold text-chile">Draft${e.dateLabel ? html` <span class="font-normal text-dust">· ${e.dateLabel}</span>` : nothing}</span>`
+    : html`<time class="${cls} text-dust" datetime=${e.date}>${e.dateLabel}</time>`;
+
 // A post's pictures, its featured one and those in its text (not one a link wraps), grow into
 // a large view on a click, the way the profile photo does (zoom.ts). Each one's dialog goes
 // after its figure, out of reach of the figure's styles.
@@ -195,17 +211,22 @@ function linkHeadings(root: ParentNode) {
 const entry = (route: string, e: Entry) => e.video ? html`
     <li class="travelog [&_p]:m-0 [&_p]:text-[.9rem] [&_p]:text-dust">
         ${video(e)}
-        <time class="mt-[.6rem] block text-[.85rem] text-dust" datetime=${e.date}>${e.dateLabel}</time>
+        ${dated(e, 'mt-[.6rem] block text-[.85rem]')}
         <h3 class="mx-0 mt-[.1rem] mb-[.35rem] text-[1.15rem] leading-[1.2] font-[750] font-stretch-85%"><a class=${TITLE_LINK} href=${address(route, e.slug)}>${e.title}</a></h3>
         ${unsafeHTML(e.excerpt)}
     </li>` : html`
     <li class="entry flow-root border-t border-t-ridge py-7 [&_p]:m-0 [&_p]:mb-3 [&_p]:text-bone">
         ${thumb(e) ? html`<a class="float-right mb-2 ml-6 w-32 narrow:w-24" href=${address(route, e.slug)} tabindex="-1" aria-hidden="true"><img class="block aspect-[4/5] w-full bg-mesa object-cover" src=${thumb(e)} alt="" loading="lazy"></a>` : nothing}
-        <time class="text-[.9rem] text-dust" datetime=${e.date}>${e.dateLabel}</time>
+        ${dated(e, 'text-[.9rem]')}
         <h3 class="mx-0 mt-1 mb-[.6rem] text-[1.45rem] leading-[1.2] font-[750] font-stretch-85% tracking-[-.01em]"><a class=${TITLE_LINK} href=${address(route, e.slug)}>${e.title}</a></h3>
         ${unsafeHTML(e.excerpt)}
         <a class="text-[.95rem] font-semibold" href=${address(route, e.slug)}>Read post →</a>
     </li>`;
+
+// A page of a listing's entries (or its drafts).
+const entries = (route: string, shown: Entry[]) => html`<ol class=${shown.some(e => e.video)
+    ? 'travelogs m-0 mt-6 grid list-none grid-cols-[repeat(2,minmax(0,17rem))] gap-x-4 gap-y-8 p-0'
+    : 'entries m-0 mt-6 list-none p-0'}>${shown.map(e => entry(route, e))}</ol>`;
 
 function listing(route: string, c: Collection, page: number) {
     const pages = pageCount(c);
@@ -215,10 +236,14 @@ function listing(route: string, c: Collection, page: number) {
         <h2>${c.title}</h2>
         ${unsafeHTML(c.intro)}
         <p class="m-0"><a class="inline-flex items-center gap-[.4rem] text-[.9rem] font-semibold text-dust no-underline hover:text-turq [&>svg]:size-4" href=${data.feed}>${icon(RSS_ICON)}RSS feed</a></p>
+        ${page === 1 && c.drafts?.length ? html`
+        <section class="drafts mt-8" aria-label="Drafts">
+            <h3 class="m-0 text-[1.1rem] font-[750] text-chile">Drafts</h3>
+            <p class="m-0 mt-1 text-[.9rem] text-dust">Only a local build shows these. The site never has them.</p>
+            ${entries(route, c.drafts)}
+        </section>` : nothing}
         ${shown.length
-            ? html`<ol class=${shown.some(e => e.video)
-                ? 'travelogs m-0 mt-6 grid list-none grid-cols-[repeat(2,minmax(0,17rem))] gap-x-4 gap-y-8 p-0'
-                : 'entries m-0 mt-6 list-none p-0'}>${shown.map(e => entry(route, e))}</ol>`
+            ? entries(route, shown)
             : html`<div class=${NOTE_CARD}>
                 <p class="m-0 text-[1.35rem] font-[750] font-stretch-85% text-sand">Nothing here yet.</p>
                 <p class="m-0">Watch this space. The RSS feed will tell you when the first post lands.</p>
@@ -232,14 +257,16 @@ function listing(route: string, c: Collection, page: number) {
     </div>`;
 }
 
-function single(route: string, label: string, c: Collection, i: number) {
-    const e = c.entries[i], newer = c.entries[i - 1], older = c.entries[i + 1];
+// An entry, or with draft, a draft (no newer or older: it's in no order yet).
+function single(route: string, label: string, c: Collection, i: number, draft?: boolean) {
+    const e = draft ? c.drafts![i] : c.entries[i];
+    const newer = draft ? undefined : c.entries[i - 1], older = draft ? undefined : c.entries[i + 1];
     return html`
     <article class="outline-2 post flow-root">
         <header class="mb-10">
-            <a class="mb-5 inline-block text-[.9rem] font-semibold text-dust no-underline hover:text-turq" href=${pageHref(route, Math.floor(i / c.perPage) + 1)}>← ${label}</a>
+            <a class="mb-5 inline-block text-[.9rem] font-semibold text-dust no-underline hover:text-turq" href=${pageHref(route, draft ? 1 : Math.floor(i / c.perPage) + 1)}>← ${label}</a>
             <h2 class="mx-0 mt-0 mb-[.9rem] text-[clamp(2rem,4.6vw,3rem)] leading-[1.02] font-extrabold font-stretch-75% tracking-[-.02em]">${e.title}</h2>
-            <time class="block text-dust" datetime=${e.date}>${e.dateLabel}</time>
+            ${dated(e, 'block')}
         </header>
         ${e.video ? video(e, 'mb-6') : nothing}
         ${e.featured ? featured(e) : nothing}
@@ -302,6 +329,7 @@ function view(r: Route) {
     const t = findView(r.tab)!;
     if (t.collection) {
         const c = collections[t.collection];
+        if (r.draft !== undefined) return single(t.route, t.label, c, r.draft, true);
         return r.entry === undefined ? listing(t.route, c, r.page!) : single(t.route, t.label, c, r.entry);
     }
     return t.sections!.map(id => section(sections[id]));
@@ -314,6 +342,7 @@ function title(r: Route) {
     if (r.tab === 'not-found') return `Page not found · ${SITE}`;
     const t = findView(r.tab)!;
     if (r.entry !== undefined) return `${collections[t.collection!].entries[r.entry].title} · ${SITE}`;
+    if (r.draft !== undefined) return `${collections[t.collection!].drafts![r.draft].title} · ${SITE}`;
     if (r.page! > 1) return `${t.label}, page ${r.page} · ${SITE}`;
     return `${t.label} · ${SITE}`;
 }

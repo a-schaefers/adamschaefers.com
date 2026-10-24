@@ -131,6 +131,30 @@ note link to each other.
 Links out of the site open in a new tab. The index file holds the
 collection's title, intro and `#+POSTS_PER_PAGE` (Off the clock: 12).
 
+Drafts (2026-10-24) are entries in a collection's `drafts/` folder
+(`content/blog/drafts/2026-11-01-slug.org`), named like any entry (one with no
+date is allowed, listed first, with no date); publishing one is moving it up
+into `content/blog/`. A draft is at the address it will have when live
+(`/blog/2026-11-01-slug/`), so links to it work locally and keep working after
+the move. Only a local build has them (`site--drafts-p` in `site.el`): `make
+run` always, and `make build` unless `DRAFTS=0`. They are listed above the
+entries on the listing's first page, each marked Draft (with its date, if it
+has one), and open at their addresses; they are never in `rss.xml` or
+`sitemap.xml`. A build with `CI` set (GitHub Actions sets it) or `DRAFTS=0`
+reads nothing in `drafts/`, and `scripts/dist.sh` copies none of the folder's
+files (it copies them only beside built drafts, `build/drafts.txt`, and never
+its `.KEEP`, which keeps the empty folder in git). So drafts can sit on
+`master`, and the merge puts none of them on the site (the repository is
+public, though: GitHub shows them to anyone who looks). A draft's own picture
+goes in its `drafts/` folder (`[[file:blog/drafts/photo.jpg]]`; tracked, as
+dist copies only what git knows) and stays off the site; when the draft goes
+live, move the picture up beside it and drop `drafts/` from its link.
+`DRAFTS=0 make build` builds exactly what the site serves, and `make check`
+builds that way: its `check-dist` fails if anything from a
+`drafts/` folder (a file, a draft's page, listing entry, `#site-data` entry,
+feed item or sitemap entry) is in `public/` or `build/`, so it fails after a
+local `make build` with drafts.
+
 The build also writes `rss.xml`, one feed for both collections (a reader
 subscribes once): every entry in full, newest first, tagged with its
 collection as `<category>`, site-relative links made absolute against
@@ -365,9 +389,9 @@ a Worker secret (`wrangler secret put TURNSTILE_SECRET`), not in the repo.
 
 Checks and where they run (owner, 2026-10-11: no slow suites on this old
 machine when CI already runs them). `make check` is CI's required check
-(`.claude/rules/cicd.md`): the build, every link, the types, the Workers'
-tests and the workflows' rules, in seconds, so running it before shipping is
-cheap. A headless-browser look is worth it after changing `src/` or the styles
+(`.claude/rules/cicd.md`): the build (without the drafts), every link, no
+draft, the types, the Workers' tests and the workflows' rules, in seconds, so
+running it before shipping is cheap. A headless-browser look is worth it after changing `src/` or the styles
 (`site.css`, or a template's classes), not after editing words. In
 ../backseat-driver, don't run its whole suite locally (`npm run check`,
 `npm test`): its pull requests' required `check` runs it on GitHub. Run there
@@ -388,7 +412,7 @@ pages it answers; it is never in `build/` or `public/`, so never on the site.
 A failed build shows its error over the page. `scripts/dist.sh` updates
 `public/` in place (wrangler stops watching a folder that is deleted), so a
 `make build` elsewhere shows too. Videos come from the media domain, so they
-play locally too.
+play locally too. It always shows the drafts (above), whatever `DRAFTS` says.
 
 Secrets: those the Workers use are Worker secrets (Cloudflare), with no copy
 kept: a lost or leaked one is made again, not restored (`.claude/rules/cicd.md`,

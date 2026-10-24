@@ -17,10 +17,16 @@
 // version.json names exactly the script and styles every page loads (src/version.ts asks it
 // whether an open tab is behind a deploy).
 //
+// And no draft: nothing from a collection's drafts/ folder (content/blog/drafts/) may be in
+// public/ or build/, neither a file of the folder (its .KEEP, a picture) nor anything of a
+// draft in it (its page, its place in a listing or #site-data, its feed item, its sitemap
+// entry, the build's list of drafts). Only a local build has them (site.el's site--drafts-p):
+// CI's and make check's (DRAFTS=0) never do, and one that did fails here before it ships.
+//
 //   node scripts/check-dist.ts             MEDIA_ORIGIN overrides https://media.adamschaefers.com
 
 import { createHash } from 'node:crypto';
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 const ROOT = new URL('..', import.meta.url).pathname;
@@ -51,6 +57,40 @@ const files = new Map(paths.map((p) => [relative(PUBLIC, p), p]));
 for (const page of ['index.html', '404.html']) if (!files.has(page)) fail(`public/ has no ${page}`);
 const big = [...files].filter(([, p]) => statSync(p).size > LIMIT).map(([k]) => k);
 if (big.length) fail(`over 25 MiB, too big for a static asset (upload it at /admin instead): ${big.join(', ')}`);
+
+// No draft. Each draft is known by its collection's folder (its route) and its slug, found
+// on disk, so a draft is caught whatever the build made of it.
+{
+  const CONTENT = join(ROOT, 'content');
+  const BUILD = join(ROOT, 'build');
+  const drafts = readdirSync(CONTENT, { withFileTypes: true })
+    .filter((d) => d.isDirectory() && existsSync(join(CONTENT, d.name, 'drafts')))
+    .flatMap((d) => readdirSync(join(CONTENT, d.name, 'drafts'))
+      .filter((n) => n.endsWith('.org') && !/^[.#]/.test(n))
+      .map((n) => ({ route: d.name, slug: n.slice(0, -'.org'.length) })));
+  const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const leaks: string[] = [];
+  for (const [key] of files) if (/^[^/]+\/drafts\//.test(key)) leaks.push(`public/${key}: a drafts/ folder's file`);
+  const texts = [...[...files].map(([k, p]) => [`public/${k}`, p]),
+    ...(existsSync(BUILD) ? walk(BUILD).map((p) => [relative(ROOT, p), p]) : [])]
+    .filter(([k]) => /\.(html|xml|txt|json)$/.test(k) && !k.startsWith('build/dist/'));
+  for (const [key, path] of texts) {
+    const text = readFileSync(path, 'utf8');
+    if (key === 'build/drafts.txt' && text.trim()) leaks.push(`${key}: lists drafts (${text.trim().split('\n').join(', ')})`);
+    if (/"draft":true/.test(text)) leaks.push(`${key}: an entry marked draft`);
+    for (const m of text.matchAll(/(?<![\w-])([\w-]+)\/drafts\//g)) leaks.push(`${key}: names ${m[1]}/drafts/`);
+    for (const { route, slug } of drafts) {
+      if (new RegExp(`(?<![\\w-])${escape(route)}/${escape(slug)}(?![\\w.-])|"slug":"${escape(slug)}"`).test(text)) {
+        leaks.push(`${key}: has the draft ${route}/drafts/${slug}.org`);
+      }
+    }
+  }
+  if (leaks.length) {
+    const shown = [...new Set(leaks)];
+    fail(`${shown.length} draft leak(s) (a drafts/ folder reached the site; build it as CI does, DRAFTS=0 make build):\n  ${
+      shown.slice(0, 12).join('\n  ')}${shown.length > 12 ? `\n  ...and ${shown.length - 12} more` : ''}`);
+  }
+}
 
 const exists = (path: string) => path === '' ? files.has('index.html')
   : path.endsWith('/') ? files.has(`${path}index.html`)

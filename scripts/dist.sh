@@ -8,7 +8,9 @@
 # fonts, from their npm packages). From the repository: static/, served as it is at the
 # site root (images, me.jpeg, robots.txt; not its README), and every tracked file under
 # content/ that isn't Org (a travelog's poster, an entry's own files), at its path under
-# the site root (content/off-the-clock/evia.jpg at /off-the-clock/evia.jpg). Nothing else: the TypeScript,
+# the site root (content/off-the-clock/evia.jpg at /off-the-clock/evia.jpg), but a drafts/ folder's
+# only when the build has drafts (site.el lists them in build/drafts.txt: a local build, never CI's),
+# and never its .KEEP. Nothing else: the TypeScript,
 # node_modules, the Org sources, the Workers, the scripts and the docs stay out. Videos and uploads live in R2
 # (media.adamschaefers.com), not here. Then _redirects, a _headers that keeps every
 # hashed file for good, and version.json: the hashes of the script and styles pages load,
@@ -36,7 +38,10 @@ copy() { # copy FILE [NAME]: FILE into the assembly as NAME (default FILE)
 
 for f in index.html 404.html rss.xml sitemap.xml $(cat build/share-pages.txt); do copy "build/$f" "$f"; done
 git ls-files -- static ':(exclude)*.md' | while read -r f; do copy "$f" "${f#static/}"; done
-git ls-files -- content ':(exclude)*.org' | while read -r f; do copy "$f" "${f#content/}"; done
+# A draft's pictures, in its drafts/ folder, only beside the drafts themselves.
+drafts=":(exclude)content/*/drafts/**"
+[ ! -s build/drafts.txt ] || drafts=":(exclude)content/*/drafts/.KEEP"
+git ls-files -- content ':(exclude)*.org' "$drafts" | while read -r f; do copy "$f" "${f#content/}"; done
 while read -r file hashed; do
   copy "$file" "$hashed"
   # A source map keeps its plain name beside the hashed file (the name the file gives it).

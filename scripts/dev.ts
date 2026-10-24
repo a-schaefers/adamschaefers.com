@@ -12,10 +12,10 @@
 //   static/, site-worker/_headers, _redirects     dist only
 //   site-worker/src/admin-page.*                  the admin page (wrangler reloads the Worker)
 //
-// reruns just those steps; once wrangler serves the new index.html, the socket says
-// "reload". A failed build sends its error instead, shown over the page until the next
-// build works. None of this reaches the site: the script exists only in this proxy's
-// answers, never in build/ or public/.
+// reruns just those steps (a draft, under content/*/drafts/, like any entry); once
+// wrangler serves the new index.html, the socket says "reload". A failed build sends its
+// error instead, shown over the page until the next build works. None of this reaches the
+// site: the script exists only in this proxy's answers, never in build/ or public/.
 //
 //   node scripts/dev.ts            PORT overrides 8000
 
@@ -28,6 +28,8 @@ import { createServer as createNetServer, type Socket } from 'node:net';
 const ROOT = new URL('..', import.meta.url).pathname;
 const PORT = Number(process.env.PORT || 8000);
 const SOCKET = '/__dev';
+// The drafts are always in (site.el's site--drafts-p), whatever DRAFTS the shell has.
+process.env.DRAFTS = '1';
 
 type Step = 'site' | 'workers' | 'org' | 'dist';
 const STEPS: Record<Step, [string, string[]]> = {

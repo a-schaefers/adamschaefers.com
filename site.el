@@ -25,6 +25,14 @@
 ;; it).  The index file holds the collection's title, intro text and
 ;; #+POSTS_PER_PAGE.
 ;;
+;; Each collection's drafts/ folder (content/blog/drafts/) holds its drafts,
+;; named like any entry: publishing one is moving it up a folder.  A draft
+;; is at the address it will have when live (/blog/<slug>/), so links to it
+;; keep working after the move.  Only a local build has them (`site--drafts-p'):
+;; they are listed above the entries, marked as drafts, and kept out of the
+;; feed and the sitemap.  A build in CI, or with DRAFTS=0, reads nothing in
+;; drafts/, and scripts/dist.sh publishes none of its files.
+;;
 ;; The build also writes rss.xml, one feed of every collection's entries in
 ;; full, and sitemap.xml.  Everything it writes goes to build/ (`site-out'),
 ;; beside the script and styles scripts/build.ts compiled there, and
@@ -59,6 +67,13 @@ travelog's poster) at /<route>/<file>.")
   "The one feed: every collection's entries, newest first.")
 (defconst site-entry-re
   "\\`\\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\)-\\(.+\\)\\.org\\'")
+(defconst site-drafts "drafts/"
+  "Each collection's folder of drafts, in its entry folder (content/blog/drafts/).")
+(defconst site-draft-re "\\`[^.#].*\\.org\\'"
+  "A draft's file: dated as an entry is, or with no date (`site--draft-files').")
+(defconst site-draft-list "drafts.txt"
+  "The drafts this build has, their Org files a line in `site-out' (none in CI):
+scripts/dist.sh publishes the drafts/ folders' other files only beside them.")
 (defconst site-default-per-page 10)
 (defconst site-url "https://adamschaefers.com/")
 (defconst site-asset-list "assets.txt"
@@ -330,16 +345,34 @@ the page itself uses, gets a number."
   "Whether ADDRESS names a video (by its extension)."
   (string-match-p "\\.\\(mp4\\|webm\\|m4v\\|mov\\)\\'" address))
 
-(defun site--entries (route dir)
-  "Every entry in DIR, newest first.  ROUTE seeds their heading ids."
+(defun site--drafts-p ()
+  "Whether this build has the drafts: a local one (make run, make build), not CI's
+(CI set, as GitHub Actions sets it), nor one with DRAFTS set to anything but 1
+(DRAFTS=0 make build: what the site serves)."
+  (and (member (getenv "CI") '(nil ""))
+       (member (getenv "DRAFTS") '(nil "" "1"))))
+
+(defun site--draft-files (dir)
+  "The drafts in DIR's `site-drafts' folder: those without a date first, then the
+dated ones newest first, as entries are listed.  None unless `site--drafts-p'."
+  (let* ((drafts (expand-file-name site-drafts dir))
+         (files (and (site--drafts-p) (file-directory-p drafts)
+                     (directory-files drafts nil site-draft-re))))
+    (append (seq-remove (lambda (f) (string-match-p site-entry-re f)) files)
+            (reverse (seq-filter (lambda (f) (string-match-p site-entry-re f)) files)))))
+
+(defun site--entries (route dir &optional drafts)
+  "Every entry in DIR, newest first; with DRAFTS, its drafts instead
+(`site--draft-files'), each marked draft.  ROUTE seeds their heading ids."
   (let ((org-export-filter-link-functions '(site--new-tab))
         entries)
-    (dolist (file (and (file-directory-p dir)
-                       (directory-files dir nil site-entry-re)))
-      (string-match site-entry-re file)
-      (let ((date (match-string 1 file))
-            (name (match-string 2 file))
-            (slug (file-name-sans-extension file)))
+    (dolist (file (if drafts (site--draft-files dir)
+                    (and (file-directory-p dir) (reverse (directory-files dir nil site-entry-re)))))
+      (let* ((dated (string-match site-entry-re file))
+             (date (and dated (match-string 1 file)))
+             (name (if dated (match-string 2 file) (file-name-sans-extension file)))
+             (slug (file-name-sans-extension file))
+             (dir (if drafts (expand-file-name site-drafts dir) dir)))
         (with-temp-buffer
           (insert-file-contents (expand-file-name file dir))
           (setq default-directory (expand-file-name dir))
@@ -356,8 +389,7 @@ the page itself uses, gets a number."
                  (image (or (site--keyword "IMAGE")
                             (and featured (string-match-p "\\.\\(jpe?g\\|png\\)\\'" featured) featured))))
             (push `((slug . ,slug)
-                    (date . ,date)
-                    (dateLabel . ,(site--date-label date))
+                    ,@(and date `((date . ,date) (dateLabel . ,(site--date-label date))))
                     (title . ,(or (site--keyword "TITLE") (site--slug-title name)))
                     (excerpt . ,(if excerpt
                                     (string-trim (org-export-string-as excerpt 'html t))
@@ -377,22 +409,30 @@ the page itself uses, gets a number."
                     ,@(and poster `((poster . ,poster)))
                     ,@(let ((stream (or video (and featured (site--video-p featured) featured))))
                         (and stream (site--hls stream) `((hls . ,(site--hls stream)))))
-                    ,@(and image `((image . ,image))))
+                    ,@(and image `((image . ,image)))
+                    ,@(and drafts '((draft . t))))
                   entries)))))
-    entries))
+    (nreverse entries)))
 
 (defun site--collection (route plist)
-  "Collection ROUTE: its index file's title, intro and page size, and entries."
+  "Collection ROUTE: its index file's title, intro and page size, and entries, and
+its drafts when the build has them (`site--drafts-p')."
   (with-temp-buffer
     (insert-file-contents (plist-get plist :index))
     (org-mode)
-    (let ((per-page (string-to-number (or (site--keyword "POSTS_PER_PAGE") ""))))
+    (let* ((per-page (string-to-number (or (site--keyword "POSTS_PER_PAGE") "")))
+           (entries (site--entries route (plist-get plist :dir)))
+           (drafts (site--entries route (plist-get plist :dir) t)))
+      (dolist (d drafts)
+        (when (seq-find (lambda (e) (equal (alist-get 'slug e) (alist-get 'slug d))) entries)
+          (error "site: %s%s%s.org is live already, at the same address" (plist-get plist :dir) site-drafts (alist-get 'slug d))))
       `((title . ,(or (site--keyword "TITLE") (plist-get plist :name)))
         (description . ,(or (site--keyword "DESCRIPTION") ""))
         (image . ,(or (site--keyword "IMAGE") ""))
         (intro . ,(site--body-html (symbol-name route)))
         (perPage . ,(if (> per-page 0) per-page site-default-per-page))
-        (entries . ,(vconcat (site--entries route (plist-get plist :dir))))))))
+        (entries . ,(vconcat entries))
+        ,@(and drafts `((drafts . ,(vconcat drafts))))))))
 
 ;;; RSS
 
@@ -645,12 +685,32 @@ its label in the bottom bar.")
            (format "<meta name=\"twitter:image\" content=\"%s\">" image))
      "\n")))
 
+(defun site--fallback (views)
+  "The preview text a page without its own falls back on: the About section's."
+  (site--summary (alist-get 'html (seq-find (lambda (v) (equal (alist-get 'id v) "about")) views))))
+
+(defun site--entry-page (route entry fallback)
+  "ENTRY's page in collection ROUTE (as `site--share-pages' lists it)."
+  (let ((excerpt (site--summary (alist-get 'excerpt entry))))
+    (list (concat route "/" (alist-get 'slug entry))
+          (site--plain-title (alist-get 'title entry))
+          (if (string-empty-p excerpt) fallback excerpt)
+          (or (alist-get 'image entry) (alist-get 'poster entry) site-share-image) "article")))
+
+(defun site--draft-pages (views collections)
+  "The drafts' pages, as `site--share-pages' lists pages: not in the sitemap."
+  (let ((fallback (site--fallback views)))
+    (mapcan (lambda (c)
+              (mapcar (lambda (d) (site--entry-page (symbol-name (car c)) d fallback))
+                      (alist-get 'drafts (cdr c))))
+            collections)))
+
 (defun site--share-pages (views collections)
   "Every page to make: (PATH TITLE DESCRIPTION IMAGE TYPE [ADDRESS]), PATH under
 the site root and the view's address in src/app.ts.  With ADDRESS, PATH is an old
 address of that page (a product's /<id>/, from before /store/<id>/): the same
 page, its preview naming ADDRESS, and not in the sitemap."
-  (let ((fallback (site--summary (alist-get 'html (seq-find (lambda (v) (equal (alist-get 'id v) "about")) views)))))
+  (let ((fallback (site--fallback views)))
     (append
      ;; Views, and the products in them.
      (mapcan
@@ -695,12 +755,7 @@ page, its preview naming ADDRESS, and not in the sitemap."
            (list (list route title description image "website"))
            (mapcar (lambda (n) (list (format "%s/%d" route n) (format "%s, page %d" title n) description image "website"))
                    (number-sequence 2 pages))
-           (mapcar (lambda (e)
-                     (let ((excerpt (site--summary (alist-get 'excerpt e))))
-                       (list (concat route "/" (alist-get 'slug e))
-                             (site--plain-title (alist-get 'title e))
-                             (if (string-empty-p excerpt) fallback excerpt)
-                             (or (alist-get 'image e) (alist-get 'poster e) site-share-image) "article")))
+           (mapcar (lambda (e) (site--entry-page route e fallback))
                    (append (alist-get 'entries col) nil)))))
       collections))))
 
@@ -876,6 +931,8 @@ and the same page at every view's address under build/."
               (style (site--style))
               (preload (cdr (assoc (car (rassoc site-font-preload site-fonts)) site--assets)))
               (pages (site--share-pages views collections))
+              ;; Its own page for each draft, but none in the sitemap.
+              (drafts (site--draft-pages views collections))
               (home (site--summary (alist-get 'html (seq-find (lambda (v) (equal (alist-get 'id v) "about")) views))))
               (org-export-exclude-tags '("noexport" "view"))
               (org-html-head-extra
@@ -912,13 +969,21 @@ and the same page at every view's address under build/."
            ;; shows Page not found.  Not a page for search engines to keep.
            (site--write (site--out "404.html") (site--page template (format "Page not found · %s" site-name)
                                                (concat "<meta name=\"robots\" content=\"noindex\">\n" home-tags)))
-           (site--write-share-pages pages template))
+           (site--write-share-pages (append pages drafts) template))
          (site--write-feed collections)
          (site--write-sitemap pages)
          (site--write-asset-list)
+         (site--write (site--out site-draft-list)
+                      (mapconcat (pcase-lambda (`(,_route . ,plist))
+                                   (mapconcat (lambda (f) (concat (plist-get plist :dir) site-drafts f "\n"))
+                                              (site--draft-files (plist-get plist :dir)) ""))
+                                 site-collections ""))
          (message "site: %d views, %s"
                   (length (alist-get 'views data))
-                  (mapconcat (lambda (c) (format "%d %s" (length (alist-get 'entries (cdr c))) (car c)))
+                  (mapconcat (lambda (c)
+                               (let ((drafts (length (alist-get 'drafts (cdr c)))))
+                                 (format "%d %s%s" (length (alist-get 'entries (cdr c))) (car c)
+                                         (if (> drafts 0) (format " (and %d draft%s)" drafts (if (= drafts 1) "" "s")) ""))))
                              collections ", ")))))))
 
 (defun site-build-loop ()
