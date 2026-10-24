@@ -265,11 +265,44 @@ Every living thing shares ancestors with every other, and the kinds changed over
 
 The evidence, fossils and anatomy and genomes, is biology's to weigh, not this post's.
 
-What biology doesn't teach, as biology, is that the mind is matter. No experiment finds that. It's a philosophy that often rides along, and it's the one this post argues with.
+The standard textbook goes further than the evidence, though. "The concept of purpose plays no part in scientific explanation," it says. What looks like a goal in a living thing "is caused by the operation of a program," written in DNA, and "A program likewise resides in a computer chip." The one difference it allows is who wrote the program, a designer for the chip, natural selection for the cell.[fn:futuyma]
 
-A biologist can agree with every line here. A materialist can't, but his quarrel is with Ross, not with Darwin.
+That's the view this post argues with, in a biology textbook.
+
+And it carries an exception. There's no purpose anywhere in nature, it says, "except in the case of human behavior." It never says what makes ours real.
+
+That's the whole question.
+
+No experiment shows the mind is matter. It's a philosophy that rides along with the biology. A biologist can agree with every line here. A materialist can't, but his quarrel is with Ross, not with Darwin.
 
 [fn:dobz] Theodosius Dobzhansky, [[https://www.2think.org/dobzhansky.shtml][Nothing in Biology Makes Sense Except in the Light of Evolution]], /The American Biology Teacher/ 35 (March 1973), pp. 125-29. "Descent with modification" is Darwin's phrase, all through /On the Origin of Species/ (1859).
+[fn:futuyma] Douglas Futuyma and Mark Kirkpatrick, /Evolution/, 5th edition (2022), pp. 23 and 61.
+
+** The biologists who push back
+:PROPERTIES:
+:CUSTOM_ID: pushback
+:END:
+
+Not every biologist buys the program.
+
+Denis Noble, an Oxford physiologist who pioneered computer models of the heart, went looking for it. "No complete algorithms can be found in the DNA sequences." The genome doesn't run the cell. "If the word 'instruction' is useful at all, it is rather that the cell instructs the genome."[fn:noble145]
+
+He won't throw out purpose either. The ban on it "expresses the metaphysical view that teleology should be avoided in scientific explanations. There is no experimental proof of this assumption." He even walks through Aristotle's four causes, and keeps the last one. Final cause "simply means 'purpose'."[fn:noble249]
+
+And he draws the line at machines. "Computers exist to process rapidly. That is their function, given to them by the humans who created them. Organisms use processing to help them create objectives, purpose." A computer "does not thereby create a new purpose. It blindly pursues its algorithm."[fn:nobles]
+
+No faith required.
+
+Noble leaves one door open, and it's the best objection this post faces. "The equivalent to the human writing a program for a computer is the evolutionary process."[fn:noble260] If evolution can play programmer, why can't training?
+
+Because training has a programmer. A training objective is someone's choice of what counts as right, the way a breeder picks which pups to keep. Evolution, on Aristotle's view, works through natures that already have ends. Training works on a thing with none, toward ends someone else picked.
+
+Noble stops short of the intellect, mind you. The mind "is not my brain. It is not a material substance," he writes. Yet reasoning "is what animals do." He gets purpose back into biology and stops at the door this post walks through.
+
+[fn:noble145] Denis Noble, /Dance to the Tune of Life: Biological Relativity/ (2017), pp. 145-46.
+[fn:noble249] /Dance to the Tune of Life/, pp. 249 and 178.
+[fn:nobles] Raymond Noble and Denis Noble, /Understanding Living Systems/ (2023), chapter 7, on artificial intelligence.
+[fn:noble260] /Dance to the Tune of Life/, p. 260. On the mind, p. 255, and /Understanding Living Systems/, chapter 9.
 
 ** Where Aristotle presses
 :PROPERTIES:
@@ -288,12 +321,15 @@ Feser's way out is that nature really has ends, built in the way an acorn is bui
 
 He also catches the words stretching. One account of how life began counts crystals as copying and molecules that last as adapted. By that standard pebbles evolve, since they split, vary and take after their parents. "Descent with modification, in rock gardens no less than botanical gardens!"[fn:pebble]
 
+Nor is life just more of the same. "You can add as many sides to a polygon as you like, and you will never get a circle." A living thing acts on itself, for itself, and the gap between that and a chain of pushes "has nothing at all to do with complexity."[fn:polygon]
+
 And on the mind, the Thomists who made peace with evolution all held the line this post holds. "Even if something like the human body could arise through purely physical evolutionary processes, the intellect could not have."[fn:fes428]
 
 [fn:fes432] Edward Feser, /Aristotle's Revenge/, p. 432.
 [fn:fodor] Jerry Fodor and Massimo Piattelli-Palmarini, /What Darwin Got Wrong/ (2011 edition), p. 121, as /Aristotle's Revenge/ sets out their argument, pp. 407-16. Feser puts it beside Kripke's puzzle himself (p. 409).
 [fn:fes420] /Aristotle's Revenge/, p. 420.
 [fn:pebble] /Aristotle's Revenge/, p. 421, on Alex Rosenberg's /The Atheist's Guide to Reality/ (2011).
+[fn:polygon] /Aristotle's Revenge/, pp. 380-81, where he applies it to "computers, robots, and other complex machines."
 [fn:fes428] /Aristotle's Revenge/, p. 428, summing up the Thomists of the last century, not quoting one.
 
 ** The philosophers who say no
@@ -303,7 +339,7 @@ And on the mind, the Thomists who made peace with evolution all held the line th
 
 Not every Aristotelian makes that peace.
 
-Fr. Chad Ripperger takes the principle this post stands on, that nothing gives what it doesn't have, and runs it all the way down. "A thing cannot beget what it does not have," so a creature without sight can't give rise to one with it. His verdict is that "microevolution is possible, while macroevolution is not." Evolution, he says, "is not really a conclusion derived from the empirical sciences but really a philosophical theory."[fn:ripp]
+Fr. Chad Ripperger takes the principle this post stands on, that nothing gives what it doesn't have, and runs it all the way down. "A thing cannot beget what it does not have," so a creature without sight can't give rise to one with it. His verdict is that "microevolution is possible, while macroevolution is not." More complexity doesn't make a higher form, he argues, it needs one. "In evolution, further complexity in matter is asserted without accounting for higher substantial form." Evolution, he says, "is not really a conclusion derived from the empirical sciences but really a philosophical theory."[fn:ripp]
 
 Wolfgang Smith, the mathematician and physicist Part 1 leans on, ends up in the same place. Species unfold, he grants, "but there is no transformism, for the very simple reason that nothing can become what it is not."[fn:smithtr]
 
@@ -326,13 +362,14 @@ One verdict on the mind.
 
 Faith doesn't force the question either. The Fathers never settled even how each soul comes to be. Augustine wrote to Jerome, who held a view on it, "Teach me what I ought to hold as my own opinion."[fn:aug166] And Dobzhansky, who gave biology its motto, was a believer. "I am a creationist and an evolutionist," he wrote in the same essay.
 
-Catholics have the three places to stand. Rome allows research and discussion about the body's origin "from pre-existent and living matter," Pius XII wrote, "for the Catholic faith obliges us to hold that souls are immediately created by God," and he asked that the reasons "favorable and those unfavorable to evolution" be weighed "with the necessary seriousness, moderation and measure."[fn:hg36] John Paul II went further, and called evolution "more than a hypothesis," while holding that with man there's "an ontological leap."[fn:jp2] Others, Ripperger among them, hold that God made the kinds directly.
+Catholics have the three places to stand. Rome allows research and discussion about the body's origin "from pre-existent and living matter," Pius XII wrote, "for the Catholic faith obliges us to hold that souls are immediately created by God," and he asked that the reasons "favorable and those unfavorable to evolution" be weighed "with the necessary seriousness, moderation and measure."[fn:hg36] John Paul II went further, and called evolution "more than a hypothesis," while holding that with man there's "an ontological leap."[fn:jp2] The Church's own theologians said where biology stops. Those who take selection "as evidence that the process of evolution is absolutely unguided are straying beyond what can be demonstrated by science."[fn:itc] Others, Ripperger among them, hold that God made the kinds directly.
 
 Or you can weigh the reasons and wait, as Pius asked. That's where I am.
 
 [fn:aug166] Augustine, [[https://www.newadvent.org/fathers/1102166.htm][Letter 166]], to Jerome, §10, on the origin of the soul (415). Jerome held that God makes each soul new. Augustine is "willing that the opinion which you hold should be also mine," but "as yet I have not embraced it" (§8).
 [fn:hg36] Pope Pius XII, [[https://www.vatican.va/content/pius-xii/en/encyclicals/documents/hf_p-xii_enc_12081950_humani-generis.html][Humani Generis]], August 12, 1950, §36.
 [fn:jp2] Pope John Paul II, [[https://www.newadvent.org/library/docs_jp02tc.htm][Truth Cannot Contradict Truth]], address to the Pontifical Academy of Sciences, October 22, 1996, §§4-6.
+[fn:itc] International Theological Commission, [[https://www.vatican.va/roman_curia/congregations/cfaith/cti_documents/rc_con_cfaith_doc_20040723_communion-stewardship_en.html][Communion and Stewardship]] (2004), §69. The commission advises Rome, it doesn't teach for it.
 
 ** The one place this post can't go
 :PROPERTIES:
@@ -343,14 +380,39 @@ Pierre Teilhard de Chardin, a Jesuit and a paleontologist, made evolution a law 
 
 Read that twice. It's the AI pitch, seventy years early. Pile up enough complexity, arranged well enough, and a mind comes out.
 
-He has admirers in every camp. Dobzhansky's essay calls him "one of the great thinkers of our age," and ends on him. He has critics in every camp too. Peter Medawar, a Nobel-winning biologist, wrote that "Teilhard habitually and systematically cheats with words," and "it is the style that creates the illusion of content."[fn:medawar] Smith calls the law of complexity "a Trojan horse." And Rome's Holy Office warned in 1962 that his works "abound in such ambiguities and indeed even serious errors, as to offend Catholic doctrine," while "prescinding from a judgement about those points that concern the positive sciences."[fn:monitum]
+Swap living matter for parameters, and it's the believers' pitch.
 
-Every other place here is open to you, and this post works in all of them.
+His heirs say it out loud. Robert Wright, writing about AI in 2023, boiled it down to eight words. "Artificial intelligence is the crystallization of the noosphere," Teilhard's name for the planet's layer of thought.[fn:wright] David Sloan Wilson calls his own book on evolution "an updated version of The Phenomenon of Man."[fn:wilson]
 
-Not this one. Swap living matter for parameters, and it's the believers' pitch.
+He has admirers in every camp. Dobzhansky's essay calls him "one of the great thinkers of our age," and ends on him. He has critics in every camp too. Peter Medawar, a Nobel-winning biologist, wrote that "Teilhard habitually and systematically cheats with words," and "it is the style that creates the illusion of content."[fn:medawar] He also caught the move that matters here. Teilhard's inner energy, he wrote, could be read as "information content," the thing engineers measure. "To equate it to consciousness, or to regard degree of consciousness as a measure of information content, is one of the silly little metaphysical conceits."
 
-Whatever made the body, reason came from outside.
+That was 1961.
+
+Smith calls the law of complexity "a Trojan horse," and says why it can't hold. A mechanism, or an organ, can only turn what comes in into "an organized multiplicity," parts outside parts, "for what is itself dispersed cannot produce non-dispersion." A perception is "a structured unity," the many taken in as one.[fn:smithtr]
+
+And Rome's Holy Office warned in 1962 that his works "abound in such ambiguities and indeed even serious errors, as to offend Catholic doctrine," while "prescinding from a judgement about those points that concern the positive sciences."[fn:monitum]
 
 [fn:pm] Pierre Teilhard de Chardin, /The Phenomenon of Man/ (1955, in English 1959), p. 301.
+[fn:wright] Robert Wright, [[https://www.nonzero.org/p/artificial-intelligence-and-the-noosphere][Artificial Intelligence and the Noosphere]], /NonZero/, June 29, 2023.
+[fn:wilson] David Sloan Wilson, /This View of Life: Completing the Darwinian Revolution/ (2019), the prologue.
 [fn:medawar] Peter Medawar, [[https://bactra.org/Medawar/phenomenon-of-man.html][review of The Phenomenon of Man]], /Mind/ 70 (1961), pp. 99-106. Smith quotes it in /Teilhardism and the New Religion/, chapter 3, the chapter that calls the law a Trojan horse.
 [fn:monitum] Holy Office, [[https://www.ewtn.com/catholicism/library/monitum-on-the-writings-of-fr-teilhard-de-chardin-sj-29451][Monitum on the Writings of Fr. Teilhard de Chardin, SJ]], June 30, 1962. The Holy See repeated the warning in 1981.
+
+** Where that leaves you
+:PROPERTIES:
+:CUSTOM_ID: leaves
+:END:
+
+Stand anywhere else on bodies, and this post still stands.
+
+If you go with the textbook, you still owe an account of the one purpose it grants, your own.
+
+If you go with Noble, he's already told you a computer pursues the purposes it was given.
+
+If you're an Aristotelian, of either school, the intellect is the one form matter doesn't hold, not even virtually.
+
+If you're a believer, the Fathers hand you the soul as God's own work.
+
+Only Teilhard's road gets a mind out of complexity. Critics who believe and critics who don't have told him it's no road at all.
+
+Whatever made the body, reason came from outside.
