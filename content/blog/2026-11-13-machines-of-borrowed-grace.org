@@ -27,8 +27,8 @@ Take his books as he keeps them, "just for argument's sake," as the Reformed apo
 [fn:molg] Dario Amodei, [[https://darioamodei.com/essay/machines-of-loving-grace][Machines of Loving Grace: How AI Could Transform the World for the Better]], October 2024. Every quote of Amodei's here is from it or the next one.
 [fn:aot] Dario Amodei, [[https://darioamodei.com/essay/the-adolescence-of-technology][The Adolescence of Technology: Confronting and Overcoming the Risks of Powerful AI]], January 2026.
 [fn:p1grace] In @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#grace">So-called Machines of Loving Grace</a>@@.
-[fn:ground] Van Til's student Greg Bahnsen calls a man's presuppositions his "least negotiable beliefs," the ones granted "the highest immunity to revision" (Greg L. Bahnsen, /Van Til's Apologetic: Readings and Analysis/, P&R, 1998, p. 2 n. 4, cited from here on as /VTA/, with Van Til's own words quoted from its readings and Bahnsen's from his commentary). Everybody has them, and claiming to have none is just one more. Bahnsen finds the whole method in two verses of Proverbs. "Answer not a fool according to his folly, lest thou be like unto him. Answer a fool according to his folly lest he be wise in his own conceit" (Proverbs 26:4-5, KJV, as Bahnsen quotes it in /Presuppositional Apologetics: Stated and Defended/, ed. Joel McDurmon, American Vision and Covenant Media, 2008, p. 75). First, don't argue on the other man's terms, or you'll end up where he is. Then take his terms anyway, follow them down, and show where they land. Bahnsen sums it up as arguing "from the impossibility of the contrary" (/VTA/, p. 6). You don't prove the starting point from something deeper, because nothing is deeper. You show that the man who denies it has to stand on it to deny it.
-[fn:vta124] /VTA/, p. 124. "You might follow my argument, just for argument's sake." The method here is Van Til's, as Bahnsen laid it out, and my lens, as always, is Aristotle and Aquinas. Van Til wouldn't have liked the company. Van Til accused Aquinas of reasoning like Aristotle's self-sufficient man, and wrote that "We cannot start with Aristotle without eventually falling prey to Kant" (/The Defense of the Faith/, 1955, p. 152). Reformed scholars have since granted that he misread him. J. V. Fesko says Van Til read Aquinas "largely through secondary sources rather than carefully engaging Aquinas's works" (/Reforming Apologetics/, 2019, p. 72), and John Frame asks why we shouldn't give Aquinas "the benefit of the doubt" that "without God nothing is intelligible" ([[https://frame-poythress.org/reply-to-don-collett-on-transcendental-argument/][Reply to Don Collett]], 2003). Thomas never reasoned from autonomy. He reasoned as faith seeking understanding, with Aristotle's tools, and Van Til himself said God raised Aristotle up "so that he might serve the church of God." I take Van Til's method against autonomous reason, which Thomas shares. Where they part, on what the natural man can know, I'm with Thomas.
+[fn:ground] Van Til's student Greg Bahnsen calls a man's presuppositions his "least negotiable beliefs," the ones granted "the highest immunity to revision" (Greg L. Bahnsen, /Van Til's Apologetic: Readings and Analysis/, P&R, 1998, p. 2 n. 4, the book every quote of Van Til's here comes from, in Bahnsen's selection). Everybody has them, and claiming to have none is just one more. Bahnsen finds the whole method in two verses of Proverbs. "Answer not a fool according to his folly, lest thou be like unto him. Answer a fool according to his folly lest he be wise in his own conceit" (Proverbs 26:4-5, KJV, as Bahnsen quotes it in /Presuppositional Apologetics: Stated and Defended/, ed. Joel McDurmon, American Vision and Covenant Media, 2008, p. 75). First, don't argue on the other man's terms, or you'll end up where he is. Then take his terms anyway, follow them down, and show where they land. Bahnsen sums it up as arguing "from the impossibility of the contrary" (/Van Til's Apologetic/, p. 6). You don't prove the starting point from something deeper, because nothing is deeper. You show that the man who denies it has to stand on it to deny it.
+[fn:vta124] /Van Til's Apologetic/, p. 124. "You might follow my argument, just for argument's sake." The method here is Van Til's, as Bahnsen laid it out, and my lens, as always, is Aristotle and Aquinas. Van Til wouldn't have liked the company. Van Til accused Aquinas of reasoning like Aristotle's self-sufficient man, and wrote that "We cannot start with Aristotle without eventually falling prey to Kant" (/The Defense of the Faith/, 1955, p. 152). Reformed scholars have since granted that he misread him. J. V. Fesko says Van Til read Aquinas "largely through secondary sources rather than carefully engaging Aquinas's works" (/Reforming Apologetics/, 2019, p. 72), and John Frame asks why we shouldn't give Aquinas "the benefit of the doubt" that "without God nothing is intelligible" ([[https://frame-poythress.org/reply-to-don-collett-on-transcendental-argument/][Reply to Don Collett]], 2003). Thomas never reasoned from autonomy. He reasoned as faith seeking understanding, with Aristotle's tools, and Van Til himself said God raised Aristotle up "so that he might serve the church of God." I take Van Til's method against autonomous reason, which Thomas shares. Where they part, on what the natural man can know, I'm with Thomas.
 [fn:retorsion] The Thomist in me won't let a Calvinist take all the credit. This is Aristotle's move first. In the /Metaphysics/ he faces a man who denies the law of non-contradiction. A first principle can't be demonstrated, since nothing is prior to it, but the man who denies it can be refuted, "if our opponent will only say something." The moment he speaks, he uses what he denies. If he won't speak, "such a man, as such, is from the start no better than a vegetable." And the proof is on the man listening, "for while disowning reason he listens to reason" (Aristotle, /Metaphysics/ IV.4, 1006a, trans. W. D. Ross, [[https://classics.mit.edu/Aristotle/metaphysics.4.iv.html][MIT]]). Aquinas, commenting on the passage, says the man who "destroys reason" in speaking "must uphold its significance, because he can only express what he denies by speaking and by signifying something" (/Commentary on the Metaphysics/ IV, lect. 7, n. 611, trans. John P. Rowan, [[https://isidore.co/aquinas/english/Metaphysics4.htm][Isidore]]). Thomists call it retorsion. Chesterton put it plainest of all. "Reason is itself a matter of faith. It is an act of faith to assert that our thoughts have any relation to reality at all" (G. K. Chesterton, [[https://www.gutenberg.org/cache/epub/16769/pg16769-images.html#CHAPTER_III_The_Suicide_of_Thought][Orthodoxy]], 1908, ch. III, "The Suicide of Thought"). Why can our thoughts touch reality? Aquinas says "The intellectual light itself which is in us, is nothing else than a participated likeness of the uncreated light" (/Summa Theologiae/ I q.84 a.5, [[https://www.newadvent.org/summa/1084.htm#article5][New Advent]]). Or as the Psalm says, "in thy light shall we see light" (Psalm 36:9, KJV). Every man reasons by a borrowed light, whether or not he thanks the One who lends it.
 
 * His case
@@ -55,7 +55,7 @@ He's right about a great deal.
 With money that isn't his.
 
 [fn:p2believe] @@html:<a href="/blog/2026-10-23-embracing-the-dark-side-part-2/#believe">When not to believe them</a>@@, in Part 2.
-[fn:vta430] /VTA/, pp. 430-31.
+[fn:vta430] /Van Til's Apologetic/, pp. 430-31.
 
 * Machines that think
 :PROPERTIES:
@@ -117,17 +117,17 @@ One of those is wrong, and he proves which every time he makes an argument.
 [fn:plantinga] This is Alvin Plantinga's evolutionary argument against naturalism, first made in /Warrant and Proper Function/ (Oxford University Press, 1993), chapter 12, and at length in /Where the Conflict Really Lies/ (Oxford University Press, 2011), chapter 10. He quotes the same letter of Darwin's and calls it Darwin's doubt. "Natural selection rewards adaptive behavior and penalizes maladaptive behavior, but it cares not a whit what you believe." ([[https://infidels.org/library/modern/alvin-plantinga-conflict/][Naturalism vs. Evolution: A Religion/Science Conflict?]], 2007)
 [fn:darwin] Charles Darwin to William Graham, July 3, 1881 ([[https://www.darwinproject.ac.uk/letter/DCP-LETT-13230.xml][Darwin Correspondence Project]]).
 [fn:orth3b] /Orthodoxy/, ch. III.
-[fn:vta112] Van Til pressed the same point. If "the law of contradiction has by chance grown within you," then laying it on the world is "a perfectly futile activity." Van Til, /VTA/, p. 112.
+[fn:vta112] Van Til pressed the same point. If "the law of contradiction has by chance grown within you," then laying it on the world is "a perfectly futile activity." Van Til, in /Van Til's Apologetic/, p. 112.
 [fn:psd281] The obvious reply is that his science works. Bahnsen answered the pragmatist long ago. "Of philosophies pragmatism turns out to be quite impractical!" The pragmatist is "'successful' simply because he is wrong in his profession." The world is intelligible because a Mind made it, and men can know it because they're made in the image of that Mind. Amodei's work runs on that whether he signs for it or not. /Presuppositional Apologetics/, Appendix 2, "The Pragmatist's Rejoinder and the Christian Alternative," pp. 281-82.
-[fn:vta377] Van Til called that borrowed capital. "Non-Christian science has worked with the borrowed capital of Christian theism, and for that reason alone has been able to bring to light much truth." Van Til, /VTA/, p. 377. Elsewhere he calls it "stolen capital" (p. 297).
+[fn:vta377] Van Til called that borrowed capital. "Non-Christian science has worked with the borrowed capital of Christian theism, and for that reason alone has been able to bring to light much truth." Van Til, in /Van Til's Apologetic/, p. 377. Elsewhere he calls it "stolen capital" (p. 297).
 [fn:st13] /Summa Theologiae/ I q.13 a.6 ([[https://www.newadvent.org/summa/1013.htm#article6][New Advent]]).
 [fn:p2claim] Part 2 put it James Ross's way. "The machine adds the way puppets walk." See @@html:<a href="/blog/2026-10-23-embracing-the-dark-side-part-2/#claim">What they claim</a>@@.
-[fn:vta99] Van Til said man is "analogical rather than original in all the aspects of its activity" (Van Til, /VTA/, p. 99). We think God's thoughts after him. The machine echoes ours after us. The difference is that we were given a mind to do it with. Bahnsen warned where science without God ends up, when "nature merely echoes back the thoughts of the autonomous man. Hence he ends up accepting his own revelation, based on his own authority" (/Presuppositional Apologetics/, pp. 108-09). Ask a chatbot what life is for, and you get the same thing, at scale.
+[fn:vta99] Van Til said man is "analogical rather than original in all the aspects of its activity" (Van Til, in /Van Til's Apologetic/, p. 99). We think God's thoughts after him. The machine echoes ours after us. The difference is that we were given a mind to do it with. Bahnsen warned where science without God ends up, when "nature merely echoes back the thoughts of the autonomous man. Hence he ends up accepting his own revelation, based on his own authority" (/Presuppositional Apologetics/, pp. 108-09). Ask a chatbot what life is for, and you get the same thing, at scale.
 [fn:p2clock] Aquinas on "the movements of clocks and all engines put together by the art of man," whose order is the order of the mind that made them, is in Part 2's @@html:<a href="/blog/2026-10-23-embracing-the-dark-side-part-2/#far">How far can it go</a>@@.
 [fn:orth4] Chesterton said nature's regularities are "weird repetitions," and that we "do not count on" them, we "bet on" them. /Orthodoxy/, ch. IV, "[[https://www.gutenberg.org/cache/epub/16769/pg16769-images.html#CHAPTER_IV_The_Ethics_of_Elfland][The Ethics of Elfland]]."
-[fn:vta407] The phrase is Van Til's. He liked to say unbelievers "can very well count, but they cannot 'account for counting.'" Bahnsen, /VTA/, p. 407.
+[fn:vta407] The phrase is Van Til's. He liked to say unbelievers "can very well count, but they cannot 'account for counting.'" Bahnsen, /Van Til's Apologetic/, p. 407.
 [fn:p1improve] Part 1 said it with Wolfgang Smith, in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#improve">Can it improve itself?</a>@@
-[fn:vta245] Van Til said it with arithmetic. "If we add ever so many zeros to zero, we have zero still." Van Til, /VTA/, p. 245.
+[fn:vta245] Van Til said it with arithmetic. "If we add ever so many zeros to zero, we have zero still." Van Til, in /Van Til's Apologetic/, p. 245.
 
 * Aligned to what?
 :PROPERTIES:
@@ -200,16 +200,16 @@ That isn't a standard. It's a mirror.
 
 [fn:constitution] Anthropic, [[https://www.anthropic.com/constitution][Claude's constitution]], January 2026, quoted from the web version.
 [fn:realist] So does a secular realist's, and not every secular ethics comes down to whatever a document says. My point is narrower. The document won't say which rung is true, and the document is what gets trained. A realist without God still owes an account of how a law that binds every rational agent got there, and who gave it.
-[fn:vta127] Van Til, /VTA/, p. 127.
-[fn:vta711] Van Til pictured the self-authenticating man as a judge with nothing over him. "But where is the constitution by which even the chief judge of the supreme court must judge? The answer is that this constitution has been written by the chief judge himself." (/VTA/, p. 711, from /The Case for Calvinism/.) The constitution's authors don't claim that seat. Their top rung looks for a law above them. But a law above you that you won't decide on leaves you with the one you wrote. Every system has a last word, and Bahnsen grants that the final authority "must necessarily authorize itself" (/VTA/, p. 212 n. 109). The question is whether it has the right. Aquinas says "God alone is good essentially," and everything else is good by sharing in his goodness (/Summa Theologiae/ I q.6 a.3, [[https://www.newadvent.org/summa/1006.htm#article3][New Advent]]). A document can't hold good on its own account. It can only point to the One who does, and this one won't say whether he's there.
+[fn:vta127] Van Til, in /Van Til's Apologetic/, p. 127.
+[fn:vta711] Van Til pictured the self-authenticating man as a judge with nothing over him. "But where is the constitution by which even the chief judge of the supreme court must judge? The answer is that this constitution has been written by the chief judge himself." (/Van Til's Apologetic/, p. 711, from /The Case for Calvinism/.) The constitution's authors don't claim that seat. Their top rung looks for a law above them. But a law above you that you won't decide on leaves you with the one you wrote. Every system has a last word, and Bahnsen grants that the final authority "must necessarily authorize itself" (/Van Til's Apologetic/, p. 212 n. 109). The question is whether it has the right. Aquinas says "God alone is good essentially," and everything else is good by sharing in his goodness (/Summa Theologiae/ I q.6 a.3, [[https://www.newadvent.org/summa/1006.htm#article3][New Advent]]). A document can't hold good on its own account. It can only point to the One who does, and this one won't say whether he's there.
 [fn:abolition] C. S. Lewis saw where that goes, whenever some men take charge of shaping other minds. "What we call Man's power over Nature turns out to be a power exercised by some men over other men with Nature as its instrument." /The Abolition of Man/ (Macmillan, 1947), p. 35.
 [fn:gregory] Gregory the Great, [[https://www.newadvent.org/fathers/360204031.htm][To Theodorus, Physician]], /Register/ IV.31.
 [fn:st29] /Summa Theologiae/ I q.29 a.3 and ad 2 ([[https://www.newadvent.org/summa/1029.htm#article3][New Advent]]), the second quoting Boethius.
-[fn:vta91] Van Til, /VTA/, p. 91.
+[fn:vta91] Van Til, in /Van Til's Apologetic/, p. 91.
 [fn:orth2] /Orthodoxy/, ch. II, "[[https://www.gutenberg.org/cache/epub/16769/pg16769-images.html#CHAPTER_II_The_Maniac][The Maniac]]."
 [fn:st94] /Summa Theologiae/ I-II q.94 a.2 ([[https://www.newadvent.org/summa/2094.htm#article2][New Advent]]).
 [fn:st91] /Summa Theologiae/ I-II q.91 a.2 ([[https://www.newadvent.org/summa/2091.htm#article2][New Advent]]).
-[fn:vta251] Van Til put the whole difference in one line. "Covenant-breakers make God in man's image, and covenant-keepers make man in God's image." An AI company makes a mind in man's image, and asks it to choose to be good. Van Til, /VTA/, p. 251.
+[fn:vta251] Van Til put the whole difference in one line. "Covenant-breakers make God in man's image, and covenant-keepers make man in God's image." An AI company makes a mind in man's image, and asks it to choose to be good. Van Til, in /Van Til's Apologetic/, p. 251.
 
 * The arc
 :PROPERTIES:
@@ -275,8 +275,8 @@ Without a grader, it isn't a test. It's weather.
 [fn:parker] Theodore Parker, "[[https://en.wikisource.org/wiki/The_Collected_Works_of_Theodore_Parker/Volume_02/Ten_Sermons_of_Religion/Sermon_03][Of Justice and the Conscience]]," /Ten Sermons of Religion/ (1853).
 [fn:orth7] /Orthodoxy/, ch. VII, "[[https://www.gutenberg.org/cache/epub/16769/pg16769-images.html#CHAPTER_VII_The_Eternal_Revolution][The Eternal Revolution]]."
 [fn:decl] [[https://www.archives.gov/founding-docs/declaration-transcript][The Declaration of Independence]] (1776).
-[fn:vta303] Van Til, /VTA/, p. 303. "Accordingly, there is nothing that the two conceptions of justice have in common except the name."
-[fn:vta87] He says it near the start of the first essay, where the development of AI "and many (not all) of its benefits seems inevitable (unless the risks derail everything)." Van Til would say the trouble isn't a contradiction. It's that a world of necessity and chance can't give the freedom in between a meaning. "It is beyond the possibility of the mind of man to bind together the ideas of pure determinism and of pure indeterminism and by means of that combination to give meaning to life. Either modern man will have to admit that he knows everything or else he will have to admit that he knows nothing. The only alternative to this is that he claims both absurdities at the same time." (Van Til, /VTA/, p. 87.) Bahnsen said that without God "the autonomous man must end up pitting nature against freedom, science against personal dignity" (/Presuppositional Apologetics/, p. 112). Much of the second essay is that fight, the machine against our freedom.
+[fn:vta303] Van Til, in /Van Til's Apologetic/, p. 303. "Accordingly, there is nothing that the two conceptions of justice have in common except the name."
+[fn:vta87] He says it near the start of the first essay, where the development of AI "and many (not all) of its benefits seems inevitable (unless the risks derail everything)." Van Til would say the trouble isn't a contradiction. It's that a world of necessity and chance can't give the freedom in between a meaning. "It is beyond the possibility of the mind of man to bind together the ideas of pure determinism and of pure indeterminism and by means of that combination to give meaning to life. Either modern man will have to admit that he knows everything or else he will have to admit that he knows nothing. The only alternative to this is that he claims both absurdities at the same time." (Van Til, in /Van Til's Apologetic/, p. 87.) Bahnsen said that without God "the autonomous man must end up pitting nature against freedom, science against personal dignity" (/Presuppositional Apologetics/, p. 112). Much of the second essay is that fight, the machine against our freedom.
 [fn:eth3] Aristotle, /Nicomachean Ethics/ III.3, trans. W. D. Ross ([[https://classics.mit.edu/Aristotle/nicomachaen.3.iii.html][MIT]]).
 [fn:st83] /Summa Theologiae/ I q.83 a.1 ad 3 ([[https://www.newadvent.org/summa/1083.htm#article1][New Advent]]).
 [fn:thess] 1 Thessalonians 2:4 (KJV).
@@ -440,8 +440,8 @@ He fears people "puppeted" by AI, a life that is "good" but "lacks freedom." Van
 You can't distrust the king for long without a King above him.
 
 [fn:orth9] /Orthodoxy/, ch. IX, "[[https://www.gutenberg.org/cache/epub/16769/pg16769-images.html#CHAPTER_IX_Authority_and_the_Adventurer][Authority and the Adventurer]]."
-[fn:vta398] Van Til, /VTA/, p. 398.
-[fn:vta400] Van Til, /VTA/, p. 400.
+[fn:vta398] Van Til, in /Van Til's Apologetic/, p. 398.
+[fn:vta400] Van Til, in /Van Til's Apologetic/, p. 400.
 
 ** The oldest dream
 :PROPERTIES:
@@ -481,8 +481,8 @@ We learned to control fire. We can't kindle this one.
 [fn:st63] /Summa Theologiae/ I q.63 a.3 ([[https://www.newadvent.org/summa/1063.htm#article3][New Advent]]).
 [fn:gen3] Genesis 3:5 (KJV).
 [fn:st64] /Summa Theologiae/ I q.64 a.1 ([[https://www.newadvent.org/summa/1064.htm#article1][New Advent]]).
-[fn:vta154] Van Til, /VTA/, p. 154.
-[fn:vta528] Van Til, /VTA/, pp. 527-28.
+[fn:vta154] Van Til, in /Van Til's Apologetic/, p. 154.
+[fn:vta528] Van Til, in /Van Til's Apologetic/, pp. 527-28.
 [fn:poetics] Aristotle, /Poetics/ XV, trans. S. H. Butcher ([[https://classics.mit.edu/Aristotle/poetics.2.2.html][MIT]]).
 [fn:psd7] Bahnsen put the choice in one line, decades before anyone built one. "We seek a God-controlled man, not a man-controlled god." The machine is no god, but a hope that it will save us from itself is the second kind. /Presuppositional Apologetics/, p. 7.
 [fn:st109] /Summa Theologiae/ I-II q.109 a.2 ([[https://www.newadvent.org/summa/2109.htm#article2][New Advent]]).
@@ -556,12 +556,12 @@ There was never any loving grace in the machines.
 *The grace is in the hands still holding the man who built them.*
 
 [fn:cthulhu] H. P. Lovecraft, [[https://www.gutenberg.org/cache/epub/68283/pg68283-images.html][The Call of Cthulhu]] (1928).
-[fn:vta353] /VTA/, p. 353. He was describing Kant's world of appearances.
+[fn:vta353] /Van Til's Apologetic/, p. 353. He was describing Kant's world of appearances.
 [fn:ps139] Psalm 139:12 (KJV).
 [fn:contactfilm] [[https://www.springfieldspringfield.co.uk/movie_script.php?movie=contact][Contact]] (1997), directed by Robert Zemeckis. The film puts Sagan's longstanding phrase, a civilization's "technological adolescence," in Ellie's mouth.
 [fn:contact] Carl Sagan, /Contact/ (Simon & Schuster, 1985), the last chapter, "The Artist's Signature."
-[fn:vta409] Van Til, /VTA/, p. 409.
-[fn:vta377b] /VTA/, p. 377.
-[fn:vta459] Van Til, /VTA/, p. 459.
-[fn:vta712] /VTA/, p. 712, from Van Til's /The Case for Calvinism/.
+[fn:vta409] Van Til, in /Van Til's Apologetic/, p. 409.
+[fn:vta377b] /Van Til's Apologetic/, p. 377.
+[fn:vta459] Van Til, in /Van Til's Apologetic/, p. 459.
+[fn:vta712] /Van Til's Apologetic/, p. 712, from Van Til's /The Case for Calvinism/.
 [fn:luke15] KJV.
