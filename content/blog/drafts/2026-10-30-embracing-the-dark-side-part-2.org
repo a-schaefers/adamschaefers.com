@@ -237,3 +237,29 @@ The danger was never a machine with a mind. It's men who stop using theirs, beca
 [fn:p1stood] In @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#stood">Where I stood</a>@@, with Aristotle on imitation and Girard on copied wants.
 [fn:doshi] Anil R. Doshi and Oliver P. Hauser, [[https://pmc.ncbi.nlm.nih.gov/articles/PMC11244532/][Generative AI enhances individual creativity but reduces the collective diversity of novel content]], /Science Advances/, July 2024.
 [fn:p1code] It's where Part 1 ends, in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#code">Don't forget how to code</a>@@.
+
+* A note on evolution
+:PROPERTIES:
+:CUSTOM_ID: evolution
+:END:
+
+@@html:<a href="#give">Couldn't we give it one?</a>@@ can read like a stand on evolution. It isn't one, and I haven't settled the question.
+
+The claim is narrower. No material process makes a mind. Not a machine, not a father, and not evolution.
+
+That's where the Church draws the line, and only there. Pius XII left the body open. Research and discussion may go on about evolution "in as far as it inquires into the origin of the human body as coming from pre-existent and living matter - for the Catholic faith obliges us to hold that souls are immediately created by God." He even asked that the reasons for both opinions, "those favorable and those unfavorable to evolution, be weighed and judged with the necessary seriousness, moderation and measure."[fn:hg36]
+
+John Paul II went further on the science. He called evolution "more than a hypothesis." In the same message he drew the same line. Theories that "consider the spirit as emerging from the forces of living matter or as a mere epiphenomenon of this matter, are incompatible with the truth about man." With man, he said, there's "an ontological leap."[fn:jp2]
+
+So Catholics stand on both sides of the question about bodies. Some Thomists accept that bodies evolved, and hold with the Church that every soul is created. Others reject it. Wolfgang Smith, whom Part 1 leans on, wrote a whole book against Teilhard de Chardin's evolution, and Fr. Chad Ripperger argues from first principles against macroevolution.[fn:critics] All of them can sign what this post says. Grant evolution everything it claims about bodies, and you still don't get a mind.
+
+What none of them can sign is evolutionism, the belief that mind itself rises out of matter once there's enough of it, arranged well enough. Teilhard made that a law of the universe. The Holy Office warned in 1962 that his works "abound in such ambiguities and indeed even serious errors, as to offend Catholic doctrine." It said so while "prescinding from a judgement about those points that concern the positive sciences."[fn:monitum] It left the science alone and judged the philosophy.
+
+That philosophy is the one this post argues against. Swap living matter for parameters, and it's the believers' pitch.
+
+Whatever made the body, the mind was given.
+
+[fn:hg36] /Humani Generis/ §36, the same paragraph as above.
+[fn:jp2] Pope John Paul II, [[https://www.newadvent.org/library/docs_jp02tc.htm][Truth Cannot Contradict Truth]], address to the Pontifical Academy of Sciences, October 22, 1996, §§4-6.
+[fn:critics] Wolfgang Smith, /Teilhardism and the New Religion/ (TAN Books, 1988), revised as /Theistic Evolution: The Teilhardian Heresy/ (Angelico Press, 2012). Chad Ripperger, /The Metaphysics of Evolution: Evolutionary Theory in Light of First Principles/ (2012).
+[fn:monitum] Holy Office, [[https://www.ewtn.com/catholicism/library/monitum-on-the-writings-of-fr-teilhard-de-chardin-sj-2144][Monitum on the Writings of Fr. Teilhard de Chardin, SJ]], June 30, 1962. The Holy See repeated the warning in 1981. Teilhard's "law of complexity-consciousness" is in /The Phenomenon of Man/ (1955).
