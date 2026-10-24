@@ -2,7 +2,7 @@
 #+FEATURED: blog/borrowed-grace.jpg
 #+DESCRIPTION: Two essays from the CEO of Anthropic, and the one question neither of them asks.
 
-# Rough draft. Links into Part 2 point at /blog/2026-10-23-embracing-the-dark-side-part-2/.
+# Rough draft. Links into Part 2 point at /blog/2026-10-30-embracing-the-dark-side-part-2/.
 # Part 2's address is its file name, so if it ships under another date, change them here.
 
 Dario Amodei runs Anthropic, the company that makes Claude. He has written two long essays about what AI is about to do to us. /Machines of Loving Grace/ is the dream, what a world with powerful AI might look like "if everything goes right."[fn:molg] /The Adolescence of Technology/ is the danger, and his "battle plan" to get through it.[fn:aot] Together they run over thirty thousand words.
@@ -54,7 +54,7 @@ He's right about a great deal.
 
 With money that isn't his.
 
-[fn:p2believe] @@html:<a href="/blog/2026-10-23-embracing-the-dark-side-part-2/#believe">When not to believe them</a>@@, in Part 2.
+[fn:p2believe] @@html:<a href="/blog/2026-10-30-embracing-the-dark-side-part-2/#believe">When not to believe them</a>@@, in Part 2.
 [fn:vta430] /Van Til's Apologetic/, pp. 430-31.
 
 * Machines that think
@@ -121,9 +121,9 @@ One of those is wrong, and he proves which every time he makes an argument.
 [fn:psd281] The obvious reply is that his science works. Bahnsen answered the pragmatist long ago. "Of philosophies pragmatism turns out to be quite impractical!" The pragmatist is "'successful' simply because he is wrong in his profession." The world is intelligible because a Mind made it, and men can know it because they're made in the image of that Mind. Amodei's work runs on that whether he signs for it or not. /Presuppositional Apologetics/, Appendix 2, "The Pragmatist's Rejoinder and the Christian Alternative," pp. 281-82.
 [fn:vta377] Van Til called that borrowed capital. "Non-Christian science has worked with the borrowed capital of Christian theism, and for that reason alone has been able to bring to light much truth." Van Til, in /Van Til's Apologetic/, p. 377. Elsewhere he calls it "stolen capital" (p. 297).
 [fn:st13] /Summa Theologiae/ I q.13 a.6 ([[https://www.newadvent.org/summa/1013.htm#article6][New Advent]]).
-[fn:p2claim] Part 2 put it James Ross's way. "The machine adds the way puppets walk." See @@html:<a href="/blog/2026-10-23-embracing-the-dark-side-part-2/#claim">What they claim</a>@@.
+[fn:p2claim] Part 2 put it James Ross's way. "The machine adds the way puppets walk." See @@html:<a href="/blog/2026-10-30-embracing-the-dark-side-part-2/#claim">What they claim</a>@@.
 [fn:vta99] Van Til said man is "analogical rather than original in all the aspects of its activity" (Van Til, in /Van Til's Apologetic/, p. 99). We think God's thoughts after him. The machine echoes ours after us. The difference is that we were given a mind to do it with. Bahnsen warned where science without God ends up, when "nature merely echoes back the thoughts of the autonomous man. Hence he ends up accepting his own revelation, based on his own authority" (/Presuppositional Apologetics/, pp. 108-09). Ask a chatbot what life is for, and you get the same thing, at scale.
-[fn:p2clock] Aquinas on "the movements of clocks and all engines put together by the art of man," whose order is the order of the mind that made them, is in Part 2's @@html:<a href="/blog/2026-10-23-embracing-the-dark-side-part-2/#far">How far can it go</a>@@.
+[fn:p2clock] Aquinas on "the movements of clocks and all engines put together by the art of man," whose order is the order of the mind that made them, is in Part 2's @@html:<a href="/blog/2026-10-30-embracing-the-dark-side-part-2/#far">How far can it go</a>@@.
 [fn:orth4] Chesterton said nature's regularities are "weird repetitions," and that we "do not count on" them, we "bet on" them. /Orthodoxy/, ch. IV, "[[https://www.gutenberg.org/cache/epub/16769/pg16769-images.html#CHAPTER_IV_The_Ethics_of_Elfland][The Ethics of Elfland]]."
 [fn:vta407] The phrase is Van Til's. He liked to say unbelievers "can very well count, but they cannot 'account for counting.'" Bahnsen, /Van Til's Apologetic/, p. 407.
 [fn:p1improve] Part 1 said it with Wolfgang Smith, in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#improve">Can it improve itself?</a>@@
