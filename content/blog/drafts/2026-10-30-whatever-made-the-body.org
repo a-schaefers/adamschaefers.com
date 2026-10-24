@@ -1,4 +1,5 @@
 #+TITLE: Whatever made the body | A companion to Embracing the dark side Part 2
+#+FEATURED: blog/drafts/whatever-made-the-body.jpg
 #+DESCRIPTION: Where the textbook, the biologists, the Aristotelians, the believers and Teilhard stand on evolution, and why Part 2's argument about the mind holds in every camp.
 
 @@html:<a href="/blog/2026-10-30-embracing-the-dark-side-part-2/">Part 2</a>@@ argues that a machine can't have a mind, and it doesn't ask you to decide on evolution. That's on purpose. Its argument, in @@html:<a href="/blog/2026-10-30-embracing-the-dark-side-part-2/#give">Couldn't we give it one?</a>@@, is about the mind, and it holds whichever way you go on bodies. If it hung on evolution, half its readers would stop at the door, and the question would get lost in a fight it doesn't need.
