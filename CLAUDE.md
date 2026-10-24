@@ -148,8 +148,9 @@ its `.KEEP`, which keeps the empty folder in git). So drafts can sit on
 public, though: GitHub shows them to anyone who looks). A draft's own picture
 goes in its `drafts/` folder (`[[file:blog/drafts/photo.jpg]]`; tracked, as
 dist copies only what git knows) and stays off the site; when the draft goes
-live, move the picture up beside it and drop `drafts/` from its link. `DRAFTS=0 make build` builds exactly what the site serves, and
-`make check` builds that way: its `check-dist` fails if anything from a
+live, move the picture up beside it and drop `drafts/` from its link.
+`DRAFTS=0 make build` builds exactly what the site serves, and `make check`
+builds that way: its `check-dist` fails if anything from a
 `drafts/` folder (a file, a draft's page, listing entry, `#site-data` entry,
 feed item or sitemap entry) is in `public/` or `build/`, so it fails after a
 local `make build` with drafts.
@@ -389,8 +390,8 @@ a Worker secret (`wrangler secret put TURNSTILE_SECRET`), not in the repo.
 Checks and where they run (owner, 2026-10-11: no slow suites on this old
 machine when CI already runs them). `make check` is CI's required check
 (`.claude/rules/cicd.md`): the build (without the drafts), every link, no
-draft, the types, the Workers' tests and the workflows' rules, in seconds, so running it before shipping is
-cheap. A headless-browser look is worth it after changing `src/` or the styles
+draft, the types, the Workers' tests and the workflows' rules, in seconds, so
+running it before shipping is cheap. A headless-browser look is worth it after changing `src/` or the styles
 (`site.css`, or a template's classes), not after editing words. In
 ../backseat-driver, don't run its whole suite locally (`npm run check`,
 `npm test`): its pull requests' required `check` runs it on GitHub. Run there
