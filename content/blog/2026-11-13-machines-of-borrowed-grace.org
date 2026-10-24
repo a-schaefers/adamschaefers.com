@@ -12,15 +12,15 @@ This is the whole answer, to both.
 
 I won't go line by line. Thirty thousand words of forecasts would take thirty thousand more to argue with, and time will grade forecasts better than I can.
 
-I'm going after the floor.
+I'm going after the books.
 
-Every argument stands on something it doesn't argue for. What a mind is. What good is. Where history goes. Get those wrong, and every room built on top leans, however nicely it's furnished.
+Every argument spends something it doesn't argue for. What a mind is. What good is. Where history goes. If those aren't yours, everything you buy with them is bought on credit, however well you shop.
 
 In all those words, neither essay names God once.
 
-That isn't neutral. It's a floor. And there's no neutral floor to argue from, his or mine.[fn:ground]
+That isn't neutral. It says the capital is his. And nobody argues from neutral, not him and not me.[fn:ground]
 
-So I'll stand on his, "just for argument's sake," as Cornelius Van Til put it,[fn:vta124] and see whether it holds his weight.[fn:retorsion]
+So I'll take his books as he keeps them, "just for argument's sake," as Cornelius Van Til put it,[fn:vta124] and see whether they balance.[fn:retorsion]
 
 Van Til was a Reformed apologist, and I'm using his method as his student Greg Bahnsen laid it out.[fn:vta] My lens, as always, is Aristotle and Aquinas. Van Til wouldn't have liked the company.[fn:vtaquinas]
 
@@ -28,13 +28,13 @@ Van Til was a Reformed apologist, and I'm using his method as his student Greg B
 2. [[#mind][Machines that think]] - he never says what thinking is.
 3. [[#aligned][Aligned to what?]] - a letter its authors can rewrite.
 4. [[#arc][The arc]] - Parker's arc, and the One who bends it.
-5. [[#undressed][Undressed]] - his hopes, one by one, without the floor.
+5. [[#accounts][Settling accounts]] - his hopes, one by one, and whose they are.
 6. [[#seas][Black seas]] - Lovecraft, Sagan, and who's playing the music.
 
 [fn:molg] Dario Amodei, [[https://darioamodei.com/essay/machines-of-loving-grace][Machines of Loving Grace: How AI Could Transform the World for the Better]], October 2024. Every quote of Amodei's here is from it or the next one.
 [fn:aot] Dario Amodei, [[https://darioamodei.com/essay/the-adolescence-of-technology][The Adolescence of Technology: Confronting and Overcoming the Risks of Powerful AI]], January 2026.
 [fn:p1grace] In @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#grace">So-called Machines of Loving Grace</a>@@.
-[fn:ground] Bahnsen calls a man's presuppositions his "least negotiable beliefs," the ones granted "the highest immunity to revision" (/VTA/, p. 2 n. 4). Everybody has them, and claiming to have none is just one more. Bahnsen finds the whole method in two verses of Proverbs. "Answer not a fool according to his folly, lest thou be like unto him. Answer a fool according to his folly lest he be wise in his own conceit" (Proverbs 26:4-5, KJV, as Bahnsen quotes it in /Presuppositional Apologetics/, p. 75). First, don't argue on the other man's terms, or you'll end up where he is. Then take his terms anyway, follow them down, and show where they land. Bahnsen sums it up as arguing "from the impossibility of the contrary" (/VTA/, p. 6). You don't prove the floor from something deeper, because nothing is deeper. You show that the man who denies it has to stand on it to deny it.
+[fn:ground] Bahnsen calls a man's presuppositions his "least negotiable beliefs," the ones granted "the highest immunity to revision" (/VTA/, p. 2 n. 4). Everybody has them, and claiming to have none is just one more. Bahnsen finds the whole method in two verses of Proverbs. "Answer not a fool according to his folly, lest thou be like unto him. Answer a fool according to his folly lest he be wise in his own conceit" (Proverbs 26:4-5, KJV, as Bahnsen quotes it in /Presuppositional Apologetics/, p. 75). First, don't argue on the other man's terms, or you'll end up where he is. Then take his terms anyway, follow them down, and show where they land. Bahnsen sums it up as arguing "from the impossibility of the contrary" (/VTA/, p. 6). You don't prove the starting point from something deeper, because nothing is deeper. You show that the man who denies it has to stand on it to deny it.
 [fn:vta124] /VTA/, p. 124. "You might follow my argument, just for argument's sake."
 [fn:retorsion] The Thomist in me won't let a Calvinist take all the credit. This is Aristotle's move first. In the /Metaphysics/ he faces a man who denies the law of non-contradiction. A first principle can't be demonstrated, since nothing is prior to it, but the man who denies it can be refuted, "if our opponent will only say something." The moment he speaks, he uses what he denies. If he won't speak, "such a man, as such, is from the start no better than a vegetable." And the proof is on the man listening, "for while disowning reason he listens to reason" (Aristotle, /Metaphysics/ IV.4, 1006a, trans. W. D. Ross, [[https://classics.mit.edu/Aristotle/metaphysics.4.iv.html][MIT]]). Aquinas, commenting on the passage, says the man who "destroys reason" in speaking "must uphold its significance, because he can only express what he denies by speaking and by signifying something" (/Commentary on the Metaphysics/ IV, lect. 7, n. 611, trans. John P. Rowan, [[https://isidore.co/aquinas/english/Metaphysics4.htm][Isidore]]). Thomists call it retorsion. Chesterton put it plainest of all. "Reason is itself a matter of faith. It is an act of faith to assert that our thoughts have any relation to reality at all" (G. K. Chesterton, [[https://www.gutenberg.org/cache/epub/16769/pg16769-images.html#CHAPTER_III_The_Suicide_of_Thought][Orthodoxy]], 1908, ch. III, "The Suicide of Thought"). Why can our thoughts touch reality? Aquinas says "The intellectual light itself which is in us, is nothing else than a participated likeness of the uncreated light" (/Summa Theologiae/ I q.84 a.5, [[https://www.newadvent.org/summa/1084.htm#article5][New Advent]]). Or as the Psalm says, "in thy light shall we see light" (Psalm 36:9, KJV). Every man reasons by a borrowed light, whether or not he thanks the One who lends it.
 [fn:vta] Greg L. Bahnsen, /Van Til's Apologetic: Readings and Analysis/ (P&R, 1998), cited here as /VTA/. Van Til's own words are quoted from its readings, Bahnsen's from his commentary. Also Bahnsen, /Presuppositional Apologetics: Stated and Defended/, ed. Joel McDurmon (American Vision and Covenant Media, 2008).
@@ -65,7 +65,7 @@ So let's be clear about what I'm not saying. I'm not saying the cures are fake. 
 
 I'm saying something worse.
 
-He's right about a great deal, on a floor that can't hold any of it.
+He's right about a great deal, with money that isn't his.
 
 [fn:p2believe] @@html:<a href="/blog/2026-10-23-embracing-the-dark-side-part-2/#believe">When not to believe them</a>@@, in Part 2.
 [fn:vta430] /VTA/, pp. 430-31.
@@ -109,7 +109,7 @@ But Amodei doesn't live on that branch. Nobody does. He trusts his reason.[fn:ps
 
 Our soul.
 
-A machine shaped from sand has no soul to lean on. On his floor, neither does he. He reached for one anyway, at the moment it mattered most.
+A machine shaped from sand has no soul to lean on. On his account, neither does he. He reached for one anyway, at the moment it mattered most.
 
 The soul isn't on his books. He spends it anyway.[fn:vta377]
 
@@ -119,7 +119,7 @@ The machine is intelligent the way urine is healthy.[fn:p2claim]
 
 It's a sign of a mind, ours, the one that wrote everything it learned from.[fn:vta99]
 
-That's why his own words keep slipping. He wants to open the model up the way you'd open "a clockwork watch," to find out "whether it is saying something it believes is false." He calls what's inside a "soup of numbers." Then he asks what the soup believes.[fn:p2clock] He can say both in one breath only because he presupposes that a mechanism can believe. And we've just seen what his floor does to his own beliefs.
+That's why his own words keep slipping. He wants to open the model up the way you'd open "a clockwork watch," to find out "whether it is saying something it believes is false." He calls what's inside a "soup of numbers." Then he asks what the soup believes.[fn:p2clock] He can say both in one breath only because he presupposes that a mechanism can believe. And we've just seen what his theory does to his own beliefs.
 
 Scaling itself is counting. More data, more compute, better scores, a bet that tomorrow goes like yesterday.[fn:orth4] Amodei's company may be the best counter in the world. It can't account for counting.[fn:vta407]
 
@@ -127,7 +127,7 @@ And no amount of counting turns degree into kind.[fn:p1improve]
 
 A trillion parameters of no understanding is still no understanding.[fn:vta245]
 
-Take his floor seriously, and nobody thinks. Not the machine, and not the man.
+Keep his books honestly, and nobody thinks. Not the machine, and not the man.
 
 One of those is wrong, and he proves which every time he makes an argument.
 
@@ -281,7 +281,7 @@ So it isn't only a test of survival. If surviving were passing, the cockroach wo
 
 It's a test of character. And character isn't a score. It's a grade. It measures a man against what a man ought to be.
 
-On his floor, who holds that? Not history. History is the exam, not the examiner. Not the trend. A trend is only what most people did. Not us. We're the ones sitting it.
+On his books, who holds that? Not history. History is the exam, not the examiner. Not the trend. A trend is only what most people did. Not us. We're the ones sitting it.
 
 A Christian has an examiner, and he gets what Amodei wants besides, a history with a direction and men who still choose. Aquinas says God moves free creatures without making them any less free. "By moving voluntary causes He does not deprive their actions of being voluntary: but rather is He the cause of this very thing in them."[fn:st83] The One who steers history made the will. He sets the test, and he grades it. Scripture calls him the God "which trieth our hearts."[fn:thess]
 
@@ -293,21 +293,21 @@ Without a grader, it isn't a test. It's weather.
 [fn:orth7] /Orthodoxy/, ch. VII, "[[https://www.gutenberg.org/cache/epub/16769/pg16769-images.html#CHAPTER_VII_The_Eternal_Revolution][The Eternal Revolution]]."
 [fn:decl] [[https://www.archives.gov/founding-docs/declaration-transcript][The Declaration of Independence]] (1776).
 [fn:vta303] Van Til, /VTA/, p. 303. "Accordingly, there is nothing that the two conceptions of justice have in common except the name."
-[fn:vta87] He says it near the start of the first essay, where the development of AI "and many (not all) of its benefits seems inevitable (unless the risks derail everything)." Van Til would say the trouble isn't a contradiction. It's that a floor of necessity and chance can't give the freedom in between a meaning. "It is beyond the possibility of the mind of man to bind together the ideas of pure determinism and of pure indeterminism and by means of that combination to give meaning to life. Either modern man will have to admit that he knows everything or else he will have to admit that he knows nothing. The only alternative to this is that he claims both absurdities at the same time." (Van Til, /VTA/, p. 87.) Bahnsen said that without God "the autonomous man must end up pitting nature against freedom, science against personal dignity" (/Presuppositional Apologetics/, p. 112). Much of the second essay is that fight, the machine against our freedom.
+[fn:vta87] He says it near the start of the first essay, where the development of AI "and many (not all) of its benefits seems inevitable (unless the risks derail everything)." Van Til would say the trouble isn't a contradiction. It's that a world of necessity and chance can't give the freedom in between a meaning. "It is beyond the possibility of the mind of man to bind together the ideas of pure determinism and of pure indeterminism and by means of that combination to give meaning to life. Either modern man will have to admit that he knows everything or else he will have to admit that he knows nothing. The only alternative to this is that he claims both absurdities at the same time." (Van Til, /VTA/, p. 87.) Bahnsen said that without God "the autonomous man must end up pitting nature against freedom, science against personal dignity" (/Presuppositional Apologetics/, p. 112). Much of the second essay is that fight, the machine against our freedom.
 [fn:eth3] Aristotle, /Nicomachean Ethics/ III.3, trans. W. D. Ross ([[https://classics.mit.edu/Aristotle/nicomachaen.3.iii.html][MIT]]).
 [fn:st83] /Summa Theologiae/ I q.83 a.1 ad 3 ([[https://www.newadvent.org/summa/1083.htm#article1][New Advent]]).
 [fn:thess] 1 Thessalonians 2:4 (KJV).
 
-* Undressed
+* Settling accounts
 :PROPERTIES:
-:CUSTOM_ID: undressed
+:CUSTOM_ID: accounts
 :END:
 
-The floor's gone. Here's the furniture.
+Now the debts, one at a time.
 
 Cures, policies, forecasts, hopes. Some of it is good. Some of it is borrowed. Some of it is broken.
 
-To be clear, a man can cure a disease on any philosophy. Medicine doesn't wait on metaphysics. What he can't do on every floor is say why the cure is good, or what the healed man is for.
+To be clear, a man can cure a disease on any philosophy. Medicine doesn't wait on metaphysics. What not every philosophy can do is say why the cure is good, or what the healed man is for.
 
 ** Five chapters of happiness
 :PROPERTIES:
@@ -438,7 +438,7 @@ The "malicious (but otherwise average)" man who rents a powerful AI, and Amodei'
 
 That's a hard sentence for a CEO to write. I'll give him that one gladly.
 
-But on his floor, what went wrong with all of us? He doesn't say. Evil, for him, is a frequency, "a motive that will probably arise sooner or later." And if evil is a frequency, the fix is a filter.
+But by his account, what went wrong with all of us? He doesn't say. Evil, for him, is a frequency, "a motive that will probably arise sooner or later." And if evil is a frequency, the fix is a filter.
 
 Chesterton had a better answer.
 
@@ -454,7 +454,7 @@ His second essay proves original sin at length, without once using the words.
 
 And his cure? Democracies, "the immune system we need to fight autocracies." Made of the same men. And over all of them, AI, made from the same men.
 
-Van Til asked, "why should one 'rational being' who had become rational by Chance, seek to lord it over another 'rational being' who also had become rational by Chance?"[fn:vta398] On Amodei's floor there's no answer but power. Whoever holds the most compute holds the pen.
+Van Til asked, "why should one 'rational being' who had become rational by Chance, seek to lord it over another 'rational being' who also had become rational by Chance?"[fn:vta398] In Amodei's accounting there's no answer but power. Whoever holds the most compute holds the pen.
 
 He fears people "puppeted" by AI, a life that is "good" but "lacks freedom." Van Til saw where the dream of total science ends. Its ideal "was to know and control all things, including the internal movements of the human mind. But if this ideal should succeed, man would have lost his freedom."[fn:vta400]
 
