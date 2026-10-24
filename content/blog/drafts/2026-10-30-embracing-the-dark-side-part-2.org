@@ -254,7 +254,7 @@ The danger was never a machine with a mind. It's men who stop using theirs, beca
 
 This post doesn't ask you to decide on evolution, and that's on purpose. Its argument, in @@html:<a href="#give">Couldn't we give it one?</a>@@, is about the mind, and it holds whichever way you go on bodies. If it hung on evolution, readers on one side would stop at the door, and the question this post is about would get lost in a fight it doesn't need.
 
-I haven't settled it myself, and the Church never has. No council ever defined how bodies came to be. The Fathers didn't even settle how each soul does. Augustine wrote to Jerome, who held a view on it, "Teach me what I ought to hold as my own opinion."[fn:aug166] What the early catechisms hand on is the soul as God's own work. "Know also that thou hast a soul self-governed, the noblest work of God, made after the image of its Creator," Cyril of Jerusalem told the people he was preparing for baptism.[fn:cyril]
+I haven't settled it myself, and the Church never has. No council ever defined how bodies came to be. The Fathers didn't even settle how each soul does. Augustine wrote to Jerome, who held a view on it, "Teach me what I ought to hold as my own opinion."[fn:aug166] What they did hand on is the soul as God's own work. Cyril of Jerusalem taught the people he was preparing for baptism, "Know also that you have a soul self-governed, the noblest work of God, made after the image of its Creator."[fn:cyril]
 
 Rome has kept it open in our own time. Pius XII allowed research and discussion about evolution "in as far as it inquires into the origin of the human body as coming from pre-existent and living matter - for the Catholic faith obliges us to hold that souls are immediately created by God." He asked that the reasons for both opinions, "those favorable and those unfavorable to evolution, be weighed and judged with the necessary seriousness, moderation and measure."[fn:hg36]
 
@@ -275,7 +275,7 @@ That philosophy is the one this post argues against. Swap living matter for para
 Whatever made the body, the mind was given.
 
 [fn:aug166] Augustine, [[https://www.newadvent.org/fathers/1102166.htm][Letter 166]], to Jerome, §10, on the origin of the soul (415). Jerome held that God makes each soul new. Augustine is "willing that the opinion which you hold should be also mine," but "as yet I have not embraced it" (§8).
-[fn:cyril] Cyril of Jerusalem, [[https://www.newadvent.org/fathers/310104.htm][Catechetical Lecture IV]], §18, trans. Edwin Hamilton Gifford.
+[fn:cyril] Cyril of Jerusalem, [[https://www.newadvent.org/fathers/310104.htm][Catechetical Lecture IV]], §18, trans. Edwin Hamilton Gifford, as New Advent revised it.
 [fn:hg36] Pope Pius XII, [[https://www.vatican.va/content/pius-xii/en/encyclicals/documents/hf_p-xii_enc_12081950_humani-generis.html][Humani Generis]], August 12, 1950, §36.
 [fn:jp2] Pope John Paul II, [[https://www.newadvent.org/library/docs_jp02tc.htm][Truth Cannot Contradict Truth]], address to the Pontifical Academy of Sciences, October 22, 1996, §§4-6.
 [fn:critics] Wolfgang Smith, /Teilhardism and the New Religion/ (TAN Books, 1988), revised as /Theistic Evolution: The Teilhardian Heresy/ (Angelico Press, 2012). Chad Ripperger, /The Metaphysics of Evolution: Evolutionary Theory in Light of First Principles/ (2012).
