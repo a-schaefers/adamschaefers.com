@@ -111,7 +111,7 @@ It can't have one.
 [fn:st13] Thomas Aquinas, /Summa Theologiae/ I-II q.13 a.2 ad 3 ([[https://www.newadvent.org/summa/2013.htm#article2][New Advent]]).
 [fn:phys28] Aristotle, /Physics/ II.8, trans. R. P. Hardie and R. K. Gaye ([[https://classics.mit.edu/Aristotle/physics.2.ii.html][MIT]]).
 [fn:inphys] Thomas Aquinas, /Commentary on Aristotle's Physics/ II, lect. 14, n. 268 ([[https://isidore.co/aquinas/english/Physics2.htm][Isidore]]).
-[fn:p1form] Part 1 gets there with Wolfgang Smith, in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#improve">Can it improve itself?</a>@@ "It can rewrite every weight it has. The form is still ours."
+[fn:p1form] Part 1 gets there with Aristotle's bed, in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#improve">Can it improve itself?</a>@@ "It can rewrite every weight it has. The form is still ours."
 [fn:st62] /Summa Theologiae/ III q.62 a.1 ([[https://www.newadvent.org/summa/4062.htm#article1][New Advent]]), the same article Part 1 cites on the instrument, in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#linus">Even Linus</a>@@.
 [fn:phys26] /Physics/ II.6. The Greek is a pun, /automaton/ read as /auto maten/, itself in vain. It's where we get "automatic."
 [fn:p1leash] The question Part 1 left open, in @@html:<a href="/blog/2026-10-21-embracing-the-dark-side/#improve">Can it improve itself?</a>@@ It ends on a bullet. "It can still kill you."
