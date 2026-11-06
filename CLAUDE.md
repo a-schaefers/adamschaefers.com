@@ -589,7 +589,7 @@ The kinds:
 2. Repeated scope disclaimer: saying again what the preface already said the
    book doesn't prove ("no proof of God", "which this book states and doesn't
    defend", "it's a sketch and no proof"). The book says once, in the preface
-   and at "What you keep", what it claims and what it doesn't; after that it
+   and at "What if I stop here?", what it claims and what it doesn't; after that it
    argues as if it meant it.
 3. Ending on retreat: a chapter whose last paragraph is a concession, a
    hand-off or a list of open questions. Concede in the middle, conclude at
@@ -675,7 +675,7 @@ introduced once, said plainly, then used without apology, the passage framed
 opens with what it can't do alone and closes on its conclusion; a hand-off,
 where one is needed, must itself be a claim (what was shown, what wasn't, and
 the gap), and comes before the verdict, not instead of it. The book says once
-(in the preface and at "What you keep", and in a chapter only where the
+(in the preface and at "What if I stop here?", and in a chapter only where the
 concession changes what that chapter can claim) what it can't close; everywhere
 else it argues as if it meant it (no crouching, above). "That's the next
 chapter." alone is a stage direction: the ceremonial audit above binds every
