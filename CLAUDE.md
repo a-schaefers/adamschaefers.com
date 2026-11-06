@@ -128,7 +128,9 @@ post's address at it. Footnotes (`[fn:name]`, defined at the end of the
 section that uses them, before the next heading) show at the end of the section
 that first refers to each, small (`site--section-footnotes`); a number and its
 note link to each other.
-Links out of the site open in a new tab. The index file holds the
+Links out of the site open in a new tab. An entry's `#+LICENSE` (linked to `#+LICENSE_URL`, its
+deed) closes its text as a small notice (`site--license-html`), and `make pdf`
+prints it on the copyright page. The index file holds the
 collection's title, intro and `#+POSTS_PER_PAGE` (Off the clock: 12).
 
 Drafts (2026-10-24) are entries in a collection's `drafts/` folder
