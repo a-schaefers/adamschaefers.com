@@ -4,7 +4,9 @@
 #+LICENSE: This work is dedicated to the public domain (Creative Commons CC0 1.0). No rights reserved. The quotations from other authors remain theirs.
 #+LICENSE_URL: https://creativecommons.org/publicdomain/zero/1.0/
 #+EDITION_SOURCE: https://github.com/a-schaefers/adamschaefers.com/tree/f3c815b/content/blog
-#+DESCRIPTION: How does a thing that can't think beat us at our own work?
+#+DESCRIPTION: Language models now do work that used to take a mind. What are they, where do their words get their meaning, and what are the companies building them standing on?
+
+Whether a machine can think is a question about what it is for anything to mean something.
 
 @@html:<a href="/blog/machines-of-borrowed-grace.pdf">Read it as a PDF</a>@@
 
@@ -46,9 +48,9 @@
 
 *Appendices*
 
-- [[#replies][Appendix A. Six replies]]
-- [[#numbers][Appendix B. Numbers don't push back]]
-- [[#evolution][Appendix C. Whatever made the body]]
+- [[#replies][Appendix A. Six replies to Ross]]
+- [[#numbers][Appendix B. How we know mathematics]]
+- [[#evolution][Appendix C. Evolution and the mind]]
 
 * Preface
 :PROPERTIES:
@@ -1459,7 +1461,7 @@ There was never any loving grace in the machines.
 [fn:st104] /Summa Theologiae/ I q.104 a.1 ([[https://www.newadvent.org/summa/1104.htm#article1][New Advent]]), where the being of every creature "would fall into nothingness were it not kept in being by the operation of the Divine power," and where a man who guards a child from the fire preserves it in another way. On creation as no change, see [[#give][chapter 9]].
 [fn:luke15] KJV.
 
-* Appendix A. Six replies
+* Appendix A. Six replies to Ross
 :PROPERTIES:
 :CUSTOM_ID: replies
 :END:
@@ -1605,14 +1607,14 @@ Not one of these replies finds the rule in the machine without a reader, a desig
 [fn:give9] See [[#give][chapter 9]].
 [fn:dillard] Dillard came back with cell division, which doesn't reduce to lower-level physics and is material all the same, so thought might be too ([[https://www.pdcnet.org/acpq/content/acpq_2014_0088_0001_0139_0147][Ross Revisited: Reply to Feser]], /American Catholic Philosophical Quarterly/ 88, no. 1 (2014), pp. 139-47). Feser's answer is that "Ross isn't arguing that thought is irreducible and therefore immaterial." He "is arguing that thought has a determinate conceptual content and is therefore immaterial" (/Immortal Souls/, ch. 8).
 
-* Appendix B. Numbers don't push back
+* Appendix B. How we know mathematics
 :PROPERTIES:
 :CUSTOM_ID: numbers
 :END:
 
 Take a plain truth of arithmetic, that there's no largest prime. How does anybody come to know a thing like that? Plantinga asks a question of the same shape about all of a mind's beliefs at once.[fn:plantC] This one has been put to one kind of belief, by philosophers with no use for his conclusion. Their target wasn't naturalism. Hartry Field's was the view that numbers are real things outside space and time, and Paul Benacerraf's was nearly every account of mathematics on offer.
 
-Benacerraf put it to philosophers of mathematics in 1973.[fn:benacerraf] The natural reading of a truth like that is that it's true the way it's true that there are three chairs in this room. It's about some things, the numbers, and it says how they are. But a number isn't in space or time. It never pushed on a nerve, and a brain learns what it learns by being pushed on. So how does a brain come to know about numbers? An account that does justice to the truth, he wrote, leaves it "unintelligible how we can have any mathematical knowledge whatsoever." An account that explains the knowing has trouble keeping the truth.
+Benacerraf put it to philosophers of mathematics in 1973.[fn:benacerraf] The natural reading of a truth like that is that it's true the way it's true that there are three chairs in this room. It's about some things, the numbers, and it says how they are. But a number isn't in space or time. It never pushed on a nerve, and a brain learns what it learns by being pushed on. Numbers don't push back. So how does a brain come to know about numbers? An account that does justice to the truth, he wrote, leaves it "unintelligible how we can have any mathematical knowledge whatsoever." An account that explains the knowing has trouble keeping the truth.
 
 The first answer was that he'd leaned on a causal theory of knowledge, and few philosophers hold that theory now. The problem outlived the theory.[fn:robust] Field restated it without one. Mathematicians are reliable. When most of them accept a claim, the claim is nearly always so. A fact like that wants an explanation, and what a platonist says about numbers seems to rule every explanation out.[fn:field]
 
@@ -1635,7 +1637,7 @@ The machine comes by its mathematics two ways. In 2024 one of Google DeepMind's 
 [fn:franklin] James Franklin, [[https://aeon.co/essays/aristotle-was-right-about-mathematics-after-all][The mathematical world]], /Aeon/, April 7, 2014. His book is /An Aristotelian Realist Philosophy of Mathematics/ (Palgrave Macmillan, 2014). In the essay he dared naturalists to "build an artificial intelligence system that imitates genuine mathematical insight." A machine took gold at the Olympiad in 2025. I wouldn't have made the bet.
 [fn:alphaproof] Google DeepMind, [[https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/][AI achieves silver-medal standard solving International Mathematical Olympiad problems]], July 25, 2024. Its prover "generates solution candidates and then proves or disproves them by searching over possible proof steps in Lean," and did the two algebra problems and the number theory problem. A second system did the geometry, and together they reached a silver medal's score. For the contest, the lab says, "the problems were manually translated into formal mathematical language." Approaches that work in plain language, the lab said, "can hallucinate plausible but incorrect intermediate reasoning steps and solutions." The 2025 model, in the announcement cited in [[#prove][chapter 11]], "operated end-to-end in natural language," and its answers were "officially graded and certified by IMO coordinators."
 
-* Appendix C. Whatever made the body
+* Appendix C. Evolution and the mind
 :PROPERTIES:
 :CUSTOM_ID: evolution
 :END:

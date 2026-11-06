@@ -69,6 +69,10 @@
 \vspace{0.6em}
 {\large\itshape \booksubtitle\par}
 \vspace{1.6em}
+\ifdefined\bookopening
+{\bookopening\par}
+\vspace{1.6em}
+\fi
 \ifdefined\bookpicture
 \includegraphics[width=0.8\textwidth]{\bookpicture}\par
 \fi

@@ -24,6 +24,8 @@
 ;;   its own headings, each under a bold line) are left out: LaTeX makes the book's, with
 ;;   page numbers.
 ;; - A paragraph that links to the PDF itself is left out.
+;; - What else stands before the first heading (the post's opening line, under its
+;;   title on the site) goes on the title page, under the subtitle.
 ;; - The HTML the post carries (@@html:...@@) becomes Org: a link to the site gets the
 ;;   site's full address, an anchor (<a id>) becomes a place links can jump to, <i> is
 ;;   italics.  Any other tag is an error, so a new one gets handled here on purpose.
@@ -89,6 +91,17 @@ standing over such a list."
              (to (progn (goto-char from)
                         (if (re-search-forward "^[ \t]*\n" nil t) (match-end 0) (point-max)))))
         (delete-region from to)))))
+
+(defun pdf--take-opening ()
+  "Delete the text between the keywords and the first heading, and return it, or nil."
+  (save-excursion
+    (goto-char (point-min))
+    (while (looking-at "^\\(?:#\\+.*\\|[ \t]*\\)\n") (forward-line 1))
+    (let* ((from (point))
+           (to (if (re-search-forward "^\\*+ " nil t) (match-beginning 0) (point-max)))
+           (text (string-trim (buffer-substring from to))))
+      (delete-region from to)
+      (unless (string-empty-p text) text))))
 
 (defun pdf--absolute (href)
   "HREF, with the site's address before it if it is one of the site's paths."
@@ -168,7 +181,7 @@ standing over such a list."
              ("\\chapter{%s}" . "\\chapter*{%s}")
              ("\\section{%s}" . "\\section*{%s}")
              ("\\subsection{%s}" . "\\subsection*{%s}"))))
-         title featured description edition source license license-url body)
+         title featured description edition source license license-url opening body)
     (with-temp-buffer
       (insert-file-contents file)
       (org-mode)
@@ -181,6 +194,7 @@ standing over such a list."
             license-url (pdf--keyword "LICENSE_URL"))
       (pdf--drop-contents)
       (pdf--drop-paragraphs-linking (format "/%s/%s.pdf" collection slug))
+      (setq opening (pdf--take-opening))
       (pdf--anchor-links (pdf--html-snippets))
       (pdf--set-tables)
       ;; The labels Org makes up are random: seeded, the same ones every run.
@@ -201,7 +215,12 @@ standing over such a list."
                (format "\\newcommand{\\bookdate}{%s}\n" (pdf--date file))
                (format "\\newcommand{\\booksite}{%s}\n"
                        (pdf--tex (replace-regexp-in-string "\\`https://" "" pdf-site)))
-               ;; The title page carries #+DESCRIPTION, the post's question, under its picture.
+               ;; The opening line, under the subtitle.
+               (if opening
+                   (format "\\newcommand{\\bookopening}{%s}\n"
+                           (string-trim (org-export-string-as opening 'latex t '(:with-smart-quotes t))))
+                 "")
+               ;; The title page carries #+DESCRIPTION under its picture.
                (if description (format "\\newcommand{\\bookdescription}{%s}\n" (pdf--tex description)) "")
                ;; The copyright page: #+EDITION, #+EDITION_SOURCE (an address where the
                ;; earlier editions are kept), #+LICENSE and #+LICENSE_URL.

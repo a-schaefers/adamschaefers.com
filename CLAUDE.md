@@ -166,7 +166,8 @@ and as `build/pdf/machines-of-borrowed-grace-paperback.pdf`, the interior for
 Kindle Direct Publishing (6x9, the gutter inside, black links, as
 ../merecatholicity.com's book). Org to LaTeX to PDF: Emacs exports the text
 (`scripts/pdf.el`, which documents what differs from the site: the hand-written
-contents and the paragraph offering the PDF are left out, the post's
+contents and the paragraph offering the PDF are left out, the opening line
+under the title goes on the title page, the post's
 `@@html:...@@` becomes Org, straight quotes are set as printers' quotes, a
 table's columns wrap in a longtable) and pdflatex sets it in `scripts/pdf.tex`. The Org file needs nothing for it: a
 note is defined where the site wants it, and LaTeX puts it at the foot of the
@@ -558,7 +559,7 @@ go. The kinds:
     stops, and "There are three charges in that." It is allowed in only
     two places: "What if I stop here?" (the ladder and the stopping-points
     table) and Appendix A's opening table. The preface (owner, 2026-11-06)
-    is only how the book was made (the help from Claude, corrections, CC0),
+    is only how the book was made (the help from Claude, corrections),
     before the Prologue: no promises, no disclaimers, no claim anywhere to
     be first. This overrules
     the earlier briefs' hand-off and dependency rules and their "a hand-off
