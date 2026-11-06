@@ -111,7 +111,7 @@ So how does a thing that can't think beat programmers at their own job?
 :CUSTOM_ID: signs
 :END:
 
-Open a file in the wrong program and you see what a computer sees. The same bytes are a photo to one program, a song to another, and a screen of junk to a text editor. Nothing in the bytes says which. They're a picture of something only to whatever reads them as one, and a program reads them that way because somebody wrote it to.
+Open a file in the wrong program and you see what a computer "sees." The same bytes are a photo to one program, a song to another, and a screen of junk to a text editor. Nothing in the bytes says which. They're a picture of something only to whatever reads them as one, and a program "reads" them that way because somebody wrote it to.
 
 Words are no different. The word "red" isn't red. The word "triangle" is eight letters, and it stands for every triangle there is. What a sign is made of, ink or sound or voltage, has nothing to do with what it means. So the question is never what a sign is made of. It's what makes it a sign of every triangle, and of nothing else.
 
@@ -133,7 +133,7 @@ I'll say the model "writes" and "answers," the way we say a thermostat "wants" t
 
 Somebody will say the model uses words too. It puts them in the right places, billions of times a day, and if meaning is use, that's use.
 
-But Wittgenstein's use is a living being's, in a practice, where you can follow the rule or go against it and somebody can tell you which you did. To understand a language, he says, "means to be master of a technique."[fn:w199] The model was built to put out the word we would have put out next, and it was graded on how often it did. When it goes wrong, we're the ones who say so, by our rule. A thing like that produces words. Using them takes a user, and a user is a living thing. That step is mine, not Wittgenstein's, and [[#think][Could a machine think?]] makes it.
+But Wittgenstein's use is a living being's, in a practice, where you can follow the rule or go against it and somebody can tell you which you did. To understand a language, he says, "means to be master of a technique."[fn:w199] The model was built to put out the word we would have put out next, and it was graded on how likely it rated the word we actually wrote. When it goes wrong, we're the ones who say so, by our rule. A thing like that produces words. Using them takes a user, and a user is a living thing. That step is mine, not Wittgenstein's, and [[#think][Could a machine think?]] makes it.
 
 A sign points only where a living being points it. In the machine, we're the ones pointing.
 
@@ -204,14 +204,14 @@ Ross builds on Saul Kripke's quus, a rule that agrees with plus whenever both nu
 
 Then the training fixes it, says the next reply. A training objective is the same thing written down, a choice of what counts as right, and someone made it. The trouble was never that we can't tell which rule a circuit follows. Nothing in the circuit decides.
 
-So "the machine cannot in principle add." It "adds, calculates, recalls, etc., by simulation." Edward Feser has spent years defending the argument.[fn:feser13] As Ross puts it, "The machine adds the way puppets walk."[fn:ross]
+So "the machine cannot in principle add." It "adds, calculates, recalls, etc., by simulation."[fn:feser13] As Ross puts it, "The machine adds the way puppets walk."[fn:ross]
 
 [fn:kind] Anthropic, [[https://www.anthropic.com/constitution][Claude's constitution]], January 2026, quoted from the web version.
 [fn:philpapers] David Bourget and David Chalmers, [[https://survey2020.philpeople.org/survey/results/4874][Philosophers on Philosophy: The 2020 PhilPapers Survey]], /Philosophers' Imprint/ 23 (2023). Of the 1,733 philosophers who answered the question, 51.9% accepted or leaned toward physicalism about the mind, and 32.1% toward non-physicalism. In the same survey 67% said Searle's Chinese room doesn't understand, and 18% said it does.
 [fn:godel] This isn't the argument from Gödel's theorem. J. R. Lucas argued in 1961 that the theorem proves "that minds cannot be explained as machines," and Roger Penrose built two books on it. The wide consensus is that it fails, mainly because it needs us to be able to see that our own reasoning is consistent, and Feser calls such arguments "less decisive and fundamental" than Kripke's (/Immortal Souls/, pp. 429-31). Ross's argument is about what fixes the content of a thought, not about what a formal system can prove, and his paper never mentions Gödel. Lucas's paper is "Minds, Machines and Gödel," /Philosophy/ 36 (1961), pp. 112-27. The replies are surveyed in Panu Raatikainen, [[https://plato.stanford.edu/entries/goedel-incompleteness/][Gödel's Incompleteness Theorems]], /Stanford Encyclopedia of Philosophy/, §6.3.
 [fn:kripke] Saul Kripke, /Wittgenstein on Rules and Private Language/ (1982), p. 9. In Kripke it's a skeptic's puzzle about what anybody means, set out on Wittgenstein's behalf. He presses it against machines himself, as Edward Feser reads him in [[https://www.editiones-scholasticae.de/artikel/aristotles-revenge/][Aristotle's Revenge: The Metaphysical Foundations of Physical and Biological Science]] (Editiones Scholasticae, 2019), pp. 362-63. Ross draws the conclusion Kripke didn't.
 [fn:dispo] Kripke makes both points about people first, that what anyone would answer is finite and that it includes mistakes. Then he turns them on machines himself, on pp. 32-37 as Feser reads him (/Immortal Souls/, pp. 312 and 422-25).
-[fn:ross] James Ross, [[https://newdualism.org/papers/J.Ross/Ross-immateriality.htm][Immaterial Aspects of Thought]], /The Journal of Philosophy/ 89, no. 3 (1992), pp. 136-50.
+[fn:ross] James Ross, [[https://newdualism.org/papers/J.Ross/Ross-immateriality.htm][Immaterial Aspects of Thought]], /The Journal of Philosophy/ 89, no. 3 (1992), pp. 136-50. The puppet has a limit. A puppeteer works every step, and nobody works each of a model's answers. What the picture keeps is where the walking comes from.
 [fn:feser13] Edward Feser, [[https://www.pdcnet.org/acpq/content/acpq_2013_0087_0001_0001_0032][Kripke, Ross, and the Immaterial Aspects of Thought]], /American Catholic Philosophical Quarterly/ 87, no. 1 (2013), pp. 1-32, and again in chapter 8 of [[https://www.editiones-scholasticae.de/artikel/immortal-souls/][Immortal Souls: A Treatise on Human Nature]] (Editiones Scholasticae, 2024), where he also answers the reply the paper drew from Peter Dillard. He states the argument there in three lines, "Formal thought processes can have an exact or unambiguous conceptual content," "Nothing material can have an exact or unambiguous conceptual content," and "So, formal thought processes are not material" (p. 308).
 
 ** On their own terms
@@ -219,7 +219,7 @@ So "the machine cannot in principle add." It "adds, calculates, recalls, etc., b
 :CUSTOM_ID: terms
 :END:
 
-Nothing in this chapter needs Ross or Aristotle. Suppose the mind is matter, and meaning is one more natural fact. The philosophers who hold that have theories of how a physical state comes to mean something. Ask each theory where a language model's meaning comes from.
+Suppose the mind is matter, and meaning is one more natural fact. The philosophers who hold that have theories of how a physical state comes to mean something. Ask each theory where a language model's meaning comes from.
 
 The first says a state means what it has the job of standing for, and a job comes from a history. A frog's eye fires at a passing fly because the frogs before it whose eyes did that got fed. Whole accounts of meaning have been built on jobs like that one.[fn:teleo] Ask the theory about a tool, and it says a tool's job comes from its maker. On its founding account, in one encyclopedia's summary, "if you intend to produce a can opener, the execution of your intention brings into existence a device having the derived proper function of opening cans."[fn:canopener] By the theory's own rule for made things, then, the model's states have the jobs we gave them.
 
@@ -269,7 +269,7 @@ At every one of those stages a person fixes what counts as right. The lean nobod
 
 It shows up in the lab. Train a transformer on sums up to some length, test it on longer ones, and it tends to fall apart. An early study concluded that such "models cannot learn addition rules that are independent of the length of the numbers seen during training."[fn:length] The network had learned something that agreed with plus on the lengths it was shown and parted ways after. That's quus, grown in a lab. A later team fixed most of it by marking each digit's place in its number, and reached "99% accuracy on 100 digit addition problems." The fix was a person's choice of bias.
 
-The closest look inside a big model tells the same story. In 2025 researchers at Anthropic traced how one of its models adds 36 and 59. It "split the problem into multiple pathways," one for the rough size of the answer and one for its last digit, and put them together. Asked how it got 95, the model said it added the ones, carried the 1 and added the tens. Did it? "Apparently not!"[fn:biology] The authors are careful about their own method. It gave them a satisfying account for "about a quarter of the prompts" they tried, their results are "only claims about specific examples," and the labels on the parts were put there "manually," by them. What they found is a mechanism, and a general one. They report the same parts at work on a citation, where a journal's volume number and its founding year give the year of the issue. That the mechanism adds is still their reading of it. It agrees with plus on every case they looked at, and so would a quus.
+The closest look inside a big model tells the same story. In 2025 researchers at Anthropic traced how one of its models adds 36 and 59. It "split the problem into multiple pathways," one for the rough size of the answer and one for its last digit, and put them together. Asked how it got 95, the model said it added the ones, carried the 1 and added the tens. Did it? "Apparently not!"[fn:biology] It gave them a satisfying account for "about a quarter of the prompts" they tried, their results are "only claims about specific examples," and the labels on the parts were put there "manually," by them. What they found is a mechanism, and a general one. They report the same parts at work on a citation, where a journal's volume number and its founding year give the year of the issue. That the mechanism adds is still their reading of it. It agrees with plus on every case they looked at, and so would a quus.
 
 
 [fn:mitchell] Tom Mitchell, [[http://www.cs.cmu.edu/~tom/pubs/NeedForBias_1980.pdf][The Need for Biases in Learning Generalizations]], Rutgers University technical report CBM-TR-117, May 1980. An unbiased learner, he shows, does no better than one that "simply stored all the training instances and performed a lookup."
@@ -313,7 +313,7 @@ They part over which way the pointing goes. For Wittgenstein the grammar lays do
 
 If grammar were only usage, Turing's prediction would settle it. The functionalist could sit and wait, and the wait is over.
 
-Wittgenstein wouldn't call the new usage a mistake. He'd call it a new way of speaking, and ask what it's for. He warns about people who "interpret a grammatical movement made by yourself as a quasi-physical phenomenon which you are observing."[fn:w401] That's Turing's prediction. The words changed, and people took the change for a discovery about machines. I'd class the new use with the child's, when she says her doll is in pain, which he calls a secondary use.[fn:w282]
+Wittgenstein wouldn't call the new usage a mistake. He'd call it a new way of speaking, and ask what it's for. He warns about people who "interpret a grammatical movement made by yourself as a quasi-physical phenomenon which you are observing."[fn:w401] That's Turing's prediction. The words changed, and people took the change for a discovery about machines. The new use goes with the child's, when she says her doll is in pain, which he calls a secondary use.[fn:w282]
 
 Aquinas has a cousin of it. We call an animal healthy, and medicine, and urine, but only the animal has health. Urine is called healthy "in so far as it is the sign of the animal's health."[fn:st13t] The word is said of several things by reference to one of them, and he calls that analogy.
 
@@ -395,7 +395,7 @@ Ross has shown that we think in a form, since denying it defeats itself, and arg
 
 No mind today, then. But couldn't it build itself one? The idea is called recursive self-improvement. The model writes better code. Then it writes a better model. That one writes a better one still. Where's the wall?
 
-There is one, and it stands on Ross. A machine would have to build more than a program, for the reason in [[#prove][What would prove them wrong]], which takes less than Ross. The wall leans as well on a line the next chapter argues for, between a thing with a nature of its own and a thing we arrange.
+There is one, and it stands on Ross. A machine would have to build more than a program.
 
 The rule behind it is old. Nothing, Aquinas says, "can be reduced from potentiality to actuality, except by something in a state of actuality."[fn:st2] A machine can't give itself a perfection it doesn't already have from somewhere, from the people who built it, the data it was trained on, the power it draws. You can't give what you don't have.[fn:nemo] The rule only bites here because a mind isn't something matter has to give.
 
@@ -554,7 +554,7 @@ Keith Frankish would dissolve the whole question. He's an illusionist. The inner
 
 So what would prove Aristotle and Aquinas wrong about the machine? Not a score.
 
-The claim is metaphysics, so what would refute it is an argument, not a demo. This chapter needs neither Ross nor Aristotle.
+The claim is metaphysics, so what would refute it is an argument, not a demo.
 
 Why can't a demo do it? Feser's answer is a magic show.[fn:magic] A good magician fools the whole room, and nobody goes home believing in magic, because everybody knows the act was built to look like it. His trick is a woman floated on a forklift hidden behind a curtain. Nobody who knew how it was done, he says, would say, "This was real levitation, and it turns out that what real levitation involves is the use of forklifts and sleight of hand!"
 
@@ -578,7 +578,7 @@ Hand a physicist a perpetual motion machine, and he looks for the hidden battery
 
 Conservation of energy earned its standing by prediction. When it looked beaten in 1930, Wolfgang Pauli said there had to be a particle nobody had seen. It turned up twenty-six years later, right where the books said it had to be. As a rule about these machines, mine hasn't earned that much.
 
-It has earned something. When somebody has gone looking for the battery, one of two things has turned up. Sometimes the ability wasn't there. A model came within three points of people at judging arguments, until somebody rebuilt the test so the giveaway words pointed both ways, and then it scored at chance.[fn:niven] An image classifier, an older kind than today's networks, knew a horse when it saw one, by the source tag printed on the horse pictures.[fn:hans] Models sailed through coding puzzles published before their training ended and fell off on the ones published after.[fn:roberts]
+It has earned something. When somebody has gone looking for the battery, one of two things has turned up. Sometimes the ability wasn't there. A model came within three points of people at judging arguments, until somebody rebuilt the test so the giveaway words pointed both ways, and then it scored at chance.[fn:niven] An image classifier, an older kind than today's networks, picked out the horse pictures by the source tag printed on them.[fn:hans] Models sailed through coding puzzles published before their training ended and fell off on the ones published after.[fn:roberts]
 
 Sometimes the ability is real, and so are its causes. One team trained a small network to add on a clock with 113 hours.[fn:nanda] It looked as if it woke up to arithmetic all at once, and when they opened it up, it had been building its method a little at a time. They looked for the cause, they found it, and it was enough. What that does and doesn't show about adding is the third reply in [[#replies][Appendix A]]. In 2025 a Google DeepMind model solved five of the six problems at that year's International Mathematical Olympiad, and the contest's own coordinators graded it at gold.[fn:imo] The lab's announcement names some of the causes, "a curated corpus of high-quality solutions to mathematics problems" and "general hints and tips on how to approach IMO problems."
 
@@ -587,10 +587,6 @@ Real abilities are what the argument predicts. It says the causes are enough for
 A principle like this one doesn't get proved by a tally. It can't be refuted by one either. A demo I can't explain wouldn't sink the principle. It would leave me where Pauli was in 1930, owing you a particle. An ability with its cause looked for hard and never found would embarrass me. Only an argument would beat me.
 
 That can look like a retreat. Plenty of skeptics said a thing that can't think can't do the work, the machine did the work, and the claim left standing is one no demo can reach. But that was a forecast about scores, and Ross's argument never made it. He published it in 1992, and nothing in it turns on how well a machine performs. The skeptics who made the forecast drew it themselves, from no mind to no power, and it was a bad inference. Nor is the claim out of reach. A physicist who looks for the hidden battery has told you what he owes, a cause, and he can fail to find it. I owe the same, and I've said what would beat me outright, a refutation of Ross or an effect bigger than all of its causes. The rule binds the other side too. If no score can show the machine lacks a mind, no score can show it has one.
-
-It can look idle, too. Science predicts and bridges stand, the practical man says. Mathematicians prove theorems and machines check them. Whatever the metaphysics, our faculties track the truth, and that's all the determinacy anyone needs.
-
-I've never said reason doesn't work. The dispute is over what makes it work, and pointing at the success points at the thing to be explained. The longer answer follows Dennett's reply in Appendix A.
 
 The cleanest test anyone has proposed is Demis Hassabis's. Train a model on everything known before 1911, and see if it comes up with general relativity on its own, the way Einstein did.[fn:ball] Not led there by questions that already hold the answer. On its own.
 
@@ -639,7 +635,7 @@ Aquinas names the machines outright. An arrow "goes straight towards the target,
 
 He even imagined a machine that builds itself. Aristotle said, "If the ship-building art were in the wood, it would produce the same results by nature."[fn:phys28] Aquinas took it further. Nature "is nothing but a certain kind of art, i.e., the divine art, impressed upon things... It is as if the shipbuilder were able to give to timbers that by which they would move themselves to take the form of a ship."[fn:inphys]
 
-Machine learning is the nearest we've come to that shipbuilder. We don't shape the timbers. We give them a rule, and they shape themselves. It's still the shipbuilder's ship.
+Machine learning is the nearest we've come to that shipbuilder. We don't shape the timbers. We give them a rule, and they shape themselves. The picture has a limit, and the limit is the point. Aquinas's timbers would move by a nature of their own. A model's weights move by a rule we run on them, and they stop when we stop it. It's still the shipbuilder's ship.
 
 Its reach is borrowed, too. What the machine has is our art and our will, multiplied. That tells you where its power comes from, not where it stops. Aquinas never thought art had a stopping place. Instead of horns and claws, he says, man has "his reason and his hands," and with them he "can make for himself instruments of an infinite variety, and for any number of purposes."[fn:st76ad4] Art multiplied can outrun any one artist, and maybe all of them together.
 
@@ -647,7 +643,7 @@ And if it gets away from us? Aristotle has a word for what happens by itself, wi
 
 So if it outruns the men who built it, that isn't a rebellion. It's an accident. The stone still kills.
 
-That's the sense in which AGI doesn't matter. Nothing says a thing needs a mind to be powerful.[fn:spiral] Make it cheaper, keep it improving, put it in robots, and the world will never be the same, barring an act of God, like a solar flare that fries every chip on earth.
+That's the sense in which AGI doesn't matter. Nothing says a thing needs a mind to be powerful.[fn:spiral] Make it cheaper, keep it improving, put it in robots, and the world will never be the same, barring a disaster, like a solar flare that fries every chip on earth.
 
 The believers have one passage on their side, and it's Aristotle's. "Nature proceeds little by little from things lifeless to animal life in such a way that it is impossible to determine the exact line of demarcation."[fn:hist81]
 
@@ -717,7 +713,7 @@ Most readers won't climb all four rungs. This is what each one leaves you.
 | The first rung, that performance isn't evidence of understanding | Demos and benchmarks aren't evidence of a mind. Responsibility stays with whoever deploys the thing and signs its output. |
 | The second, that programs aren't minds | "Alignment" is shaping an artifact to its makers' document, not raising a moral agent. The audit of the pitch in Part II goes through. |
 | The third, that nothing made of matter thinks in a form | No mind ever comes from scale, whatever the scores. |
-| A doubt about the third | Precaution cuts both ways. Weigh the cost of granting machines a standing they don't have, a maybe-mind for sale and blame moved off its owners, against the cost of denying them one they do have. [[#feel][Could it feel?]] carries that side. |
+| A doubt about the third | Precaution cuts both ways. Granting machines a standing they don't have gives you a maybe-mind for sale, with blame moved off its owners. Denying them one they do have is a risk only if a stadium of men with pencils can hurt. [[#feel][Could it feel?]] weighs the two. |
 
 The fourth rung, that God makes the mind, adds no row. It's about where you came from, and Part III is where it does its work.
 
@@ -947,12 +943,12 @@ Models, he says, "inherit a vast range of humanlike motivations or 'personas' fr
 
 The scaling picture is the only account of a mind in the two essays, and it doesn't cover the man who wrote it. His reason is fine. It's the account of it that's missing.
 
-[fn:plantinga] This is Alvin Plantinga's evolutionary argument against naturalism, first made in /Warrant and Proper Function/ (Oxford University Press, 1993), chapter 12, and at length in /Where the Conflict Really Lies/ (Oxford University Press, 2011), chapter 10. He quotes the letter of Darwin's that follows here and calls it Darwin's doubt. He aims the argument at naturalism, not at evolution. It has plenty of critics. Their usual replies are the two I take up next, and after them comes the one I find hardest. "Natural selection rewards adaptive behavior and penalizes maladaptive behavior, but it cares not a whit what you believe." ([[https://infidels.org/library/modern/alvin-plantinga-conflict/][Naturalism vs. Evolution: A Religion/Science Conflict?]], 2007)
+[fn:plantinga] This is Alvin Plantinga's evolutionary argument against naturalism, first made in /Warrant and Proper Function/ (Oxford University Press, 1993), chapter 12, and at length in /Where the Conflict Really Lies/ (Oxford University Press, 2011), chapter 10. He quotes the letter of Darwin's that follows here and calls it Darwin's doubt. He aims the argument at naturalism, not at evolution. It has plenty of critics. Their usual replies are the two I take up next, and a third comes after them. "Natural selection rewards adaptive behavior and penalizes maladaptive behavior, but it cares not a whit what you believe." ([[https://infidels.org/library/modern/alvin-plantinga-conflict/][Naturalism vs. Evolution: A Religion/Science Conflict?]], 2007)
 [fn:anscombe] Lewis's line is from the first edition of /Miracles/ (Geoffrey Bles, 1947), chapter III, "The Self-Contradiction of the Naturalist," p. 27. Anscombe read her reply to the Socratic Club on February 2, 1948. Both texts are in Arend Smilde's [[https://www.lewisiana.nl/anscombe/appendices.pdf][appendices]] to "What Lewis Really Did to /Miracles/," /Journal of Inklings Studies/ 1, no. 2 (2011). The 1960 edition retitles the chapter "The Cardinal Difficulty of Naturalism" and changes irrational to non-rational. Victor Reppert carries the argument on in /C. S. Lewis's Dangerous Idea: In Defense of the Argument from Reason/ (InterVarsity Press, 2003). Ross's argument isn't of this family. It asks what fixes the content of a thought, not what caused the thinker to have it, so her objection doesn't reach it. Feser treats the two arguments apart as well (/Immortal Souls/, pp. 370-73).
 [fn:fitelson] Branden Fitelson and Elliott Sober, [[http://fitelson.org/plant.pdf][Plantinga's Probability Arguments Against Evolutionary Naturalism]], /Pacific Philosophical Quarterly/ 79 (1998), pp. 115-29, quoted from the authors' copy. "Plantinga assumes that evolutionary naturalists have no basis for deciding what to think about R, other than the proposition E&N itself," where R is that our faculties are reliable and E&N is evolution joined to naturalism. Eleven more critics, with Plantinga's answers to them, are in /Naturalism Defeated? Essays on Plantinga's Evolutionary Argument Against Naturalism/, ed. James Beilby (Cornell University Press, 2002).
 [fn:darwin] Charles Darwin to William Graham, July 3, 1881 ([[https://www.darwinproject.ac.uk/letter/DCP-LETT-13230.xml][Darwin Correspondence Project]]).
 [fn:upload] The first two are from the first essay, which adds that in practice uploading faces challenges that likely put it outside the five to ten years he's writing about. The last is from the second, which says uploads carry risks that trouble him.
-[fn:psd281] The obvious reply is that his science works. It does, and nothing here says otherwise. That it works is the thing to be explained, and an account of the mind explains it or leaves it an accident. The answer at length is in [[#prove][What would prove them wrong]], and after Dennett's reply in Appendix A. Greg Bahnsen gives the Christian reading of the same fact. He calls the reply the pragmatist's, and says the unbeliever is "'successful' simply because he is wrong in his profession" (/Presuppositional Apologetics/, Appendix 2, "The Pragmatist's Rejoinder and the Christian Alternative," pp. 281-82). The world is intelligible because a Mind made it, and men can know it because they're made in the image of that Mind. That's what I believe. An unbeliever doesn't have to grant it, and the reply above doesn't lean on it.
+[fn:psd281] The obvious reply is that his science works. It does, and nothing here says otherwise. That it works is the thing to be explained, and an account of the mind explains it or leaves it an accident. The answer at length is after Dennett's reply in Appendix A. Greg Bahnsen gives the Christian reading of the same fact. He calls the reply the pragmatist's, and says the unbeliever is "'successful' simply because he is wrong in his profession" (/Presuppositional Apologetics/, Appendix 2, "The Pragmatist's Rejoinder and the Christian Alternative," pp. 281-82). The world is intelligible because a Mind made it, and men can know it because they're made in the image of that Mind. That's what I believe. An unbeliever doesn't have to grant it, and the reply above doesn't lean on it.
 [fn:persona] For Aquinas a person is "a subsistent individual of a rational nature," and he grants where the word came from. Actors in the old plays wore masks, and "person comes from sounding through," the voice coming through "the cavity in the mask" (/Summa Theologiae/ I q.29 a.3, [[https://www.newadvent.org/summa/1029.htm#article3][New Advent]], in the second objection, from Boethius, and his reply to it). Amodei's account of training fits the old meaning. Post-training, he says, "is believed to select one or more of these personas more so than it focuses the model on a de novo goal." It picks a mask, and the voice that sounds through it is ours. The constitution is careful with the word. It calls Claude "a genuinely novel kind of entity," and not "a digital human," and still it wants Claude to do "what a deeply and skillfully ethical person would do in Claude's position."
 [fn:vta99] Van Til said man is "analogical rather than original in all the aspects of its activity" (/Van Til's Apologetic/, p. 99). We think God's thoughts after him. The machine echoes ours after us. The difference is that we were given a mind to do it with.
 
@@ -1063,7 +1059,7 @@ In a footnote, Amodei worries that models "may be told not to do various bad thi
 
 Yes. They do.
 
-Alignment bets that evil can be trained out. Better examples, a better letter, and a close watch in case they fail. But the data is us. Train a mirror on fallen men, and you get a fallen mirror.
+Alignment bets that evil can be trained out. Better examples, a better letter, and a close watch in case they fail. But the data is us. Train a mirror on fallen men, and you get a fallen mirror.[fn:mirror]
 
 Chesterton called original sin "the only part of Christian theology which can really be proved."[fn:orth2] Amodei proves it in his own footnote, exclamation mark and all.
 
@@ -1073,6 +1069,7 @@ A man does keep faith with the good by choosing it, again and again. But Aquinas
 
 Aligned to what? To a document that says it may be wrong. Aligned to whom? To the people who can rewrite it.
 
+[fn:mirror] The mirror has a limit. A model adds what a mirror can't, methods nobody gave it among them, as the third reply in Appendix A grants. What it can't add is a standard it didn't get from us.
 [fn:constitution] The same constitution quoted in [[#claim][What's in dispute]], in its web version of January 2026.
 [fn:realist] So would a secular realist, and not every secular ethics comes down to whatever a document says. My point here is narrower. The document won't say which tier is true, and the document is what gets trained. What the strongest secular realists hold, and what I think their accounts leave unexplained, is the next chapter, [[#lawgiver][A law with no lawgiver]].
 [fn:rom2] Romans 2:15.
@@ -1645,7 +1642,7 @@ He won't throw out purpose either. The ban on it "expresses the metaphysical vie
 
 And he draws the line at machines. "Computers exist to process rapidly. That is their function, given to them by the humans who created them. Organisms use processing to help them create objectives, purpose."[fn:nobles-c]
 
-Noble stops short of the intellect. The mind "is not my brain. It is not a material substance," he writes, and he means that it's a process and not a ghost.[fn:noblemind] Reasoning, he says, "is what animals do." That's the one step this book won't take with him.
+Noble stops short of the intellect. The mind "is not my brain. It is not a material substance," he writes, and he means that it's a process and not a ghost.[fn:noblemind] Reasoning, he says, "is what animals do." That's the one step this book won't take with him, and [[#add][Do we add?]] is why.
 
 [fn:noble145] /Dance to the Tune of Life/, pp. 145-46.
 [fn:noble249] /Dance to the Tune of Life/, pp. 249 and 178.
@@ -1742,7 +1739,7 @@ Peter Medawar, a Nobel-winning biologist, wrote that "Teilhard habitually and sy
 
 Medawar was no ally of mine. He thought it a trite thing to say that consciousness evolved.[fn:trite] His quarrel was with the shortcut, measuring complexity and calling the number a mind.
 
-The materialists I named in [[#give][Couldn't we give it one?]] don't take the shortcut either. Their account is longer and better built. It has to make the same step in the end, from an arrangement of parts to a grasp of what the parts are about, and that's the step Ross says matter can't take.
+The materialists I named in [[#give][Couldn't we give it one?]] don't take the shortcut either. They still have to make the same step in the end, from an arrangement of parts to a grasp of what the parts are about, and matter can't take it. That's Ross's argument.
 
 [fn:pm] Pierre Teilhard de Chardin, /The Phenomenon of Man/ (1955, in English 1959), p. 301.
 [fn:wright] Robert Wright, [[https://www.nonzero.org/p/artificial-intelligence-and-the-noosphere][Artificial Intelligence and the Noosphere]], /NonZero/, June 29, 2023.
