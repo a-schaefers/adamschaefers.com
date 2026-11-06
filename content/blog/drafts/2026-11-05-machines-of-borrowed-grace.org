@@ -10,7 +10,7 @@
 
 - [[#worry][Prologue. The worry]]
 
-*Part I. Aristotle was right*
+*Part I. The machine*
 
 1. [[#signs][What makes a sign mean anything?]]
 2. [[#think][Could a machine think?]]
@@ -32,7 +32,7 @@
 15. [@15] [[#grace][A god made of us]]
 16. [[#believe][Believe the number]]
 
-*Part III. Machines of borrowed grace*
+*Part III. The makers*
 
 17. [@17] [[#light][Borrowed light]]
 18. [[#case][A country of geniuses]]
@@ -43,11 +43,13 @@
 23. [[#accounts][What the healed man is for]]
 24. [[#seas][Black seas]]
 
-*Back matter*
+*Appendices*
 
 - [[#replies][Appendix A. Six replies]]
 - [[#numbers][Appendix B. Numbers don't push back]]
 - [[#evolution][Appendix C. Whatever made the body]]
+
+
 - [[#made][How this book was made]]
 
 * Prologue. The worry
@@ -81,7 +83,7 @@ So how does a thing that can't think beat us at our own work?
 [fn:photocraft] [[https://github.com/storytold/photocraft][PhotoCraft]] on GitHub, from the ArtCraft community, begun September 30, 2026. The test set is psd-tools', and the figures are from its README, which counts more than 1,700 tests. As of November 4, 2026, it had nearly 77,000 stars, about 400 contributors and more than 3,600 merged pull requests, with 1,400 more open.
 [fn:real] The wiki Terence Tao started on [[https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems][AI contributions to Erdős problems]] lists the ones AI solved on its own, with no earlier work known, the first in January 2026. Donald Knuth, [[https://cs.stanford.edu/~knuth/papers/claude-cycles.pdf][Claude's Cycles]], February 28, 2026. Claude Opus 4.6 found the construction for odd sizes, and Knuth proved it.
 
-* Part I. Aristotle was right
+* Part I. The machine
 :PROPERTIES:
 :CUSTOM_ID: aristotle
 :END:
@@ -834,7 +836,7 @@ The danger was never a machine with a mind. It's men who stop using theirs, beca
 [fn:fortune] Jeremy Kahn's profile of the company in [[https://fortune.com/article/anthropic-ceo-dario-amodei-openai-chatgpt-artificial-intelligence-safety-donald-trump/][Fortune]], December 2, 2025.
 [fn:incentives] In the constitution's section on Claude's nature.
 
-* Part III. Machines of borrowed grace
+* Part III. The makers
 :PROPERTIES:
 :CUSTOM_ID: borrowed
 :END:
