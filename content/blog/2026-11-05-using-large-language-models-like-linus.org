@@ -1,7 +1,7 @@
 #+TITLE: Using Large Language Models like Linus
 #+DESCRIPTION: How to code with AI without losing the craft.
 
-In March I told you not to lean on AI to code. I changed my mind, @@html:<a href="/blog/2026-11-05-i-was-wrong-about-the-machine/">I was wrong</a>@@.
+In March I told you not to lean on AI to code. I changed my mind, @@html:<a href="/blog/2026-11-05-i-was-wrong-about-ai/">I was wrong</a>@@.
 
 * Sign it, own it
 

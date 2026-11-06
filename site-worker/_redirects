@@ -1,4 +1,7 @@
 # Old addresses, read by Workers Static Assets (make dist copies this into public/).
+# I was wrong about the machine became I was wrong about AI the day after it went up (2026-11-06).
+/blog/2026-11-05-i-was-wrong-about-the-machine /blog/2026-11-05-i-was-wrong-about-ai/ 301
+/blog/2026-11-05-i-was-wrong-about-the-machine/ /blog/2026-11-05-i-was-wrong-about-ai/ 301
 # The travelog videos moved from the repository to R2 (2026-10-11): feed readers and old
 # links still ask for /videos/<name>.mp4.
 /videos/coos-bay.mp4 https://media.adamschaefers.com/coos-bay.mp4 301
