@@ -11,13 +11,14 @@
 /videos/evia.jpg /off-the-clock/evia.jpg 301
 /videos/hawaii.jpg /off-the-clock/hawaii.jpg 301
 /videos/zakynthos.jpg /off-the-clock/zakynthos.jpg 301
-# Embracing the dark side became the book Machines of Borrowed Grace (2026-11-05), which is
-# a draft again, so the old addresses answer 404 for now. When the book is published, take
-# the # off these: Part 1's address leads to the book (its anchors are kept, and a browser
-# carries a link's own #anchor across), Part 2's to Part I and the companion's to the appendix.
-# /blog/2026-10-21-embracing-the-dark-side /blog/2026-11-05-machines-of-borrowed-grace/ 301
-# /blog/2026-10-21-embracing-the-dark-side/ /blog/2026-11-05-machines-of-borrowed-grace/ 301
-# /blog/2026-10-30-embracing-the-dark-side-part-2 /blog/2026-11-05-machines-of-borrowed-grace/#aristotle 301
-# /blog/2026-10-30-embracing-the-dark-side-part-2/ /blog/2026-11-05-machines-of-borrowed-grace/#aristotle 301
-# /blog/2026-10-30-whatever-made-the-body /blog/2026-11-05-machines-of-borrowed-grace/#evolution 301
-# /blog/2026-10-30-whatever-made-the-body/ /blog/2026-11-05-machines-of-borrowed-grace/#evolution 301
+# Embracing the dark side became the book Machines of Borrowed Grace (2026-11-06). Part 1's
+# address leads to the book already (owner, 2026-11-06), while the book is still a draft, so it
+# lands on the 404 page until the book is published (its anchors are kept, and a browser
+# carries a link's own #anchor across). When the book is published, take the # off the rest:
+# Part 2's leads to Part I and the companion's to the appendix.
+/blog/2026-10-21-embracing-the-dark-side /blog/2026-11-06-machines-of-borrowed-grace/ 301
+/blog/2026-10-21-embracing-the-dark-side/ /blog/2026-11-06-machines-of-borrowed-grace/ 301
+# /blog/2026-10-30-embracing-the-dark-side-part-2 /blog/2026-11-06-machines-of-borrowed-grace/#aristotle 301
+# /blog/2026-10-30-embracing-the-dark-side-part-2/ /blog/2026-11-06-machines-of-borrowed-grace/#aristotle 301
+# /blog/2026-10-30-whatever-made-the-body /blog/2026-11-06-machines-of-borrowed-grace/#evolution 301
+# /blog/2026-10-30-whatever-made-the-body/ /blog/2026-11-06-machines-of-borrowed-grace/#evolution 301

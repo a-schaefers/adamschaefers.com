@@ -157,10 +157,10 @@ builds that way: its `check-dist` fails if anything from a
 feed item or sitemap entry) is in `public/` or `build/`, so it fails after a
 local `make build` with drafts.
 
-The book (`2026-11-05-machines-of-borrowed-grace.org`) is a draft again
+The book (`2026-11-06-machines-of-borrowed-grace.org`) is a draft again
 (2026-11-05, in `content/blog/drafts/` with its pictures; the posts it replaced
-are gone, and their addresses' redirects to it wait commented out in
-`site-worker/_redirects`). It is also a PDF: `make pdf` (`scripts/pdf.sh`) sets
+are gone, and Part 1's address already redirects to it (owner, 2026-11-06), and the
+others' redirects wait commented out in `site-worker/_redirects`). It is also a PDF: `make pdf` (`scripts/pdf.sh`) sets
 the same Org file the site is built from as `build/pdf/machines-of-borrowed-grace.pdf`
 and as `build/pdf/machines-of-borrowed-grace-paperback.pdf`, the interior for
 Kindle Direct Publishing (6x9, the gutter inside, black links, as
@@ -177,7 +177,7 @@ Live give the same bytes. Nothing but `make pdf` builds it (not `make build`,
 has no PDF (the draft's link to `/blog/machines-of-borrowed-grace.pdf`, above
 its contents, leads nowhere yet). Publishing the book: move it and its
 featured picture up into `content/blog/` (and drop `drafts/` from
-`#+FEATURED`), take the `#` off its redirects, and commit; then `make pdf` also
+`#+FEATURED`), take the `#` off the rest of its redirects, and commit; then `make pdf` also
 writes `content/blog/machines-of-borrowed-grace.pdf`, committed like a post's
 picture, and `scripts/hooks/pre-commit` runs it for every commit that changes
 the live book, its picture or `scripts/pdf.*`, adding the PDF to that commit
