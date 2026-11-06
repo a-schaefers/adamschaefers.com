@@ -493,7 +493,10 @@ sharpen the last line; retire what doesn't hold up ("not up to standards",
 His posts never use a semicolon, a colon (except inside a
 quotation, a title or a citation, owner, 2026-10-23), a long dash (em or en) or a curly quote
 (straight " and ' only, owner, 2026-10-21):
-simple sentences, joined by commas when they join at all. His mind is
+simple sentences, joined by commas when they join at all. These rules are for his
+own sentences, never for what he quotes (owner, 2026-11-06): a quotation keeps
+its source's words and punctuation, semicolons and dashes included (only curly
+quotes become straight), and is never cut short or chosen to dodge them. His mind is
 Aristotelian: Aristotle is The Philosopher and Aquinas the authority, and a
 question of philosophy put in a post goes through them. As a lens, not a
 name to drop: name them (or Chesterton) only for a quote that earns its place,
@@ -694,7 +697,10 @@ the author at each checkpoint). The library is the rest of
 `~/repos/library-private` (`mccabe-and-wittgenstein/` holds McCabe, Wittgenstein
 and Monk; an OCR'd sentence is checked against its context or a second source
 before it's quoted, and otherwise paraphrased with its page). Quotation stays
-short (a sentence or less from a passage, attributed), and McCabe's way of
+short (a sentence or less from a passage, attributed) and exact: the
+source's words and punctuation as printed, semicolons and dashes included,
+checked against the source itself, never reworded, re-punctuated or cut to
+fit the house style. McCabe's way of
 explaining is learned, never his sentences. The orchestrator (Opus 5.5) writes
 every line of the book itself; Fable 5.1 subagents do the reading, the
 verification and the audits, so the writer never grades its own chapters.
