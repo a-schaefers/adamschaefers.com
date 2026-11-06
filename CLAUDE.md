@@ -554,9 +554,11 @@ go. The kinds:
     what a chapter does or doesn't do, what comes next or came before,
     which rung it's on, which reply is answered where, where a thinker
     stops, and "There are three charges in that." It is allowed in only
-    three places: "What if I stop here?" (the ladder and the stopping-points
-    table), Appendix A's opening table, and two promises in the preface (you
-    can stop early, and I mark where I speak as a Christian). This overrules
+    two places: "What if I stop here?" (the ladder and the stopping-points
+    table) and Appendix A's opening table. The book has no preface (owner,
+    2026-11-06): it opens on its title, its question, the contents and the
+    Prologue, claims nowhere to be first, and ends on "How this book was
+    made" (the help from Claude, corrections, CC0). This overrules
     the earlier briefs' hand-off and dependency rules and their "a hand-off
     may stay if it's a claim" exception.
     Everywhere else:
@@ -623,10 +625,10 @@ The kinds:
 1. Unforced concession: conceding what no opponent has demanded ("I don't
    claim to have closed the question", "I can't show them that a fact with
    nothing behind it is impossible").
-2. Repeated scope disclaimer: saying again what the preface already said the
-   book doesn't prove ("no proof of God", "which this book states and doesn't
-   defend", "it's a sketch and no proof"). The book says once, in the preface
-   and at "What if I stop here?", what it claims and what it doesn't; after that it
+2. Repeated scope disclaimer: saying again what "What if I stop here?"
+   already said the book doesn't prove ("no proof of God", "which this book states and doesn't
+   defend", "it's a sketch and no proof"). The book says once, at "What if I
+   stop here?", what it claims and what it doesn't; after that it
    argues as if it meant it.
 3. Ending on retreat: a chapter whose last paragraph is a concession, a
    hand-off or a list of open questions. Concede in the middle, conclude at
@@ -651,7 +653,7 @@ The kinds:
    say it." should end with what Adam thinks of that).
 10. The rungs as a shield: repeating "you can get off here" until a
     conviction reads as a buffet. The ladder is a courtesy to the reader,
-    stated in the preface and at the end. It is not the thesis.
+    stated once, at "What if I stop here?". It is not the thesis.
 Never flagged: a concession that changes what the argument can claim; an
 opponent's view stated at its strongest before it is answered; marking where
 reason ends and faith begins (a position, not a hedge); a note saying a source
@@ -712,7 +714,7 @@ introduced once, said plainly, then used without apology, the passage framed
 opens with what it can't do alone and closes on its conclusion; a hand-off,
 where one is needed, must itself be a claim (what was shown, what wasn't, and
 the gap), and comes before the verdict, not instead of it. The book says once
-(in the preface and at "What if I stop here?", and in a chapter only where the
+(at "What if I stop here?", and in a chapter only where the
 concession changes what that chapter can claim) what it can't close; everywhere
 else it argues as if it meant it (no crouching, above). "That's the next
 chapter." alone is a stage direction: the ceremonial audit above binds every

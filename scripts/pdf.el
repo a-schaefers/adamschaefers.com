@@ -168,12 +168,13 @@ standing over such a list."
              ("\\chapter{%s}" . "\\chapter*{%s}")
              ("\\section{%s}" . "\\section*{%s}")
              ("\\subsection{%s}" . "\\subsection*{%s}"))))
-         title featured edition source license license-url body)
+         title featured description edition source license license-url body)
     (with-temp-buffer
       (insert-file-contents file)
       (org-mode)
       (setq title (or (pdf--keyword "TITLE") (error "pdf: %s has no #+TITLE" file))
             featured (pdf--keyword "FEATURED")
+            description (pdf--keyword "DESCRIPTION")
             edition (pdf--keyword "EDITION")
             source (pdf--keyword "EDITION_SOURCE")
             license (pdf--keyword "LICENSE")
@@ -200,6 +201,8 @@ standing over such a list."
                (format "\\newcommand{\\bookdate}{%s}\n" (pdf--date file))
                (format "\\newcommand{\\booksite}{%s}\n"
                        (pdf--tex (replace-regexp-in-string "\\`https://" "" pdf-site)))
+               ;; The title page carries #+DESCRIPTION, the post's question, under its picture.
+               (if description (format "\\newcommand{\\bookdescription}{%s}\n" (pdf--tex description)) "")
                ;; The copyright page: #+EDITION, #+EDITION_SOURCE (an address where the
                ;; earlier editions are kept), #+LICENSE and #+LICENSE_URL.
                (if edition (format "\\newcommand{\\bookedition}{%s}\n"

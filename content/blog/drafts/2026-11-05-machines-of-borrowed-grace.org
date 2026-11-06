@@ -4,21 +4,9 @@
 #+LICENSE: This work is dedicated to the public domain (Creative Commons CC0 1.0). No rights reserved. The quotations from other authors remain theirs.
 #+LICENSE_URL: https://creativecommons.org/publicdomain/zero/1.0/
 #+EDITION_SOURCE: https://github.com/a-schaefers/adamschaefers.com/tree/f3c815b/content/blog
-#+DESCRIPTION: How does a thing that can't think beat programmers at their own job? An answer from Aristotle, Aquinas and Wittgenstein.
+#+DESCRIPTION: How does a thing that can't think beat us at our own work? An answer from Aristotle, Aquinas and Wittgenstein.
 
-AI is new. The questions it raises are old, and I've gone back to the men who asked them best, Aristotle and Aquinas, and Wittgenstein, who asked harder than anyone what it is for a word to mean something.
-
-One question won't leave me alone. How does a thing that can't think beat programmers at their own job?
-
-You don't have to follow me all the way. The [[#keep][last chapter of Part I]] says what you keep if you stop early. Where I speak as a Christian, I say so.
-
-I'm a programmer, and in philosophy a hobbyist. Where I lean on Aquinas or James Ross, check me against them, and @@html:<a href="/inquiries/">tell me</a>@@ where I've got it wrong.[fn:before]
-
-I made this book with a good deal of help from Claude, whose maker I criticize in it. It did research, checked quotations against their sources and drafted many passages, under my direction. Where I quote someone as another writer gives him, the note says so. The arguments are mine to answer for.
-
-You can also @@html:<a href="/blog/machines-of-borrowed-grace.pdf">read it as a PDF</a>@@, with each note at the foot of its page. The book is dedicated to the public domain ([[https://creativecommons.org/publicdomain/zero/1.0/][CC0 1.0]]), no rights reserved, though the quotations from other authors remain theirs.
-
-[fn:before] As far as I can find, nobody had put together the account of the speaking animal that some of Wittgenstein's Thomist readers drew from him, Ross's argument, and the language model. Two of the three pairs had been, the speaking animal with the machine and Ross with the machine. Wittgenstein and Aquinas were read together on mind and language by Peter Geach (/Mental Acts/, 1957), Elizabeth Anscombe, Anthony Kenny (/Aquinas on Mind/, 1993), Herbert McCabe (/On Aquinas/, 2008), Fergus Kerr (/Theology after Wittgenstein/, 1986), David Braine (/The Human Person: Animal and Spirit/, 1992) and John Haldane, though not all of them took the name analytical or grammatical Thomist, and McCabe refused it. Braine and McCabe turned that reading against machine minds, and so, from Wittgenstein's side alone, did P. M. S. Hacker ("Men, Minds and Machines," 1990). Ross turned his argument on the computer himself in 1992, and Edward Feser has pressed it there since 2012. Gyula Klima (2022) has brought Aquinas to AI and Edmund Michael Lazzari (2024) to chatbots, by other routes, and Wittgenstein and Kripke have been brought to them by Marcus Arvan (2025), José Antonio Pérez-Escobar and Deniz Sarikaya (2024) and others, and for the other side by Sebastian Sunday Grève, who argues in "Artificial Forms of Life" (2023) that a machine could share ours. I know several of these from reports of them, Braine's book among them.
+@@html:<a href="/blog/machines-of-borrowed-grace.pdf">Read it as a PDF</a>@@
 
 - [[#worry][Prologue. The worry]]
 
@@ -60,6 +48,7 @@ You can also @@html:<a href="/blog/machines-of-borrowed-grace.pdf">read it as a 
 - [[#replies][Appendix A. Six replies]]
 - [[#numbers][Appendix B. Numbers don't push back]]
 - [[#evolution][Appendix C. Whatever made the body]]
+- [[#made][How this book was made]]
 
 * Prologue. The worry
 :PROPERTIES:
@@ -72,25 +61,23 @@ Aristotle called man "the most imitative of living creatures," the one who "thro
 
 So put the most imitative creature on earth in front of a machine that does nothing but imitate. We copy the copy.
 
-Most of the time, the imitation passes for the real thing. We've tolerated mediocre software for decades. It works, ship it.
+Most of the time the imitation passes. It writes the email, the essay, the summary of the meeting nobody went to, the code. I write software, so I saw it there first. We used to be paid to code. Now we pay to code. The machine writes faster than we can read, and we sign for what we haven't read. We trade understanding for speed.
 
-The machine is bad enough to bury us in technical debt, and sharp enough that it might someday refactor its own mess, long after we've forgotten how. Borrow now, pay later, betting the bill never comes. We trade understanding for speed. We used to be paid to code. Now we pay to code.
-
-AI isn't going to become human. Humans are going to become NPCs.
+AI isn't going to become human. Humans are going to become NPCs, the figures in a video game who say their lines and never decide anything.
 
 We can already measure the start of it. In one study, people writing eight-sentence stories could ask an AI for ideas. Their stories were judged more creative, and also "more similar to each other than stories by humans alone."[fn:doshi]
 
-Maybe it tops out here, and from now on it only gets more efficient. It doesn't matter. People who copy instead of think, code nobody understands, and a monthly bill to a lab for the privilege. That's a hellscape, and what we have now is already enough to build it.
+Maybe it tops out here, and from now on it only gets more efficient. It doesn't matter. People who copy instead of think, work nobody understands, and a monthly bill to a lab for the privilege. That's a hellscape, and what we have now is already enough to build it.
 
-The worry doesn't need the machine to be weak, and it isn't. In its first five weeks, PhotoCraft, an open-source rebuild of Photoshop in Rust, with Claude among its co-authors, got to where it opens and re-saves 307 of the 309 Photoshop files in a standard test set.[fn:photocraft] Its own README says it isn't ready for daily professional work yet. If I were Adobe, I'd be nervous anyway. AI has solved Erdős problems that nobody had solved before, and Claude found a construction Donald Knuth had chased for weeks.[fn:real]
+The worry doesn't need the machine to be weak, and it isn't. In its first five weeks, PhotoCraft, an open-source rebuild of Photoshop in Rust, with Claude among its co-authors, got to where it opens and re-saves 307 of the 309 Photoshop files in a standard test set.[fn:photocraft] Its own README says it isn't ready for daily professional work yet. If I were Adobe, I'd be nervous anyway. In 2025 a Google DeepMind model solved five of the six problems at the International Mathematical Olympiad, and the contest's own coordinators graded it at gold.[fn:imop] AI has solved Erdős problems that nobody had solved before, and Claude found a construction Donald Knuth had chased for weeks.[fn:real]
 
-On large classes of programming work, the models already beat most programmers. They may not beat the best of us. They don't have to.
+On a great deal of work that used to take thought, writing code first among it, the models already beat most of us. They may not beat the best of us. They don't have to.
 
-So how does a thing that can't think beat programmers at their own job?
+So how does a thing that can't think beat us at our own work?
 
-[fn:real] See the [[#worry][Prologue]].
 [fn:poetics] Aristotle, /Poetics/ 4, trans. S. H. Butcher ([[https://classics.mit.edu/Aristotle/poetics.1.1.html][MIT]]).
 [fn:doshi] Anil R. Doshi and Oliver P. Hauser, [[https://pmc.ncbi.nlm.nih.gov/articles/PMC11244532/][Generative AI enhances individual creativity but reduces the collective diversity of novel content]], /Science Advances/, July 2024.
+[fn:imop] Google DeepMind, July 21, 2025. See [[#prove][chapter 11]].
 [fn:photocraft] [[https://github.com/storytold/photocraft][PhotoCraft]] on GitHub, from the ArtCraft community, begun September 30, 2026. The test set is psd-tools', and the figures are from its README, which counts more than 1,700 tests. As of November 4, 2026, it had nearly 77,000 stars, about 400 contributors and more than 3,600 merged pull requests, with 1,400 more open.
 [fn:real] The wiki Terence Tao started on [[https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems][AI contributions to Erdős problems]] lists the ones AI solved on its own, with no earlier work known, the first in January 2026. Donald Knuth, [[https://cs.stanford.edu/~knuth/papers/claude-cycles.pdf][Claude's Cycles]], February 28, 2026. Claude Opus 4.6 found the construction for odd sizes, and Knuth proved it.
 
@@ -135,7 +122,7 @@ A sign points only where a living being points it. In the machine, we're the one
 [fn:w454] /Philosophical Investigations/ §454. He adds, "This pointing is not a hocus-pocus which can be performed only by the soul."
 [fn:w432] /Philosophical Investigations/ §432. "Every sign by itself seems dead." He then asks whether life is breathed into it in use, "Or is the use its life?" He leans to the second. The use is its life.
 [fn:w201] /Philosophical Investigations/ §201. He means by an interpretation "the substitution of one expression of the rule for another," and so do I. Where the grasp is, he and Aquinas part. For Wittgenstein it's in the practice, "in the day-to-day practice of playing" (§197). For Aquinas it's in an act of the intellect. They agree on what it isn't, the reading of a sign.
-[fn:story] Herbert McCabe, /On Aquinas/, ed. Brian Davies (Burns & Oates, 2008), ch. 4, "Sensation, Language, and Individuals." His words are that we have "not just... a lifetime but also a life story." Anthony Kenny says in the foreword that McCabe's Aquinas is "in a sense more linguistic than the historical Aquinas was," and McCabe said so himself.
+[fn:story] Herbert McCabe, /On Aquinas/, ed. Brian Davies (Burns & Oates, 2008), ch. 4, "Sensation, Language, and Individuals." His words are that we have "not just... a lifetime but also a life story." Anthony Kenny says in the foreword that McCabe's Aquinas is "in a sense more linguistic than the historical Aquinas was," and McCabe said so himself. Others read Aquinas with Wittgenstein too, Peter Geach (/Mental Acts/, 1957), Elizabeth Anscombe, Kenny (/Aquinas on Mind/, 1993), Fergus Kerr (/Theology after Wittgenstein/, 1986), David Braine (/The Human Person: Animal and Spirit/, 1992) and John Haldane. They have been called grammatical Thomists, and McCabe disowned the label Thomist, as Filippo Casati and Simon Hewitt report ([[https://doi.org/10.1080/21692327.2024.2370735][Grammatical Thomism – An Introduction]], /International Journal of Philosophy and Theology/ 85, 2024). Braine turned that reading against machine minds, as Edmund Michael Lazzari reports him, and Lazzari carries it to chatbots ([[https://doi.org/10.1017/nbf.2023.9][AI/ML Chatbots' Souls, or Transformers]], /New Blackfriars/ 105, no. 1 (2024), pp. 47-60).
 [fn:guinness] /On Aquinas/, ch. 7, "Meaning, Understanding, and Making Decisions."
 [fn:never] /On Aquinas/, ch. 7, where the step comes from Wittgenstein's argument that there can be no private language. Aquinas and Wittgenstein, he says, both criticize "a doctrine which assimilates meanings or concepts to sensations," by different arguments.
 [fn:rossadd] See chapters 4 to 7.
@@ -187,7 +174,7 @@ Turing was right about the words. The words moved. The thinking didn't.
 [fn:lfm] As Ray Monk gives the exchanges in /Ludwig Wittgenstein: The Duty of Genius/ (Jonathan Cape, 1990), ch. 20, from the students' notes Cora Diamond edited as /Wittgenstein's Lectures on the Foundations of Mathematics, Cambridge, 1939/ (1976). The bridge is Turing's. "What I object to is the bridge falling down." Turing stopped coming before the course ended.
 [fn:turing] A. M. Turing, [[https://doi.org/10.1093/mind/LIX.236.433][Computing Machinery and Intelligence]], /Mind/ 59, no. 236 (1950), pp. 433 and 442. "But this is absurd," he says of the poll.
 [fn:w359] /Philosophical Investigations/ §359.
-[fn:w360] /Philosophical Investigations/ §360. He calls it not "an empirical statement" and ends, "Look at the word 'to think' as a tool."
+[fn:w360] /Philosophical Investigations/ §360. He calls it not "an empirical statement" and ends, "Look at the word 'to think' as a tool." P. M. S. Hacker turned this grammar on the machine in "Men, Minds and Machines," in /Wittgenstein: Meaning and Mind/ (Blackwell, 1990), which I know from its abstract. A machine, he answers, has no living body, and has purposes only as its designers gave them.
 [fn:w281] /Philosophical Investigations/ §281, and of pain alone, "Only of what behaves like a human being can one say that it has pains" (§283).
 [fn:w284] /Philosophical Investigations/ §284. "Our attitude to what is alive and to what is dead, is not the same."
 [fn:w25] /Philosophical Investigations/ §25, where he turns down the order of "they do not think, and that is why they do not talk." Animals, he says, "simply do not talk."
@@ -691,7 +678,7 @@ It can't have one.
 :CUSTOM_ID: beats
 :END:
 
-So how does a thing that can't think beat programmers at their own job?
+So how does a thing that can't think beat us at our own work?
 
 It doesn't understand, and it doesn't have to. What it has is our art, every program and proof and manual we ever wrote down, multiplied past anything one head could hold.
 
@@ -802,7 +789,7 @@ The motive is money. OpenAI ran a $20.9 billion operating loss last year.[fn:ope
 
 Watch for something new that was already there. In October 2025 an OpenAI executive posted that GPT-5 had "found solutions to 10 (!) previously unsolved Erdős problems." It had found papers that already solved them. Hassabis called it "embarrassing."[fn:erdos]
 
-The real ones came later, the solved Erdős problems and Knuth's construction.[fn:real] Believe those. They're still degree.
+The real ones came later, the solved Erdős problems and Knuth's construction.[fn:realp] Believe those. They're still degree.
 
 Watch for something new that's a measuring trick. One team took a set of abilities that seemed to appear out of nowhere at a certain size, and found that they "evaporate with different metrics or with better statistics."[fn:mirage]
 
@@ -838,6 +825,7 @@ The danger was never a machine with a mind. It's men who stop using theirs, beca
 [fn:openai] MarketWise, [[https://www.marketwise.com/investing/openai-losses-surge-to-21-billion-as-ai-bubble-grows-bigger/][on OpenAI's losses]], June 18, 2026, from leaked 2025 figures.
 [fn:anthropic] Tech Startups, [[https://techstartups.com/2026/10/20/anthropic-posts-staggering-80-7-billion-net-loss-in-first-half-of-2026-as-ipo-approaches/][on Anthropic's first-half 2026 results]], October 20, 2026, citing The Wall Street Journal. Its headline $80.7 billion net loss was nearly 90% non-cash accounting charges, not money spent.
 [fn:erdos] The Decoder, [[https://the-decoder.com/leading-openai-researcher-announced-a-gpt-5-math-breakthrough-that-never-happened/][Leading OpenAI researcher announced a GPT-5 math breakthrough that never happened]], October 18, 2025.
+[fn:realp] See the [[#worry][Prologue]].
 [fn:mirage] Rylan Schaeffer, Brando Miranda and Sanmi Koyejo, [[https://arxiv.org/abs/2304.15004][Are Emergent Abilities of Large Language Models a Mirage?]], NeurIPS 2023.
 [fn:agi] Simon Willison, [[https://simonwillison.net/2026/Apr/27/now-deceased-agi-clause/][on the now-deceased AGI clause]], April 27, 2026, quoting OpenAI.
 [fn:dow] Dario Amodei, [[https://www.anthropic.com/news/statement-department-of-war][Statement from Dario Amodei on our discussions with the Department of War]], February 26, 2026. Since March the Pentagon has barred Anthropic's products from Defense Department business as a "supply-chain risk" ([[https://www.nextgov.com/acquisition/2026/09/anthropic-lawsuit-supply-chain-risk/416255/][Nextgov]], September 28, 2026).
@@ -1771,3 +1759,12 @@ If you're a believer, Scripture hands you the soul as God's own work.
 If you're a materialist about the mind, this is where we part. You can keep every fossil and every genome. What you can't keep is a thought that means one thing and not another. That argument is Ross's, not Darwin's, and it's the one to answer.
 
 Whatever made the body, reason came from outside.
+
+* How this book was made
+:PROPERTIES:
+:CUSTOM_ID: made
+:END:
+
+I made this book with a good deal of help from Claude, whose maker I criticize in it. It did research, checked quotations against their sources and drafted many passages, under my direction. Where I quote someone as another writer gives him, the note says so. The arguments are mine to answer for. If I've got something wrong, @@html:<a href="/inquiries/">tell me</a>@@.
+
+The book is dedicated to the public domain ([[https://creativecommons.org/publicdomain/zero/1.0/][CC0 1.0]]). The quotations from other authors remain theirs.
