@@ -4,7 +4,7 @@
 #+LICENSE: This work is dedicated to the public domain (Creative Commons CC0 1.0). No rights reserved. The quotations from other authors remain theirs.
 #+LICENSE_URL: https://creativecommons.org/publicdomain/zero/1.0/
 #+EDITION_SOURCE: https://github.com/a-schaefers/adamschaefers.com/tree/f3c815b/content/blog
-#+DESCRIPTION: How does a thing that can't think beat us at our own work? An answer from Aristotle, Aquinas and Wittgenstein.
+#+DESCRIPTION: How does a thing that can't think beat us at our own work?
 
 @@html:<a href="/blog/machines-of-borrowed-grace.pdf">Read it as a PDF</a>@@
 
@@ -56,8 +56,6 @@
 :END:
 
 I made this book with a good deal of help from Claude, whose maker I criticize in it. It did research, checked quotations against their sources and drafted many passages, under my direction. Where I quote someone as another writer gives him, the note says so. The arguments are mine to answer for. If I've got something wrong, @@html:<a href="/inquiries/">tell me</a>@@.
-
-The book is dedicated to the public domain ([[https://creativecommons.org/publicdomain/zero/1.0/][CC0 1.0]]). The quotations from other authors remain theirs.
 
 * Prologue. The worry
 :PROPERTIES:
@@ -936,8 +934,7 @@ Nor is the trouble that a belief with a cause can't be trusted. C. S. Lewis argu
 
 The usual answer is that truth pays. A creature whose beliefs track the world outlives one whose beliefs don't, so selection tunes us to the truth by tuning us to survive. For finding water and dodging lions, sure. Alvin Plantinga presses this question, and he doesn't grant even that much. I'll grant it. Nobody's ancestors were selected for getting number theory right, or metaphysics, or the scaling hypothesis.
 
-The comeback is that the far reasoning came free. Selection built a general tool for the watering hole, and number theory rides along as a byproduct. The best version says the tool is logic, and logic doesn't care what it's about. A rule that carries truth from premise to conclusion about lions carries it about primes. Grant that of the rule. But selection only ever tried the rule on the cases that came up, and any rule that agreed with it on those would have been kept just the same. Selection can't tell plus from quus.[fn:quus19] See [[#quus][chapter 6]].
-[fn:quus19] The history covers the cases that happened, and nothing past them. So on this account the tool's reach past the watering hole is luck, and the only way I can check the luck is with the reasoning in question.
+The comeback is that the far reasoning came free. Selection built a general tool for the watering hole, and number theory rides along as a byproduct. The best version says the tool is logic, and logic doesn't care what it's about. A rule that carries truth from premise to conclusion about lions carries it about primes. Grant that of the rule. But selection only ever tried the rule on the cases that came up, and any rule that agreed with it on those would have been kept just the same. Selection can't tell plus from quus.[fn:quus19] The history covers the cases that happened, and nothing past them. So on this account the tool's reach past the watering hole is luck, and the only way I can check the luck is with the reasoning in question.
 
 Branden Fitelson and Elliott Sober reply that nobody has to work out his own reliability from the theory of evolution. We have other grounds for trusting our faculties, they say, and the believer is no better off. "The theist, like the evolutionary naturalist, is unable to construct a non-question-begging argument that refutes global skepticism."[fn:fitelson] I grant both points. I trusted my reason before I had any account of it, and so does everybody. The question is which account fits that trust. On one, the mind was made to know, and its reach past survival is what you'd expect. On the other, that reach is an accident.
 
@@ -953,8 +950,7 @@ That includes the scaling hypothesis. It's a conviction in a brain that an objec
 
 But Amodei doesn't live as if it were luck. Nobody does. He trusts his reason.[fn:psd281] He weighs evidence, calls some claims true and others false, and expects you to follow. He says dignity is owed "to every human being on earth." Those are commitments, and nothing the essays say about the mind accounts for them.
 
-Models, he says, "inherit a vast range of humanlike motivations or 'personas' from pre-training (when they are trained on a large volume of human work)."[fn:persona] Inherit, from us. The machine is intelligent the way urine is healthy.[fn:urine19] See [[#think][chapter 2]].
-[fn:urine19] It's a sign of a mind, and the mind is ours.[fn:vta99]
+Models, he says, "inherit a vast range of humanlike motivations or 'personas' from pre-training (when they are trained on a large volume of human work)."[fn:persona] Inherit, from us. The machine is intelligent the way urine is healthy.[fn:urine19] It's a sign of a mind, and the mind is ours.[fn:vta99]
 
 The scaling picture is the only account of a mind in the two essays, and it doesn't cover the man who wrote it. His reason is fine. It's the account of it that's missing.
 
@@ -967,6 +963,8 @@ The scaling picture is the only account of a mind in the two essays, and it does
 [fn:psd281] The obvious reply is that his science works. It does. That it works is the thing to be explained, and an account of the mind explains it or leaves it an accident. See Appendix A, after Dennett's reply. Greg Bahnsen gives the Christian reading of the same fact. He calls the reply the pragmatist's, and says the unbeliever is "'successful' simply because he is wrong in his profession" (/Presuppositional Apologetics/, Appendix 2, "The Pragmatist's Rejoinder and the Christian Alternative," pp. 281-82). The world is intelligible because a Mind made it, and men can know it because they're made in the image of that Mind. That's what I believe. An unbeliever doesn't have to grant it, and his success still needs explaining.
 [fn:persona] For Aquinas a person is "a subsistent individual of a rational nature," and he grants where the word came from. Actors in the old plays wore masks, and "person comes from sounding through," the voice coming through "the cavity in the mask" (/Summa Theologiae/ I q.29 a.3, [[https://www.newadvent.org/summa/1029.htm#article3][New Advent]], in the second objection, from Boethius, and his reply to it). Amodei's account of training fits the old meaning. Post-training, he says, "is believed to select one or more of these personas more so than it focuses the model on a de novo goal." It picks a mask, and the voice that sounds through it is ours. The constitution is careful with the word. It calls Claude "a genuinely novel kind of entity," and not "a digital human," and still it wants Claude to do "what a deeply and skillfully ethical person would do in Claude's position."
 [fn:vta99] Van Til said man is "analogical rather than original in all the aspects of its activity" (/Van Til's Apologetic/, p. 99). We think God's thoughts after him. The machine echoes ours after us. The difference is that we were given a mind to do it with.
+[fn:quus19] See [[#quus][chapter 6]].
+[fn:urine19] See [[#think][chapter 2]].
 
 ** 20. Aligned to what?
 :PROPERTIES:
@@ -989,8 +987,7 @@ An ethics that binds every rational agent, whatever his culture, is what the nat
 
 But every tier hangs on one word. Insofar. Which tier is it? They won't say, and they tell you why. Their first hope is that the machine won't have to know, "just as human agents do not need to resolve these difficult philosophical questions before attempting to be deeply and genuinely ethical."
 
-They're right about men. A man can be honest for forty years without reading a page of philosophy. But that's because the law is in him before the philosophy is, written on the heart, as Paul says.[fn:rom2] His upbringing didn't put it there. It had something to work with. Whether the machine has anything like that for its training to work with is the question. It hasn't.[fn:parti20] See Part I.
-[fn:parti20] Their answer is a hope.
+They're right about men. A man can be honest for forty years without reading a page of philosophy. But that's because the law is in him before the philosophy is, written on the heart, as Paul says.[fn:rom2] His upbringing didn't put it there. It had something to work with. Whether the machine has anything like that for its training to work with is the question. It hasn't.[fn:parti20] Their answer is a hope.
 
 They grant that their answer "is not fully neutral." They hope it "can reflect such neutrality to the degree that neutrality makes sense as an ideal," and where it can't, they aim for "value judgments that wide swaths of relevant stakeholders can feel reasonably comfortable with." That last is agreement.
 
@@ -1061,6 +1058,7 @@ Aligned to what? To a document that says it may be wrong. Aligned to whom? To th
 [fn:orth2] /Orthodoxy/, ch. II, "The Maniac."
 [fn:st94-m] /Summa Theologiae/ I-II q.94 a.2 ([[https://www.newadvent.org/summa/2094.htm#article2][New Advent]]).
 [fn:st91] /Summa Theologiae/ I-II q.91 a.2 ([[https://www.newadvent.org/summa/2091.htm#article2][New Advent]]).
+[fn:parti20] See Part I.
 
 ** 21. A law with no lawgiver
 :PROPERTIES:
@@ -1091,8 +1089,7 @@ That survival is good is a moral intuition, one of the beliefs whose reliability
 
 Enoch has an answer to the charge of circularity. Every account of a faculty's reliability leans on some truths of its own field. Even for perception, he says, "if facts about middle-sized objects were very different, we would not have been reliable." So leaning on one modest truth, that survival is good, is no special fault.[fn:parity]
 
-I grant it. Nobody has to prove his faculties before he uses them.[fn:faculties21] See [[#mind][chapter 19]].
-[fn:faculties21] But the two accounts aren't alike. The chairs that sight leans on are the chairs it sees. Light from them reaches the eye, and Enoch grants that perception has a causal account. The truth his third factor leans on never acts on anybody. What his account has is a fit between what selection favored and what's good, a harmony pre-established, as he says, and Godless. He calls the luck left over "a rather small miracle." Pre-established by nobody is the coincidence again.
+I grant it. Nobody has to prove his faculties before he uses them.[fn:faculties21] But the two accounts aren't alike. The chairs that sight leans on are the chairs it sees. Light from them reaches the eye, and Enoch grants that perception has a causal account. The truth his third factor leans on never acts on anybody. What his account has is a fit between what selection favored and what's good, a harmony pre-established, as he says, and Godless. He calls the luck left over "a rather small miracle." Pre-established by nobody is the coincidence again.
 
 FitzPatrick is a realist himself, and his own way out is to turn down Street's premise. Many of our moral beliefs, he says, may be "arrived at partly (or in some cases wholly) through autonomous moral reflection and reasoning, just as with our mathematical, scientific and philosophical beliefs." That's the right answer. It needs a reason that can run on its own track, and a reason that's only one more thing selection made can't.[fn:track21]
 
@@ -1117,6 +1114,7 @@ For the machine it comes out the same on either account. A law like theirs is kn
 [fn:st90a4] /Summa Theologiae/ I-II q.90 a.4 ([[https://www.newadvent.org/summa/2090.htm#article4][New Advent]]). The natural law is made known, he says in the reply to the first objection, "by the very fact that God instilled it into man's mind so as to be known by him naturally."
 [fn:command] Geoff Sayre-McCord states the general point. From the claim "that a powerful being commanded something," nothing follows about what ought to be done "without assuming some further moral claim" ([[https://plato.stanford.edu/entries/moral-realism/][Moral Realism]], /Stanford Encyclopedia of Philosophy/, §5). Wielenberg's own argument, as Cuneo reports it, is that a divine command theory "cannot explain why reasonable non-believers are subject to moral obligations." Cuneo adds that the leading theists in ethics don't claim there'd be no obligations without God. They claim theism explains some things better.
 [fn:st93a1] /Summa Theologiae/ I-II q.93 a.1, where the eternal law "is nothing else than the type of Divine Wisdom, as directing all actions and movements." That good is built into natures is I-II q.94 a.2. See chapter 20.
+[fn:faculties21] See [[#mind][chapter 19]].
 
 ** 22. A test with no examiner
 :PROPERTIES:

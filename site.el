@@ -396,10 +396,12 @@ dated ones newest first, as entries are listed.  None unless `site--drafts-p'."
                                   ""))
                     ;; The entry title is the view's h2, so the entry's own
                     ;; top-level headings start at h3.
-                    (html . ,(let ((org-html-toplevel-hlevel 3))
-                               (site--alternate-figures
-                                (site--section-footnotes (site--body-html (format "%s:%s" route slug)))
-                                (not featured))))
+                    (html . ,(concat
+                              (let ((org-html-toplevel-hlevel 3))
+                                (site--alternate-figures
+                                 (site--section-footnotes (site--body-html (format "%s:%s" route slug)))
+                                 (not featured)))
+                              (site--license-html (site--keyword "LICENSE") (site--keyword "LICENSE_URL"))))
                     ,@(and video `((video . ,video)))
                     ,@(and featured `((featured . ,featured)))
                     ;; Under the featured picture: the description, never the
@@ -413,6 +415,15 @@ dated ones newest first, as entries are listed.  None unless `site--drafts-p'."
                     ,@(and drafts '((draft . t))))
                   entries)))))
     (nreverse entries)))
+
+;; An entry's #+LICENSE (and #+LICENSE_URL, its deed) closes its text, where
+;; readers look for terms; the PDF prints the same on its copyright page.
+(defun site--license-html (license url)
+  "LICENSE as the entry's closing notice, linked to URL, or \"\" without one."
+  (if (not license) ""
+    (let ((text (xml-escape-string license)))
+      (format "\n<p class=\"post-license\">%s</p>\n"
+              (if url (format "<a href=\"%s\">%s</a>" (xml-escape-string url) text) text)))))
 
 (defun site--collection (route plist)
   "Collection ROUTE: its index file's title, intro and page size, and entries, and
