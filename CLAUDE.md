@@ -157,10 +157,11 @@ builds that way: its `check-dist` fails if anything from a
 feed item or sitemap entry) is in `public/` or `build/`, so it fails after a
 local `make build` with drafts.
 
-The book (`2026-11-06-machines-of-borrowed-grace.org`) is a draft again
-(2026-11-05, in `content/blog/drafts/` with its pictures; the posts it replaced
-are gone, and Part 1's address already redirects to it (owner, 2026-11-06), and the
-others' redirects wait commented out in `site-worker/_redirects`). It is also a PDF: `make pdf` (`scripts/pdf.sh`) sets
+The book (`2026-11-06-machines-of-borrowed-grace.org`) was published on
+2026-11-06, in `content/blog/` with its featured picture (`blog/ai-crusades.jpg`;
+the pictures of the posts it replaced stay in `content/blog/drafts/`, off the
+site). The addresses of the posts it replaced redirect to it
+(`site-worker/_redirects`). It is also a PDF: `make pdf` (`scripts/pdf.sh`) sets
 the same Org file the site is built from as `build/pdf/machines-of-borrowed-grace.pdf`
 and as `build/pdf/machines-of-borrowed-grace-paperback.pdf`, the interior for
 Kindle Direct Publishing (6x9, the gutter inside, black links, as
@@ -173,16 +174,13 @@ table's columns wrap in a longtable) and pdflatex sets it in `scripts/pdf.tex`. 
 note is defined where the site wants it, and LaTeX puts it at the foot of the
 page that first refers to it, with the site's number. The same sources and TeX
 Live give the same bytes. Nothing but `make pdf` builds it (not `make build`,
-`make run` or CI, none of which has TeX). While the book is a draft the site
-has no PDF (the draft's link to `/blog/machines-of-borrowed-grace.pdf`, above
-its contents, leads nowhere yet). Publishing the book: move it and its
-featured picture up into `content/blog/` (and drop `drafts/` from
-`#+FEATURED`), take the `#` off the rest of its redirects, and commit; then `make pdf` also
-writes `content/blog/machines-of-borrowed-grace.pdf`, committed like a post's
-picture, and `scripts/hooks/pre-commit` runs it for every commit that changes
-the live book, its picture or `scripts/pdf.*`, adding the PDF to that commit
-(once per clone: `git config core.hooksPath scripts/hooks`; it refuses when
-those files have unstaged changes, and needs Emacs and TeX Live where it runs).
+`make run` or CI, none of which has TeX). `make pdf` also writes
+`content/blog/machines-of-borrowed-grace.pdf`, the one the site serves (linked
+above the book's contents), committed like a post's picture:
+`scripts/hooks/pre-commit` runs it for every commit that changes the book, its
+picture or `scripts/pdf.*`, adding the PDF to that commit (once per clone:
+`git config core.hooksPath scripts/hooks`; it refuses when those files have
+unstaged changes, and needs Emacs and TeX Live where it runs).
 
 The build also writes `rss.xml`, one feed for both collections (a reader
 subscribes once): every entry in full, newest first, tagged with its
