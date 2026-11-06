@@ -755,8 +755,9 @@ source's words and punctuation as printed, semicolons and dashes included,
 checked against the source itself, never reworded, re-punctuated or cut to
 fit the house style. McCabe's way of
 explaining is learned, never his sentences. The orchestrator (Opus 5.5) writes
-every line of the book itself; Fable 5.1 subagents do the reading, the
-verification and the audits, so the writer never grades its own chapters.
+every line of the book itself; fresh Opus 5.5 subagents, high effort, do the
+reading, the verification and the audits, so the writer never grades its own
+chapters (owner, 2026-11-06: Opus 5.5 high for everything, never Fable).
 Checkpoints: no prose beyond the sample until the author approves the spine
 (Checkpoint 1: the spine, the spine map, where each thinker stops, the
 glossary, the claim map, the title) and then the voice (Checkpoint 2: the new
