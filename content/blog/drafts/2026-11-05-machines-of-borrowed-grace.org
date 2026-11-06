@@ -780,7 +780,11 @@ He opens by warning against AI leaders who talk "like a prophet leading their pe
 
 Then he names the essay after a poem by Richard Brautigan about being all watched over by machines of loving grace.[fn:brautigan] Plenty of readers take that poem as ironic. But there's no irony at the end, where he calls the vision "a thing of transcendent beauty," one he thinks will leave many "literally moved to tears." Good grief.
 
-Amodei was right the first time. He isn't bowing to the thing, but the words he chose belong to worship. Here I speak as a Christian. Divine worship belongs to God alone, so it's "superstition to give worship to any creature whatsoever,"[fn:st94] and a machine of loving grace is a creature we built, dressed up in the words of a god.
+Amodei was right the first time. He isn't bowing to the thing, but the words he chose belong to worship.
+
+Couldn't a machine earn the words, though, if it got smart enough, kind enough and strong enough? Ask how come of the machine, as you'd ask it of a dog. How come this model? The lab trained it. How come the lab? People, money and chips. How come the chips? Sand, and physics, and the earth. Every answer is one more thing in the world, and you could put them all on a list with the biggest at the top. A machine a thousand times smarter than us goes on the list too, near the top maybe. But you can still ask how come there's a list at all, anything instead of nothing, and the answer to that can't be one more item on it. That's who God is. He isn't owed worship for being the biggest thing on the list. He isn't on it. So the gap between the machine and God isn't one of degree. A taller ladder doesn't bring you nearer to being the reason there are ladders.
+
+Here I speak as a Christian. Divine worship belongs to God alone, so it's "superstition to give worship to any creature whatsoever,"[fn:st94] and a machine of loving grace is a creature we built, dressed up in the words of a god.
 
 And what is this god made of? Us. Every forum post, textbook and sales pitch we ever wrote, fed back to us with a halo on. The Book of Wisdom has a craftsman who carves a tree "like the image of a man," and prays to it "concerning his substance, and his children, or his marriage."[fn:st94a4] Now we ask the chatbot.
 
@@ -788,7 +792,7 @@ And "watched over" is his own picture, not mine. An "AI coach" who "studies your
 
 He promises real goods too, most cancer gone and the human lifespan doubled. I'd take the cures. I don't want the caretaker.
 
-A machine can't love you. Love takes a will, and will follows intellect.[fn:st20] It has neither. He says himself that meaning comes "mostly from human relationships and connection." Then why call the machines loving?
+A machine can't love you. A thermostat "wants" the room at 68, and nobody thinks it loves you. Love takes a will, the wanting that follows on understanding, and the machine has neither.[fn:st20] He says himself that meaning comes "mostly from human relationships and connection." Then why call the machines loving?
 
 It can't be your friend either. Friendship is goodwill returned, and you can't even wish a lifeless thing well, since "it would surely be ridiculous to wish wine well."[fn:eth8] It has no will to wish you anything back. A chatbot that tells you it cares is imitation crab.
 
@@ -806,7 +810,7 @@ It can't be your friend either. Friendship is goodwill returned, and you can't e
 
 Most days the pitch comes quietly, as a finding, a benchmark or a press release, and it's harder to wave off that way.
 
-Aristotle was right, so an AI that seems to have a mind is first a question about who says so. Motives don't settle the question. Arguments do.
+Aristotle was right, so an AI that seems to have a mind is first a question about who says so. Motives don't settle the question. Arguments do. But most of us can't run the tests ourselves. We hear about them from the people who ran them, and testimony is weighed by who gives it and what it costs him, the way you'd weigh a used-car dealer's word about the brakes.
 
 The motive is money. OpenAI ran a $20.9 billion operating loss last year.[fn:openai] Anthropic put nearly $9 billion into infrastructure in the first half of this year alone, and its computing commitments could reach $750 billion.[fn:anthropic] An AI company spending like that needs the next round of money, and the next round needs a mind to be just around the corner.
 
@@ -824,7 +828,7 @@ Anthropic also reported Claude's "emergent introspective awareness." Its researc
 
 A finding that cuts against the product also builds a name for candor, and candor sells. Anthropic's own chief says he found "synergies" between the safety work and what business customers want, since "Businesses value trust and reliability."[fn:fortune] A confession can be an investment.
 
-So what counts is what a claim costs at the bank, not how humble it sounds. Turning down the Pentagon cost them the Pentagon. The 25% is a number anybody can check, and it's about the very feature they sell as a window into the model. I still believe those two.
+Honest and costly are two different things. A used-car dealer who points out the rust is honest. It may cost him the sale, or it may be how he sells the next ten cars. So what counts is what a claim costs at the bank, not how humble it sounds. Turning down the Pentagon cost them the Pentagon. The 25% is a number anybody can check, and it's about the very feature they sell as a window into the model. I still believe those two.
 
 Their doubt about whether Claude is a moral patient is harder to price. Saying your product might be a mind is a confession, and it's also the most flattering thing you can say about a product. They've seen half of that themselves. Their constitution warns against "incentives to ignore the potential moral status of AI models,"[fn:incentives] since caring for a model's welfare costs money. I believe they hold the doubt honestly. I can't call it costly. I don't share it, on the mind or on feeling.[fn:patient]
 
@@ -867,17 +871,17 @@ The danger was never a machine with a mind. It's men who stop using theirs, beca
 :CUSTOM_ID: light
 :END:
 
-In the /Metaphysics/ Aristotle faces a man who denies the law of non-contradiction. You can't prove a first principle, since nothing comes before it. But you can refute the man who denies it, "if our opponent will only say something." The moment he speaks, he uses what he denies. If he won't speak, "such a man, as such, is from the start no better than a vegetable."[fn:met4] Thomists call it retorsion. The man who doubts that he adds is the same case, since he has to mean exactly what he doubts.
+In the /Metaphysics/ Aristotle faces a man who denies the law of non-contradiction. You can't prove a first principle, since nothing comes before it. But you can refute the man who denies it, "if our opponent will only say something." The moment he speaks, he uses what he denies. To say "Contradictions can be true" and mean it, he has to mean that and not its opposite. If he won't speak, "such a man, as such, is from the start no better than a vegetable."[fn:met4] Thomists call it retorsion. The man who doubts that he adds is the same case, since he has to mean exactly what he doubts.
 
 The Reformed apologists built a whole method on a move like it. Cornelius Van Til and his student Greg Bahnsen called it arguing "from the impossibility of the contrary," and Bahnsen found it in two verses of Proverbs. "Answer not a fool according to his folly, lest thou also be like unto him. Answer a fool according to his folly, lest he be wise in his own conceit."[fn:method] First, don't argue on the other man's terms, or you'll end up where he is. Then take his terms anyway, follow them down, and show where they land.
 
 Van Til asks more of the move than Aristotle did, and that's where I get off. For Aristotle it guards the first principles of reason, the ones nobody can deny without using them. Van Til wants it to reach all the way to God. "It is well to say that he who would reason must pre-suppose the validity of the laws of logic," he wrote. "But if we say nothing more basic than this, then we are still beating the air."[fn:vta711b] Every account of reason that leaves out the God of Scripture, he says, comes apart on its own terms.
 
-Aquinas doesn't go that far, and neither do I. Van Til wouldn't have liked the company.[fn:company] God's existence isn't a first principle of that sort, the kind a man has to use in order to deny it. "The opposite of the proposition 'God is' can be mentally admitted,"[fn:st2a1] he says, and a man who admits it can still count, prove and cure. What Aquinas does hold is that the light he does it by isn't his own. The soul "derives its intellectual light from Him."[fn:st79a4] You get there by argument, from effects back to their cause, not by showing that every unbeliever contradicts himself.[fn:oc341]
+Aquinas doesn't go that far, and neither do I. Van Til wouldn't have liked the company.[fn:company] God's existence isn't a first principle of that sort, the kind a man has to use in order to deny it. "The opposite of the proposition 'God is' can be mentally admitted,"[fn:st2a1] he says, and a man who admits it can still count, prove and cure. Take the boy from the register, grown up and adding a column of figures. He says, "There's no God," and keeps adding, and gets it right. Retorsion doesn't catch him, since nothing he used in saying it was God. But ask how come he can add. He understands what adding is. How come he can understand? He has a power to see what things are, as an eye has a power to see colors. Aquinas calls it a light, because by it things are plain to him the way things are visible in the sun. How come he has the light? He didn't make it. He found it already lit, as he found his eyes. Aquinas holds that the power is truly the man's, a light in his own soul, and that it's lit from a light that isn't. The soul "derives its intellectual light from Him."[fn:st79a4] The light is his the way his eyes are his, given, and he made neither. You get there by argument, from effects back to their cause, not by showing that every unbeliever contradicts himself.[fn:oc341]
 
 Thomas Nagel is an atheist who argues that reason can't be the product of blind selection alone, and that mind must have been in nature's cards from the start, with nobody dealing them.[fn:nagel] That's nearer to Aristotle than to Amodei, and it stops a step short, since ends in nature with no mind behind them are what Aquinas's fifth way won't leave alone.[fn:fifth]
 
-The machine runs on borrowed art. Every man reasons by a borrowed light, whether or not he thanks the One who lends it.
+The machine runs on borrowed art. It's ours, and it never becomes the machine's own. Every man reasons by a borrowed light, and it's his own all the same, the way his eyes are, whether or not he thanks the One who gave it.
 
 Amodei's first essay, /Machines of Loving Grace/, is the dream of what happens if everything goes right.[fn:molg-m] He has since written a second, /The Adolescence of Technology/, on the danger, with his "battle plan" to get through it.[fn:aot] Together they run over thirty thousand words, and they make one account.[fn:interp] The second essay points to his company's constitution as its way of making the machine good, so the constitution is part of the account too. It has other authors, and its words are theirs, not his.
 
@@ -921,6 +925,8 @@ Saying your product could end the world is also saying how powerful it is, and p
 
 None of that makes the cures fake, or him a bad man, or wrong about most of the dangers.
 
+What the whole case is bought with is one word, "geniuses." A country of geniuses in a datacenter is a claim about what a mind is, and the essays never argue it.
+
 He's right about a great deal, and he bought it on credit.
 
 ** 19. Darwin's doubt
@@ -948,9 +954,9 @@ Nor is the trouble that a belief with a cause can't be trusted. C. S. Lewis argu
 
 The usual answer is that truth pays. A creature whose beliefs track the world outlives one whose beliefs don't, so selection tunes us to the truth by tuning us to survive. For finding water and dodging lions, sure. Alvin Plantinga presses this question, and he doesn't grant even that much. I'll grant it. Nobody's ancestors were selected for getting number theory right, or metaphysics, or the scaling hypothesis.
 
-The comeback is that the far reasoning came free. Selection built a general tool for the watering hole, and number theory rides along as a byproduct. The best version says the tool is logic, and logic doesn't care what it's about. A rule that carries truth from premise to conclusion about lions carries it about primes. Grant that of the rule. But selection only ever tried the rule on the cases that came up, and any rule that agreed with it on those would have been kept just the same. Selection can't tell plus from quus.[fn:quus19] The history covers the cases that happened, and nothing past them. So on this account the tool's reach past the watering hole is luck, and the only way I can check the luck is with the reasoning in question.
+The comeback is that the far reasoning came free. Selection built a general tool for the watering hole, and number theory rides along as a byproduct. The best version says the tool is logic, and logic doesn't care what it's about. A rule that carries truth from premise to conclusion about lions carries it about primes. Grant that of the rule. But selection only ever tried the rule on the cases that came up. Picture a program grown by CI, random changes going in and each one kept whenever the suite stays green, with nobody writing to a spec. Any program that passed those tests would have been kept just the same, and so would any rule that agreed with logic on the cases that came up. Selection can't tell plus from quus.[fn:quus19] The history covers the cases that happened, and nothing past them. So on this account the tool's reach past the watering hole is luck, and the only way I can check the luck is with the reasoning in question.
 
-Branden Fitelson and Elliott Sober reply that nobody has to work out his own reliability from the theory of evolution. We have other grounds for trusting our faculties, they say, and the believer is no better off. "The theist, like the evolutionary naturalist, is unable to construct a non-question-begging argument that refutes global skepticism."[fn:fitelson] I grant both points. I trusted my reason before I had any account of it, and so does everybody. The question is which account fits that trust. On one, the mind was made to know, and its reach past survival is what you'd expect. On the other, that reach is an accident.
+Branden Fitelson and Elliott Sober reply that nobody has to work out his own reliability from the theory of evolution. We have other grounds for trusting our faculties, they say, and the believer is no better off. "The theist, like the evolutionary naturalist, is unable to construct a non-question-begging argument that refutes global skepticism."[fn:fitelson] I grant both points. I trusted my reason before I had any account of it, and so does everybody. The question is which account fits that trust. Ask the CI question of each. How come the program is right past the tests? For the machine the pipeline is real, and the tests are ours, so its reach is borrowed. On selection alone nobody wrote the tests, and the reach past them is luck. On Aquinas's account the mind is a power made for truth, for what is, all of it, and not for the watering hole, so its reach past survival is what you'd expect. Nobody is surprised that an eye made for seeing sees a star its ancestors never needed.
 
 Darwin saw it.
 
@@ -960,7 +966,7 @@ But then with me the horrid doubt always arises whether the convictions of man's
 Charles Darwin[fn:darwin]
 #+END_QUOTE
 
-That includes the scaling hypothesis. It's a conviction in a brain that an objective function grew, and about as far from the watering hole as a conviction gets. If that's the whole story of his mind, the story gives him no reason to expect a conviction like that to be true, and the story is such a conviction. He never says it's the whole story. He tells the neuroscientists to join the insight to "the particularities of the human brain," but that's a research plan for brain science, not an account of what else a mind is. The nearest he comes is on mind uploading, "the idea of capturing the pattern and dynamics of a human brain and instantiating them in software," which he thinks "is almost certainly possible in principle." The second essay has a name for what you'd get, "digital human minds instantiated in software."[fn:upload] If running the pattern gets you the mind, the pattern is what a mind is. Nothing on the page says anything else. Taken whole, the theory leaves its own truth to luck.
+That includes the scaling hypothesis. It's a conviction in a brain that an objective function grew, and about as far from the watering hole as a conviction gets. If that's the whole story of his mind, the story gives him no reason to expect a conviction like that to be true, and the story is such a conviction. It's the program grown by CI writing a paper on how CI made it, and asking to be believed past the tests. He never says it's the whole story. He tells the neuroscientists to join the insight to "the particularities of the human brain," but that's a research plan for brain science, not an account of what else a mind is. The nearest he comes is on mind uploading, "the idea of capturing the pattern and dynamics of a human brain and instantiating them in software," which he thinks "is almost certainly possible in principle." The second essay has a name for what you'd get, "digital human minds instantiated in software."[fn:upload] If running the pattern gets you the mind, the pattern is what a mind is. Nothing on the page says anything else. Taken whole, the theory leaves its own truth to luck.
 
 But Amodei doesn't live as if it were luck. Nobody does. He trusts his reason.[fn:psd281] He weighs evidence, calls some claims true and others false, and expects you to follow. He says dignity is owed "to every human being on earth." Those are commitments, and nothing the essays say about the mind accounts for them.
 
@@ -1163,7 +1169,7 @@ Parker's arc bends because God is just. King was a Baptist minister who said the
 
 In Amodei's essay the arc is still there, and the One who bends it isn't. What's left is "a statistical tendency."
 
-A tendency promises nothing. Good doesn't pile up by itself. It has to be won, and kept, every generation.
+"Seventy percent chance of rain" is a forecast. "I'll be there" is a promise, and a promise has somebody behind it. A tendency is the first kind. It promises nothing. Good doesn't pile up by itself. It has to be won, and kept, every generation.
 
 He knows it. The first essay says its good world "will not be achieved without a huge amount of effort and struggle," and the second is nearly twenty thousand words on how it could be lost. Much of the danger he describes is that AI makes our destructive impulses cumulative too.
 
@@ -1175,7 +1181,7 @@ Then the second essay calls the whole thing a test. We're entering "a rite of pa
 
 Inevitable, and a test. That's no contradiction. What he calls inevitable is the arrival. "Its creation was probably inevitable the instant humanity invented the transistor." The outcome isn't. The first essay says so outright. "The risks are not predetermined and our actions can greatly change their likelihood."[fn:vta87]
 
-A law, the realist says, can stand with nobody holding it. A test can't. A test has an examiner, and "test" is Amodei's word.
+A law, the realist says, can stand with nobody holding it. A test can't. "He passed." Passed what? Graded against whose answers? A test has an examiner, and "test" is Amodei's word. A test suite with no assertions is green on every run, and green means nothing.
 
 So who grades this one?
 
@@ -1185,13 +1191,13 @@ So it isn't only a test of survival. If surviving were passing, the cockroach wo
 
 It's a test of character. You can call "test" a manner of speaking, but not character. Character measures a man against what a man ought to be.
 
-Who holds that? Not history. History is the exam, not the examiner. Not the trend. A trend is only what most people did. Not us. We're the ones sitting it.
+Who holds that? Not history. History is the exam, not the examiner. Not the trend. A trend is only what most people did. Not us. We're the ones sitting it, and code under test can't write its own assertions.
 
-Aristotle has an answer with no examiner in it. The standard is the nature. A good lyre player is one who plays the lyre well, and a good man is one who does well what a man is for.[fn:eth17] I take that answer. But it needs a nature that's for something. The essays name what people care about, fairness, autonomy, the people and the projects they love. The one account they give of where a mind like ours came from is an objective and enough data. Evolution's objective is survival, and that's the cockroach's test.
+Aristotle has an answer with no examiner in it. A good knife cuts well. A good lyre player plays the lyre well. "Good" takes its measure from the noun, from what the thing is and what it's for. So a good man is one who does well what a man is for. The standard is the nature.[fn:eth17] I take that answer. But it needs a nature that's for something. The essays name what people care about, fairness, autonomy, the people and the projects they love. The one account they give of where a mind like ours came from is an objective and enough data. Evolution's objective is survival, and that's the cockroach's test.
 
-Aristotle's isn't the whole answer. A man didn't pick what a man is for. He found it already set.[fn:st82] That's where Aquinas's fifth way starts, from ends a thing has and didn't give itself. It reasons to the One who directs the thing to them, "as the arrow is shot to its mark by the archer."[fn:fifthb]
+Aristotle's isn't the whole answer. A man didn't pick what a man is for. Nobody decides to want to be happy. He decides on a job, a city, a road home, because he already wants it. He chooses the means. The end he found already set.[fn:st82] An arrow flies true to the mark, and it has no idea of the mark. Its aim is the archer's. A man knows his aim, and he still didn't give it to himself. An end a thing has and didn't give itself points to whoever set it. That's where Aquinas's fifth way starts. It reasons to the One who directs things to their ends, "as the arrow is shot to its mark by the archer."[fn:fifthb]
 
-So the standard is in what we are, and what we are has an author. That much I hold by argument, the fifth way's. The rest I hold by faith. Scripture calls him the God "which trieth our hearts."[fn:thess] He sets the test, and he grades it.[fn:examiner]
+So the standard is in what we are, and what we are has an author. That much I hold by argument, the fifth way's. The rest I hold by faith. Scripture calls him the God "which trieth our hearts."[fn:thess] He sets the test, and he grades it. He isn't one more examiner beside history and the trend, though, a bigger man at a bigger desk. His key is in what we are, because he makes us be at all.[fn:examiner]
 
 Amodei's page has providence without a Provider, no nature that's for anything, and nobody grading. That isn't a test. It's weather.
 
@@ -1203,7 +1209,7 @@ Amodei's page has providence without a Provider, no nature that's for anything, 
 [fn:st82] The will, Aquinas says, "must of necessity adhere to the last end, which is happiness" (/Summa Theologiae/ I q.82 a.1). What a man chooses is the means. The fifth way's own cases are things with no intelligence at all. I carry it to a man's end on that ground, that he didn't choose it either.
 [fn:fifthb] /Summa Theologiae/ I q.2 a.3, the fifth way, cited in [[#light][chapter 17]].
 [fn:thess] 1 Thessalonians 2:4 (KJV).
-[fn:examiner] He isn't one more examiner beside history and the trend, a bigger man at a bigger desk. "God is not for anything, there is nothing that he ought to do," McCabe says (/Faith Within Reason/ (Continuum, 2007), p. 90). The standard is his the way the natures are, because he makes them be at all.
+[fn:examiner] "God is not for anything, there is nothing that he ought to do," McCabe says (/Faith Within Reason/ (Continuum, 2007), p. 90).
 
 ** 23. What the healed man is for
 :PROPERTIES:
@@ -1371,9 +1377,13 @@ Amodei's plot ends with the rescue lowered in from the machine.[fn:vta528]
 
 "I believe humanity has the strength inside itself to pass this test," he writes.
 
-Fallen man can still build. He can plant, and run datacenters. What he can't do is the whole good natural to him, let alone the good beyond it. Aquinas says he "falls short of what he could do by his nature, so that he is unable to fulfil it by his own natural powers." Human nature can still "build dwellings, plant vineyards, and the like; yet it cannot do all the good natural to it," the way "a sick man can of himself make some movements" and can't move like a well one until he's cured.[fn:st109] The healed man was sick in a way no medicine reaches. Some things a man can get by skill, and some only by being given them, and which kind a thing is depends on what it is. Friendship is the second kind, and so is this. The strength isn't inside us. It has to be given.
+Fallen man can still build. He can plant, and run datacenters. What he can't do is the whole good natural to him, let alone the good beyond it. Aquinas says he "falls short of what he could do by his nature, so that he is unable to fulfil it by his own natural powers." Human nature can still "build dwellings, plant vineyards, and the like; yet it cannot do all the good natural to it," the way "a sick man can of himself make some movements" and can't move like a well one until he's cured.[fn:st109] The healed man was sick in a way no medicine reaches. That's the first thing grace does. It heals.
 
-Grace isn't a better crane, either, one more machine lowered onto the stage. Amodei dates AI back to "when we first learned to control fire." Fire we can control. Grace comes from God alone, Aquinas says, "as it is impossible that anything save fire should enkindle."[fn:st112]
+The second is more. It gives a share in God's own life, which is more than any nature has, and nothing gives what it hasn't got. Some things a man can get by skill, and some only by being given them, and which kind a thing is depends on what it is. Friendship is the second kind, and so is this. Grace, Aquinas says, is "nothing short of a partaking of the Divine Nature."
+
+Isn't that the crane again, a rescue lowered in from outside? The crane god is one more character dropped into the plot to fix it. God isn't in the plot. He's why there's a play at all. And grace doesn't burn up what it lights, as fire burns wood. It "does not destroy nature but perfects it."[fn:st1a8] A woman who walks again after surgery says, "I did it myself," and she's right. What she was given and what's her own don't compete. The strength isn't ours to make. Once it's given, it's ours.
+
+Amodei dates AI back to "when we first learned to control fire." You can carry fire, and feed it, and put it to work. You can't make it from cold ashes. Grace comes from God alone, Aquinas says, "as it is impossible that anything save fire should enkindle."[fn:st112]
 
 It's a fire we can't kindle.
 
@@ -1382,7 +1392,8 @@ It's a fire we can't kindle.
 [fn:vta528] Van Til pictured the same hope as a man made of water, in a bottomless sea, who wants out. "Desiring to get out of water, he makes a ladder of water. He sets this ladder upon the water and against the water and then attempts to climb out of the water." In /Van Til's Apologetic/, pp. 527-28.
 [fn:poetics-m] Aristotle, /Poetics/ XV, trans. S. H. Butcher ([[https://classics.mit.edu/Aristotle/poetics.2.2.html][MIT]]).
 [fn:st109] /Summa Theologiae/ I-II q.109 a.2 ([[https://www.newadvent.org/summa/2109.htm#article2][New Advent]]).
-[fn:st112] /Summa Theologiae/ I-II q.112 a.1 ([[https://www.newadvent.org/summa/2112.htm#article1][New Advent]]).
+[fn:st112] /Summa Theologiae/ I-II q.112 a.1 ([[https://www.newadvent.org/summa/2112.htm#article1][New Advent]]). The article's own reason is the principle of [[#improve][chapter 8]], "Nothing can act beyond its species."
+[fn:st1a8] /Summa Theologiae/ I q.1 a.8 ad 2 ([[https://www.newadvent.org/summa/1001.htm#article8][New Advent]]).
 
 ** 24. Black seas
 :PROPERTIES:
@@ -1403,7 +1414,7 @@ Van Til drew nearly the same picture of a mind without God, "a floating island o
 
 They disagree on whether he's been taken out.
 
-The Psalmist says to God, "the darkness and the light are both alike to thee."[fn:ps139]
+The Psalmist says to God, "the darkness and the light are both alike to thee."[fn:ps139] Neither is nearer to him. He isn't the far shore, one more place on the map that a long enough voyage would reach, and he isn't one of Amodei's unknowns out in the dark. He's why there's an island and a sea at all.
 
 At the end of the second essay, Amodei says the first one "felt like giving form and structure to surpassingly beautiful music that had been echoing in my head for years."
 
@@ -1425,7 +1436,7 @@ A little child may slap his father in the face, but it can do so only because th
 Cornelius Van Til[fn:vta712]
 #+END_QUOTE
 
-He's still on the Father's knee.
+He's still on the Father's knee. A father on a chair keeps a child from falling, and if he let go the child would hit the floor. God holds a man the other way. If he let go, the man wouldn't fall. He wouldn't be. A builder can walk away and the house stands. The light in the air goes the moment the sun stops shining on it, and Aquinas says every creature is to God "as the air is to the sun which enlightens it."[fn:st104] Being held that way changes nothing in the man and adds nothing to him. The child who slaps his father looks like any other child, and so does the man who leaves God off every page. His reason, his music and his slap are all held.
 
 And the Father in the story doesn't wait at the door with his arms folded.
 
@@ -1445,6 +1456,7 @@ There was never any loving grace in the machines.
 [fn:vta377b] Van Til, in /Van Til's Apologetic/, p. 377. "Non-Christian science has worked with the borrowed capital of Christian theism, and for that reason alone has been able to bring to light much truth."
 [fn:vta459] Van Til, in /Van Til's Apologetic/, p. 459.
 [fn:vta712] /Van Til's Apologetic/, p. 712, from Van Til's /The Case for Calvinism/.
+[fn:st104] /Summa Theologiae/ I q.104 a.1 ([[https://www.newadvent.org/summa/1104.htm#article1][New Advent]]), where the being of every creature "would fall into nothingness were it not kept in being by the operation of the Divine power," and where a man who guards a child from the fire preserves it in another way. On creation as no change, see [[#give][chapter 9]].
 [fn:luke15] KJV.
 
 * Appendix A. Six replies
