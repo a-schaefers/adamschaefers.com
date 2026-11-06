@@ -463,8 +463,11 @@ Adam's writing (drawn from the whole ../enchant.games journal, live, disabled
 and retired, and his own revisions in its history; 2026-10-14). An edit of a
 post moves it toward this voice, never away from it.
 The voice: first person, plain and earnest, talking to the reader ("you",
-"friend"), wry at times ("Good grief.", "just sayin'", "If you made it this
-far through my insufferable writing, you're probably already, one of us.").
+"friend"), wry at times ("just sayin'", "If you made it this far through my
+insufferable writing, you're probably already, one of us."). In the book, a wry
+aside aimed at a named person is out (owner, 2026-11-06, who cut "Good grief."
+after Amodei's "literally moved to tears"): answer his argument, never his
+feeling.
 He says what he believes, lays out why, then lands it in a short line. Weight
 comes from short lines: one-sentence paragraphs, runs of parallel ones ("We
 need less software engineers. / We need more software artisans."; "Because I

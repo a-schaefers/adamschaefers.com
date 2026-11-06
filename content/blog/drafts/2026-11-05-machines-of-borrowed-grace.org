@@ -86,7 +86,7 @@ So how does a thing that can't think beat us at our own work?
 
 [fn:poetics] Aristotle, /Poetics/ 4, trans. S. H. Butcher ([[https://classics.mit.edu/Aristotle/poetics.1.1.html][MIT]]).
 [fn:doshi] Anil R. Doshi and Oliver P. Hauser, [[https://pmc.ncbi.nlm.nih.gov/articles/PMC11244532/][Generative AI enhances individual creativity but reduces the collective diversity of novel content]], /Science Advances/, July 2024.
-[fn:imop] Google DeepMind, July 21, 2025. See [[#prove][chapter 11]].
+[fn:imop] Google DeepMind, July 21, 2025, checked November 6, 2026. See [[#prove][chapter 11]].
 [fn:photocraft] [[https://github.com/storytold/photocraft][PhotoCraft]] on GitHub, from the ArtCraft community, begun September 30, 2026. The test set is psd-tools', and the figures are from its README, which counts more than 1,700 tests. As of November 6, 2026, it had more than 77,000 stars, about 390 contributors and more than 3,700 merged pull requests, with about 1,300 more open, and more than 3,700 of its commits named Claude as a co-author.
 [fn:real] The wiki Terence Tao started on [[https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems][AI contributions to Erdős problems]] lists the ones AI solved on its own, with no earlier work known, the first in January 2026. Donald Knuth, [[https://cs.stanford.edu/~knuth/papers/claude-cycles.pdf][Claude's Cycles]], February 28, 2026, revised April 14, 2026. Claude Opus 4.6 found the construction for odd sizes, and Knuth proved it.
 
@@ -227,7 +227,7 @@ Our neurons are particulars too, the functionalist will say, so our grasp must b
 
 What more is there to understanding a triangle, the functionalist asks, than handling every triangle you meet, even ones you've never seen? If the model does that, it has the concept. Asking for anything more is asking for a ghost.
 
-But a sieve does that. It sorts every stone it will ever meet, stones it has never seen, without fail, and it grasps nothing. A sieve doesn't follow a rule. We read one into it, the way a programmer reads every triangle into a type called Triangle. A model that composes, transfers and writes proofs is nothing like a sieve inside, and the functionalist will say that's the point. The sieve doesn't answer that. It only shows that handling new cases is behavior, and behavior doesn't say what's doing it. What answers him is Ross's point, that however fine the machinery, whoever reads it settles which rule it follows.
+But a sieve does that. It sorts every stone it will ever meet, stones it has never seen, without fail, and it grasps nothing. A sieve doesn't follow a rule. We read one into it. A model that composes, transfers and writes proofs is nothing like a sieve inside, and the functionalist will say that's the point. The sieve doesn't answer that. It only shows that handling new cases is behavior, and behavior doesn't say what's doing it. What answers him is Ross's point, that however fine the machinery, whoever reads it settles which rule it follows.
 
 Then a pattern in a brain, or in a chip, could stand for every triangle the way the word "triangle" does, someone says. But a sign stands for every triangle only in the use of somebody who understands it, and the understanding isn't the reading of one more sign.
 
@@ -273,7 +273,7 @@ Then the training fixes it, someone says. A training objective is the same thing
 
 The machine, as Ross has it, adds "the way puppets walk."[fn:ross][fn:feser13]
 
-[fn:kind] Anthropic, [[https://www.anthropic.com/constitution][Claude's constitution]], published January 22, 2026, quoted from the web version as of November 2026. Its wording was copy-edited in the weeks after publication and has stood unchanged since mid-February 2026. On whether it could suffer, see chapter 10.
+[fn:kind] Anthropic, [[https://www.anthropic.com/constitution][Claude's constitution]], published January 22, 2026, quoted from the web version as of November 6, 2026. Its wording was copy-edited in the weeks after publication and has stood unchanged since mid-February 2026. On whether it could suffer, see chapter 10.
 [fn:philpapers] David Bourget and David Chalmers, [[https://survey2020.philpeople.org/survey/results/4874][Philosophers on Philosophy: The 2020 PhilPapers Survey]], /Philosophers' Imprint/ 23 (2023). Of the 1,733 philosophers who answered the question, 51.9% accepted or leaned toward physicalism about the mind, and 32.1% toward non-physicalism. In the same survey 67% said Searle's Chinese room doesn't understand, and 18% said it does.
 [fn:godel] This isn't the argument from Gödel's theorem. J. R. Lucas argued in 1961 that the theorem proves "that minds cannot be explained as machines," and Roger Penrose built two books on it. The wide consensus is that it fails, mainly because it needs us to be able to see that our own reasoning is consistent, and Feser calls such arguments "less decisive and fundamental" than the kinds Searle, Kripke and Dreyfus developed (/Immortal Souls/, ch. 9). Ross's argument is about what fixes the content of a thought, not about what a formal system can prove, and his paper never mentions Gödel. Lucas's paper is "Minds, Machines and Gödel," /Philosophy/ 36 (1961), pp. 112-27. The replies are surveyed in Panu Raatikainen, [[https://plato.stanford.edu/entries/goedel-incompleteness/][Gödel's Incompleteness Theorems]], /Stanford Encyclopedia of Philosophy/, §6.3.
 [fn:kripke] Saul Kripke, /Wittgenstein on Rules and Private Language/ (1982), p. 9. In Kripke it's a skeptic's puzzle about what anybody means, set out on Wittgenstein's behalf. He presses it against machines himself (pp. 32-37), and Edward Feser reads him that way in [[https://www.editiones-scholasticae.de/artikel/aristotles-revenge/][Aristotle's Revenge: The Metaphysical Foundations of Physical and Biological Science]] (Editiones Scholasticae, 2019), pp. 362-63. Ross draws the conclusion Kripke didn't.
@@ -464,7 +464,7 @@ The machine lacks a soul at every level. It isn't alive. It doesn't feel, since 
 
 A computer is a car, not a leopard, and a model is a computer arranged one more way.
 
-A compiler isn't an adder, and a learning algorithm is neither. Their forms are real. But they're forms of art, given from outside, like the bed's shape. "In artifacts the matter alone is held to be substance, whereas the forms of artifacts are accidents," Aquinas says, and art "operates only on that which is already constituted in existence by nature."[fn:art] A model can rewrite itself into a new sort of tool forever. It's still the machine, arranged.
+A compiler isn't an adder, and a learning algorithm is neither. Their forms are real. But they're forms of art, given from outside, like the bed's shape. "In artifacts the matter alone is held to be substance, whereas the forms of artifacts are accidents," Aquinas says, and art "operates only on that which is already constituted in existence by nature."[fn:art] A model that rewrites itself is still the machine, arranged.
 
 Art can do more than arrange. A baker doesn't assemble bread, and a breeder doesn't assemble a dog. Art makes things like those, Aquinas says, "not by its own power, but by the power of natural energies."[fn:st3q75] The maker sets nature's powers to work, and what comes out is nature's. Babies and breeds of dog go with nature's work, and the computer goes with art's, beside the watch and the bed.[fn:fes24] Its parts have no bent of their own toward computing. They have to be made to do it.
 
@@ -474,7 +474,7 @@ Animals are a different case. Their souls, he says, are "naturally brought into 
 
 Someone will say evolution played programmer, so why can't training?[fn:noble260]
 
-Because training has a programmer. A training objective is someone's choice of what counts as right, the way a breeder picks which pups to keep. Natural selection has no one choosing. And there's only a fact about what a trait was selected for where there are ends to go by, a mind's or nature's own.[fn:fes416] Training works on a thing with no nature of its own, toward ends someone else picked.
+Because training has a programmer, and natural selection has no one choosing. And there's only a fact about what a trait was selected for where there are ends to go by, a mind's or nature's own.[fn:fes416] Training works on a thing with no nature of its own, toward ends someone else picked.
 
 Someone has built a world inside a computer where programs copy themselves and nobody scores them. What won in it got smaller and quicker at copying, not more complicated.[fn:tierra]
 
@@ -795,7 +795,7 @@ Not everybody sees a hellscape. Dario Amodei, the CEO of Anthropic, wrote /Machi
 
 He opens by warning against AI leaders who talk "like a prophet leading their people to salvation," and says it's "dangerous to view practical technological goals in essentially religious terms."
 
-Then he names the essay after a poem by Richard Brautigan about being all watched over by machines of loving grace.[fn:brautigan] Plenty of readers take that poem as ironic. But there's no irony at the end, where he calls the vision "a thing of transcendent beauty," one he thinks will leave many "literally moved to tears." Good grief.
+Then he names the essay after a poem by Richard Brautigan about being all watched over by machines of loving grace.[fn:brautigan] Plenty of readers take that poem as ironic. But there's no irony at the end, where he calls the vision "a thing of transcendent beauty," one he thinks will leave many "literally moved to tears."
 
 Amodei was right the first time. He isn't bowing to the thing, but the words he chose belong to worship.
 
@@ -866,13 +866,13 @@ Humans are going to become NPCs.
 The danger was never a machine with a mind. It's men who stop using theirs, because a company let them think the machine might have one.
 
 [fn:patient] See [[#agi][chapter 3]] and the chapters after it, and on feeling [[#feel][chapter 10]].
-[fn:openai] Jon Swartz, Techstrong.ai, June 17, 2026, from 2025 financial statements obtained by Ed Zitron and verified by the Financial Times. The net loss, with a one-time charge, was about $39 billion.
-[fn:anthropic] Tech Startups, [[https://techstartups.com/2026/10/20/anthropic-posts-staggering-80-7-billion-net-loss-in-first-half-of-2026-as-ipo-approaches/][on Anthropic's first-half 2026 results]], October 20, 2026, citing The Wall Street Journal. Its headline $80.7 billion net loss was nearly 90% accounting charges, largely non-cash.
+[fn:openai] Jon Swartz, Techstrong.ai, June 17, 2026, from 2025 financial statements obtained by Ed Zitron and verified by the Financial Times. The net loss, with a one-time charge, was about $39 billion. Checked against the article on November 6, 2026.
+[fn:anthropic] Tech Startups, [[https://techstartups.com/2026/10/20/anthropic-posts-staggering-80-7-billion-net-loss-in-first-half-of-2026-as-ipo-approaches/][on Anthropic's first-half 2026 results]], October 20, 2026, citing The Wall Street Journal. Its headline $80.7 billion net loss was nearly 90% accounting charges, largely non-cash. Checked against the article on November 6, 2026.
 [fn:erdos] The Decoder, [[https://the-decoder.com/leading-openai-researcher-announced-a-gpt-5-math-breakthrough-that-never-happened/][Leading OpenAI researcher announced a GPT-5 math breakthrough that never happened]], October 18, 2025.
 [fn:realp] See the [[#worry][Prologue]].
 [fn:mirage] Rylan Schaeffer, Brando Miranda and Sanmi Koyejo, [[https://arxiv.org/abs/2304.15004][Are Emergent Abilities of Large Language Models a Mirage?]], NeurIPS 2023.
 [fn:agi] Simon Willison, [[https://simonwillison.net/2026/Apr/27/now-deceased-agi-clause/][on the now-deceased AGI clause]], April 27, 2026, quoting OpenAI.
-[fn:dow] Dario Amodei, [[https://www.anthropic.com/news/statement-department-of-war][Statement from Dario Amodei on our discussions with the Department of War]], February 26, 2026. As of September 28, 2026, and since March, the Pentagon has barred Anthropic's products from Defense Department business as a "supply-chain risk" ([[https://www.nextgov.com/acquisition/2026/09/anthropic-lawsuit-supply-chain-risk/416255/][Nextgov]], September 28, 2026).
+[fn:dow] Dario Amodei, [[https://www.anthropic.com/news/statement-department-of-war][Statement from Dario Amodei on our discussions with the Department of War]], February 26, 2026. Since March the Pentagon has barred Anthropic's products from Defense Department business as a "supply-chain risk" ([[https://www.nextgov.com/acquisition/2026/09/anthropic-lawsuit-supply-chain-risk/416255/][Nextgov]], September 28, 2026). That's the latest report I found as of November 6, 2026, and I couldn't confirm whether anything has changed since.
 [fn:cot] Anthropic, [[https://www.anthropic.com/research/reasoning-models-dont-say-think][Reasoning models don't always say what they think]], April 3, 2025.
 [fn:introspect] Jack Lindsey, [[https://transformer-circuits.pub/2025/introspection/index.html][Emergent Introspective Awareness in Large Language Models]], Transformer Circuits, October 29, 2025, and Anthropic's post on it, [[https://www.anthropic.com/research/introspection][Signs of introspection in large language models]], where the "about 20% of the time" and "highly unreliable and limited in scope" are. The paper itself says "highly unreliable and context-dependent."
 [fn:fortune] Jeremy Kahn's profile of the company in [[https://fortune.com/article/anthropic-ceo-dario-amodei-openai-chatgpt-artificial-intelligence-safety-donald-trump/][Fortune]], December 2, 2025.
@@ -985,7 +985,7 @@ That includes the scaling hypothesis. It's a conviction in a brain that an objec
 
 But Amodei doesn't live as if it were luck. Nobody does. He trusts his reason.[fn:psd281] He weighs evidence, calls some claims true and others false, and expects you to follow. He says dignity is owed "to every human being on earth." Those are commitments, and nothing the essays say about the mind accounts for them.
 
-Models, he says, "inherit a vast range of humanlike motivations or 'personas' from pre-training (when they are trained on a large volume of human work)."[fn:persona] Inherit, from us. The machine is intelligent the way urine is healthy.[fn:urine19] It's a sign of a mind, and the mind is ours.[fn:vta99]
+Models, he says, "inherit a vast range of humanlike motivations or 'personas' from pre-training (when they are trained on a large volume of human work)."[fn:persona] Inherit, from us.[fn:vta99] The machine is intelligent the way urine is healthy.[fn:urine19]
 
 The scaling picture is the only account of a mind in the two essays, and it doesn't cover the man who wrote it. His reason is fine. It's the account of it that's missing.
 
@@ -1083,7 +1083,7 @@ The machine has its rule only as the thing measured. Of creatures without reason
 Aligned to what? To a document that says it may be wrong. Aligned to whom? To the people who can rewrite it.
 
 [fn:mirror] The mirror has a limit. A model adds what a mirror can't, methods nobody gave it among them. What it can't add is a standard it didn't get from us. See Appendix A, the third reply.
-[fn:constitution] Its web version as of November 2026. See chapter 4.
+[fn:constitution] Its web version as of November 6, 2026. See chapter 4.
 [fn:realist] So would a secular realist, and not every secular ethics comes down to whatever a document says. But the document won't say which tier is true, and the document is what gets trained. For the secular realists, see chapter 21.
 [fn:rom2] Romans 2:15.
 [fn:vta127] Van Til, in /Van Til's Apologetic/, p. 127.
@@ -1519,7 +1519,7 @@ And settling a dial isn't adding. Adding, Ross said, is thinking in a form that'
 
 Some philosophers say the rule doesn't need a designer, because history supplies one. A heart is for pumping because pumping is what hearts were selected for. A frog's wiring is about flies because catching flies is what it was selected for. That's teleosemantics,[fn:teleosem] and it has an easy next step. Training is selection too, so training fixes what the machine's states are about.
 
-For the machine, that gives the game away. Its selection had a selector. Somebody wrote the objective, chose the data and decided what counts as an error, so whatever the training fixed, it fixed on loan from the people who ran it. For us, it moves the fight to evolution, where nobody chose anything.[fn:godprog] Was the frog's wiring selected for catching flies, or for snapping at small dark things that move? In the pond where it evolved, those were the same thing.[fn:frog]
+For the machine, that gives the game away. Its selection had a selector, so whatever the training fixed, it fixed on loan from the people who ran it. For us, it moves the fight to evolution, where nobody chose anything.[fn:godprog] Was the frog's wiring selected for catching flies, or for snapping at small dark things that move? In the pond where it evolved, those were the same thing.[fn:frog]
 
 Elliott Sober has an answer to that. Picture a toy that sorts balls by size, where the small ones all happen to be one color. Balls of that color get selected, he says, but the selecting is for size, because size is what does the work.[fn:sober] So the frog's wiring was selected for whatever it was about the target that made the difference to the frog.
 
@@ -1539,7 +1539,7 @@ The reply Kripke lays out for Wittgenstein starts by granting the skeptic his po
 
 Its defenders say the agreement isn't a vote. Wittgenstein wrote, "It is what human beings say that is true and false; and they agree in the language they use. That is not agreement in opinions but in form of life."[fn:pi241] And the view doesn't define the sum as whatever most people would answer. Kripke says so himself. That would be a community-wide version of the dispositional theory, "open to at least some of the same criticisms as the original form."[fn:kripke111]
 
-On the community view, whose practice fixes what a model's outputs mean? Ours. Its sentences are English, and English is our form of life. Nobody holds the model to a rule the way we hold each other. So the view gives me the machine's half at no cost.
+On the community view, whose practice fixes what a model's outputs mean? Ours. Nobody holds the model to a rule the way we hold each other. So the view gives me the machine's half at no cost.
 
 The harder question is whether it saves ours. Its best answer is that I've asked for too much. "Is correct" does a plain job inside a practice, sorting answers into right and wrong, and nothing standing behind the practice is needed for the job. A defender can add that it is a fact that Jones means plus, in the thin sense in which calling a thing a fact adds nothing to saying it. What the view denies is a further fact that makes it so.
 
