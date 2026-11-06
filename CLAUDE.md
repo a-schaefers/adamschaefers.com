@@ -165,8 +165,8 @@ Kindle Direct Publishing (6x9, the gutter inside, black links, as
 ../merecatholicity.com's book). Org to LaTeX to PDF: Emacs exports the text
 (`scripts/pdf.el`, which documents what differs from the site: the hand-written
 contents and the paragraph offering the PDF are left out, the post's
-`@@html:...@@` becomes Org, straight quotes are set as printers' quotes) and
-pdflatex sets it in `scripts/pdf.tex`. The Org file needs nothing for it: a
+`@@html:...@@` becomes Org, straight quotes are set as printers' quotes, a
+table's columns wrap in a longtable) and pdflatex sets it in `scripts/pdf.tex`. The Org file needs nothing for it: a
 note is defined where the site wants it, and LaTeX puts it at the foot of the
 page that first refers to it, with the site's number. The same sources and TeX
 Live give the same bytes. Nothing but `make pdf` builds it (not `make build`,

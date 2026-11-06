@@ -24,6 +24,9 @@
 ;;   site's full address, an anchor (<a id>) becomes a place links can jump to, <i> is
 ;;   italics.  Any other tag is an error, so a new one gets handled here on purpose.
 ;; - Straight quotes are set as printers' quotes, as LaTeX sets every apostrophe anyway.
+;; - A table gets columns that wrap (set widths, ragged right, small type) in a
+;;   longtable, which can break across pages.  Org's own choice is one line per cell,
+;;   which runs off a 6x9 page.
 
 (require 'cl-lib)
 (require 'ox-latex)
@@ -34,6 +37,24 @@
 (defconst pdf--toc-item
   "^[ \t]*\\(?:-\\|[0-9]+\\.\\)[ \t]+\\(?:\\[@[0-9]+\\][ \t]+\\)?\\[\\[#[^]]+\\]\\[[^]]+\\]\\][ \t]*$"
   "A list item that is only a link to one of the post's own headings.")
+
+(defconst pdf--table-widths '((2 0.34 0.66) (3 0.30 0.22 0.48))
+  "For a table of N columns, each column's share of the line.  Others get equal shares.")
+
+(defun pdf--set-tables ()
+  "Above each table, the #+ATTR_LATEX that makes its columns wrap."
+  (goto-char (point-min))
+  (while (re-search-forward "^[ \t]*|" nil t)
+    (beginning-of-line)
+    (let* ((n (1- (cl-count ?| (buffer-substring (point) (line-end-position)))))
+           (widths (or (cdr (assq n pdf--table-widths)) (make-list n (/ 1.0 n)))))
+      (insert "#+ATTR_LATEX: :environment longtable :font \\small :align "
+              (mapconcat
+               (lambda (w)
+                 (format ">{\\raggedright\\arraybackslash}p{\\dimexpr %.2f\\linewidth-2\\tabcolsep\\relax}" w))
+               widths "")
+              "\n"))
+    (while (looking-at "^[ \t]*|") (forward-line 1))))
 
 (defun pdf--keyword (key)
   "Value of #+KEY in the current Org buffer, or nil if unset or empty."
@@ -152,6 +173,7 @@ standing over such a list."
       (pdf--drop-contents)
       (pdf--drop-paragraphs-linking (format "/%s/%s.pdf" collection slug))
       (pdf--anchor-links (pdf--html-snippets))
+      (pdf--set-tables)
       ;; The labels Org makes up are random: seeded, the same ones every run.
       (random "pdf")
       (setq body (org-export-as 'latex nil nil t

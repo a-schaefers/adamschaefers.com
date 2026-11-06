@@ -1,0 +1,84 @@
+#+TITLE: I was wrong about the machine
+#+DESCRIPTION: In March I told you not to lean on AI to code. It got better than I thought.
+
+In March I made [[https://enchant.games/journal/2026-03-07-ai-llms-fall-of-the-software-engineer-rise-of-the-software-artisan/][a video]] telling you to "tell your AI-pushing boss to get wrecked."
+
+When Aristotle broke with his own teacher, he [[https://classics.mit.edu/Aristotle/nicomachaen.1.i.html][called it a duty]], "for the sake of maintaining the truth even to destroy what touches us closely." What touches me closely is six essays and a video against leaning on AI to code, all with my name on them.
+
+I'm changing positions.
+
+* What I said
+
+I said it was unlikely to be a 10x gain.
+
+I said AI code is mid, because it's trained on the average of all code.
+
+I said the guessing machine can't be counted on.
+
+I kept expecting it to hit a wall.
+
+And I'd have signed a petition to pause the whole thing.
+
+* It got better than I thought
+
+I built a whole platform by myself, [[https://merecatholicity.com/][Mere Catholicity]], a library of old books, an AI librarian that answers from them, and a forum. It took a week to get it standing, and a couple of months to build all of it.
+
+[[https://github.com/merecatholicity/merecatholicity.com][The commit log]] kept the day. On the seventh morning the site was a book, some papers and a shelf of old texts. In under four hours, a comment box on seven of its pages grew into a forum with thirteen rooms. Before the next morning it had profiles, avatars and private messages.
+
+By the end of that first week, I'd have bet the farm that software engineers were cooked.
+
+It wasn't a one-off. My own Linux distro and an init system written in Emacs Lisp each took a week or two to stand up, on ground I already knew.
+
+And it isn't magic. My own Vulkan driver for AMD cards got to the GPU in a week, and it's still stuck on its first triangle.
+
+But it kept improving. People told me AI changes everything, and they had a point. It still guesses, but with a compiler, tests and a human review behind it, the guesses are good enough to count on for the work I've given it. And it's past the average now.
+
+In /The fall of the software engineer/, the post with that video, I quoted a junior engineer at a big tech company who wrote that "Claude Code is able to do my job better than I can." I filed it under the problem, one more of the "very real frustrations of real software engineers" made to use AI.
+
+I should have listened.
+
+* The tradeoff
+
+Nobody should know tradeoffs better than a programmer. Every system we've ever built is a pile of them.
+
+We trade robustness for cost. Three regions and a hot standby, or one box and a backup you hope works.
+
+We trade beautiful code for speed.
+
+We trade owning for renting. Every managed service is understanding we pay somebody else to hold.
+
+None of these are sins. The sin is pretending you aren't making a tradeoff.
+
+I wrote that we trade understanding for speed, like that settled it. AI is the biggest tradeoff on the table, and I'd been treating it like a sin.
+
+* What I do now
+
+I use it, as a tool. Even Linus Torvalds does. [[https://www.tomshardware.com/software/linux/linus-torvalds-posts-his-first-llm-assisted-patch-to-the-linux-kernel-after-issuing-clear-pro-ai-directives-the-bossman-makes-use-of-ai-tooling-himself][His LLM-assisted patches]] each carry an "Assisted-by: LLM" line, right next to his "Signed-off-by." When Linus signs his patch, he owns it.
+
+Most of us aren't Linus, and [[https://x.com/mitchellh/status/2100249348345057389][Mitchell Hashimoto]] has a bar the rest of us can reach. Somebody should be able to pull you up to a whiteboard and have you explain what you shipped, why X and not Y, where it fails, and what happens when someone acts maliciously.
+
+If you can't, you don't own it.
+
+I haven't always met that bar. When that last question got put to my own platform, it turned up a hole in the encryption on those private messages, one the types, the tests and the pipeline had all passed.
+
+* What hasn't changed
+
+I still don't think it can think.
+
+It doesn't need to think to beat most of us at a lot of the job.
+
+And the danger is still people who stop thinking, not a machine that starts. AI isn't going to become human. Humans are going to become NPCs.
+
+I called using the machine the dark side. Fear was the dark side, and I was already there. What I'm embracing is a tool, used with a mind.
+
+* What's next
+
+I've written a book on the part I haven't changed my mind about. It asks how a thing that can't think beats programmers at their own job, and answers from Aristotle and Aquinas. I used Claude, under my direction, to research and draft it, and I criticize Claude's maker in it. Claude helped draft this post too.
+
+# When the book is live, link it in the paragraph above.
+
+A longer post for working programmers is coming too, on how to use the machine without losing the craft, why I wouldn't sign that petition now, and the hole in my encryption.
+
+# When the practitioner post is live, link it in the paragraph above.
+
+*I was right about the mind and wrong about the power.*
