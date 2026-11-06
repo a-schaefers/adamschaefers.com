@@ -475,7 +475,16 @@ tests, the Unix philosophy, borrow now pay later, NPCs,
 ownership, soul, love of the game, mid, slop, grok, touch grass, sacred cows
 (not "I reckon": archaic, he says, 2026-10-22). No drama ("a reckoning"): a
 post that changes his mind accounts for it plainly, with integrity. Headings are short phrases or claims, some wry ("And you tolerate
-it", "Coming clean"). Faith and philosophy are his, not decoration: keep them.
+it", "Coming clean"). Faith and philosophy are his, not decoration: keep them. His faith (owner,
+2026-11-05) is ecumenical high-church catholicism: the one catholic Church he
+finds across the Roman Catholic, Orthodox, Presbyterian, Lutheran and Anglican
+traditions. He remains a Roman Catholic for now, takes a more Orthodox view in
+general, and lets it correct Roman overreach in theology without leaving. He
+calls the position conservative eclectic ecumenism.
+Writing that speaks for his faith speaks for that, not for every claim of
+Rome's; his platform Mere Catholicity (`../merecatholicity.com`, its
+`content/` pages, and its `book/`, a book of his) sets it out; any of it may
+be drawn on, and quoted where it's relevant, though the book here rarely needs to.
 His own revisions show the editing he wants: split run-ons; cut gratuitous
 profanity ("too much shit") and anything advertisey; vary a word he's leaned
 on ("gamers" to "players"); a comma or a spaced hyphen ( - ), not an em dash;
