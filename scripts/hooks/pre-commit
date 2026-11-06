@@ -1,0 +1,26 @@
+#!/bin/sh
+# The book's PDF, kept in step with the book: when a commit changes what the PDF is made
+# from (the book's Org file, its picture, or the scripts that set it), make pdf runs and
+# the PDF it writes goes into the same commit. Any other commit passes straight through,
+# and so does every commit while the book is a draft (content/blog/drafts/), when the site
+# has no PDF: the commit that moves the book up beside the posts makes it.
+# Once per clone: git config core.hooksPath scripts/hooks (README.md).
+set -eu
+cd "$(git rev-parse --show-toplevel)"
+
+book=content/blog/2026-11-05-machines-of-borrowed-grace.org
+pdf=content/blog/machines-of-borrowed-grace.pdf
+sources="$book content/blog/ai-crusades.jpg scripts/pdf.sh scripts/pdf.el scripts/pdf.tex"
+
+[ -f "$book" ] || exit 0
+# shellcheck disable=SC2086
+git diff --cached --quiet -- $sources && exit 0
+# The PDF is set from the files on disk, so they must be the ones being committed.
+# shellcheck disable=SC2086
+if ! git diff --quiet -- $sources; then
+  echo "pre-commit: the book has changes that aren't staged, so its PDF wouldn't match this commit." >&2
+  echo "pre-commit: stage them or stash them, then commit again." >&2
+  exit 1
+fi
+sh scripts/pdf.sh "$book"
+git add "$pdf"

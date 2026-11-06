@@ -155,6 +155,32 @@ builds that way: its `check-dist` fails if anything from a
 feed item or sitemap entry) is in `public/` or `build/`, so it fails after a
 local `make build` with drafts.
 
+The book (`2026-11-05-machines-of-borrowed-grace.org`) is a draft again
+(2026-11-05, in `content/blog/drafts/` with its pictures; the posts it replaced
+are gone, and their addresses' redirects to it wait commented out in
+`site-worker/_redirects`). It is also a PDF: `make pdf` (`scripts/pdf.sh`) sets
+the same Org file the site is built from as `build/pdf/machines-of-borrowed-grace.pdf`
+and as `build/pdf/machines-of-borrowed-grace-paperback.pdf`, the interior for
+Kindle Direct Publishing (6x9, the gutter inside, black links, as
+../merecatholicity.com's book). Org to LaTeX to PDF: Emacs exports the text
+(`scripts/pdf.el`, which documents what differs from the site: the hand-written
+contents and the paragraph offering the PDF are left out, the post's
+`@@html:...@@` becomes Org, straight quotes are set as printers' quotes) and
+pdflatex sets it in `scripts/pdf.tex`. The Org file needs nothing for it: a
+note is defined where the site wants it, and LaTeX puts it at the foot of the
+page that first refers to it, with the site's number. The same sources and TeX
+Live give the same bytes. Nothing but `make pdf` builds it (not `make build`,
+`make run` or CI, none of which has TeX). While the book is a draft the site
+has no PDF (the draft's link to `/blog/machines-of-borrowed-grace.pdf`, above
+its contents, leads nowhere yet). Publishing the book: move it and its
+featured picture up into `content/blog/` (and drop `drafts/` from
+`#+FEATURED`), take the `#` off its redirects, and commit; then `make pdf` also
+writes `content/blog/machines-of-borrowed-grace.pdf`, committed like a post's
+picture, and `scripts/hooks/pre-commit` runs it for every commit that changes
+the live book, its picture or `scripts/pdf.*`, adding the PDF to that commit
+(once per clone: `git config core.hooksPath scripts/hooks`; it refuses when
+those files have unstaged changes, and needs Emacs and TeX Live where it runs).
+
 The build also writes `rss.xml`, one feed for both collections (a reader
 subscribes once): every entry in full, newest first, tagged with its
 collection as `<category>`, site-relative links made absolute against
@@ -474,3 +500,57 @@ each source once (later mentions name it, quote it or pass it by), and gives a l
 reads; it keeps his words, opinions, humor and sign-off, adds no claims and
 no polish he wouldn't write, and tells him what changed in substance (a fact
 corrected, a passage cut or moved) rather than slipping it in.
+
+No ceremonial AI-speak, ever (owner, 2026-11-05): don't write it, and find and
+cut it in every pass. It is language that performs a virtue of good writing
+(fairness, honesty, rigor, depth, punch) instead of doing the work. It adds no
+claim, evidence or reasoning, and only tells the reader how to feel about the
+argument or where it is going. The test: delete the passage in your head. It
+is ceremonial only if the argument and the facts survive intact. If deleting
+it loses a claim, a concession of substance, a step of logic, a source or a
+transition the reader needs, keep it, though its ceremonial wrapper may still
+go. The kinds:
+1. Rating: grading an objection or source before answering it ("and it's a
+   good one", "That reply is honest", "It's a serious position").
+2. Performed credit: applauding an opponent instead of simply conceding ("to
+   his credit", "In fairness", "which is more than most would").
+3. Performed honesty: announcing candor, debt or courage ("I owe it a straight
+   answer", "you're owed the split", "with my eyes open").
+4. Reflex contrast: "not X, but Y" where nobody claimed X, or where the shape
+   repeats one used nearby ("That's an answer, not a proof", "a bet, not a
+   result").
+5. Pointing: telling the reader to attend instead of giving them something
+   worth attending to ("Notice", "Look at", "But look at", "Read that twice",
+   "Hold that thought").
+6. Stingers: short closing lines that restate the paragraph, or supply a
+   cadence instead of a new thought ("That's the whole problem.", "No faith
+   required.").
+7. Ventriloquism: saying how an absent or dead thinker would react, with no
+   argument or quotation to back it ("Van Til would smile", "Aquinas wouldn't
+   sneer").
+8. Fake dialogue: asking a question no real reader would ask, then answering
+   it at once ("Is that dodging?", "Which road did I take?").
+9. Stage directions: announcing movement through the text ("Start with the
+   things we make.", "So back to Amodei.").
+10. Metaphor on autopilot: extending or repeating a figure after it has
+    stopped adding meaning ("on his books", "the bill", "the road").
+11. Authority garnish: a quotation or citation decorating a point already
+    made, above all fragments stitched together until the author's own voice
+    disappears.
+Never flagged: a contrast that corrects something a real opponent actually
+claims; a concession that changes what the argument can claim; a confession
+that reports a specific fact, cost or failure; a quotation that supplies the
+premise, the evidence or the thing analyzed; a short line that delivers a new
+claim, image or turn; concrete, rude, funny, first-person writing with real
+objects in it (plainness and strong style are not the problem); anything just
+because it sounds like AI (judge what a passage does, not who might have
+written it). This is how his voice above reads: his short lines and kickers
+land a new thought, not a restatement; his questions are ones a reader would
+really put; his quotations earn their place by carrying the argument. Some
+patterns are fine alone and ceremonial in bulk, so an audit counts them across
+the whole piece and names the instances worth keeping. An audit reports each
+finding with its place (chapter and section), the exact quote, its kind, why
+it does no work (one line), the fix (cut it, or a rewrite that uses only the
+ideas and facts already in the passage) and a confidence (high, medium, low);
+it adds no facts, arguments or new flourishes, keeps a close call and marks it
+low, and ends with the five most overused patterns and what to prune first.

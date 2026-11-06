@@ -1,4 +1,4 @@
-.PHONY: build workers run check check-dist typecheck test licenses-test
+.PHONY: build workers run pdf check check-dist typecheck test licenses-test
 
 PORT ?= 8000
 
@@ -23,6 +23,17 @@ workers:
 # Always with the drafts.
 run:
 	PORT=$(PORT) node scripts/dev.ts
+
+# The book (2026-11-05-machines-of-borrowed-grace.org, in content/blog/ or its drafts/) as a
+# PDF, each note at the foot of the page that refers to it: Org to LaTeX (scripts/pdf.el) to
+# PDF (pdflatex, in the frame scripts/pdf.tex), into build/pdf/: machines-of-borrowed-grace.pdf
+# and the 6x9 interior for Kindle Direct Publishing, machines-of-borrowed-grace-paperback.pdf.
+# Once the book is live, the first is also put beside it (content/blog/), where the book
+# links to it, committed like a post's picture. Run by hand, or by the commit hook when the
+# live book changes (scripts/hooks/pre-commit): never by make build, make run or CI, none
+# of which needs TeX.
+pdf:
+	sh scripts/pdf.sh
 
 # What CI's required check runs: the build, every link, the types, the Workers' tests
 # (offline), the workflows' rules. (CI runs the two halves apart, uploading the site between

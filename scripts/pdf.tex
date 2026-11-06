@@ -1,0 +1,83 @@
+% The book's frame, for make pdf (scripts/pdf.sh). scripts/pdf.el writes the two files
+% it reads from the post: meta.tex (title, subtitle, author, date, picture) and body.tex
+% (the text). One source, two editions, as ../merecatholicity.com's book has them: built
+% with \PAPERBACK defined it is the interior Kindle Direct Publishing prints (the gutter
+% on the inside edge, black links), and without, the one the site offers (even margins,
+% links in color). Both are 6x9 with the same measure, so their pages break alike.
+\input{meta.tex}
+\documentclass[11pt,twoside,openany]{book}
+% The same bytes from the same sources: no banner naming the machine, no random trailer
+% ID, and SOURCE_DATE_EPOCH (scripts/pdf.sh) for every date.
+\ifdefined\pdfsuppressptexinfo\pdfsuppressptexinfo=-1 \fi
+\ifdefined\pdftrailerid\pdftrailerid{}\fi
+\ifdefined\PAPERBACK
+% KDP's 6x9 trim, no bleed. Its smallest gutter is 0.375in up to 150 pages and 0.5in up
+% to 300, its smallest outside margin 0.25in.
+\usepackage[paperwidth=6in,paperheight=9in,inner=0.75in,outer=0.5in,top=0.75in,bottom=0.75in]{geometry}
+\else
+\usepackage[paperwidth=6in,paperheight=9in,inner=0.625in,outer=0.625in,top=0.75in,bottom=0.75in]{geometry}
+\fi
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathpazo}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{titlesec}
+% Notes at the foot of the page that refers to them, numbered through the whole book as
+% on the site, and kept at the foot of a short page.
+\usepackage[bottom]{footmisc}
+\counterwithout{footnote}{chapter}
+\definecolor{ink}{HTML}{2A2521}
+\definecolor{maroon}{HTML}{7B2E2E}
+\ifdefined\PAPERBACK
+% Links are dead ink on paper. No boxes, no color.
+\usepackage[hidelinks]{hyperref}
+\else
+\usepackage[colorlinks=true,linkcolor=ink,urlcolor=maroon,citecolor=ink,filecolor=ink]{hyperref}
+\fi
+\urlstyle{same}
+\hypersetup{pdftitle={\booktitle},pdfauthor={\bookauthor}}
+\linespread{1.06}
+% The narrow measure needs a little slack to avoid protruding lines.
+\setlength{\emergencystretch}{1.5em}
+% A page ends where its text does: with this many notes, stretching every page to the
+% same depth would open gaps between paragraphs.
+\raggedbottom
+\clubpenalty=10000
+\widowpenalty=10000
+
+% The post's headings carry their own names ("Part I. Aristotle was right"), so nothing
+% is numbered: a part starts a page, its chapters run on.
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{1}
+\titleformat{\chapter}{\normalfont\LARGE\bfseries\raggedright}{}{0pt}{}[{\vspace{4pt}\titlerule[0.8pt]}]
+\titlespacing*{\chapter}{0pt}{0pt}{1.6em}
+\titleformat{\section}{\normalfont\large\bfseries\raggedright}{}{0pt}{}
+\titlespacing*{\section}{0pt}{1.6em}{0.6em}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\raggedright}{}{0pt}{}
+\titlespacing*{\subsection}{0pt}{1.2em}{0.4em}
+\pagestyle{plain}
+
+\begin{document}
+\begin{titlepage}
+\centering
+\vspace*{0.6in}
+{\LARGE\bfseries \booktitle\par}
+\vspace{0.6em}
+{\large\itshape \booksubtitle\par}
+\vspace{1.6em}
+\ifdefined\bookpicture
+\includegraphics[width=0.8\textwidth]{\bookpicture}\par
+\fi
+\vspace{1.6em}
+{\large \bookauthor\par}
+\vfill
+{\small \bookdate\par}
+\vspace{0.4em}
+{\small \href{https://\booksite}{\booksite}\par}
+\end{titlepage}
+\tableofcontents
+\clearpage
+\input{body.tex}
+\end{document}
