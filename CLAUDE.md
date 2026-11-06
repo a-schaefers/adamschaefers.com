@@ -492,7 +492,10 @@ His own revisions show the editing he wants: split run-ons; cut gratuitous
 profanity ("too much shit") and anything advertisey; vary a word he's leaned
 on ("gamers" to "players"); a comma or a spaced hyphen ( - ), not an em dash;
 sharpen the last line; retire what doesn't hold up ("not up to standards",
-"aged like milk"). Quality over volume.
+"aged like milk"). Quality over volume. Rhythm (owner, 2026-11-06): short lines for verdicts
+and turns, and longer sentences, joined by commas or "and", for walking the
+reader through an example, as McCabe does. A run of short sentences all the way
+through reads as a drum.
 His posts never use a semicolon, a colon (except inside a
 quotation, a title or a citation, owner, 2026-10-23), a long dash (em or en) or a curly quote
 (straight " and ' only, owner, 2026-10-21):
@@ -686,7 +689,18 @@ the register of Part III only; Monk is context, never an argument. The book
 says where each stops: Wittgenstein at grammar (no theses about the intellect,
 and he'd refuse the third movement), McCabe at the linguistic animal and the
 negative sense of "immaterial", Ross at determinacy (nothing on how a mind
-does it, nothing on God); the conclusions are Aquinas's. Part I is one
+does it, nothing on God); the conclusions are Aquinas's. McCabe's method (2026-11-06,
+`style/mccabe-method.md` in the book's working folder) is taught by manner and
+never by his name: each concept comes picture first (an ordinary picture, what
+Aquinas means in plain words, where the picture misleads, the precise
+statement), in McCabe's order, the author explaining and the authority
+confirming after, and every concept needs its "where it misleads" step. Each
+chapter carries one running example from the reader's world (the register, the
+acorn, the paw, the code reviewer). Titles say plainly what's under them:
+chapters are a reader's question or a short claim, and the appendices, which
+are reference, are plain nouns ("Six replies to Ross", "How we know
+mathematics", "Evolution and the mind"). The line under the post's title goes
+on the PDF's title page. Part I is one
 argument in three movements (grammar, life, determinacy, the retorsion last)
 and reads as the expansion of one paragraph, the spine (`spine.md`): every
 chapter maps to a sentence of it (`spine-map.md`) or goes. The ladder of four
