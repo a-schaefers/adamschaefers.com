@@ -554,3 +554,147 @@ it does no work (one line), the fix (cut it, or a rewrite that uses only the
 ideas and facts already in the passage) and a confidence (high, medium, low);
 it adds no facts, arguments or new flourishes, keeps a close call and marks it
 low, and ends with the five most overused patterns and what to prune first.
+
+No crouching (owner, 2026-11-05). The book argues for conclusions Adam holds:
+the machine has no mind and never will, its meaning is ours on loan, and the
+mind is made by God. A fair fight is how he gets there. Fairness means stating
+the other man's view so he would sign it, then answering it. It does not mean
+treating the view as equally likely once it has been answered, hedging the
+verdict, or matching every charge against an opponent with a charge against
+himself to look even. The method (meet the opponent on his own ground, close
+the exits, retorsion last) is how to reach the reader, not a reason to leave
+the verdict open: Aristotle reasons from the other side's opinions and still
+demonstrates, and McCabe and Chesterton are fair and never neutral. The
+standard is Adam's own best lines, which take a position and take the heat:
+"Humans are going to become NPCs.", "The machine is intelligent the way urine
+is healthy.", "If it were a mind, that would be a slave trade.", "Leisure
+without worship isn't leisure. It's unemployment with a stipend."
+The crouch is any passage whose job is to lower the writer's exposure rather
+than to make the argument. The test: delete the hedge in your head. If the
+claim is still true without it, the hedge was fear, and it goes. If deleting it
+makes the claim false or larger than the argument earned, it stays, said once.
+The kinds:
+1. Unforced concession: conceding what no opponent has demanded ("I don't
+   claim to have closed the question", "I can't show them that a fact with
+   nothing behind it is impossible").
+2. Repeated scope disclaimer: saying again what the preface already said the
+   book doesn't prove ("no proof of God", "which this book states and doesn't
+   defend", "it's a sketch and no proof"). The book says once, in the preface
+   and at "What you keep", what it claims and what it doesn't; after that it
+   argues as if it meant it.
+3. Ending on retreat: a chapter whose last paragraph is a concession, a
+   hand-off or a list of open questions. Concede in the middle, conclude at
+   the end.
+4. The menu: options laid out with no verdict ("Most of the answers on offer
+   give something up, and the ones that claim to keep both are still fought
+   over"). State the options, then say which is right and why, or which bill
+   nobody can pay.
+5. Deference: bowing to the experts instead of arguing ("among people who
+   know it better than I do"). Adam is a hobbyist and says so once, then argues
+   like a man who has read the texts.
+6. The symmetry reflex: a charge against his own side after every charge
+   against the opponent, to seem even. A stopping place of his own is admitted
+   once, where the argument needs it, not as a ritual.
+7. Softened verdict: "I take it that", "I'd call it", "I lean", "I think" in
+   front of a conclusion the argument has earned. Say it.
+8. Objection stacking: answering five objections where one matters, or
+   objections nobody in the room would raise. The main text answers the
+   objection the real reader has; the rest go to the notes, Appendix A, or out.
+9. Pulled punches: declining to call a position absurd when he thinks it is
+   and has shown why ("the functionalist has to say the stadium hurts. Some do
+   say it." should end with what Adam thinks of that).
+10. The rungs as a shield: repeating "you can get off here" until a
+    conviction reads as a buffet. The ladder is a courtesy to the reader,
+    stated in the preface and at the end. It is not the thesis.
+Never flagged: a concession that changes what the argument can claim; an
+opponent's view stated at its strongest before it is answered; marking where
+reason ends and faith begins (a position, not a hedge); a note saying a source
+was read secondhand (that honesty stays, though repeats can be consolidated);
+a real open question the book hasn't answered, said once. The AI-speak rules
+still apply: performed honesty announces candor, the crouch performs fairness,
+and both go. An audit for the crouch (defined in `crouch-audit.md`, in the
+book's working folder below) is run by an agent that hasn't seen the drafting, finds and reports and fixes nothing: each
+finding with its place, the exact quote, its kind (1 to 10), what it costs the
+argument, the fix (cut it, move it, or state the verdict the passage already
+earned, in his words, with no new argument) and a confidence; then the
+chapter endings (verdict, concession, hand-off or list, counted), the register
+of disclaimers (which one stays, which repeat), the menus, the pulled punches,
+the five worst passages, the three chapters that most need to end on their
+conclusion, and one paragraph of what the book believes as he would say it to
+a hostile room, drawn only from positions the book already takes. It audits
+the main text and endings closely, the notes only for repeated secondhand
+admissions, and Appendix A for pulled punches and menus but not for stacking
+(the objections belong there). It doesn't flag fair statements of opposing
+views, markers of where faith begins, humor, or anything for sounding like AI.
+
+The book: sources, synthesis and hygiene (Brief 4, 2026-11-05). Machines of
+Borrowed Grace is a Thomist synthesis, and says so. Aristotle, Aquinas and
+Ross supply the arguments; Wittgenstein supplies the method (grammar, and the
+hygiene below); McCabe the voice and the way of teaching; Van Til and Bahnsen
+the register of Part III only; Monk is context, never an argument. The book
+says where each stops: Wittgenstein at grammar (no theses about the intellect,
+and he'd refuse the third movement), McCabe at the linguistic animal and the
+negative sense of "immaterial", Ross at determinacy (nothing on how a mind
+does it, nothing on God); the conclusions are Aquinas's. Part I is one
+argument in three movements (grammar, life, determinacy, the retorsion last)
+and reads as the expansion of one paragraph, the spine (`spine.md`): every
+chapter maps to a sentence of it (`spine-map.md`) or goes. The ladder of four
+rungs serves the same argument (performance is no evidence of understanding;
+no program is a mind; nothing material thinks in a form; God makes the mind),
+and a chapter names its rung at most once, only where the reader needs it.
+
+No winning by weight: one argument, each authority one job in the main text,
+at most three named thinkers doing argumentative work in a chapter, every
+other name in the notes (where the full apparatus is welcome); each opponent
+stated so its holder would say "yes, that's my view"; convergence claims point
+at the passages and say where the thinkers differ; the primary source read
+wherever it can be had, and the secondhand admission kept where it can't.
+
+Hygiene: one sense per key term, defined at first use and kept in
+`glossary.md`; each major claim's kind evident (empirical, grammatical,
+metaphysical, theological); the machine-verb convention stated once (the model
+"writes" and "answers" the way a thermostat "wants" the room at 68, words lent
+to it), with no unmarked "knows", "thinks" or "decided" after it; every picture
+(the puppet, the sieve, the mirror, the urine, the man with the pencil, the shipbuilder,
+lion, the magic show) states its limit; "it makes no sense to say" kept apart
+from "it is false that"; no ambiguous it, this or that; "immaterial" never a
+ghostly stuff; no God-sentence making God a cause among causes. A technical
+term (species, phantasm, agent intellect, incompossible, analogy, form of
+life, criterion) is used in the open where it names the thing more exactly:
+introduced once, said plainly, then used without apology, the passage framed
+(the plain point, the technical version, what it comes to). Each movement
+opens with what it can't do alone and closes on its conclusion; a hand-off,
+where one is needed, must itself be a claim (what was shown, what wasn't, and
+the gap), and comes before the verdict, not instead of it. The book says once
+(in the preface and at "What you keep", and in a chapter only where the
+concession changes what that chapter can claim) what it can't close; everywhere
+else it argues as if it meant it (no crouching, above). "That's the next
+chapter." alone is a stage direction: the ceremonial audit above binds every
+rewritten chapter, and where the two seem to conflict its deletion test decides.
+
+Where the work lives: privately, in `~/repos/library-private/machines-of-borrowed-grace/`,
+never in this public repository, since it quotes copyrighted books. There are
+the briefs (`synthesis-brief.md`, Brief 4, wins over `strengthening-brief.md`
+and `gaps-brief.md`), `source-index.md`, `lens-passages.md`, `mccabe-style.md`,
+`novelty.md`, `spine.md`, `spine-map.md`, `glossary.md`, `claim-map.md`,
+`crouch-audit.md` (the crouch and its audit, run on the draft before
+Checkpoint 1 and again on the finished book as the last pass, each report in
+`audits/`), and
+`brief-overrides.md` (each place the work departs from a brief, and why, for
+the author at each checkpoint). The library is the rest of
+`~/repos/library-private` (`mccabe-and-wittgenstein/` holds McCabe, Wittgenstein
+and Monk; an OCR'd sentence is checked against its context or a second source
+before it's quoted, and otherwise paraphrased with its page). Quotation stays
+short (a sentence or less from a passage, attributed), and McCabe's way of
+explaining is learned, never his sentences. The orchestrator (Opus 5.5) writes
+every line of the book itself; Fable 5.1 subagents do the reading, the
+verification and the audits, so the writer never grades its own chapters.
+Checkpoints: no prose beyond the sample until the author approves the spine
+(Checkpoint 1: the spine, the spine map, where each thinker stops, the
+glossary, the claim map, the title) and then the voice (Checkpoint 2: the new
+first chapter and the recast "AGI doesn't matter"); Adam waived both for the
+Brief 4 run of 2026-11-05, which goes through every phase and brings him the
+checkpoints' work with the finished draft. The spine says what the
+argument is and the crouch audit's hostile-room paragraph says what Adam
+believes: the two must be the same argument in two registers, and the book
+should sound like the second.
