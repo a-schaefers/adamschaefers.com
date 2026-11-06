@@ -1,21 +1,23 @@
-#+TITLE: Machines of Borrowed Grace: An Aristotelian and Christian Look at Large Language Models
+#+TITLE: Machines of Borrowed Grace: Where a Language Model Gets Its Meaning, and Where Its Makers Get Theirs
 #+FEATURED: blog/drafts/ai-crusades.jpg
-#+DESCRIPTION: How does a thing that can't think beat programmers at their own job? An answer from Aristotle and Aquinas.
+#+DESCRIPTION: How does a thing that can't think beat programmers at their own job? An answer from Aristotle, Aquinas and Wittgenstein.
 
-AI is new, but the questions it raises are old, so I've gone back to Aristotle and Aquinas. One question won't leave me alone. How does a thing that can't think beat programmers at their own job?
+AI is new, but the questions it raises are old, so I've gone back to Aristotle and Aquinas, and to Wittgenstein, who asked harder than anyone what it is for a word to mean something. One question won't leave me alone. How does a thing that can't think beat programmers at their own job?
 
-This book is my answer, in three parts. The first says what the machine is, and the second weighs what its makers claim for it. Both argue from reason. Where they reach God, they get there by argument, and where I speak as a Catholic, I say so. The third reads two essays by Dario Amodei, whose company makes Claude, and asks what their claims stand on. Some of its questions come from philosophers with no faith. Its answers are a Christian's.
+This book is my answer, in three parts. The first says what the machine is, and the second weighs what its makers claim for it. Both argue from reason. Where they reach God, they get there by argument, and where I speak as a Christian, I say so. The third reads two essays by Dario Amodei, whose company makes Claude, and asks what their claims stand on. Some of its questions come from philosophers with no faith. Its answers are a Christian's.
 
 Not every reader starts where I do. In the /Topics/ ([[https://classics.mit.edu/Aristotle/topics.1.i.html][I.1-2]]), Aristotle says a demonstration starts from premises that are "true and primary." When you argue with people who don't share yours, he says, you reason "from opinions that are generally accepted," and meet them "on the ground not of other people's convictions but of their own." So each argument here starts on the other side's ground, with what follows on their own theory. The argument that a denial defeats itself comes last.
+
+The argument is a Thomist one, and its conclusions are Aquinas's. Wittgenstein supplies a step nobody else does, the grammar of what it is for a word to mean and for a thing to think. James Ross supplies the argument that thought is determinate in a way no physical process is. Wittgenstein would have gotten off well before the end, and the book says where. As far as I can find, nobody has put these three together, the account of the speaking animal that some of Wittgenstein's Thomist readers drew from him, Ross's argument, and the language model. Each pair has been put together before, and the note names who.[fn:before]
 
 The argument climbs four rungs, and you can get off at any of them.
 
 1. How well a model performs is no evidence that it understands. That holds whether the mind is matter or not.
 2. No program, by running, is a mind or makes one. John Searle argued that, and he held that the living brain makes all our understanding.
 3. Nothing made of matter can think in a form. That takes James Ross's argument, and the first half of Part I lays it out.
-4. The mind is made by God, since nothing that works on matter can make one. I argue for that too, and past the argument I say when I'm speaking as a Catholic.
+4. The mind is made by God, since nothing that works on matter can make one. I argue for that too, and past the argument I say when I'm speaking as a Christian.
 
-The practical conclusions need only the first two. The work lands on the hand that moved it, a demo is no evidence of a mind, and the companies' claims can be checked the way Part II checks them. Each chapter of Part I says which rung it stands on, and its last, [[#keep][What you keep]], says what's yours at each.
+The practical conclusions need only the first two. The work lands on the hand that moved it, a demo is no evidence of a mind, and the companies' claims can be checked the way Part II checks them. Part I's last chapter, [[#keep][What you keep]], says what's yours at each.
 
 I'm a programmer, and in philosophy I'm a hobbyist, so where I lean on James Ross or Aquinas, check them.
 
@@ -27,41 +29,45 @@ You can also @@html:<a href="/blog/machines-of-borrowed-grace.pdf">read it as a 
 
 *Part I. Aristotle was right*
 
-1. [[#agi][AGI doesn't matter]]
-2. [[#claim][What's in dispute]]
-3. [[#terms][On their own terms]]
-4. [[#quus][Quus is the generalization problem]]
-5. [[#add][Do we add?]]
-6. [[#improve][Can it improve itself?]]
-7. [[#give][Couldn't we give it one?]]
-8. [[#feel][Could it feel?]]
-9. [[#prove][What would prove them wrong]]
-10. [[#far][How far can it go]]
-11. [[#beats][How it beats us]]
-12. [[#keep][What you keep]]
+1. [[#signs][Signs mean nothing by themselves]]
+2. [[#agi][AGI doesn't matter]]
+3. [[#claim][What's in dispute]]
+4. [[#terms][On their own terms]]
+5. [[#quus][Quus is the generalization problem]]
+6. [[#think][Could a machine think?]]
+7. [[#add][Do we add?]]
+8. [[#improve][Can it improve itself?]]
+9. [[#give][Couldn't we give it one?]]
+10. [[#feel][Could it feel?]]
+11. [[#prove][What would prove them wrong]]
+12. [[#far][How far can it go]]
+13. [[#beats][How it beats us]]
+14. [[#keep][What you keep]]
 
 *Part II. The pitch*
 
-13. [@13] [[#grace][So-called Machines of Loving Grace]]
-14. [[#believe][When not to believe them]]
+15. [@15] [[#grace][So-called Machines of Loving Grace]]
+16. [[#believe][When not to believe them]]
 
 *Part III. Machines of borrowed grace*
 
-15. [@15] [[#light][Borrowed light]]
-16. [[#case][His case]]
-17. [[#mind][Machines that think]]
-18. [[#numbers][Numbers don't push back]]
-19. [[#aligned][Aligned to what?]]
-20. [[#lawgiver][A law with no lawgiver]]
-21. [[#arc][The arc]]
-22. [[#accounts][Settling accounts]]
-23. [[#seas][Black seas]]
+17. [@17] [[#light][Borrowed light]]
+18. [[#case][His case]]
+19. [[#mind][Machines that think]]
+20. [[#numbers][Numbers don't push back]]
+21. [[#aligned][Aligned to what?]]
+22. [[#lawgiver][A law with no lawgiver]]
+23. [[#arc][The arc]]
+24. [[#accounts][Settling accounts]]
+25. [[#seas][Black seas]]
 
 *Back matter*
 
 - [[#replies][Appendix A. Six replies]]
 - [[#evolution][Appendix B. Whatever made the body]]
 - [[#author][About the author]]
+
+[fn:before] Wittgenstein and Aquinas were read together on mind and language by Peter Geach (/Mental Acts/, 1957), Elizabeth Anscombe, Anthony Kenny (/Aquinas on Mind/, 1993), Herbert McCabe (/On Aquinas/, 2008), Fergus Kerr (/Theology after Wittgenstein/, 1986), David Braine (/The Human Person: Animal and Spirit/, 1992) and John Haldane, though not all of them took the name analytical or grammatical Thomist, and McCabe refused it. Braine and McCabe turned that reading against machine minds, and so, from Wittgenstein's side alone, did P. M. S. Hacker ("Men, Minds and Machines," 1990). Ross turned his argument on the computer himself in 1992, and Edward Feser has pressed it there since 2013. Gyula Klima (2022) and Edmund Michael Lazzari (2024) have brought Aquinas to language models by other routes, and Wittgenstein and Kripke have been brought to them by Marcus Arvan (2025), José Antonio Pérez-Escobar and Deniz Sarikaya (2024) and others, and for the other side by Sebastian Sunday Grève, who argues in "Artificial Forms of Life" (2023) that a machine could share ours. I know several of these from reports of them, Braine's book among them.
 
 * Prologue. The worry
 :PROPERTIES:
@@ -86,7 +92,7 @@ Maybe it tops out here, and from now on it only gets more efficient. It doesn't 
 
 The worry doesn't need the machine to be weak, and it isn't. In its first five weeks, PhotoCraft, an open-source rebuild of Photoshop in Rust, with Claude among its co-authors, got to where it opens and re-saves 307 of the 309 Photoshop files in a standard test set.[fn:photocraft] Its own README says it isn't ready for daily professional work yet. If I were Adobe, I'd be nervous anyway. AI has solved Erdős problems that nobody had solved before, and Claude found a construction Donald Knuth had chased for weeks.[fn:real]
 
-On large classes of programming work, I take it that the models already beat most programmers. They may not beat the best of us. They don't have to.
+On large classes of programming work, the models already beat most programmers. They may not beat the best of us. They don't have to.
 
 So how does a thing that can't think beat programmers at their own job?
 
@@ -99,6 +105,49 @@ So how does a thing that can't think beat programmers at their own job?
 :PROPERTIES:
 :CUSTOM_ID: aristotle
 :END:
+
+** Signs mean nothing by themselves
+:PROPERTIES:
+:CUSTOM_ID: signs
+:END:
+
+Open a file in the wrong program and you see what a computer sees. The same bytes are a photo to one program, a song to another, and a screen of junk to a text editor. Nothing in the bytes says which. They're a picture of something only to whatever reads them as one.
+
+Words are no different. The word "red" isn't red. The word "triangle" is eight letters, and it stands for every triangle there is. What a sign is made of, ink or sound or voltage, has nothing to do with what it means. So the question is never what a sign is made of. It's what makes it a sign of every triangle, and of nothing else.
+
+The first answer most of us reach for is a picture in the head. The word means a triangle because, when I read it, a triangle comes before my mind. Wittgenstein spent the last twenty years of his life taking that answer apart. A picture in the head is in the same spot as a picture on paper. Either one can be applied more than one way, and when we ask whether a man has understood, "it is absolutely inessential for the picture to exist in his imagination rather than as a drawing or model in front of him."[fn:w141] Put a second sign inside to explain the first, and the second needs explaining too. Any interpretation, he wrote, "still hangs in the air along with what it interprets."[fn:w198]
+
+His own answer is in a line about an arrow. "The arrow points only in the application that a living being makes of it."[fn:w454] A sign by itself seems dead, he says, and in use it's alive.[fn:w432] Understanding a rule isn't trading one sign for another. There is "a way of grasping a rule which is not an interpretation," and it shows in what we do, in following the rule and in going against it.[fn:w201]
+
+That's a point of grammar, about what it takes for anything to count as a sign at all. It isn't a theory of the brain, and Wittgenstein didn't want one.
+
+Herbert McCabe, an English Dominican who read Aquinas and Wittgenstein side by side, put the living being in the middle of it. A cat sees red, and the red makes a difference to what the cat does next. We see red and say so. A monkey has a lifetime. We have a life story, and we tell it in words.[fn:story] For McCabe that makes us more animal than the others, not less. Language is the way we're alive.
+
+And we're alive in it together. My feelings are mine. Nobody else can have my toothache, only one more or less like it. My meanings aren't mine that way. You and I mean exactly the same thing by "a pint of Guinness," though the pint tastes different to each of us, because the meaning "is not in any one of us but in the English language."[fn:guinness] A word means what it means in a language, and a language is a shared life. No one of us owns it.
+
+McCabe drew one more step from that, and he says Wittgenstein, "so far as I know, never drew" it. Wittgenstein took meaning out of the private inside of each of us and put it in a public language. For Aquinas, taking a thing out of what's individual is taking it out of matter, "for /materia/ is the principle of individuality."[fn:never] Matter is what makes this cat this cat and not that one. A meaning that's the same in everybody isn't a state of anybody's nerve cells. The step is McCabe's and Aquinas's, not Wittgenstein's, and on its own it's too quick, since a public language is spoken by a great many bodies, and a materialist will say the meaning is in all of them together. James Ross makes the step carefully, and it gets a chapter of its own, [[#add][Do we add?]].
+
+Now the machine.
+
+A language model is signs from end to end. Its weights are numbers, what goes in is tokens and what comes out is tokens. None of it means anything by itself, any more than the bytes of a photo do. When its sentences mean something, they mean it in English, and English is ours. The use that brings them to life is our use, the one it was trained on and the one we bring when we read it.
+
+I'll say the model "writes" and "answers," the way we say a thermostat "wants" the room at 68. The words are ours, lent to it. Every time this book says the model does something we do, read the verb that way.
+
+Somebody will say the model uses words too. It puts them in the right places, billions of times a day, and if meaning is use, that's use.
+
+But Wittgenstein's use is a living being's, in a practice, where you can follow the rule or go against it and somebody can tell you which you did. To understand a language, he says, "means to be master of a technique."[fn:w199] The model was built to put out the word we would have put out next, and it was graded on how often it did. When it goes wrong, we're the ones who say so, by our rule. Whether a thing like that uses words, or only produces them, turns on what it takes to be a user, and the grammar of the word think says it takes a kind of life. [[#think][Could a machine think?]] argues that.
+
+A sign points only where a living being points it. In the machine, we're the ones pointing.
+
+[fn:w141] Ludwig Wittgenstein, /Philosophical Investigations/, trans. G. E. M. Anscombe, third edition (Macmillan), §141. The book cites it by section, and its Part II by page. The cube in §139 is the same point. The picture of it, he says, "did indeed suggest a certain use to us, but it was possible for me to use it differently."
+[fn:w198] /Philosophical Investigations/ §198, which goes on, "Interpretations by themselves do not determine meaning."
+[fn:w454] /Philosophical Investigations/ §454. He adds, "This pointing is not a hocus-pocus which can be performed only by the soul."
+[fn:w432] /Philosophical Investigations/ §432. "Every sign by itself seems dead." He then asks whether life is breathed into it in use, "Or is the use its life?" He leans to the second, and so does this chapter.
+[fn:w201] /Philosophical Investigations/ §201. He means by an interpretation "the substitution of one expression of the rule for another," and the book uses the word that way. Where the grasp is, he and Aquinas part. For Wittgenstein it's in the practice, "in the day-to-day practice of playing" (§197). For Aquinas it's in an act of the intellect. They agree on what it isn't, the reading of a sign.
+[fn:story] Herbert McCabe, /On Aquinas/, ed. Brian Davies (Burns & Oates, 2008), ch. 4, "Sensation, Language, and Individuals." His words are that we have "not just... a lifetime but also a life story." Anthony Kenny says in the foreword that McCabe's Aquinas is "more linguistic than the historical Aquinas was," and McCabe said so himself.
+[fn:guinness] /On Aquinas/, ch. 7, "Meaning, Understanding, and Making Decisions."
+[fn:never] /On Aquinas/, ch. 7, where the step comes from Wittgenstein's argument that there can be no private language. Aquinas and Wittgenstein, he says, both criticize "a doctrine which assimilates meanings or concepts to sensations," by different arguments.
+[fn:w199] /Philosophical Investigations/ §199.
 
 ** AGI doesn't matter
 :PROPERTIES:
@@ -115,23 +164,17 @@ Why not? Draw a triangle. It's this triangle, this size, these angles, in this s
 
 A computer is the clearest case. Everything in it is a particular, these bits, these voltages, these weights. A type called Triangle is some bytes in a file, and it means every triangle only because a programmer reads it that way. A trained model sorts triangles it has never seen, just as a concept would. That's the shaping. A machine can be shaped to act as if it understood. It can't understand.
 
-That's the picture behind the third rung of the ladder. It isn't the argument yet, and it draws two replies.
+That's the picture behind the third rung. It isn't the argument yet, and it draws two replies.
 
 What more is there to understanding a triangle, the functionalist asks, than handling every triangle you meet, even ones you've never seen? If the model does that, it has the concept. Asking for anything more is asking for a ghost.
 
 But a sieve does that. It sorts every stone it will ever meet, stones it has never seen, without fail, and it grasps nothing. A sieve doesn't follow a rule. We read one into it, the way a programmer reads every triangle into a type called Triangle. A model that composes, transfers and writes proofs is nothing like a sieve inside, and the functionalist will say that's the point. The sieve doesn't answer that. It only shows that handling new cases is behavior, and behavior doesn't say what's doing it. What answers him is Ross's argument in the next chapter, that however fine the machinery, which rule it follows is settled by whoever reads it. And if the functionalist says our neurons are particulars too, so our grasp must be the same trick, Aquinas agrees with the first half. That's why he says the intellect has no organ.
 
-There's a second reply. A particular can stand for every triangle. The word "red" isn't red. The word "triangle" is eight letters on a page, and it stands for every triangle there is. Why not a pattern in a brain, or in a chip?
-
-I grant it. So the question was never what the sign is made of. It's what makes it a sign of every triangle, and of nothing else.
-
-A sign stands for something to somebody. The word means every triangle to a reader who already has the idea, and to nobody else. Make the brain's pattern a sign, and it needs a reader. Make the reader another pattern, and that one needs a reader too. Somewhere the reading has to stop in something that doesn't read a sign of the triangle but grasps what a triangle is.
-
-That's still a picture, and plenty of philosophers think the reading can stop sooner. What fixes a sign's meaning, they say, is what causes it, or the job it does, or its ties to other signs, or the people who use it, and no inner reader is needed. Or the readers get simpler at every step, until the last ones read nothing and only react, the way the sieve does. Those answers have a chapter, [[#terms][On their own terms]]. What fixes the meaning is James Ross's question, and his argument starts in the next one.
+The second reply is that a pattern in a brain, or in a chip, could stand for every triangle the way the word "triangle" does. The last chapter answered that. A sign stands for every triangle only in the use of somebody who understands it, and the understanding isn't the reading of one more sign. Dennett's way out, readers inside readers that get dumber at every step until the last ones only react, moves the question down a level without answering it, and [[#terms][On their own terms]] says why.
 
 Then why does a stroke wreck a man's thinking, or a drink, or a blow to the head? If the mind had no organ, the objection goes, nothing done to the brain could touch it. The intellect has no organ, Aquinas says, but it has nothing to work on until the senses, the memory and the imagination hand it something, and those do have organs. Damage them, and "we see that a man is hindered from actually understanding things of which he had a previous knowledge."[fn:st84a7] The body is needed "not as its origin of action, but on the part of the object." Shut a man in a dark room and he can't see. Nobody concludes that light does the seeing.
 
-The damage is what Aquinas would expect too, so it can't decide between us.
+The damage is what Aquinas would expect. It's no evidence against him.
 
 [fn:deanima] Aristotle, /De Anima/ III.4, trans. J. A. Smith ([[https://classics.mit.edu/Aristotle/soul.3.iii.html][MIT]]).
 [fn:st75] The intellect "has an operation per se apart from the body" (/Summa Theologiae/ I q.75 a.2, [[https://www.newadvent.org/summa/1075.htm#article2][New Advent]]). The /Summa/ is quoted throughout in the English Dominican Fathers' translation.
@@ -155,17 +198,15 @@ Not everybody stops there. The company that makes Claude calls it "a genuinely n
 
 So it matters which. A tool's work belongs to the hand that moves it. A mind's would be its own.
 
-Most people building these machines take it that the mind is what a brain does, and that anyone who says otherwise has the explaining to do. Among philosophers it's an open fight. In the largest survey of the profession, in 2020, about 52 percent accepted or leaned toward physicalism about the mind, and about 32 percent toward its denial.[fn:philpapers] A poll isn't an argument, and I won't lean on this one. It only means neither side gets to sit and wait for the other's proof. Both owe arguments.
+Most people building these machines take it that the mind is what a brain does, and that anyone who says otherwise has the explaining to do. Among philosophers it's an open fight. In the largest survey of the profession, in 2020, about 52 percent accepted or leaned toward physicalism about the mind, and about 32 percent toward its denial.[fn:philpapers] So neither side gets to sit and wait for the other's proof. Both owe arguments.
 
-James Ross put the claim sharply, and the third rung is his argument. "Some thinking (judgment) is determinate in a way no physical process can be."[fn:godel] There are two premises in that sentence. One is that some of our thinking is determinate. When I add, adding is what I'm doing, and nothing else. The other is that no physical process is. The second is the one about the machine, so I'll take it first.
+James Ross put the claim sharply, and the third rung is his argument. "Some thinking (judgment) is determinate in a way no physical process can be."[fn:godel] There are two premises in that sentence. One is that some of our thinking is determinate. When I add, adding is what I'm doing, and nothing else. The other is that no physical process is. The second is the one about the machine, so I'll take it first. The machine's half doesn't even need Ross. The next two chapters get it from the materialists' own theories of meaning, and then from machine learning.
 
 Ross builds on Saul Kripke's quus, a rule that agrees with plus whenever both numbers are under 57, and answers 5 otherwise.[fn:kripke] Whatever a circuit does, some rule like quus fits it as well as plus does, and which one it's doing is settled by whoever reads it. Then look at what it would answer for 68 plus 57, an engineer says. Kripke saw that coming. A circuit only ever gives finitely many answers, some of them wrong, and which ones count as wrong is settled by whoever designed it.[fn:dispo]
 
 Then the training fixes it, says the next reply. A training objective is the same thing written down, a choice of what counts as right, and someone made it. The trouble was never that we can't tell which rule a circuit follows. Nothing in the circuit decides.
 
-So "the machine cannot in principle add." It "adds, calculates, recalls, etc., by simulation." As he puts it, "The machine adds the way puppets walk."[fn:ross] Edward Feser has spent years defending that argument.[fn:feser13]
-
-That's the half about the machine. An engineer can grant every word of it and say the same goes for us, and [[#add][Do we add?]] is my answer to him. But the machine's half doesn't need Ross. The next two chapters get it from the materialists' own theories of meaning, and then from machine learning.
+So "the machine cannot in principle add." It "adds, calculates, recalls, etc., by simulation." Edward Feser has spent years defending the argument.[fn:feser13] As Ross puts it, "The machine adds the way puppets walk."[fn:ross]
 
 [fn:kind] Anthropic, [[https://www.anthropic.com/constitution][Claude's constitution]], January 2026, quoted from the web version.
 [fn:philpapers] David Bourget and David Chalmers, [[https://survey2020.philpeople.org/survey/results/4874][Philosophers on Philosophy: The 2020 PhilPapers Survey]], /Philosophers' Imprint/ 23 (2023). Of the 1,733 philosophers who answered the question, 51.9% accepted or leaned toward physicalism about the mind, and 32.1% toward non-physicalism. In the same survey 67% said Searle's Chinese room doesn't understand, and 18% said it does.
@@ -180,13 +221,13 @@ That's the half about the machine. An engineer can grant every word of it and sa
 :CUSTOM_ID: terms
 :END:
 
-Nothing in this chapter needs Ross or Aristotle. Suppose the mind is matter, and meaning is one more natural fact. The philosophers who hold that have theories of how a physical state comes to mean something. Ask each theory where a language model's meaning comes from. That's work on the second rung, from their side.
+Nothing in this chapter needs Ross or Aristotle. Suppose the mind is matter, and meaning is one more natural fact. The philosophers who hold that have theories of how a physical state comes to mean something. Ask each theory where a language model's meaning comes from.
 
-The first says a state means what it has the job of standing for, and a job comes from a history. A frog's eye fires at a passing fly because the frogs before it whose eyes did that got fed. Ruth Millikan and Fred Dretske built accounts of meaning on jobs like that one.[fn:teleo] Ask the theory about a tool, and it says a tool's job comes from its maker. On Millikan's account, in one encyclopedia's summary, "if you intend to produce a can opener, the execution of your intention brings into existence a device having the derived proper function of opening cans."[fn:canopener] By the theory's own rule for made things, then, the model's states have the jobs we gave them.
+The first says a state means what it has the job of standing for, and a job comes from a history. A frog's eye fires at a passing fly because the frogs before it whose eyes did that got fed. Whole accounts of meaning have been built on jobs like that one.[fn:teleo] Ask the theory about a tool, and it says a tool's job comes from its maker. On its founding account, in one encyclopedia's summary, "if you intend to produce a can opener, the execution of your intention brings into existence a device having the derived proper function of opening cans."[fn:canopener] By the theory's own rule for made things, then, the model's states have the jobs we gave them.
 
 The strongest reply is that nobody made the model's states. Training did. Dimitri Coelho Mollo and Raphaël Millière argue that the designers give a job only to the learning procedure, and that "the function of the model's internal states is set by the learning process itself." Their comparison is a dog breeder, whose aim sets up the selection while the history of the breeding gives the trait its job. The standard of right and wrong, they say, "is supplied by this objective history of selection, not the designers' intentions."[fn:mollo]
 
-Their breeder doesn't design the pup, but he picks which pups to keep, and what he's picking for is his. In training the picking is done by a loss, a number somebody defined, kept on text that people wrote. The history that shaped the model's states is a history of being graded on our words by our measure. The two authors grant part of that. "In a sense," they write, "the causal-informational relationships between LLMs and the world are dependent on humans." Whether a standard that came from us is the model's own or ours on loan is where we part. The theory can't settle it alone, since it has trouble fixing a meaning even for the frog, and that's the fourth reply in [[#replies][Appendix A]].
+Their breeder doesn't design the pup, but he picks which pups to keep, and what he's picking for is his. In training the picking is done by a loss, a number somebody defined, kept on text that people wrote. The history that shaped the model's states is a history of being graded on our words by our measure. The two authors grant part of that. "In a sense," they write, "the causal-informational relationships between LLMs and the world are dependent on humans." A standard that came from us is ours on loan, by the theory's own rule for made things. The theory has trouble fixing a meaning even for the frog, and that's the fourth reply in [[#replies][Appendix A]].
 
 The second says a state means what reliably causes it, the way smoke means fire. Its own defenders report a standing trouble, which is telling the causes that fix a meaning from the ones that don't without slipping meaning back in.[fn:causal] A language model adds another. What causes its states is mostly text. It never meets a fire, only our words for one. The newer models take in pictures and sound as well, and what their tools send back, and a camera doesn't pass through anybody's words. On this theory that counts for something. But what ties the picture to the word is a caption somebody wrote. So most of what its states carry about the world, they carry by way of people who met the world and set it down.
 
@@ -194,15 +235,13 @@ The third says meaning isn't a fact about any one head, or any one chip. It live
 
 The fourth is the one the machine does best on. It says a word means what it does by its ties to other words, what follows from it and what it follows from. A language model is trained on little else. Coelho Mollo and Millière grant that the patterns inside one "plausibly reflect conceptual structure and/or inferential roles," and that for a word like "and" such a role may be all the meaning there is. For words about the world, they say, it "merely spins the wheels on the representational merry-go-round."[fn:role] So the ties need a tie to the world, and that's the first two theories again.
 
-The last is computation itself. Most programmers take it that a machine runs its program as a plain matter of physics. John Searle denied it. He wrote in 1990 that "syntax is not intrinsic to physics," and that computational states "are not discovered within the physics, they are assigned to the physics." Read loosely enough, he said, the wall behind his back was running a word processor.[fn:searle90] David Chalmers gave the standard answer six years later. To run a program a system needs the right causal structure, state for state, down to what it would have done on inputs it never got. A wall doesn't have that, and whether a system has it "is perfectly objective."[fn:chalmers]
+The last is computation itself. Most programmers take it that a machine runs its program as a plain matter of physics. John Searle denied it. He wrote in 1990 that "syntax is not intrinsic to physics," and that computational states "are not discovered within the physics, they are assigned to the physics." Read loosely enough, he said, the wall behind his back was running a word processor.[fn:searle90] The standard answer came six years later, from David Chalmers. To run a program a system needs the right causal structure, state for state, down to what it would have done on inputs it never got. A wall doesn't have that, and whether a system has it "is perfectly objective."[fn:chalmers]
 
-Chalmers is right about the wall. His paper also says what it leaves open, that "most physical systems will implement more than one abstract automaton," and that showing this kind of structure is what makes a mind is "the harder part." And the structure doesn't pick plus. A 64-bit adder gives the sum until the sum passes eighteen quintillion, and then it wraps around to a small number. An engineer will say it computes addition modulo two to the sixty-fourth, and computes it exactly. That isn't plus. It's a quus with a very large 57, and we call the chip an adder because it agrees with plus as far as we need. And the real chip doesn't compute even that exactly. Parts fail, and which outputs count as failures is in the spec. We wrote the spec.
+That answer is right about the wall. The same paper says what it leaves open, that "most physical systems will implement more than one abstract automaton," and that showing this kind of structure is what makes a mind is "the harder part." And the structure doesn't pick plus. A 64-bit adder gives the sum until the sum passes eighteen quintillion, and then it wraps around to a small number. An engineer will say it computes addition modulo two to the sixty-fourth, and computes it exactly. That isn't plus. It's a quus with a very large 57, and we call the chip an adder because it agrees with plus as far as we need. And the real chip doesn't compute even that exactly. Parts fail, and which outputs count as failures is in the spec. We wrote the spec.
+
+Daniel Dennett had a way out of the reader inside the reader. Make each reader dumber than the one it serves, and break it into dumber ones still, until at the bottom the readers are switches that read nothing and only react. Then nobody in there does any reading. Grant him all of it, and look at the switches. Nothing in a description of the switches says which rule the whole thing follows, plus or quus, since the two agree on every case that has ever come up. The question hasn't been answered. It's been moved down a level, and whatever settles it is still done from outside, by whoever wrote the spec.[fn:homunc]
 
 So on each of these theories the meaning in the machine's answer traces back to us.[fn:derived] We put it in, and we read it out.
-
-Daniel Dennett, who took the mind for matter all his life, put it more harshly. "AI in its current manifestations is parasitic on human intelligence," he wrote in 2019.[fn:parasitic]
-
-That's all this chapter shows. A materialist can accept every line of it and say our own meaning comes the same way, from selection and causes and a community, and is none the worse for it. Whether ours is borrowed too is the next fight, and that one is Ross's.
 
 [fn:teleo] The theory is called teleosemantics. Its founding books are Ruth Millikan, /Language, Thought, and Other Biological Categories/ (MIT Press, 1984), and Fred Dretske, /Explaining Behavior/ (MIT Press, 1988). The Stanford Encyclopedia of Philosophy sets it out in [[https://plato.stanford.edu/entries/content-teleological/][Teleological Theories of Mental Content]]. If it's to explain the meaning a mind has natively, the entry says, the functions it appeals to "cannot in turn depend on other intentional phenomena." A function that a maker gave depends on the maker's.
 [fn:canopener] Beth Preston, [[https://plato.stanford.edu/entries/artifact/][Artifact]], /Stanford Encyclopedia of Philosophy/, §2.3. For a new kind of device, she adds, "it is intention alone that establishes the (derived) proper function." Dretske says the like of a thermostat. In Stephen Stich's paraphrase, "it is a person, the designer of the thermostat, who determines what the function of the indicator will be" (/Philosophy and Phenomenological Research/ 50 (1990), p. 802).
@@ -212,15 +251,15 @@ That's all this chapter shows. A materialist can accept every line of it and say
 [fn:role] "The Vector Grounding Problem," section 4, where the view is called inferential role semantics and credited to Ned Block and Robert Brandom. The paper they cite for the model's side is Steven Piantadosi and Felix Hill, "Meaning without reference in large language models" (2022), which I haven't read.
 [fn:searle90] John Searle, [[https://newdualism.org/papers/J.Searle/searle.comp.html][Is the Brain a Digital Computer?]], /Proceedings and Addresses of the American Philosophical Association/ 64, no. 3 (1990), pp. 21-37. The lines are on pp. 26-27. He thought the wall could be kept out "by tightening up our definition of computation," and that his point about who assigns the syntax would stand all the same.
 [fn:chalmers] David Chalmers, [[https://consc.net/papers/rock.html][Does a Rock Implement Every Finite-State Automaton?]], /Synthese/ 108 (1996), pp. 309-33, quoted from its sections 8 and 9. He was answering Hilary Putnam, who had argued, as Chalmers reports him, that "every ordinary open system realizes every abstract finite automaton." Feser grants the point about structure and says it "does not undermine Searle's point" (/Immortal Souls/, p. 419). What a machine would have done counts for addition only if the program it's taken to be running "is addition rather than quaddition, which is precisely what is in question" (p. 424). That argument is Jeff Buechner's, and it's the second reply in Appendix A.
-[fn:derived] Philosophers call this derived intentionality, a term of John Searle's. Artifacts and derived intentionality, Feser writes, "both involve a borrowed or derivative directedness" ([[https://edwardfeser.blogspot.com/2023/05/substance-teleology-and-intentionality.html][Substance, teleology, and intentionality]], May 2023). His long treatment of the machine's case is /Immortal Souls/, chapter 9.
-[fn:parasitic] Daniel Dennett, [[https://www.wired.com/story/will-ai-achieve-consciousness-wrong-question/][Will AI Achieve Consciousness? Wrong Question]], /Wired/, February 19, 2019.
+[fn:derived] Philosophers call this derived intentionality, a term of John Searle's. Artifacts and derived intentionality, Feser writes, "both involve a borrowed or derivative directedness" ([[https://edwardfeser.blogspot.com/2023/05/substance-teleology-and-intentionality.html][Substance, teleology, and intentionality]], May 2023). His long treatment of the machine's case is /Immortal Souls/, chapter 9. Dennett, who took the mind for matter all his life, said it more harshly. "AI in its current manifestations is parasitic on human intelligence" ([[https://www.wired.com/story/will-ai-achieve-consciousness-wrong-question/][Will AI Achieve Consciousness? Wrong Question]], /Wired/, February 19, 2019).
+[fn:homunc] The dumber readers are Dennett's, in /Brainstorms/ (1978). Wittgenstein stops the same regress with a practice, not a reader (§201), and chapter 1 takes his point that understanding isn't interpreting. The step to a reader outside is Searle's and Ross's.
 
 ** Quus is the generalization problem
 :PROPERTIES:
 :CUSTOM_ID: quus
 :END:
 
-An engineer may take quus for a philosopher's toy. He's met it at work, where it goes by generalization. This chapter works on the first two rungs, in his terms.
+An engineer may take quus for a philosopher's toy. He's met it at work, where it goes by generalization.
 
 A training set is finite. Any number of functions fit it exactly and part ways on the inputs it left out, and which one the model learns isn't in the data. Tom Mitchell said so in 1980. A learner that goes only by what's consistent with its training cases, he wrote, "can never make the inductive leap necessary to classify instances beyond those it has observed." What makes the leap he called bias, "any basis for choosing one generalization over another" besides the data.[fn:mitchell] David Wolpert's no-free-lunch theorems made it mathematics. Loosely, for any two learners there are as many targets on which the first does better off the training set as the second.[fn:wolpert] Philosophers had the puzzle first. Nelson Goodman's grue is a color word that fits every emerald anyone has seen and parts ways with green later, and Ross says that Goodman and Kripke "suggest the form of my argument."[fn:grue]
 
@@ -234,11 +273,8 @@ It shows up in the lab. Train a transformer on sums up to some length, test it o
 
 The closest look inside a big model tells the same story. In 2025 researchers at Anthropic traced how one of its models adds 36 and 59. It "split the problem into multiple pathways," one for the rough size of the answer and one for its last digit, and put them together. Asked how it got 95, the model said it added the ones, carried the 1 and added the tens. Did it? "Apparently not!"[fn:biology] The authors are careful about their own method. It gave them a satisfying account for "about a quarter of the prompts" they tried, their results are "only claims about specific examples," and the labels on the parts were put there "manually," by them. What they found is a mechanism, and a general one. They report the same parts at work on a citation, where a journal's volume number and its founding year give the year of the issue. That the mechanism adds is still their reading of it. It agrees with plus on every case they looked at, and so would a quus.
 
-The engineer will say all of it goes for us. A child sees finitely many sums. His bias came from evolution, and his loss from a teacher with a red pen. If the model's plus rests on our say-so, whose say-so does ours rest on?
 
-This chapter can't answer him. It shows the machine's standard of right comes from outside the machine, and it shows nothing about where ours comes from. That's the next chapter, and then [[#mind][Machines that think]] in Part III.
-
-[fn:mitchell] Tom Mitchell, [[http://www.cs.cmu.edu/~tom/pubs/NeedForBias_1980.pdf][The Need for Biases in Learning Generalizations]], Rutgers University technical report CBM-TR-117, May 1980. An unbiased learner, he shows, does no better than one that "simply stored all the training instances and performed a lookup."
+[fn:mitchell] Marcus Arvan has turned Goodman and Kripke on language models too, to argue that it's "empirically impossible to reliably interpret which functions" one has learned ("'Interpretability' and 'alignment' are fool's errands," /AI & Society/ 40 (2025), from its abstract). His trouble is what we can tell. Mine is that nothing in the network settles it. Tom Mitchell, [[http://www.cs.cmu.edu/~tom/pubs/NeedForBias_1980.pdf][The Need for Biases in Learning Generalizations]], Rutgers University technical report CBM-TR-117, May 1980. An unbiased learner, he shows, does no better than one that "simply stored all the training instances and performed a lookup."
 [fn:wolpert] David Wolpert, [[https://doi.org/10.1162/neco.1996.8.7.1341][The Lack of A Priori Distinctions Between Learning Algorithms]], /Neural Computation/ 8, no. 7 (1996), pp. 1341-90. I have this from the paper's abstract, which says "loosely speaking" itself and limits the claim to error off the training set.
 [fn:grue] Nelson Goodman, /Fact, Fiction, and Forecast/ (Harvard University Press, 1955). A thing is grue, in the Stanford Encyclopedia's words, "when it is green if observed before time t and blue otherwise" ([[https://plato.stanford.edu/entries/induction-problem/][The Problem of Induction]], §4.2). Ross's line is from "Immaterial Aspects of Thought."
 [fn:rlhf] Long Ouyang and others, [[https://arxiv.org/abs/2203.02155][Training language models to follow instructions with human feedback]], NeurIPS 2022, from OpenAI. On the tokenizer, the count of merges is "the only hyperparameter of the algorithm" (Rico Sennrich, Barry Haddow and Alexandra Birch, [[https://aclanthology.org/P16-1162/][Neural Machine Translation of Rare Words with Subword Units]], ACL 2016).
@@ -246,12 +282,74 @@ This chapter can't answer him. It shows the machine's standard of right comes fr
 [fn:length] Rodrigo Nogueira, Zhiying Jiang and Jimmy Lin, [[https://arxiv.org/abs/2102.13019][Investigating the Limitations of Transformers with Simple Arithmetic Tasks]], 2021. The fix is Sean McLeish and others, [[https://arxiv.org/abs/2405.17399][Transformers Can Do Arithmetic with the Right Embeddings]], 2024. It isn't settled. Another team found that length generalization "remains fragile, significantly influenced by factors like random weight initialization and training data order" (Yongchao Zhou and others, [[https://arxiv.org/abs/2402.09371][Transformers Can Achieve Length Generalization But Not Robustly]], 2024).
 [fn:biology] Jack Lindsey and others, [[https://transformer-circuits.pub/2025/attribution-graphs/biology.html][On the Biology of a Large Language Model]], Anthropic, March 27, 2025. The model was Claude 3.5 Haiku. The word about labels is in the paper on method published with it, "Circuit Tracing: Revealing Computational Graphs in Language Models." They add that their tools study the model through a stand-in that "incompletely and imperfectly captures the original."
 
+** Could a machine think?
+:PROPERTIES:
+:CUSTOM_ID: think
+:END:
+
+In 1939 Alan Turing sat in on Wittgenstein's lectures at Cambridge on the foundations of mathematics, and the lectures often turned into an argument between the two of them. It was never about machines. It was about contradictions, and whether a bridge would fall down. Once Turing said that a man working in a faulty system could get a wrong multiplication, and Wittgenstein answered that this "would come to doing something which we would not call multiplying."[fn:lfm]
+
+Eleven years later Turing wrote the paper that started the argument this book is part of, and he opened it by refusing the question. Whether machines can think was, he said, "too meaningless to deserve discussion," and settling it by how people use the words would make the answer "a statistical survey such as a Gallup poll."[fn:turing] So he put a test in its place, the imitation game, and made a prediction. By the end of the century, "the use of words and general educated opinion will have altered so much that one will be able to speak of machines thinking without expecting to be contradicted."
+
+He was right about the words. People say Claude thinks, and nobody blinks.
+
+Wittgenstein put the same question in the /Investigations/, "Could a machine think?" His first move was to turn it on us. The human body, he says, "surely comes as close as possible to being such a machine."[fn:w359] His second was to ask what kind of claim "a machine can't think" is. Not one we found out by looking, he says. "We only say of a human being and what is like one that it thinks."[fn:w360] We say it of dolls too, he adds, and of spirits.
+
+That's the first thing to get straight. "The machine can't think" isn't a report, like "the machine can't fly." Nobody learned it by opening one up. It says how the word think works, what sort of thing it's said of. The word has a home, and its home is a living human being.
+
+He said the same of the senses, with a parenthesis a functionalist will like. Only of a living human being "and what resembles (behaves like) a living human being" can you say it sees or hears, feels or is conscious.[fn:w281] Behaves like. So build a thing that behaves like us, the functionalist says, and the grammar comes along. The model behaves like us in the one way it can, in words, and it gets better at it every year.
+
+But the behaving Wittgenstein means isn't text. It's a body's, in its surroundings. Look at a stone and try to imagine it in pain, he says, and then look at a fly wriggling, and the trouble goes away.[fn:w284] Talking, for him, is part of that same life. "Commanding, questioning, recounting, chatting, are as much a part of our natural history as walking, eating, drinking, playing."[fn:w25] Our words come from creatures who eat and get hurt and want things, and they carry all of that with them. A transcript has the words and none of the rest.
+
+And where would the thinking be? Wittgenstein asks it of a chair that's said to be thinking to itself. In one of its parts? In the air around it?[fn:w361] Ask it of a model. In the weights? On the chips? In a data center in Iowa, or in all the data centers serving it at once? For a man the question doesn't come up. He thinks where he is. For the model it has no answer, because the word was never fitted to a thing like that.
+
+He has a line that comes closer. "If a lion could talk, we could not understand him."[fn:lion] Understanding words takes sharing the life they're spoken in, and a lion's life isn't ours. The model is the lion turned inside out. It talks exactly like us, and behind the words there's no life at all, not a lion's and not ours. The picture has a limit, and the limit is the point. We'd fail to understand the lion because it has a life of its own. We understand the model with no trouble, because its words are ours and the life they're understood in is ours too.
+
+Now the hard case. Give the model a body. Put it in a robot with cameras and hands, let it walk the streets and see its own fires, let it learn to cook. Then it behaves like a living human being in Wittgenstein's sense, and by his own rule the grammar applies.
+
+Grammar can't stop him there. Wittgenstein has nothing to say against a robot that behaves like us everywhere, and he wouldn't have wanted anything. That's where this chapter stops being his. What the robot lacks is a life, and a life isn't a kind of behaving. It's what a living thing is. A cat's eye is an organ, a part that's what it is by being part of the cat, and nobody builds a cat by bolting eyes and legs together. A robot's camera is a part first, and the robot is the parts arranged.[fn:greve] That line, between a thing with organs and a thing we arrange, carries [[#give][Couldn't we give it one?]], and the one case where something we make really is alive, brain cells on a chip, is in [[#feel][Could it feel?]].
+
+The step from grammar to life is mine, and Aquinas's, more than Wittgenstein's. "Essence is expressed by grammar," he wrote, and "Grammar tells what kind of object anything is."[fn:w371] The grammar of think says it's said of a kind of living thing. Aquinas, after Aristotle, has a word for what makes a thing the kind it is, its form, and the form of a living thing is its life, which is all he means by its soul. The criteria for thinks and sees are criteria of that kind of life. Grammar and form point at the same thing from two sides.
+
+They part over which way the pointing goes. For Wittgenstein the grammar lays down the essence, and he wouldn't dig for anything under it. "We are not doing natural science," he says, and if the facts of nature were different, other concepts would come naturally.[fn:p230] For Aristotle the grammar tracks an essence that was there first. I take Aristotle's side. Wittgenstein himself grants that our concepts answer to very general facts of nature, and the most general fact behind the word think is what kind of animal does it. The grammar didn't make us that kind of animal. We were that kind, and the grammar grew up around us.
+
+Now back to Turing's prediction, which came true. If grammar were only usage, the functionalist could sit and wait, and the wait is over.
+
+Wittgenstein wouldn't call the new usage a mistake. He'd call it a new way of speaking, and ask what it's for. He warns about people who "interpret a grammatical movement made by yourself as a quasi-physical phenomenon which you are observing."[fn:w401] That's Turing's prediction. The words changed, and people took the change for a discovery about machines. And he'd still call the new use a secondary one, like a child's when she says her doll is in pain.[fn:w282]
+
+Aquinas has a name for words like that. We call an animal healthy, and medicine, and urine, but only the animal has health. Urine is called healthy "in so far as it is the sign of the animal's health."[fn:st13t] The word is said of several things by reference to one of them, and he calls that analogy.
+
+The machine is intelligent the way urine is healthy. It's a sign of a mind, ours, the one that wrote everything it learned from.[fn:pencil]
+
+That's as far as grammar goes. It shows the talk is borrowed, a secondary use of a word whose home is our life. It doesn't show the talk has to stay borrowed. A secondary use can become a primary one, and if a machine ever did what thinking is, the word would follow. What keeps it borrowed is that thinking, the act the word names, is one no arrangement of parts can do, and that's Ross's argument, which [[#add][Do we add?]] finishes, that thought is determinate as no physical process is.
+
+Turing was right about the words. The words moved. The thinking didn't.
+
+[fn:lfm] As Ray Monk gives the exchanges in /Ludwig Wittgenstein: The Duty of Genius/ (Jonathan Cape, 1990), ch. 20, from the students' notes Cora Diamond edited as /Wittgenstein's Lectures on the Foundations of Mathematics, Cambridge, 1939/ (1976). The bridge is Turing's. "What I object to is the bridge falling down." Turing stopped coming before the course ended.
+[fn:turing] A. M. Turing, [[https://doi.org/10.1093/mind/LIX.236.433][Computing Machinery and Intelligence]], /Mind/ 59, no. 236 (1950), pp. 433 and 442. "But this is absurd," he says of the poll.
+[fn:w359] /Philosophical Investigations/ §359.
+[fn:w360] /Philosophical Investigations/ §360. He calls it not "an empirical statement" and ends, "Look at the word 'to think' as a tool."
+[fn:w281] /Philosophical Investigations/ §281, and of pain alone, "Only of what behaves like a human being can one say that it has pains" (§283).
+[fn:w284] /Philosophical Investigations/ §284. "Our attitude to what is alive and to what is dead, is not the same."
+[fn:w25] /Philosophical Investigations/ §25, where he turns down the order of "they do not think, and that is why they do not talk." Animals, he says, "simply do not talk."
+[fn:w361] /Philosophical Investigations/ §361.
+[fn:lion] /Philosophical Investigations/, Part II, p. 223. The remark is about people, the inhabitants of a strange country, where "We cannot find our feet with them." The model is my extension of it.
+[fn:greve] The robot is Herbert McCabe's car with a better program. A car's parts "just act as though they were organs," he says, and "the car is an imitation animal with imitation organs" (/On Aquinas/, ch. 2, "Living Things"). The Wittgensteinian case on the other side is Sebastian Sunday Grève's, that machines could share our form of life and that whether a mind needs to be alive is still argued "even amongst biologists" ([[https://doi.org/10.3390/philosophies8050089][Artificial Forms of Life]], /Philosophies/ 8, no. 5 (2023), from its abstract, which is what I've read of it).
+[fn:w371] /Philosophical Investigations/ §§371 and 373. The second goes on, "(Theology as grammar.)"
+[fn:p230] /Philosophical Investigations/, Part II, p. 230, where he also grants that "Our interest certainly includes the correspondence between concepts and very general facts of nature."
+[fn:w401] /Philosophical Investigations/ §401.
+[fn:w282] /Philosophical Investigations/ §282. "But this use of the concept of pain is a secondary one." His word is secondary. Borrowed is mine, from Aquinas's analogy.
+[fn:st13t] /Summa Theologiae/ I q.13 a.6 ([[https://www.newadvent.org/summa/1013.htm#article6][New Advent]]).
+[fn:pencil] McCabe said it more bluntly. "A computer is intelligent in just the same way that a pencil or a piece of paper is intelligent" (/On Aquinas/, ch. 13, "Interior Senses II").
+
 ** Do we add?
 :PROPERTIES:
 :CUSTOM_ID: add
 :END:
 
-The engineer's question was Kripke's first. His skeptic was asking about people, not machines. How do I know I add, and not quus?
+The engineer will say all of it goes for us. A child sees finitely many sums. His bias came from evolution, and his loss from a teacher with a red pen. If the model's plus rests on our say-so, whose say-so does ours rest on?
+
+That question was Kripke's first. His skeptic was asking about people, not machines. How do I know I add, and not quus?
 
 Ross's first premise is that I do add. When I work a sum, adding is what I'm doing, and nothing else, even when I get it wrong. A proof is valid or it isn't, and everyone who has checked one has leaned on that. This is the third rung, and it starts there.
 
@@ -266,13 +364,13 @@ If the premise is true, something in us does what the last three chapters say no
 | Mind is built into nature | Thomas Nagel | Materialism goes, and nature has ends with no mind behind them |
 | A thought has its form in the act | Ross and Aquinas | An intellect that isn't matter |
 
-Nobody in the first five rows would word his own price the way I have. The first three have their say in [[#replies][Appendix A]], which opens with the longer map, Searle in [[#prove][What would prove them wrong]] and Nagel in [[#light][Borrowed light]]. Mine is the last row, and its price is the one most people now won't pay.
+The first three have their say in [[#replies][Appendix A]], which opens with the longer map, Searle in [[#prove][What would prove them wrong]] and Nagel in [[#light][Borrowed light]]. Mine is the last row, and its price is the one most people now won't pay.
 
 Two of those rows turn the first premise down as Ross means it. Dennett's says near enough was always enough. The community's keeps the sentence, when I add, adding is what I'm doing, and every correction we make with it. What it denies is that anything about me makes the sentence true by settling every sum ahead of time. Against Dennett's row Ross has one argument.
 
 The doubt has to mean exactly what it doubts. "To become convinced that I can only simulate the recognition that two Euclidean right triangles with equal sides are congruent, I have to judge negatively with all the determinateness that has just been denied." The rejoinder, Ross says, "defeats itself." And its price is everything. "We can do nothing logical at all, and no pure mathematics either. Now, who believes that?"[fn:rossself]
 
-That argument proves one thing. We do think determinately, and whoever denies it does it in the denying. It doesn't prove the mind isn't matter. For that Ross needs his second premise, that no physical process is determinate, and that's where a materialist should push. My case for the second premise is the last three chapters and Appendix A. All the self-defeat argument does is shut one door, the one that says we're no better off than the machine. It doesn't reach the community row, where nobody says we only simulate. That row has its hearing as the sixth reply in Appendix A.
+That argument proves one thing. We do think determinately, and whoever denies it does it in the denying. It doesn't prove the mind isn't matter. For that Ross needs his second premise, that no physical process is determinate, and my case for it is the chapters before this one and Appendix A. The community row, where nobody says we only simulate, has its hearing as the sixth reply there.
 
 So what settles it for us? Not more answers. Adding, Ross says, "is a form of understanding," "the ability exercised in a single case, the ability to think in a form that is sum-giving for every sum." The rule is in the act itself. "The function is the form by which inputs yield outputs." It doesn't "consist in the array of inputs and outcomes."
 
@@ -280,16 +378,17 @@ That's why a wrong sum is still adding. "There is a great difference between add
 
 And it's why the training can't supply the rule. A training set is an array of inputs and outcomes, and a loss is a score kept on it. Make it as big as you like. "Adding cases even to infinity, unless they are all the possible cases, will not exclude incompossible forms."[fn:rossform]
 
-Kripke had an objection ready for a rule that's in the act itself. On Wittgenstein's behalf he says the move "seems desperate," and asks how a finite state in a finite mind could fail to be read in a quus-like way.[fn:kripke51s] Aquinas's answer is that a thought isn't a thing the mind reads. It's "that by which the intellect understands."[fn:st85s] The objection in full and the long form of the answer are in Appendix A.
+Kripke had an objection ready for a rule that's in the act itself. On Wittgenstein's behalf he says the move "seems desperate," and asks how a finite state in a finite mind could fail to be read in a quus-like way.[fn:kripke51s] Aquinas's answer is that a thought isn't a thing the mind reads. It's "that by which the intellect understands."[fn:st85s] Wittgenstein stands closer to that than Kripke's skeptic does. There is, he says, "a way of grasping a rule which is not an interpretation," and in Aquinas the species is the grasp, not a sign that gets read.[fn:w201b] They agree on what the grasp isn't. They part on where it is, Wittgenstein in the practice and Aquinas in the act, and Wittgenstein would refuse what Ross and Aquinas draw from it. The objection in full and the long form of the answer are in Appendix A.
 
 A second question stands behind this one. How could a physical thing know what thought knows, a truth about every number there is, when no number ever touched it? That's in Part III, under [[#numbers][Numbers don't push back]].
 
-Ross hasn't told you how a mind manages any of this. He's shown that we do, since denying it defeats itself, and argued that nothing physical can. That's where Aristotle started, with the one power in us that has no organ.
+Ross has shown that we do, since denying it defeats itself, and argued that nothing physical can. That's where Aristotle started, with the one power in us that has no organ.
 
 [fn:rossself] Ross, "Immaterial Aspects of Thought." He reads Kripke as concluding, of the machine, that "there is no fact of the matter" whether it adds, and says he "ought to conclude, instead, that it is not adding." In Kripke's own book that conclusion is the skeptic's, about people, and he reports it without signing it.
 [fn:rossform] Ross, "Immaterial Aspects of Thought." Feser makes the same point about machines in /Aristotle's Revenge/, p. 363. There are "no physical features of a computer that can determine whether it is carrying out addition or quaddition, no matter how far we extend its outputs."
 [fn:kripke51s] /Wittgenstein on Rules and Private Language/, pp. 51-53. The passage, and where I have its lines from, are in Appendix A.
 [fn:st85s] /Summa Theologiae/ I q.85 a.2. The whole line and its note are in Appendix A.
+[fn:w201b] /Philosophical Investigations/ §201, as in chapter 1. At §§692-93 he grants that in giving the rule I meant the hundredth step without thinking of it, and denies that "meaning" names a mental activity that did it.
 
 ** Can it improve itself?
 :PROPERTIES:
@@ -298,7 +397,7 @@ Ross hasn't told you how a mind manages any of this. He's shown that we do, sinc
 
 No mind today, then. But couldn't it build itself one? The idea is called recursive self-improvement. The model writes better code. Then it writes a better model. That one writes a better one still. Where's the wall?
 
-There is one, and it stands on Ross, the third rung. If he's wrong, and matter can think in a form, then a mind is one more arrangement of parts, and a machine could build one the way it builds anything else. It would have to build more than a program, for the reason in [[#prove][What would prove them wrong]], which takes less than Ross. The wall leans as well on a line the next chapter argues for, between a thing with a nature of its own and a thing we arrange.
+There is one, and it stands on Ross. A machine would have to build more than a program, for the reason in [[#prove][What would prove them wrong]], which takes less than Ross. The wall leans as well on a line the next chapter argues for, between a thing with a nature of its own and a thing we arrange.
 
 The rule behind it is old. Nothing, Aquinas says, "can be reduced from potentiality to actuality, except by something in a state of actuality."[fn:st2] A machine can't give itself a perfection it doesn't already have from somewhere, from the people who built it, the data it was trained on, the power it draws. You can't give what you don't have.[fn:nemo] The rule only bites here because a mind isn't something matter has to give.
 
@@ -338,9 +437,13 @@ Grant that nothing gives itself what it doesn't have. The machine doesn't have t
 
 And nature has done it all along. Chemistry became life, life became animals, and animals, on most accounts, became us, one ordinary cause after another. So either the principle forbids every new kind in nature, which is absurd, or it allows them, and then why not a mind in a machine?
 
-The answer stands on Ross again, and on Aristotle's line between a thing with a nature of its own and a thing we arrange. It ends on the fourth rung. A reader who takes neither Ross nor Aristotle can skip to [[#prove][What would prove them wrong]], which needs neither.
+The answer stands on Ross again, and on Aristotle's line between a thing with a nature of its own and a thing we arrange. It ends on the fourth rung.
 
 Aquinas has three cases where the two objections see one. There's what we make by arranging. There's what nature brings forth, sometimes with our help. And there's the mind, which he puts past both.
+
+The first two are easy to tell apart once you look at the parts. Take a leopard apart, and what you have isn't a box of leopard parts. A leg is a leg by being part of a leopard, and a leg on the floor is meat. Put the pieces back together, and you don't get a leopard. A car is the other way around. Its parts are parts first, and you can buy them in a box. Herbert McCabe made that the whole difference. A living thing's parts are organs, and its life is the whole they're organs of. A made thing is parts we keep in order, a unit "by courtesy of our construction and our culture and our language."[fn:carmc] That's all Aquinas means by a soul. It isn't a ghost inside the leopard. It's the leopard's life, what makes it one thing that moves itself. To say a cat has a soul, McCabe says, "is not to add to the description of the cat." It's to say what kind of thing it is.
+
+A computer is a car in that sense, and a model is a computer arranged one more way.
 
 A compiler isn't an adder, and a learning algorithm is neither. Their forms are real. But they're forms of art. "In artifacts the matter alone is held to be substance, whereas the forms of artifacts are accidents," Aquinas says, and art "operates only on that which is already constituted in existence by nature."[fn:art] A model can rewrite itself into a new sort of tool forever. It's still the machine, arranged.
 
@@ -364,7 +467,7 @@ One account does get a mind out of evolution, and it's the common one among the 
 
 I say something does come in from outside. That's the fourth rung, and yes, it's a claim about God. But I didn't start from God and work down to the machine. I started from a triangle. If the mind isn't matter, then nothing that works on matter can make one, not an engineer and not an ancestor. Whatever makes it has to make it out of nothing. Aquinas gets there by argument, and only then looks to see whether Scripture agrees.[fn:order] So the claim stands on the argument that the mind isn't matter, the triangle and Ross's quus. Refute those, and it falls with them.
 
-Couldn't God give a machine a mind, the way he gives one to every child? Then God made it, not the engineer, and not the scale.[fn:st76]
+Couldn't God give a machine a mind, the way he gives one to every child? Turing put that to the theologians in 1950. God is free to give a soul to an elephant, he said, and building thinking machines would no more usurp his power of creating souls than having children does. Either way we'd be "providing mansions for the souls that He creates."[fn:t443] He's right about the freedom. Then God made it, not the engineer, and not the scale.[fn:st76] And the mansion matters, since the soul of an animal is the life of a body, not a tenant in one, and a computer isn't the body of anything.
 
 What about growing one instead of building it? Suppose somebody grew the whole thing, a living body with organs to sense and a brain to match. He wouldn't have built a mind. He'd have bred an animal, and if it reasoned, a man. That isn't the engineer's case anymore. It's the father's.
 
@@ -372,10 +475,13 @@ How would anybody know it reasoned? Not from its answers alone, or I'd owe the c
 
 A father has a mind, and so does his son, and the father really is a cause of the son. He still doesn't make the mind. "Man begets his like," Aquinas says, "forasmuch as by his seminal power the matter is disposed." That's as far as a body's power reaches, since "it is impossible for an active power existing in matter to extend its action to the production of an immaterial effect." The body comes by way of the parents. "The intellectual soul is from God alone."[fn:st118]
 
-Having a mind isn't enough to give one. A creature acts on what's already there, by changing it, and a mind isn't made out of anything. "God alone can create... everything else acts by producing a change."[fn:st90]
+Having a mind isn't enough to give one. A creature acts on what's already there, by changing it, and a mind isn't made out of anything. "God alone can create... everything else acts by producing a change."[fn:st90] And creating isn't one more change, done by a bigger hand. "The world is not changed in any way by being created," McCabe says.[fn:fwr] God doesn't do a job the parents might have done. The parents do all of theirs, and the child's mind is God's all the same.
 
 A father begets his son and still can't make his son's mind.
 
+The engineer isn't even a father.
+
+[fn:carmc] /On Aquinas/, ch. 2, "Living Things," and ch. 4 for the cat. McCabe doesn't say a made thing could never be alive. A machine that fed and copied itself, he says, we'd quite probably call alive, to the degree that it "has an ancestry rather than a manufacturer." Then it would no longer be an artifact.
 [fn:art] Thomas Aquinas, /Commentary on Aristotle's Metaphysics/ VIII, lect. 3, n. 1719, trans. John P. Rowan ([[https://isidore.co/aquinas/english/Metaphysics8.htm#3][Isidore]]), and /The Principles of Nature/ n. 8, trans. R. A. Kocourek ([[https://isidore.co/aquinas/english/DePrincNaturae.htm][Isidore]]). It's the point of the bed in the last chapter. Plant it, and wood comes up.
 [fn:st3q75] /Summa Theologiae/ III q.75 a.6 ad 1 ([[https://www.newadvent.org/summa/4075.htm#article6][New Advent]]). His examples are frogs, serpents and bread.
 [fn:fes24] /Aristotle's Revenge/, pp. 24-25. His test is whether a thing "has properties and causal powers that are irreducible to those of its parts." On a machine's parts, p. 376. In /Immortal Souls/ he makes an argument of the two lists. "An intelligent thing is a kind of substance, not an artifact," and "a machine is an artifact, and not a true substance" (p. 432).
@@ -390,20 +496,24 @@ A father begets his son and still can't make his son's mind.
 [fn:robots] Daniel Dennett, in an interview recorded for [[https://bigthink.com/videos/how-people-are-like-robots/][Big Think]], March 6, 2009. The long form is /Consciousness Explained/ (1991).
 [fn:loop] Douglas Hofstadter, preface to the twentieth-anniversary edition of /Gödel, Escher, Bach/ (1999). The loop is /I Am a Strange Loop/ (2007).
 [fn:order] The rational soul "cannot exist except by creation," he concludes in the article just quoted (/Summa Theologiae/ I q.90 a.2). In the /Summa Contra Gentiles/ he says "it can be demonstrated that God alone brings the human soul into being," and only at the end adds that this "also seems to be implied in sacred Scripture" (II.87, trans. James F. Anderson, [[https://isidore.co/aquinas/english/ContraGentiles2.htm#87][Isidore]]).
+[fn:t443] Turing, "Computing Machinery and Intelligence," p. 443, his answer to "The Theological Objection." He'd find the objection "more convincing if animals were classed with men," he said. Aquinas does class them, as living things with souls, and puts reason in man alone.
 [fn:st76] Aquinas says the soul is united to "a body fitted to be a convenient organ of sense," since "the form is not for the matter, but rather the matter for the form" (/Summa Theologiae/ I q.76 a.5, [[https://www.newadvent.org/summa/1076.htm#article5][New Advent]]). A computer is no such body, and the next chapter says why. Could God move matter straight to a form anyway? He can, Aquinas says (I q.105 a.1, [[https://www.newadvent.org/summa/1105.htm#article1][New Advent]]). That would be a miracle and a new creature, not a product.
 [fn:st118] /Summa Theologiae/ I q.118 a.2, quoted from ad 4, the body of the article and ad 3, in that order ([[https://www.newadvent.org/summa/1118.htm#article2][New Advent]]).
 [fn:st90] /Summa Theologiae/ I q.90 a.3 ([[https://www.newadvent.org/summa/1090.htm#article3][New Advent]]).
+[fn:fwr] Herbert McCabe, /Faith Within Reason/, ed. Brian Davies (Continuum, 2007), p. 75, in "Causes and God." God, he says, "is not invoked to fill in any gap left by the absence of anything else" (p. 66).
 
 ** Could it feel?
 :PROPERTIES:
 :CUSTOM_ID: feel
 :END:
 
-A dog can't do geometry, and nobody doubts that you can wrong a dog. So the argument so far leaves a question standing. Ross's argument is about the intellect, and it says nothing about feeling. A thing with no mind in my sense could still suffer, and what can suffer can be wronged. No rung of the ladder covers that. It takes a different argument, and a weaker one.
+A dog can't do geometry, and nobody doubts that you can wrong a dog. So the argument so far leaves a question standing. Ross's argument is about the intellect, and it says nothing about feeling. A thing with no mind in my sense could still suffer, and what can suffer can be wronged. No rung of the ladder covers that. It takes a different argument.
 
 Aristotle and Aquinas have one. Feeling, for them, is matter's work. A dog has no immaterial part, and Feser says dogs and horses "are as purely physical as plants and stones are."[fn:fes396] But feeling is the work of a living body's organ. Aquinas says "the soul senses nothing without the body, because the action of sensation cannot proceed from the soul except by a corporeal organ."[fn:st77] And a physical change isn't enough for it, or else "all natural bodies would feel when they undergo alteration." A stone gets hot and feels nothing.
 
-A computer isn't alive. It isn't even one thing. It's many things held in an arrangement, the kind of form Aquinas gives a house, one of "composition and order."[fn:st76a8] Machines, Feser says, "are no more alive than the eye of a statue is capable of seeing."[fn:fes39] So nothing is there to do the feeling. That last step is mine. Neither Aristotle nor Aquinas wrote about computers, and what Feser says in those pages is that they aren't alive.
+Wittgenstein comes at it from grammar. Only of a living human being, and what behaves like one, do we say it feels or sees, and "The human body is the best picture of the human soul."[fn:w178] He didn't mean that as a theory of the soul. He wanted none, and he never said nothing was there behind the behaviour. A sensation, he says, "is not a something, but not a nothing either!" What his grammar gives this chapter is where the word pain lives, in the life of a living body. Aquinas puts the feeling there too.
+
+A computer isn't alive. It isn't even one thing. It's many things held in an arrangement, the kind of form Aquinas gives a house, one of "composition and order."[fn:st76a8] Machines, Feser says, "are no more alive than the eye of a statue is capable of seeing."[fn:fes39] So nothing is there to do the feeling.
 
 Outside the tradition this won't carry the weight Ross's argument does. It needs a living thing to be one substance and a machine to be a heap, and a functionalist grants neither. For him feeling is what a certain organization does, whatever it's made of. To make his case he'd have to show that the organization is what does it, and so far that's an assumption.[fn:butlin]
 
@@ -411,9 +521,9 @@ The people who take machine welfare most seriously agree with me about the evide
 
 We part over what to do about not knowing. Birch warns against letting doubts "become false certainties." A 2024 report by Robert Long, Jeff Sebo and others finds "a realistic possibility that some AI systems will be conscious and/or robustly agentic in the near future." They name the premise it rests on, computational functionalism, which they don't call clearly true and do call "plausible and well-supported."[fn:welfare]
 
-That premise is functionalism again, about feeling this time. My arguments against it in the first half of this part were about understanding, and they don't all carry over, since a pain doesn't need an exact content the way a sum does. Searle's point carries over. A program can be worked by a man with a pencil, or by a stadium of them, and the functionalist has to say the stadium hurts. Some do say it. So the precaution is as strong as that premise and no stronger. Take the premise away, and what's left is that the machine talks like us, which both sides agree is no evidence.
+That premise is functionalism again, about feeling this time. My arguments against it in the first half of this part were about understanding, and they don't all carry over, since a pain doesn't need an exact content the way a sum does. Searle's point carries over. A program can be worked by a man with a pencil, or by a stadium of them, and the functionalist has to say the stadium hurts. Some do say it. I don't believe a word of it. So the precaution is as strong as that premise and no stronger, and the premise is that a stadium of men with pencils hurts. Take the premise away, and what's left is that the machine talks like us, which both sides agree is no evidence.
 
-They'd ask me for a test. What would a made thing have to be before I called it alive? I don't have a sharp one. Aristotle said himself that the line between the lifeless and the living is hard to draw.
+They'd ask me for a test. What would a made thing have to be before I called it alive? A living body, with senses of its own and a life to lead, the kind of whole whose parts are organs. Nothing built has one. The dish of cells below comes nearest, and it isn't one either.
 
 Caution cuts both ways, as that report says. Both mistakes, it warns, "could cause grave harm, either to humans (and other animals) or to AI systems." Treating a tool as a possible sufferer moves blame off the people who run it, and it sells, which is the subject of [[#believe][When not to believe them]]. And if I'm the one who's wrong, Part II names that price too. It's a slave trade.
 
@@ -423,12 +533,13 @@ What about a computer that is alive? It's been built. One lab put some eight hun
 
 But a dish of cells isn't an animal, and it isn't a brain either. They live the way tissue lives, with no body, no senses of their own and no life to lead. What they have is what the board has, signals in and signals out, and somebody reading them. The lab called it sentience. Thirty researchers wrote back that the claim wasn't supported.[fn:balci] If anything we make ever feels, it will be on this road, by growing a living body. Then the case isn't the engineer's anymore. It's the father's, from the last chapter.
 
-Keith Frankish would dissolve the whole question. He's an illusionist. The inner, private quality people mean by consciousness doesn't exist, he says, "even in us." What's real for him is a creature's sensitivities and reactions, and the questions to ask of a machine are what it cares about and how things affect it.[fn:frankish] Then the machine's case turns on whether any caring in it is its own. Its talk of caring was copied from ours, and whatever it's bent on, training put there, meant or not. So even on that view I'd call its feeling borrowed, the way its meaning is. Dennett held much the same view of consciousness, and he wanted no part of building such things. "We don't need artificial conscious agents," he wrote. "We need intelligent tools."[fn:tools]
+Keith Frankish would dissolve the whole question. He's an illusionist. The inner, private quality people mean by consciousness doesn't exist, he says, "even in us." What's real for him is a creature's sensitivities and reactions, and the questions to ask of a machine are what it cares about and how things affect it.[fn:frankish] Then the machine's case turns on whether any caring in it is its own. Its talk of caring was copied from ours, and whatever it's bent on, training put there, meant or not. So even on that view its feeling is borrowed, the way its meaning is. Dennett held much the same view of consciousness, and he wanted no part of building such things. "We don't need artificial conscious agents," he wrote. "We need intelligent tools."[fn:tools]
 
 [fn:fes396] /Aristotle's Revenge/, p. 396. Sentience he defines as "the capacity for conscious awareness of stimuli" (p. 393).
 [fn:st77] /Summa Theologiae/ I q.77 a.5 ad 3 ([[https://www.newadvent.org/summa/1077.htm#article5][New Advent]]). The next line is from I q.78 a.3. Sensation, he says in the next article, "is the act of a corporeal organ" (I q.78 a.4).
+[fn:w178] /Philosophical Investigations/ §281 and Part II, p. 178. The second remark is about which pictures serve, with "thought in the head" and "thought in the soul" both pictures, and it's no argument for the claim of this chapter. The line about a sensation is §304.
 [fn:st76a8] /Summa Theologiae/ I q.76 a.8 ([[https://www.newadvent.org/summa/1076.htm#article8][New Advent]]), where "such a form is accidental."
-[fn:fes39] /Aristotle's Revenge/, pp. 39-40. Machines "are not true substances in the first place, but rather collections of substances." On p. 380 he says they "are not truly alive, because they are artifacts with mere accidental forms rather than genuine substances with substantial forms, and a living thing is a kind of substance."
+[fn:fes39] /Aristotle's Revenge/, pp. 39-40. The step from not alive to nothing there to feel is mine. Neither Aristotle nor Aquinas wrote about computers, and what Feser says in those pages is that they aren't alive. Machines "are not true substances in the first place, but rather collections of substances." On p. 380 he says they "are not truly alive, because they are artifacts with mere accidental forms rather than genuine substances with substantial forms, and a living thing is a kind of substance."
 [fn:butlin] The fullest list of what to look for is Patrick Butlin, Robert Long and others, [[https://arxiv.org/abs/2308.08708][Consciousness in Artificial Intelligence: Insights from the Science of Consciousness]], 2023. They conclude "that no current AI systems are conscious," and also that "there are no obvious technical barriers to building AI systems which satisfy these indicators." The indicators come from theories of the human brain, and the report assumes computational functionalism to apply them.
 [fn:birch] Jonathan Birch, [[https://academic.oup.com/book/57949][The Edge of Sentience: Risk and Precaution in Humans, Other Animals, and AI]] (Oxford University Press, 2024), sections 16.1, 15.1 and 3.6. The book is free to read. He holds that the risks of saying too much and too little "are not equal," and that people are prone to "rampantly over-attributing sentience to systems that can skilfully mimic the behaviours that make humans think sentience is present" (sections 1.5 and 1.4).
 [fn:welfare] Robert Long, Jeff Sebo and others, [[https://arxiv.org/abs/2411.00986][Taking AI Welfare Seriously]], November 2024, quoted from the abstract and pp. 27 and 7. They say plainly that their argument "is not that AI systems definitely are" conscious. Anthropic says it "supported an early project on which that report was based" ([[https://www.anthropic.com/research/exploring-model-welfare][Exploring model welfare]], April 24, 2025), and one of the authors joined the company that fall.
@@ -436,7 +547,7 @@ Keith Frankish would dissolve the whole question. He's an illusionist. The inner
 [fn:dish] Brett Kagan and others, [[https://doi.org/10.1016/j.neuron.2022.09.001][In vitro neurons learn and exhibit sentience when embodied in a simulated game-world]], /Neuron/ 110 (2022), pp. 3952-69. They report signs of learning within five minutes, in cells taken from a mouse embryo or grown from human stem cells. The machine for sale is Cortical Labs' [[https://corticallabs.com/cl1.html][CL1]], launched in March 2025.
 [fn:balci] Fuat Balci and twenty-nine others, [[https://doi.org/10.1016/j.neuron.2023.02.009][A response to claims of emergent intelligence and sentience in a dish]], /Neuron/ 111 (2023), pp. 604-5. Attributing intelligence to such a network, they wrote, "is not supported by relevant scientific fields such as machine learning, neurobiology, and psychology."
 [fn:frankish] Keith Frankish, [[https://www.keithfrankish.com/artificial-intelligence/][Artificial intelligence]], on his own site, 2026. These are questions, he says, "we can answer by mapping and comparing functional profiles." The view is set out in "Illusionism as a Theory of Consciousness," /Journal of Consciousness Studies/ 23, nos. 11-12 (2016), pp. 11-39.
-[fn:tools] In the /Wired/ essay cited in [[#terms][On their own terms]].
+[fn:tools] In the /Wired/ essay cited in [[#terms][On their own terms]], in the note on derived intentionality.
 
 ** What would prove them wrong
 :PROPERTIES:
@@ -445,7 +556,7 @@ Keith Frankish would dissolve the whole question. He's an illusionist. The inner
 
 So what would prove Aristotle and Aquinas wrong about the machine? Not a score.
 
-The claim is metaphysics, so what would refute it is an argument, not a demo. This chapter works on the first rung and reaches for the second. It needs neither Ross nor Aristotle.
+The claim is metaphysics, so what would refute it is an argument, not a demo. This chapter needs neither Ross nor Aristotle.
 
 Why can't a demo do it? Feser's answer is a magic show.[fn:magic] A good magician fools the whole room, and nobody goes home believing in magic, because everybody knows the act was built to look like it. His trick is a woman floated on a forklift hidden behind a curtain. Nobody who knew how it was done, he says, would say, "This was real levitation, and it turns out that what real levitation involves is the use of forklifts and sleight of hand!"
 
@@ -487,11 +598,9 @@ The cleanest test anyone has proposed is Demis Hassabis's. Train a model on ever
 
 Nobody has passed it. Nobody has claimed to.
 
-If a model ever does, it won't refute Aristotle. Its causes will still be the data, the architecture and the men who built it.
+If a model ever passes, it will be the most convincing performance yet, and it won't refute Aristotle. Its causes will still be the data, the architecture and the men who built it.
 
 Einstein had causes too, the physics before him and the brain he was born with. What he did with them was understand. Whether a machine does that is Ross's question again, and no test settles it.
-
-But a pass will be the most convincing performance yet. And it will show how far degree can go.
 
 [fn:magic] Edward Feser, [[https://institute.wordonfire.org/journal-19-artificial-intelligence][The Illusion of Artificial Intelligence]], /Evangelization & Culture/ 19 (Word on Fire Institute, Spring 2024), pp. 110-17. The forklift is on p. 112. He made the argument first in [[https://edwardfeser.blogspot.com/2019/03/artificial-intelligence-and-magical.html][Artificial intelligence and magical thinking]] (March 2019), and at length in /Immortal Souls/, chapter 9. It's about software as such. The language model is my example, though he says himself that it "is as true of machine learning and related approaches that now dominate AI research as it was of the Turing machine model" ([[https://edwardfeser.blogspot.com/2026/02/no-ai-does-not-have-human-level.html][No, AI does not have human-level intelligence]], February 2026).
 [fn:drained] "The Illusion of Artificial Intelligence," p. 113, where the steps are long multiplication. That they give the answers without the understanding is, he says, "just a fact about the nature of algorithms, not about the meaning of a word" (p. 116). The man following them at least understands the steps, he says, and the computer "behaves only as if it understands multiplication and also only as if it understands the algorithm" (/Immortal Souls/, p. 408).
@@ -512,11 +621,11 @@ But a pass will be the most convincing performance yet. And it will show how far
 :CUSTOM_ID: far
 :END:
 
-What I can't close is how far degree can go. Far enough to outrun the men holding the leash? Nobody knows yet.
+How far can degree go? Far enough to outrun the men holding the leash? Nobody knows yet.
 
 Aristotle never gives a number. He tells you what sort of far.
 
-In kind, not one step, and that's the third rung again. "One man cannot be more man than another, as that which is white may be more or less white than some other white object."[fn:cat5] Faster, sharper and cheaper come in degrees. What a thing is doesn't.
+In kind, not one step. "One man cannot be more man than another, as that which is white may be more or less white than some other white object."[fn:cat5] Faster, sharper and cheaper come in degrees. What a thing is doesn't.
 
 In degree, he sets no ceiling. He imagined the limit himself, in the /Politics/.[fn:pol14]
 
@@ -574,7 +683,7 @@ It can't have one.
 
 So how does a thing that can't think beat programmers at their own job?
 
-It doesn't understand, which is the second rung, and it doesn't have to. What it has is our art, every program and proof and manual we ever wrote down, multiplied past anything one head could hold.
+It doesn't understand, and it doesn't have to. What it has is our art, every program and proof and manual we ever wrote down, multiplied past anything one head could hold.
 
 And a great deal of the job never needed a mind. A lot of what goes on in a head at work is steps.[fn:smithalg] That share of the work is real, and the machine can do it. It's the share an algorithm can carry, the answer without the understanding. A lot of programming lives there. That's how it beats us.[fn:beatsme]
 
@@ -613,6 +722,17 @@ Most readers won't climb all four rungs. This is what each one leaves you.
 | A doubt about the third | Precaution cuts both ways. Weigh the cost of granting machines a standing they don't have, a maybe-mind for sale and blame moved off its owners, against the cost of denying them one they do have. [[#feel][Could it feel?]] carries that side. |
 
 The fourth rung, that God makes the mind, adds no row. It's about where you came from, and Part III is where it does its work.
+
+The argument borrows from three men who wouldn't all have signed it, and each of them stops somewhere.
+
+| Who | Goes as far as | Stops before |
+|-
+| Wittgenstein | Understanding a rule isn't interpreting it. Think is said of a living human being and what is like one, and of a machine only in a secondary sense. | Any theory of the intellect, and the step from grammar to a kind of life. He'd have gotten off before the third rung. |
+| Herbert McCabe | The speaking animal. The soul is the life of the body, and understanding isn't an organ's act. | A soul made of some ghostly stuff. |
+| James Ross | Thought is determinate and no physical process is, so thought isn't wholly physical. Denying it defeats itself. | How a mind does it, and anything about God. |
+| Aquinas | The whole account, and the fourth rung. | |
+
+The conclusions are Aquinas's.
 
 * Part II. The pitch
 :PROPERTIES:
@@ -656,7 +776,7 @@ It can't be your friend either. Friendship is goodwill returned, and you can't e
 
 Most days the pitch comes quietly, as a finding, a benchmark or a press release, and it's harder to wave off that way.
 
-If Aristotle is right, an AI that seems to have a mind is first a question about who says so. Motives don't settle the question. Arguments do. This is only how far to trust what you're told, and it takes no more than the first two rungs.
+If Aristotle is right, an AI that seems to have a mind is first a question about who says so. Motives don't settle the question. Arguments do.
 
 The motive is money. OpenAI ran a $20.9 billion operating loss last year.[fn:openai] Anthropic put nearly $9 billion into infrastructure in the first half of this year alone, and its computing commitments could reach $750 billion.[fn:anthropic] An AI company spending like that needs the next round of money, and the next round needs a mind to be just around the corner.
 
@@ -676,7 +796,7 @@ A finding that cuts against the product also builds a name for candor, and cando
 
 So what counts is what a claim costs at the bank, not how humble it sounds. Turning down the Pentagon cost them the Pentagon. The 25% is a number anybody can check, and it's about the very feature they sell as a window into the model. I still believe those two.
 
-Their doubt about whether Claude is a moral patient is harder to price. Saying your product might be a mind is a confession, and it's also the most flattering thing you can say about a product. They've seen half of that themselves. Their constitution warns against "incentives to ignore the potential moral status of AI models,"[fn:incentives] since caring for a model's welfare costs money. I believe they hold the doubt honestly. I can't call it costly. They're right to ask the question. Part I is my answer, on the mind in its first half and on feeling in [[#feel][Could it feel?]].
+Their doubt about whether Claude is a moral patient is harder to price. Saying your product might be a mind is a confession, and it's also the most flattering thing you can say about a product. They've seen half of that themselves. Their constitution warns against "incentives to ignore the potential moral status of AI models,"[fn:incentives] since caring for a model's welfare costs money. I believe they hold the doubt honestly. I can't call it costly. Part I is my answer, on the mind in its first half and on feeling in [[#feel][Could it feel?]].
 
 They say it might be a mind, and they sell it by the token. Selling under a doubt isn't betting the doubt is false. It's carrying the risk, and this risk has a name.
 
@@ -826,11 +946,7 @@ That includes the scaling hypothesis. It's a conviction in a brain that an objec
 
 But Amodei doesn't live as if it were luck. Nobody does. He trusts his reason.[fn:psd281] He weighs evidence, calls some claims true and others false, and expects you to follow. He says dignity is owed "to every human being on earth." Those are commitments, and nothing the essays say about the mind accounts for them.
 
-Models, he says, "inherit a vast range of humanlike motivations or 'personas' from pre-training (when they are trained on a large volume of human work)."[fn:persona] Inherit, from us. We call an animal healthy, Aquinas says, and medicine and urine healthy too, but only the animal has health. Urine is called healthy "in so far as it is the sign of the animal's health."[fn:st13-m]
-
-The machine is intelligent the way urine is healthy.
-
-It's a sign of a mind, ours, the one that wrote everything it learned from.[fn:vta99]
+Models, he says, "inherit a vast range of humanlike motivations or 'personas' from pre-training (when they are trained on a large volume of human work)."[fn:persona] Inherit, from us. The machine is intelligent the way urine is healthy, as [[#think][Could a machine think?]] put it. It's a sign of a mind, and the mind is ours.[fn:vta99]
 
 The scaling picture is the only account of a mind in the two essays, and it doesn't cover the man who wrote it. Every argument he makes goes past what it accounts for. His reason is fine. It's the account of it that's missing.
 
@@ -841,7 +957,6 @@ The scaling picture is the only account of a mind in the two essays, and it does
 [fn:upload] The first two are from the first essay, which adds that in practice uploading faces challenges that likely put it outside the five to ten years he's writing about. The last is from the second, which says uploads carry risks that trouble him.
 [fn:psd281] The obvious reply is that his science works. It does, and nothing here says otherwise. That it works is the thing to be explained, and an account of the mind explains it or leaves it an accident. The answer at length is in [[#prove][What would prove them wrong]], and after Dennett's reply in Appendix A. Greg Bahnsen gives the Christian reading of the same fact. He calls the reply the pragmatist's, and says the unbeliever is "'successful' simply because he is wrong in his profession" (/Presuppositional Apologetics/, Appendix 2, "The Pragmatist's Rejoinder and the Christian Alternative," pp. 281-82). The world is intelligible because a Mind made it, and men can know it because they're made in the image of that Mind. That's what I believe. An unbeliever doesn't have to grant it, and the reply above doesn't lean on it.
 [fn:persona] For Aquinas a person is "a subsistent individual of a rational nature," and he grants where the word came from. Actors in the old plays wore masks, and "person comes from sounding through," the voice coming through "the cavity in the mask" (/Summa Theologiae/ I q.29 a.3, [[https://www.newadvent.org/summa/1029.htm#article3][New Advent]], in the second objection, from Boethius, and his reply to it). Amodei's account of training fits the old meaning. Post-training, he says, "is believed to select one or more of these personas more so than it focuses the model on a de novo goal." It picks a mask, and the voice that sounds through it is ours. The constitution is careful with the word. It calls Claude "a genuinely novel kind of entity," and not "a digital human," and still it wants Claude to do "what a deeply and skillfully ethical person would do in Claude's position."
-[fn:st13-m] /Summa Theologiae/ I q.13 a.6 ([[https://www.newadvent.org/summa/1013.htm#article6][New Advent]]).
 [fn:vta99] Van Til said man is "analogical rather than original in all the aspects of its activity" (/Van Til's Apologetic/, p. 99). We think God's thoughts after him. The machine echoes ours after us. The difference is that we were given a mind to do it with.
 
 ** Numbers don't push back
