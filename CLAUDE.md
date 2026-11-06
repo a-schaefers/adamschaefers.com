@@ -555,10 +555,10 @@ go. The kinds:
     which rung it's on, which reply is answered where, where a thinker
     stops, and "There are three charges in that." It is allowed in only
     two places: "What if I stop here?" (the ladder and the stopping-points
-    table) and Appendix A's opening table. The book has no preface (owner,
-    2026-11-06): it opens on its title, its question, the contents and the
-    Prologue, claims nowhere to be first, and ends on "How this book was
-    made" (the help from Claude, corrections, CC0). This overrules
+    table) and Appendix A's opening table. The preface (owner, 2026-11-06)
+    is only how the book was made (the help from Claude, corrections, CC0),
+    before the Prologue: no promises, no disclaimers, no claim anywhere to
+    be first. This overrules
     the earlier briefs' hand-off and dependency rules and their "a hand-off
     may stay if it's a claim" exception.
     Everywhere else:

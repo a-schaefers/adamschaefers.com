@@ -8,6 +8,7 @@
 
 @@html:<a href="/blog/machines-of-borrowed-grace.pdf">Read it as a PDF</a>@@
 
+- [[#preface][Preface]]
 - [[#worry][Prologue. The worry]]
 
 *Part I. The machine*
@@ -49,8 +50,14 @@
 - [[#numbers][Appendix B. Numbers don't push back]]
 - [[#evolution][Appendix C. Whatever made the body]]
 
+* Preface
+:PROPERTIES:
+:CUSTOM_ID: preface
+:END:
 
-- [[#made][How this book was made]]
+I made this book with a good deal of help from Claude, whose maker I criticize in it. It did research, checked quotations against their sources and drafted many passages, under my direction. Where I quote someone as another writer gives him, the note says so. The arguments are mine to answer for. If I've got something wrong, @@html:<a href="/inquiries/">tell me</a>@@.
+
+The book is dedicated to the public domain ([[https://creativecommons.org/publicdomain/zero/1.0/][CC0 1.0]]). The quotations from other authors remain theirs.
 
 * Prologue. The worry
 :PROPERTIES:
@@ -330,13 +337,15 @@ The closest look inside a big model tells the same story. In 2025 researchers at
 :CUSTOM_ID: add
 :END:
 
-The engineer will say all of it goes for us. A child sees finitely many sums. His bias came from evolution, and his loss from a teacher with a red pen. If the model's plus rests on our say-so, whose say-so does ours rest on?
+A boy buys a snack for $3.47 and pays with a five. He gets $1.53 back, and he checks it the way a cashier does, adding 3.47 and 1.53 to see that they make five. The register beside him gets $5.00 too. Inside it is a 64-bit adder.
 
-That question was Kripke's first. His skeptic was asking about people, not machines. How do I know I add, and not quus?
+The engineer has a question for the boy. The register's plus rests on a spec somebody wrote. The boy has seen finitely many sums. His lean toward plus came from evolution, and his corrections from a teacher with a red pen. Whose spec is he running? If the model's plus rests on our say-so, whose say-so does ours rest on?
 
-Ross's first premise is that I do add. When I work a sum, adding is what I'm doing, and nothing else, even when I get it wrong. A proof is valid or it isn't, and everyone who has checked one has leaned on that.
+Kripke asked it of the boy first. His skeptic was asking about people, not machines. Nothing the boy has ever done shows he means plus and not a quus that agrees with every sum he's worked. How does he know he adds?
 
-If the premise is true, something in us does what no circuit does by itself. Every way out of that has its price.
+He does add, and the day he gets it wrong shows it best. Once he gets $4.90, and the cashier says, "You forgot to carry the one." He checks, and she's right. The mistake is named by the rule he was following, so a wrong sum is still adding. Ross puts it plainly. "There is a great difference between adding incorrectly and doing something else." The register can't be wrong by its own lights. Past about 18.4 quintillion it wraps around, and it does that exactly. Only the spec calls it an overflow. The boy's mistake is evidence of the rule in him.
+
+That's Ross's first premise. When I work a sum, adding is what I'm doing, and nothing else, even when I get it wrong. A proof is valid or it isn't, and everyone who has checked one has leaned on that. If it's true, something in us does what no circuit does by itself, and every way out of that costs something.
 
 | The way out | Who takes it | What it costs |
 |-
@@ -349,29 +358,29 @@ If the premise is true, something in us does what no circuit does by itself. Eve
 
 Mine is Ross's and Aquinas's, and its price is the one most people now won't pay.[fn:ways]
 
-Two of those views turn the first premise down as Ross means it. Dennett's says near enough was always enough. Kripke's Wittgenstein, the community's view, keeps the sentence "When I add, adding is what I'm doing," and every correction we make with it. What it denies is that anything about me makes the sentence true by settling every sum ahead of time.
+Some say nobody adds exactly, the boy or anyone, and near enough was always enough. But to call his sum near enough you have to measure it against the exact one. A bug report that says a function only roughly adds has to give the expected value, and working that out is adding. The doubt has to mean exactly what it doubts. It "defeats itself," Ross says, and if it were true the cashier would never be right to say he forgot to carry the one. "We can do nothing logical at all, and no pure mathematics either. Now, who believes that?"[fn:rossself]
 
-Dennett's doubt has to mean exactly what it doubts. "To become convinced that I can only simulate the recognition that two Euclidean right triangles with equal sides are congruent, I have to judge negatively with all the determinateness that has just been denied." The rejoinder, Ross says, "defeats itself." And its price is everything. "We can do nothing logical at all, and no pure mathematics either. Now, who believes that?"[fn:rossself]
+Another way out keeps every word the cashier says. That's Kripke's Wittgenstein, the community's view. "He forgot to carry the one" is in order, and so is "He adds." What the view denies is that anything about the boy makes it true by settling every sum ahead of time.
 
-So we do think determinately, and whoever denies it does it in the denying. That doesn't show the mind isn't matter. For that Ross needs his second premise, that no physical process is determinate. Nor does it reach the community's view, which never says we only simulate.[fn:prem2]
+So the boy adds exactly, and whoever denies it does it in the denying. A materialist can grant all of that and say his brain does the adding. Whether any physical thing settles every sum, his brain or the register's chip, is another question, and the community's view never says he only simulates.[fn:prem2]
 
-So what settles it for us? Not more answers. Adding, Ross says, "is a form of understanding," "the ability exercised in a single case, the ability to think in a form that is sum-giving for every sum." The rule is in the act itself. "The function is the form by which inputs yield outputs." It doesn't "consist in the array of inputs and outcomes."
+What settles it for the boy, then? Not more sums. He carries no table of them in his head. He does one thing, adding, and it would give the answer for any price on any shelf. The rule is in the act itself, "the ability exercised in a single case," in Ross's words. The register has a circuit whose outputs agree with plus as far as anyone will ring up, and a spec that calls those outputs plus.
 
-That's why a wrong sum is still adding. "There is a great difference between adding incorrectly and doing something else."
+That's why training can't supply the rule. A test suite is a finite list of inputs and expected outputs, and a function can pass all of it and part ways with the spec one input past the last test. A training set is a suite like that, and a loss is a score kept on it. Make it as big as you like. Every finite list is passed by rules that disagree after it. Ross calls two forms that can't both be the rule of one act incompossible, and no list of cases short of all of them rules out the incompossible ones.[fn:rossform]
 
-And it's why the training can't supply the rule. A training set is an array of inputs and outcomes, and a loss is a score kept on it. Make it as big as you like. "Adding cases even to infinity, unless they are all the possible cases, will not exclude incompossible forms," forms that can't both be the rule.[fn:rossform]
+Kripke has an objection ready for a rule that's in the act. Whatever is in the boy is finite, a state of his head or of his mind. Couldn't it be read as quus too? To posit a state that couldn't "seems desperate," he says.[fn:kripke51s] He's right about everything that gets read. The receipt in the boy's hand is ink on paper, and a smudged 7 can be read as a 1. Any file can be opened in the wrong program. If the boy's grasp of adding were a second receipt inside him, one he read before he added, Kripke would win.
 
-Kripke had an objection ready for a rule that's in the act itself. On Wittgenstein's behalf he says the move "seems desperate," and asks how a finite state in a finite mind could fail to be read in a quus-like way.[fn:kripke51s] Aquinas's answer is that a thought isn't a thing the mind reads. It's "that by which the intellect understands."[fn:st85s] Wittgenstein stands closer to that than Kripke's skeptic does. There is, he says, "a way of grasping a rule which is not an interpretation," and Aquinas's species, his word for that by which the intellect understands, isn't a sign that gets read either.[fn:w201b] They agree on what the grasp isn't. They part on where it is, Wittgenstein in the practice and Aquinas in the act, and Wittgenstein would refuse Ross's and Aquinas's conclusion, that the act isn't matter's.
+It isn't. The boy doesn't read his grasp of adding. He reads the receipt with it. We say "I see the apple," not "I see the image in my eye," though the image is what we see by. We say "I'm checking my change," not "I'm checking my concept of adding." What the boy understands is the numbers, 3.47 and 1.53 and that they make five. His grasp is how he understands them, and Aquinas's word for it is the species. It is "that by which the intellect understands," he says, not what it understands.[fn:st85s] The boy can stop and ask himself whether he really means plus, but that's a second act of understanding, not a reading of marks. "I didn't interpret the plus sign, I just added," he'd say, and Wittgenstein agrees that grasping a rule isn't interpreting it.[fn:w201b]
 
-How could a physical thing know what thought knows, a truth about every number there is, when no number ever touched it?[fn:numq]
+But the eye is flesh, and the image in it is a state of the body. A materialist can say the boy's brain state is what he adds by. What he adds by has to settle every sum, though, and a physical state, the brain's or the chip's, fits plus and a quus that bends past it alike. The boy knows something about sums no register will ever ring up. How could a physical thing know what thought knows, a truth about every number there is, when no number ever touched it?[fn:numq]
 
-We think in a form, since denying it defeats itself, and nothing physical does. That's where Aristotle started, with the power in us that has no organ, the understanding.
+The boy thinks in a form, since denying it defeats itself, and nothing physical does. That's where Aristotle started, with the power in us that has no organ, the understanding.
 
-[fn:rossself] Ross, "Immaterial Aspects of Thought." He reads Kripke as concluding, of the machine, that "there is no fact of the matter" whether it adds, and says he "ought to conclude, instead, that it is not adding." In Kripke's own book that conclusion is the skeptic's, about people, and he reports it without signing it.
-[fn:rossform] Ross, "Immaterial Aspects of Thought." Feser makes the same point about machines in /Aristotle's Revenge/, p. 363. There are "no physical features of a computer that can determine whether it is carrying out addition or quaddition, no matter how far we extend its outputs."
-[fn:kripke51s] /Wittgenstein on Rules and Private Language/, pp. 51-52. See Appendix A.
+[fn:rossself] Ross, "Immaterial Aspects of Thought." The doubt in full, as he answers it, is that we only simulate. "To become convinced that I can only simulate the recognition that two Euclidean right triangles with equal sides are congruent, I have to judge negatively with all the determinateness that has just been denied." He reads Kripke as concluding, of the machine, that "there is no fact of the matter" whether it adds, and says he "ought to conclude, instead, that it is not adding." In Kripke's own book that conclusion is the skeptic's, about people, and he reports it without signing it.
+[fn:rossform] Ross, "Immaterial Aspects of Thought." Adding, he says, "is a form of understanding," "the ability to think in a form that is sum-giving for every sum." "The function is the form by which inputs yield outputs," and it doesn't "consist in the array of inputs and outcomes." "Adding cases even to infinity, unless they are all the possible cases, will not exclude incompossible forms." Feser makes the same point about machines in /Aristotle's Revenge/, p. 363. There are "no physical features of a computer that can determine whether it is carrying out addition or quaddition, no matter how far we extend its outputs."
+[fn:kripke51s] /Wittgenstein on Rules and Private Language/, pp. 51-52, where he speaks for Wittgenstein. See Appendix A.
 [fn:st85s] /Summa Theologiae/ I q.85 a.2. See Appendix A for the whole line and its note.
-[fn:w201b] /Philosophical Investigations/ §201. See chapter 1. At §§692-93 he grants that in giving the rule I meant the hundredth step without thinking of it, and denies that "meaning" names a mental activity that did it.
+[fn:w201b] /Philosophical Investigations/ §201, "a way of grasping a rule which is not an interpretation." See chapter 1. At §§692-93 he grants that in giving the rule I meant the hundredth step without thinking of it, and denies that "meaning" names a mental activity that did it.
 [fn:ways] See [[#replies][Appendix A]], with its longer map, for the first three rows, [[#prove][chapter 11]] for Searle and [[#light][chapter 17]] for Nagel.
 [fn:prem2] See chapters 4 to 6 and [[#replies][Appendix A]] for the second premise, and the sixth reply in Appendix A for the community's view.
 [fn:numq] See [[#numbers][Appendix B]].
@@ -383,36 +392,36 @@ We think in a form, since denying it defeats itself, and nothing physical does. 
 
 No mind today, then. But couldn't it build itself one? The idea is called recursive self-improvement. The model writes better code. Then it writes a better model. That one writes a better one still. Where's the wall?
 
-There is one. A machine would have to build more than a program.
+Ask how come there's an oak, and you can point to an acorn. Ask how come the acorn grew into an oak and not an ox, and you have to say what an acorn is. It can become an oak, and only an oak. Aquinas has two words for that. What a thing is now is its act. What it can become, and isn't yet, is its potency.
 
-The rule behind it is old. Nothing, Aquinas says, "can be reduced from potentiality to actuality, except by something in a state of actuality."[fn:st2] A machine can't give itself a perfection it doesn't already have from somewhere, from the people who built it, the data it was trained on, the power it draws. You can't give what you don't have.[fn:nemo] The rule only bites here because a mind isn't something matter has to give.
+"There's an oak in this acorn." That's true, and it's false if you cut the acorn open looking for a little tree. The oak isn't in there the way a file is in a zip archive, waiting to be unpacked. The potency is this acorn's being able, and nothing more.
 
-Whatever it adds to itself, it adds in degree, never in kind. It can't grow a mind.
+And the acorn doesn't do it alone. It fell from an oak, and it grows by sun and soil and rain. Aquinas's example is fire. Wood can be hot, but only something actually hot makes it hot. So nothing goes from can to is, he says, "except by something in a state of actuality."[fn:st2] Everyday English has the same rule. You can't get blood from a stone. You can't give what you don't have.[fn:nemo]
 
-By kind I mean what a thing is, not what sort of tool it makes. A machine can be rearranged into a new sort of tool, and nature may well bring forth new kinds of living things. The kind I mean is the one neither art nor nature hands on, a mind.
+There are two kinds of can, though. The acorn can become an oak by a power of its own. A dog can be in the kitchen, but there's no kitchen in the dog. He gets there by walking in or being carried, and he's the same dog when he arrives. A plank can become a bed, but only when a carpenter works it. What a thing does by a power of its own comes from its nature. Aristotle's picture is a bed planted in the ground. If anything came up, "it would not be a bed that would come up, but wood."[fn:physics] The wood has a nature. The bed's shape was the carpenter's. We say it of a hedge and never of a fence. Leave the hedge alone and it grows back.
 
-The rule says what the machine is, not how well it will score. No benchmark measures understanding, and none measures a change of kind. Ace every test the AI companies can write, and all you've measured is a change of degree.
+So there are two kinds of change too. The dog walks into the kitchen, and he's the same dog in a new place. The dog dies, and there's no dog, only a body going back to chemicals. The first changes something about a thing. The second changes what it is. "The model got faster" and "the model got a mind" are sentences of the same shape, and they'd report different kinds of change.
 
-Training changes the thing. So does a model learning from its own output, and so does a model rewriting its own code. None of them makes a new thing.[fn:smith]
+Now ask the acorn's questions of the model that rewrites its own code. How come it's faster? It wrote better code. How come it could write code? We built it and trained it. What does it become, left to itself? Sand and electricity. Its parts are parts first, like the robot's camera and unlike the cat's eye, and what it can become is the plank's can, a new arrangement given from outside. Training changes the thing. So does learning from its own output, and so does rewriting its own code. Each leaves the same artifact, a better tool.[fn:smith]
 
-So yes, it can improve. A thing unfolds only what its nature already holds. An acorn unfolds into an oak. It doesn't unfold into an ox. But a model has no nature of its own to unfold. It can get faster and sharper, maybe far better. It can even surprise the people who built it. Surprise is still degree. Whatever it does, it does as an artifact, with a form it didn't give itself.
+So yes, it can improve, maybe far more than anyone expects. It can get faster and sharper. It can surprise the people who built it. Surprise is still the dog in the kitchen.
 
-But stack up enough of it, the argument goes, and something new comes out the top. Scale is all you need.
+But it gets everything from us, and we have minds. Why can't a mind come along with the rest? Because of what passes. What it gets from us is our writing, which is signs, and weights set by a goal we wrote. Both are arrangements, and an arrangement passes in degree. A mind isn't an arrangement. It's what grasps the triangle and adds, and no arrangement of matter does either. So nothing the machine receives brings it to understanding, and it has no power of its own that goes there. Whatever it adds to itself, it adds in degree. It can't grow a mind.
 
-Then why can't more reasoning add up to understanding? Because reasoning isn't a pile with understanding on top. It's the walk from one thing understood to another. Aquinas says it "is compared to understanding, as movement is to rest."[fn:st79] It sets out from something seen and comes to rest in something seen. The machine can copy the steps. It never sets out from seeing, and it never arrives.
+The rule says what the machine is, not how well it will score. A benchmark grades outputs, so it measures degree. Ace every test the AI companies can write, and all you've measured is a change of degree.
 
-Chesterton had a name for reason and nothing else. "The madman is not the man who has lost his reason. The madman is the man who has lost everything except his reason."[fn:maniac]
+But stack up enough of it, the argument goes, and something new comes out the top. Scale is all you need. Stacking is arranging, though, the same thing more so. And reasoning isn't a pile with understanding on top. "I'm still working it out" and "Now I see it" say two different things. Reasoning is getting there, and understanding is being there, the way the oak is what the acorn's growing comes to. Aquinas says reasoning "is compared to understanding, as movement is to rest."[fn:st79] It sets out from something seen and comes to rest in something seen. The machine can copy the steps. It never sets out from seeing, and it never arrives.
 
-That's recursive self-improvement taken alone, reason checking reason with nobody else in the room. Chesterton says the madman's mind "moves in a perfect but narrow circle," and that "a bullet is quite as round as the world, but it is not the world." The serious plans put more in the room, tests and proof checkers and experiments. Those grade the output, and a better output is all they can select for.
+Take recursive self-improvement alone, reason checking reason with nobody else in the room. Chesterton had a name for that. "The madman is not the man who has lost his reason. The madman is the man who has lost everything except his reason."[fn:maniac] The picture gives the machine too much. The madman still has his reason. The model has the steps reason leaves behind, copied from us. The serious plans put more in the room, tests and proof checkers and experiments. Those grade the output, the way CI passes a green build without asking what the code is, and a better output is all they can select for.
 
-It's still an artifact, too. Aristotle passes on an old argument about a bed, that "if you planted a bed and the rotting wood acquired the power of sending up a shoot, it would not be a bed that would come up, but wood."[fn:physics] Left to itself, a computer is sand and electricity. It can rewrite every weight it has. The form is still ours. Nobody set its weights by hand, but somebody picked the data, the goal and the rule that set them. Let it pick its own data and goals next, and somebody still picked the rule it picks by.
+The form is still ours. Nobody set its weights by hand, but somebody picked the data, the goal and the rule that set them. Let it pick its own data and goals next, and somebody still picked the rule it picks by.
 
-[fn:st2] /Summa Theologiae/ I q.2 a.3 ([[https://www.newadvent.org/summa/1002.htm#article3][New Advent]]), the first of his five ways.
+[fn:st2] /Summa Theologiae/ I q.2 a.3 ([[https://www.newadvent.org/summa/1002.htm#article3][New Advent]]), the first of his five ways, where fire making wood hot is his example. The whole sentence is "nothing can be reduced from potentiality to actuality, except by something in a state of actuality," /reduced/ in the old sense of brought.
 [fn:nemo] The old maxim /nemo dat quod non habet/, nobody gives what he doesn't have.
-[fn:smith] Wolfgang Smith, a mathematician who wrote on physics as a Thomist, calls causes of that kind horizontal. A cause working in time "is able to effect change, effect transformations of various kinds, but cannot give rise to something new" (/The Quantum Enigma: Finding the Hidden Key/, third edition (Sophia Perennis, 2005), p. 116). He caught the argument from scale in Heisenberg long before AI, "as if the passage from potency to actuality could be effected simply by joining together a sufficient number of atoms" (p. 74). He takes the principle further than I will, and doesn't think one kind of living thing ever turns into another. See Appendix C, "[[#no][The philosophers who say no]]".
+[fn:smith] Wolfgang Smith, a mathematician who wrote on physics as a Thomist, calls causes of that kind horizontal. A cause working in time "is able to effect change, effect transformations of various kinds, but cannot give rise to something new" (/The Quantum Enigma: Finding the Hidden Key/, third edition (Sophia Perennis, 2005), p. 116). He caught the argument from scale in Heisenberg long before AI, "as if the passage from potency to actuality could be effected simply by joining together a sufficient number of atoms" (p. 74). He takes the principle further than I will, and doesn't think one kind of living thing ever turns into another. Nature may well bring forth new kinds of living things. The kind neither art nor nature hands on is a mind. See Appendix C, "[[#no][The philosophers who say no]]".
 [fn:st79] "To understand is simply to apprehend intelligible truth: and to reason is to advance from one thing understood to another" (/Summa Theologiae/ I q.79 a.8, [[https://www.newadvent.org/summa/1079.htm#article8][New Advent]]). Two acts, he says, of one power, as rest and motion belong to one thing.
-[fn:maniac] G. K. Chesterton, /Orthodoxy/ (1908), ch. II, "[[https://www.gutenberg.org/cache/epub/16769/pg16769-images.html#CHAPTER_II_The_Maniac][The Maniac]]," where the bullet line is too.
-[fn:physics] Aristotle, /Physics/ II.1, trans. R. P. Hardie and R. K. Gaye ([[https://classics.mit.edu/Aristotle/physics.2.ii.html][MIT]]). He credits the bed to Antiphon.
+[fn:maniac] G. K. Chesterton, /Orthodoxy/ (1908), ch. II, "[[https://www.gutenberg.org/cache/epub/16769/pg16769-images.html#CHAPTER_II_The_Maniac][The Maniac]]." The madman's mind, he says, "moves in a perfect but narrow circle," and "a bullet is quite as round as the world, but it is not the world."
+[fn:physics] Aristotle, /Physics/ II.1, trans. R. P. Hardie and R. K. Gaye ([[https://classics.mit.edu/Aristotle/physics.2.ii.html][MIT]]). He credits the bed to Antiphon. In the same chapter he says what a nature is, "a source or cause of being moved and of being at rest in that to which it belongs primarily, in virtue of itself and not in virtue of a concomitant attribute."
 
 ** 9. Couldn't we give a machine a mind?
 :PROPERTIES:
@@ -1761,12 +1770,3 @@ If you're a believer, Scripture hands you the soul as God's own work.
 If you're a materialist about the mind, this is where we part. You can keep every fossil and every genome. What you can't keep is a thought that means one thing and not another. That argument is Ross's, not Darwin's, and it's the one to answer.
 
 Whatever made the body, reason came from outside.
-
-* How this book was made
-:PROPERTIES:
-:CUSTOM_ID: made
-:END:
-
-I made this book with a good deal of help from Claude, whose maker I criticize in it. It did research, checked quotations against their sources and drafted many passages, under my direction. Where I quote someone as another writer gives him, the note says so. The arguments are mine to answer for. If I've got something wrong, @@html:<a href="/inquiries/">tell me</a>@@.
-
-The book is dedicated to the public domain ([[https://creativecommons.org/publicdomain/zero/1.0/][CC0 1.0]]). The quotations from other authors remain theirs.
