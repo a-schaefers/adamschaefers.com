@@ -1,9 +1,7 @@
 #+TITLE: Machines of Borrowed Grace: Where a Language Model Gets Its Meaning, and Where Its Makers Get Theirs
 #+FEATURED: blog/ai-crusades.jpg
-#+EDITION: Second edition, 2026. An earlier version ran on adamschaefers.com in 2026 as "Embracing the dark side," and is kept in the site's public repository.
 #+LICENSE: This work is dedicated to the public domain (Creative Commons CC0 1.0). No rights reserved. The quotations from other authors remain theirs.
 #+LICENSE_URL: https://creativecommons.org/publicdomain/zero/1.0/
-#+EDITION_SOURCE: https://github.com/a-schaefers/adamschaefers.com/tree/f3c815b/content/blog
 #+DESCRIPTION: Language models now do work that used to take a mind. What are they, where do their words get their meaning, and what are the companies building them standing on?
 
 Whether a machine can think is a question about what it is for anything to mean something.
