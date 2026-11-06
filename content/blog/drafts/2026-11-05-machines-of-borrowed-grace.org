@@ -57,7 +57,7 @@ Whether a machine can think is a question about what it is for anything to mean 
 :CUSTOM_ID: preface
 :END:
 
-I made this book with a good deal of help from Claude, whose maker I criticize in it. It did research, checked quotations against their sources and drafted many passages, under my direction. Where I quote someone as another writer gives him, the note says so. The arguments are mine to answer for. If I've got something wrong, @@html:<a href="/inquiries/">tell me</a>@@.
+I made this book with a good deal of help from Claude, whose maker I criticize in it. It did research, checked quotations against their sources and drafted many passages, under my direction. The arguments are mine to answer for.
 
 * Prologue. The worry
 :PROPERTIES:
