@@ -155,6 +155,32 @@ builds that way: its `check-dist` fails if anything from a
 feed item or sitemap entry) is in `public/` or `build/`, so it fails after a
 local `make build` with drafts.
 
+The book (`2026-11-05-machines-of-borrowed-grace.org`) is a draft again
+(2026-11-05, in `content/blog/drafts/` with its pictures; the posts it replaced
+are gone, and their addresses' redirects to it wait commented out in
+`site-worker/_redirects`). It is also a PDF: `make pdf` (`scripts/pdf.sh`) sets
+the same Org file the site is built from as `build/pdf/machines-of-borrowed-grace.pdf`
+and as `build/pdf/machines-of-borrowed-grace-paperback.pdf`, the interior for
+Kindle Direct Publishing (6x9, the gutter inside, black links, as
+../merecatholicity.com's book). Org to LaTeX to PDF: Emacs exports the text
+(`scripts/pdf.el`, which documents what differs from the site: the hand-written
+contents and the paragraph offering the PDF are left out, the post's
+`@@html:...@@` becomes Org, straight quotes are set as printers' quotes) and
+pdflatex sets it in `scripts/pdf.tex`. The Org file needs nothing for it: a
+note is defined where the site wants it, and LaTeX puts it at the foot of the
+page that first refers to it, with the site's number. The same sources and TeX
+Live give the same bytes. Nothing but `make pdf` builds it (not `make build`,
+`make run` or CI, none of which has TeX). While the book is a draft the site
+has no PDF (the draft's link to `/blog/machines-of-borrowed-grace.pdf`, above
+its contents, leads nowhere yet). Publishing the book: move it and its
+featured picture up into `content/blog/` (and drop `drafts/` from
+`#+FEATURED`), take the `#` off its redirects, and commit; then `make pdf` also
+writes `content/blog/machines-of-borrowed-grace.pdf`, committed like a post's
+picture, and `scripts/hooks/pre-commit` runs it for every commit that changes
+the live book, its picture or `scripts/pdf.*`, adding the PDF to that commit
+(once per clone: `git config core.hooksPath scripts/hooks`; it refuses when
+those files have unstaged changes, and needs Emacs and TeX Live where it runs).
+
 The build also writes `rss.xml`, one feed for both collections (a reader
 subscribes once): every entry in full, newest first, tagged with its
 collection as `<category>`, site-relative links made absolute against

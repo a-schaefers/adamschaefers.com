@@ -1,5 +1,5 @@
 #+TITLE: Machines of Borrowed Grace: An Aristotelian and Christian Look at Large Language Models
-#+FEATURED: blog/ai-crusades.jpg
+#+FEATURED: blog/drafts/ai-crusades.jpg
 #+DESCRIPTION: A small book. It first ran here as Embracing the dark side.
 
 In March I made a video telling you to "tell your AI-pushing boss to get wrecked."[fn:artisan]
@@ -13,6 +13,8 @@ This book is my answer, in four parts. The first three argue from reason. Where 
 I'm a programmer, and in philosophy I'm a hobbyist. I study to be a classical Aristotelian, a Thomist and a Catholic, and I read more Van Til and Bahnsen than a Thomist is supposed to. Where I lean on James Ross or Aquinas, check them.
 
 I also leaned on AI to make this book, mostly Claude, whose maker I criticize in it. I used Claude for the research, for checking quotations against their sources, for assembling and cutting this edition and for the first drafts of many passages, under my direction and from my notes. I couldn't open every source. Where I quote someone as another writer gives him, the note says so. The arguments are mine to answer for. If I can't stand at a whiteboard and defend one, it doesn't belong here. And if I've got something wrong, there's a way to tell me [[#author][at the back]], and I'll fix it and say so.
+
+You can also @@html:<a href="/blog/machines-of-borrowed-grace.pdf">read it as a PDF</a>@@, with each note at the foot of its page.
 
 *Prologue. The turn*
 

@@ -38,6 +38,11 @@ npm ci
 - `make check` runs what CI's required check runs: the build, every link, the
   types (`make typecheck`), the Workers' tests (offline) and the workflows'
   rules.
+- `make pdf` sets the book as a PDF in `build/pdf/` (with a 6x9 interior for
+  Kindle Direct Publishing); it needs TeX Live. Once the book is out of
+  `drafts/`, the PDF is also put beside it and committed, and
+  `git config core.hooksPath scripts/hooks`, once per clone, has a commit that
+  changes the book or `scripts/pdf.*` rebuild it and include it.
 
 Changes reach `master` only through pull requests: commit on a branch and run
 `scripts/ship.sh`. The merge deploys the site and, when they changed, the
