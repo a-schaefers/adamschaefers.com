@@ -563,9 +563,13 @@ go. The kinds:
     stops, and "There are three charges in that." It is allowed in only
     two places: "What if I stop here?" (the ladder and the stopping-points
     table) and Appendix A's opening table. The preface (owner, 2026-11-06)
-    is only how the book was made (the help from Claude, said plainly),
-    before the Prologue: no promises, no disclaimers, no claim anywhere to
-    be first. This overrules
+    is only how the book was made, before the Prologue (owner, 2026-11-06): the help from Claude, said
+    plainly; his question (if Aristotle is right about the mind, how does
+    a language model actually work?) and how the answer is made (one
+    argument, Aristotle and Aquinas taught McCabe's way, Wittgenstein's
+    care with words, Van Til's reminder that nobody reasons from nowhere)
+    with his part in the editing; and why it's in the public domain. No promises, no disclaimers, no claim anywhere to be
+    first. This overrules
     the earlier briefs' hand-off and dependency rules and their "a hand-off
     may stay if it's a claim" exception.
     Everywhere else:
