@@ -14,8 +14,9 @@
 ;; LaTeX puts it at the foot of that page.  They number in the order the text refers to
 ;; them, as on the site, so note 49 there is note 49 here.
 ;;
-;; The book's #+EDITION and #+EDITION_SOURCE (where its earlier editions are kept), and its
-;; #+LICENSE and #+LICENSE_URL, go on a copyright page behind the title page.  The site
+;; The book's #+AUTHOR (else Adam Schaefers) goes on the title page, the copyright page and
+;; the PDF's metadata.  Its #+EDITION and #+EDITION_SOURCE (where its earlier editions are
+;; kept), and its #+LICENSE and #+LICENSE_URL, go on a copyright page behind the title page.  The site
 ;; shows none of them: the post says its license in its own words.
 ;;
 ;; What differs from the site:
@@ -181,11 +182,12 @@ standing over such a list."
              ("\\chapter{%s}" . "\\chapter*{%s}")
              ("\\section{%s}" . "\\section*{%s}")
              ("\\subsection{%s}" . "\\subsection*{%s}"))))
-         title featured description edition source license license-url opening body)
+         title author featured description edition source license license-url opening body)
     (with-temp-buffer
       (insert-file-contents file)
       (org-mode)
       (setq title (or (pdf--keyword "TITLE") (error "pdf: %s has no #+TITLE" file))
+            author (or (pdf--keyword "AUTHOR") user-full-name)
             featured (pdf--keyword "FEATURED")
             description (pdf--keyword "DESCRIPTION")
             edition (pdf--keyword "EDITION")
@@ -211,7 +213,7 @@ standing over such a list."
        (concat (format "\\newcommand{\\booktitle}{%s}\n" (pdf--tex (car parts)))
                (format "\\newcommand{\\booksubtitle}{%s}\n"
                        (pdf--tex (string-join (cdr parts) ": ")))
-               (format "\\newcommand{\\bookauthor}{%s}\n" (pdf--tex user-full-name))
+               (format "\\newcommand{\\bookauthor}{%s}\n" (pdf--tex author))
                (format "\\newcommand{\\bookdate}{%s}\n" (pdf--date file))
                (format "\\newcommand{\\booksite}{%s}\n"
                        (pdf--tex (replace-regexp-in-string "\\`https://" "" pdf-site)))

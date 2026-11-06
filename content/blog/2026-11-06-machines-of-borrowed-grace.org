@@ -1,4 +1,5 @@
 #+TITLE: Machines of Borrowed Grace: Where a Language Model Gets Its Meaning, and Where Its Makers Get Theirs
+#+AUTHOR: Anonymous
 #+FEATURED: blog/ai-crusades.jpg
 #+LICENSE: This work is dedicated to the public domain (Creative Commons CC0 1.0). No rights reserved. The quotations from other authors remain theirs.
 #+LICENSE_URL: https://creativecommons.org/publicdomain/zero/1.0/
@@ -57,30 +58,42 @@ This work is dedicated to the public domain ([[https://creativecommons.org/publi
 
 I made this book with a good deal of help from Claude. It did research, checked quotations against their sources and drafted many passages, under my direction.
 
+I brought my favorite philosophers to the strongest Claude models I could use, with one question. If Aristotle is right about the mind, how does a language model actually work? There's a lot of noise about these machines, and a lot of talk as if they were magic. I wanted to see what light these philosophers could shed on them, and whether they could find the signal in the noise.
+
+The answer had to come out as a synthesis, not a pile of quotes. Aristotle and Aquinas supply it. I've tried to explain it the way Herbert McCabe explained Aquinas, starting with something ordinary and working from it to the idea, so the reader can see it for himself. McCabe used Aquinas to help people see, not to beat them over the head.
+
+Wittgenstein does three jobs. He shows that a word like "think" belongs with living things. He shows that a sign means something only when somebody uses it, which is why the machine's words mean what they do, on loan from us. And he keeps the words hygienic, so nothing gets said that doesn't mean something.
+
+Van Til is the reminder that nobody reasons from nowhere, so I've been plain about my own presuppositions.
+
+A book like that could easily turn into word salad, so I went through it line by line. I was the prompt engineer, but I can't take full credit for it. The book is a derivative of collective knowledge, the internet the machine was trained on, biased and steered by my prompts. So the book is signed Anonymous, and I've dedicated it to the public domain.
+
 * Prologue. The worry
 :PROPERTIES:
 :CUSTOM_ID: worry
 :END:
 
-The machine can't have a thought of its own. It doesn't reason. It imitates reasoning.
-
 Aristotle called man "the most imitative of living creatures," the one who "through imitation learns his earliest lessons."[fn:poetics] It's a gift, and it's how we learn anything at all.
 
-So put the most imitative creature on earth in front of a machine that does nothing but imitate. We copy the copy.
+So now we've put the most imitative creature on earth in front of a machine we call AI, or a large language model, that does nothing but imitate humans. It begs the question, who is copying whom?
 
-Most of the time the imitation passes. It writes the email, the essay, the summary of the meeting nobody went to, the code. I write software, so I saw it there first. We used to be paid to code. Now we pay to code. The machine writes faster than we can read, and we sign for what we haven't read. We trade understanding for speed.
+Most of the time the imitation is passable. It writes the email, the essay, the summary of the meeting nobody went to. It generates the code for the new app feature. And it's close to ready to replace cognitive work in production, well past the code, in customer support, translation, contract review, medical notes, tutoring, marketing copy, bookkeeping and data analysis.
 
-AI isn't going to become human. Humans are going to become NPCs, the figures in a video game who say their lines and never decide anything.
+And it's improving fast. Just recently, PhotoCraft went up, an open-source rebuild of Photoshop in Rust, with Claude among its co-authors. Within a week of its first commit, its README says, it could open and re-save 307 of the 309 Photoshop files in a standard test set so that they render the same.[fn:photocraft] Its own README says it isn't ready for daily professional work yet. If I were Adobe, I'd be nervous anyway. In 2025 a Google DeepMind model solved five of the six problems at the International Mathematical Olympiad, and the contest's own coordinators graded its answers at a gold medal's score.[fn:imop] AI has solved Erdős problems that nobody is known to have solved before, and Claude found a construction Donald Knuth had chased for weeks.[fn:real]
+
+On a great deal of work that used to take thought, writing code first among it, the models already beat most of us. They may not beat the best of us, but they don't have to. They're good enough.
+
+And robotics isn't far behind. People are asking real questions now. When does it stop? Why go to college or university at all? Are even the trades safe? Will there be any jobs left for humans?
+
+I write software, so I saw it there first. I used to get paid to code. Now, more and more, I pay a subscription to generate code, and nobody wants to pay me to write it anymore. The machine writes faster than anyone can read, and the pressure is to sign for what nobody has read, to trade understanding for speed. Do that long enough, and you're not deciding anything. You're clicking merge.
+
+My worry is not that AI will become human. My worry is that humans are going to become NPCs, non-player characters, the ones in a video game that no player controls. They're completely programmed, running a script somebody else wrote, with no mind, no free will and no desires of their own.
 
 We can already measure the start of it. In one study, people writing eight-sentence stories could ask an AI for ideas. Their stories were judged more creative, and also "more similar to each other than stories by humans alone."[fn:doshi]
 
-Maybe it tops out here, and from now on it only gets more efficient. It doesn't matter. People who copy instead of think, work nobody understands, and a monthly bill to a lab for the privilege. That's a hellscape, and what we have now is already enough to build it.
+Maybe it tops out here, and from now on it only gets more efficient. It doesn't matter. Picture people who copy instead of thinking, turning out work nobody understands, and paying a lab every month for the privilege. That's a hellscape, and what we have now is already enough to build it.
 
-The worry doesn't need the machine to be weak, and it isn't. PhotoCraft is an open-source rebuild of Photoshop in Rust, with Claude among its co-authors. Within a week of its first commit, its README says, it could open and re-save 307 of the 309 Photoshop files in a standard test set so that they render the same.[fn:photocraft] Its own README says it isn't ready for daily professional work yet. If I were Adobe, I'd be nervous anyway. In 2025 a Google DeepMind model solved five of the six problems at the International Mathematical Olympiad, and the contest's own coordinators graded its answers at a gold medal's score.[fn:imop] AI has solved Erdős problems that nobody is known to have solved before, and Claude found a construction Donald Knuth had chased for weeks.[fn:real]
-
-On a great deal of work that used to take thought, writing code first among it, the models already beat most of us. They may not beat the best of us. They don't have to.
-
-So how does a thing that can't think beat us at our own work?
+So can a machine think? And if it can't, how does it beat us at our own work?
 
 [fn:poetics] Aristotle, /Poetics/ 4, trans. S. H. Butcher ([[https://classics.mit.edu/Aristotle/poetics.1.1.html][MIT]]).
 [fn:doshi] Anil R. Doshi and Oliver P. Hauser, [[https://pmc.ncbi.nlm.nih.gov/articles/PMC11244532/][Generative AI enhances individual creativity but reduces the collective diversity of novel content]], /Science Advances/, July 2024.
@@ -722,7 +735,7 @@ The hand can still go slack. A skill is built by using it, the way a programmer 
 
 Picture an engineer who hands the machine every bug he would have traced, merges every fix it writes after a glance at the green check, and signs his name under the lot, for a year and then for two. Nothing took his understanding from him. He set it down one merge at a time, and his title outlasted the thing it named.
 
-A man becomes one of the figures in a game by skipping his own decisions, until the machine's lines are the only ones he has.
+A man becomes a non-player character by skipping his own decisions, until the machine's script is the only one he runs.
 
 The skeptics said it can't think, so it can't really do the work. The believers say it keeps getting smarter, so a mind will come. Each side has half of it. The skeptics were right about the mind and wrong about the power. The believers are right about the power and wrong about the mind.
 
