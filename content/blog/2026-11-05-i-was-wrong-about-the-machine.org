@@ -73,9 +73,7 @@ I called using the machine the dark side. Fear was the dark side, and I was alre
 
 To keep my own fundamentals sharp, I made @@html:<a href="/store/backseat-driver/">Backseat Driver</a>@@, a tutor for programmers in the AI era. It's free for personal use.
 
-When I use AI, I'm trying to use it like Linus.
-
-# When Using it like Linus is live, link "use it like Linus" above to it.
+When I use AI, I'm trying to @@html:<a href="/blog/2026-11-05-using-it-like-linus/">use it like Linus</a>@@.
 
 I'm working on a future post on the philosophy of LLMs, mostly from Aristotle and Wittgenstein.
 
