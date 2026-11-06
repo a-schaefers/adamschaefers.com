@@ -14,16 +14,25 @@
 ;; LaTeX puts it at the foot of that page.  They number in the order the text refers to
 ;; them, as on the site, so note 49 there is note 49 here.
 ;;
+;; The book's #+EDITION and #+EDITION_SOURCE (where its earlier editions are kept), and its
+;; #+LICENSE and #+LICENSE_URL, go on a copyright page behind the title page.  The site
+;; shows none of them: the post says its license in its own words.
+;;
 ;; What differs from the site:
 ;;
 ;; - The contents the post writes by hand before its first heading (lists of links to
 ;;   its own headings, each under a bold line) are left out: LaTeX makes the book's, with
 ;;   page numbers.
 ;; - A paragraph that links to the PDF itself is left out.
+;; - What else stands before the first heading (the post's opening line, under its
+;;   title on the site) goes on the title page, under the subtitle.
 ;; - The HTML the post carries (@@html:...@@) becomes Org: a link to the site gets the
 ;;   site's full address, an anchor (<a id>) becomes a place links can jump to, <i> is
 ;;   italics.  Any other tag is an error, so a new one gets handled here on purpose.
 ;; - Straight quotes are set as printers' quotes, as LaTeX sets every apostrophe anyway.
+;; - A table gets columns that wrap (set widths, ragged right, small type) in a
+;;   longtable, which can break across pages.  Org's own choice is one line per cell,
+;;   which runs off a 6x9 page.
 
 (require 'cl-lib)
 (require 'ox-latex)
@@ -34,6 +43,24 @@
 (defconst pdf--toc-item
   "^[ \t]*\\(?:-\\|[0-9]+\\.\\)[ \t]+\\(?:\\[@[0-9]+\\][ \t]+\\)?\\[\\[#[^]]+\\]\\[[^]]+\\]\\][ \t]*$"
   "A list item that is only a link to one of the post's own headings.")
+
+(defconst pdf--table-widths '((2 0.34 0.66) (3 0.30 0.22 0.48))
+  "For a table of N columns, each column's share of the line.  Others get equal shares.")
+
+(defun pdf--set-tables ()
+  "Above each table, the #+ATTR_LATEX that makes its columns wrap."
+  (goto-char (point-min))
+  (while (re-search-forward "^[ \t]*|" nil t)
+    (beginning-of-line)
+    (let* ((n (1- (cl-count ?| (buffer-substring (point) (line-end-position)))))
+           (widths (or (cdr (assq n pdf--table-widths)) (make-list n (/ 1.0 n)))))
+      (insert "#+ATTR_LATEX: :environment longtable :font \\small :align "
+              (mapconcat
+               (lambda (w)
+                 (format ">{\\raggedright\\arraybackslash}p{\\dimexpr %.2f\\linewidth-2\\tabcolsep\\relax}" w))
+               widths "")
+              "\n"))
+    (while (looking-at "^[ \t]*|") (forward-line 1))))
 
 (defun pdf--keyword (key)
   "Value of #+KEY in the current Org buffer, or nil if unset or empty."
@@ -64,6 +91,17 @@ standing over such a list."
              (to (progn (goto-char from)
                         (if (re-search-forward "^[ \t]*\n" nil t) (match-end 0) (point-max)))))
         (delete-region from to)))))
+
+(defun pdf--take-opening ()
+  "Delete the text between the keywords and the first heading, and return it, or nil."
+  (save-excursion
+    (goto-char (point-min))
+    (while (looking-at "^\\(?:#\\+.*\\|[ \t]*\\)\n") (forward-line 1))
+    (let* ((from (point))
+           (to (if (re-search-forward "^\\*+ " nil t) (match-beginning 0) (point-max)))
+           (text (string-trim (buffer-substring from to))))
+      (delete-region from to)
+      (unless (string-empty-p text) text))))
 
 (defun pdf--absolute (href)
   "HREF, with the site's address before it if it is one of the site's paths."
@@ -143,15 +181,22 @@ standing over such a list."
              ("\\chapter{%s}" . "\\chapter*{%s}")
              ("\\section{%s}" . "\\section*{%s}")
              ("\\subsection{%s}" . "\\subsection*{%s}"))))
-         title featured body)
+         title featured description edition source license license-url opening body)
     (with-temp-buffer
       (insert-file-contents file)
       (org-mode)
       (setq title (or (pdf--keyword "TITLE") (error "pdf: %s has no #+TITLE" file))
-            featured (pdf--keyword "FEATURED"))
+            featured (pdf--keyword "FEATURED")
+            description (pdf--keyword "DESCRIPTION")
+            edition (pdf--keyword "EDITION")
+            source (pdf--keyword "EDITION_SOURCE")
+            license (pdf--keyword "LICENSE")
+            license-url (pdf--keyword "LICENSE_URL"))
       (pdf--drop-contents)
       (pdf--drop-paragraphs-linking (format "/%s/%s.pdf" collection slug))
+      (setq opening (pdf--take-opening))
       (pdf--anchor-links (pdf--html-snippets))
+      (pdf--set-tables)
       ;; The labels Org makes up are random: seeded, the same ones every run.
       (random "pdf")
       (setq body (org-export-as 'latex nil nil t
@@ -170,6 +215,21 @@ standing over such a list."
                (format "\\newcommand{\\bookdate}{%s}\n" (pdf--date file))
                (format "\\newcommand{\\booksite}{%s}\n"
                        (pdf--tex (replace-regexp-in-string "\\`https://" "" pdf-site)))
+               ;; The opening line, under the subtitle.
+               (if opening
+                   (format "\\newcommand{\\bookopening}{%s}\n"
+                           (string-trim (org-export-string-as opening 'latex t '(:with-smart-quotes t))))
+                 "")
+               ;; The title page carries #+DESCRIPTION under its picture.
+               (if description (format "\\newcommand{\\bookdescription}{%s}\n" (pdf--tex description)) "")
+               ;; The copyright page: #+EDITION, #+EDITION_SOURCE (an address where the
+               ;; earlier editions are kept), #+LICENSE and #+LICENSE_URL.
+               (if edition (format "\\newcommand{\\bookedition}{%s}\n"
+                                   (replace-regexp-in-string "\"\\([^\"]*\\)\"" "``\\1''" (pdf--tex edition) t))
+                 "")
+               (if source (format "\\newcommand{\\bookeditionsource}{%s}\n" source) "")
+               (if license (format "\\newcommand{\\booklicense}{%s}\n" (pdf--tex license)) "")
+               (if license-url (format "\\newcommand{\\booklicenseurl}{%s}\n" license-url) "")
                ;; A picture, not a video: #+FEATURED is a file's site address (blog/x.jpg).
                (if (and featured (string-match-p "\\.\\(?:jpe?g\\|png\\)\\'" featured)
                         (not (string-match-p "\\`https?:" featured)))

@@ -23,6 +23,8 @@
 \usepackage{microtype}
 \usepackage{xcolor}
 \usepackage{graphicx}
+\usepackage{array}
+\usepackage{longtable}
 \usepackage{titlesec}
 % Notes at the foot of the page that refers to them, numbered through the whole book as
 % on the site, and kept at the foot of a short page.
@@ -67,16 +69,43 @@
 \vspace{0.6em}
 {\large\itshape \booksubtitle\par}
 \vspace{1.6em}
+\ifdefined\bookopening
+{\bookopening\par}
+\vspace{1.6em}
+\fi
 \ifdefined\bookpicture
 \includegraphics[width=0.8\textwidth]{\bookpicture}\par
 \fi
 \vspace{1.6em}
+\ifdefined\bookdescription
+{\itshape \bookdescription\par}
+\vspace{1.6em}
+\fi
 {\large \bookauthor\par}
 \vfill
 {\small \bookdate\par}
 \vspace{0.4em}
 {\small \href{https://\booksite}{\booksite}\par}
 \end{titlepage}
+% The copyright page, behind the title, when the post names its edition or license.
+\ifdefined\bookedition\def\bookcopyright{}\fi
+\ifdefined\booklicense\def\bookcopyright{}\fi
+\ifdefined\bookcopyright
+\thispagestyle{empty}
+\vspace*{\fill}
+{\small \noindent \bookauthor\par
+\ifdefined\bookedition\medskip\noindent \bookedition\par\fi
+\ifdefined\bookeditionsource
+\medskip\noindent \href{\bookeditionsource}{\nolinkurl{\bookeditionsource}}\par
+\fi
+\ifdefined\booklicense
+\medskip\noindent \booklicense\par
+\ifdefined\booklicenseurl
+\noindent \href{\booklicenseurl}{\nolinkurl{\booklicenseurl}}\par
+\fi
+\fi}
+\clearpage
+\fi
 \tableofcontents
 \clearpage
 \input{body.tex}

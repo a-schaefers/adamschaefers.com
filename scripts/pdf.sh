@@ -19,7 +19,7 @@
 set -eu
 cd "$(dirname "$0")/.."
 
-book=2026-11-05-machines-of-borrowed-grace.org
+book=2026-11-06-machines-of-borrowed-grace.org
 if [ $# -gt 0 ]; then src=$1
 elif [ -f "content/blog/$book" ]; then src=content/blog/$book
 else src=content/blog/drafts/$book

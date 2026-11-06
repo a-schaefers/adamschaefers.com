@@ -293,6 +293,7 @@
     .post .figure :is(img, video) { @apply mx-auto max-h-[75vh] w-auto max-w-full; }
   }
   .post figcaption { @apply mt-2 text-[.9rem] text-dust; }
+  .post .post-license { @apply mt-12 border-t border-t-ridge pt-6 text-[.85rem] text-dust; }
   #app .post hr { @apply mx-0 my-10 block border-0 border-t border-t-ridge; }
   .post table { @apply w-full border-collapse text-[.95rem]; }
   .post :is(th, td) { @apply border-b border-b-ridge px-3 py-[.55rem] text-left; }

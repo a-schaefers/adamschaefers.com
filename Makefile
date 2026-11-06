@@ -24,7 +24,7 @@ workers:
 run:
 	PORT=$(PORT) node scripts/dev.ts
 
-# The book (2026-11-05-machines-of-borrowed-grace.org, in content/blog/ or its drafts/) as a
+# The book (2026-11-06-machines-of-borrowed-grace.org, in content/blog/ or its drafts/) as a
 # PDF, each note at the foot of the page that refers to it: Org to LaTeX (scripts/pdf.el) to
 # PDF (pdflatex, in the frame scripts/pdf.tex), into build/pdf/: machines-of-borrowed-grace.pdf
 # and the 6x9 interior for Kindle Direct Publishing, machines-of-borrowed-grace-paperback.pdf.
