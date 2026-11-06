@@ -14,6 +14,10 @@
 ;; LaTeX puts it at the foot of that page.  They number in the order the text refers to
 ;; them, as on the site, so note 49 there is note 49 here.
 ;;
+;; The book's #+EDITION and #+EDITION_SOURCE (where its earlier editions are kept), and its
+;; #+LICENSE and #+LICENSE_URL, go on a copyright page behind the title page.  The site
+;; shows none of them: the post says its license in its own words.
+;;
 ;; What differs from the site:
 ;;
 ;; - The contents the post writes by hand before its first heading (lists of links to
@@ -164,12 +168,16 @@ standing over such a list."
              ("\\chapter{%s}" . "\\chapter*{%s}")
              ("\\section{%s}" . "\\section*{%s}")
              ("\\subsection{%s}" . "\\subsection*{%s}"))))
-         title featured body)
+         title featured edition source license license-url body)
     (with-temp-buffer
       (insert-file-contents file)
       (org-mode)
       (setq title (or (pdf--keyword "TITLE") (error "pdf: %s has no #+TITLE" file))
-            featured (pdf--keyword "FEATURED"))
+            featured (pdf--keyword "FEATURED")
+            edition (pdf--keyword "EDITION")
+            source (pdf--keyword "EDITION_SOURCE")
+            license (pdf--keyword "LICENSE")
+            license-url (pdf--keyword "LICENSE_URL"))
       (pdf--drop-contents)
       (pdf--drop-paragraphs-linking (format "/%s/%s.pdf" collection slug))
       (pdf--anchor-links (pdf--html-snippets))
@@ -192,6 +200,14 @@ standing over such a list."
                (format "\\newcommand{\\bookdate}{%s}\n" (pdf--date file))
                (format "\\newcommand{\\booksite}{%s}\n"
                        (pdf--tex (replace-regexp-in-string "\\`https://" "" pdf-site)))
+               ;; The copyright page: #+EDITION, #+EDITION_SOURCE (an address where the
+               ;; earlier editions are kept), #+LICENSE and #+LICENSE_URL.
+               (if edition (format "\\newcommand{\\bookedition}{%s}\n"
+                                   (replace-regexp-in-string "\"\\([^\"]*\\)\"" "``\\1''" (pdf--tex edition) t))
+                 "")
+               (if source (format "\\newcommand{\\bookeditionsource}{%s}\n" source) "")
+               (if license (format "\\newcommand{\\booklicense}{%s}\n" (pdf--tex license)) "")
+               (if license-url (format "\\newcommand{\\booklicenseurl}{%s}\n" license-url) "")
                ;; A picture, not a video: #+FEATURED is a file's site address (blog/x.jpg).
                (if (and featured (string-match-p "\\.\\(?:jpe?g\\|png\\)\\'" featured)
                         (not (string-match-p "\\`https?:" featured)))

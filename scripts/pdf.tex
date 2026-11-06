@@ -79,6 +79,25 @@
 \vspace{0.4em}
 {\small \href{https://\booksite}{\booksite}\par}
 \end{titlepage}
+% The copyright page, behind the title, when the post names its edition or license.
+\ifdefined\bookedition\def\bookcopyright{}\fi
+\ifdefined\booklicense\def\bookcopyright{}\fi
+\ifdefined\bookcopyright
+\thispagestyle{empty}
+\vspace*{\fill}
+{\small \noindent \bookauthor\par
+\ifdefined\bookedition\medskip\noindent \bookedition\par\fi
+\ifdefined\bookeditionsource
+\medskip\noindent \href{\bookeditionsource}{\nolinkurl{\bookeditionsource}}\par
+\fi
+\ifdefined\booklicense
+\medskip\noindent \booklicense\par
+\ifdefined\booklicenseurl
+\noindent \href{\booklicenseurl}{\nolinkurl{\booklicenseurl}}\par
+\fi
+\fi}
+\clearpage
+\fi
 \tableofcontents
 \clearpage
 \input{body.tex}

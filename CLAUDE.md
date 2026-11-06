@@ -549,6 +549,40 @@ go. The kinds:
 11. Authority garnish: a quotation or citation decorating a point already
     made, above all fragments stitched together until the author's own voice
     disappears.
+12. Book-talk (owner, 2026-11-06): any sentence whose subject is the text
+    itself, the book, a part, a chapter or the argument's plan. That covers
+    what a chapter does or doesn't do, what comes next or came before,
+    which rung it's on, which reply is answered where, where a thinker
+    stops, and "There are three charges in that." It is allowed in only
+    three places: "What if I stop here?" (the ladder and the stopping-points
+    table), Appendix A's opening table, and two promises in the preface (you
+    can stop early, and I mark where I speak as a Christian). This overrules
+    the earlier briefs' hand-off and dependency rules and their "a hand-off
+    may stay if it's a claim" exception.
+    Everywhere else:
+    - Convert before you cut. A sentence that carries a real dependency is
+      restated as a claim about the argument or the world, not the book.
+      "Nothing in this chapter needs Ross" becomes "You can grant all of this
+      and still be a materialist." "This holds whether the mind is matter or
+      not" is already a claim about the world, and it stays.
+    - Open a part or chapter with a case, McCabe's way: an example, an
+      object, a question a real reader would ask, or the quotation that sets
+      the problem. Never with what it will do.
+    - End on the thought, not on a pointer. If a question stays open, end on
+      the question itself.
+    - Cross-references: keep only the ones a reader needs to find something,
+      in the notes, as "see chapter 7." Don't say where something will be
+      answered. Answer it, or trust the reader to read on.
+    - Where a thinker stops is said once, in the stopping-points table. In a
+      chapter it gets a single clause, and only where it prevents a
+      misreading.
+    The argument may be deductive, but the prose is inductive: the case
+    first, and the point once the reader has seen it. The test is to read
+    the first and last paragraph of every chapter and report any that
+    describe the book instead of the world, with a rewrite. It runs with the
+    crouch audit, since the crouch hedges a claim and book-talk narrates it,
+    and the two come from the same place. The count outside the allowed
+    places is zero.
 Never flagged: a contrast that corrects something a real opponent actually
 claims; a concession that changes what the argument can claim; a confession
 that reports a specific fact, cost or failure; a quotation that supplies the
