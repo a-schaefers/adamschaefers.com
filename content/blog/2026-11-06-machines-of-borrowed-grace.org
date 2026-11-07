@@ -75,11 +75,11 @@ A book like that could easily turn into word salad, so I went through it line by
 
 Aristotle called man "the most imitative of living creatures," the one who "through imitation learns his earliest lessons."[fn:poetics] It's a gift, and it's how we learn anything at all.
 
-So now we've put the most imitative creature on earth in front of a machine we call AI, or a large language model, that does nothing but imitate humans. It begs the question, who is copying whom?
+So now we've put the most imitative creature on earth in front of a machine we call AI, or a large language model, that does nothing but imitate humans. Who is copying whom?
 
 Most of the time the imitation is passable. It writes the email, the essay, the summary of the meeting nobody went to. It generates the code for the new app feature. And it's close to ready to replace cognitive work in production, well past the code, in customer support, translation, contract review, medical notes, tutoring, marketing copy, bookkeeping and data analysis.
 
-And it's improving fast. Just recently, PhotoCraft went up, an open-source rebuild of Photoshop in Rust, with Claude among its co-authors. Within a week of its first commit, its README says, it could open and re-save 307 of the 309 Photoshop files in a standard test set so that they render the same.[fn:photocraft] Its own README says it isn't ready for daily professional work yet. If I were Adobe, I'd be nervous anyway. In 2025 a Google DeepMind model solved five of the six problems at the International Mathematical Olympiad, and the contest's own coordinators graded its answers at a gold medal's score.[fn:imop] AI has solved Erdős problems that nobody is known to have solved before, and Claude found a construction Donald Knuth had chased for weeks.[fn:real]
+And it's improving fast. Just recently, PhotoCraft went up, an open-source rebuild of Photoshop in Rust, with Claude among its co-authors. Within a week of its first commit, its README says, it could open and re-save 307 of the 309 Photoshop files in a standard test set so that they render the same.[fn:photocraft] Its own README says it isn't ready for daily professional work yet. If I were Adobe, I'd be nervous anyway. In 2025 the coordinators of the International Mathematical Olympiad graded a Google DeepMind model's answers at a gold medal's score.[fn:imop] AI has solved Erdős problems that nobody is known to have solved before, and Claude found a construction Donald Knuth had chased for weeks.[fn:real]
 
 On a great deal of work that used to take thought, writing code first among it, the models already beat most of us. They may not beat the best of us, but they don't have to. They're good enough.
 
@@ -87,13 +87,13 @@ And robotics isn't far behind. People are asking real questions now. When does i
 
 I write software, so I saw it there first. I used to get paid to code. Now, more and more, I pay a subscription to generate code, and nobody wants to pay me to write it anymore. The machine writes faster than anyone can read, and the pressure is to sign for what nobody has read, to trade understanding for speed. Do that long enough, and you're not deciding anything. You're clicking merge.
 
-My worry is not that AI will become human. My worry is that humans are going to become NPCs, non-player characters, the ones in a video game that no player controls. They're completely programmed, running a script somebody else wrote, with no mind, no free will and no desires of their own.
+My worry is not that AI will become human. My worry is that humans are going to become NPCs, non-player characters, the ones in a video game that no player controls. They're completely programmed, running a script somebody else wrote. A man who becomes one still has his mind. He just stops using it.
 
-We can already measure the start of it. In one study, people writing eight-sentence stories could ask an AI for ideas. Their stories were judged more creative, and also "more similar to each other than stories by humans alone."[fn:doshi]
+In one study, people writing eight-sentence stories could ask an AI for ideas. Their stories were judged more creative, and also "more similar to each other than stories by humans alone."[fn:doshi]
 
-Maybe it tops out here, and from now on it only gets more efficient. It doesn't matter. Picture people who copy instead of thinking, turning out work nobody understands, and paying a lab every month for the privilege. That's a hellscape, and what we have now is already enough to build it.
+Maybe the machine tops out here, and from now on it only gets more efficient. It doesn't matter. Picture people who copy instead of thinking, turning out work nobody understands, and paying a lab every month for the privilege. That's a hellscape, and what we have now is already enough to build it.
 
-So can a machine think? And if it can't, how does it beat us at our own work?
+So can a machine think? And if it can't, how does it beat us at our own work? And what are the people selling it standing on?
 
 [fn:poetics] Aristotle, /Poetics/ 4, trans. S. H. Butcher ([[https://classics.mit.edu/Aristotle/poetics.1.1.html][MIT]]).
 [fn:doshi] Anil R. Doshi and Oliver P. Hauser, [[https://pmc.ncbi.nlm.nih.gov/articles/PMC11244532/][Generative AI enhances individual creativity but reduces the collective diversity of novel content]], /Science Advances/, July 2024.
