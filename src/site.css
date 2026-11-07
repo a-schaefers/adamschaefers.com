@@ -295,8 +295,13 @@
   .post figcaption { @apply mt-2 text-[.9rem] text-dust; }
   .post .post-license { @apply mt-12 border-t border-t-ridge pt-6 text-[.85rem] text-dust; }
   #app .post hr { @apply mx-0 my-10 block border-0 border-t border-t-ridge; }
-  .post table { @apply w-full border-collapse text-[.95rem]; }
-  .post :is(th, td) { @apply border-b border-b-ridge px-3 py-[.55rem] text-left; }
+  /* On a phone a table's cells close in and long words break, and a table still wider than
+     the column scrolls sideways on its own rather than the whole page. */
+  .post table { @apply w-full border-collapse text-[.95rem] phone:block phone:overflow-x-auto phone:text-[.85rem] phone:hyphens-auto; }
+  /* Org's rules="groups" draws a line down each side of a column group, which the table's
+     hidden side borders cover only while it's laid out as a table. */
+  .post colgroup { @apply phone:border-x-0; }
+  .post :is(th, td) { @apply border-b border-b-ridge px-3 py-[.55rem] text-left phone:px-2 phone:wrap-break-word; }
   .post th { @apply font-semibold text-dust; }
   .post #footnotes { @apply mt-12 border-t border-t-ridge pt-6 text-[.9rem] text-bone; }
   .post #footnotes h3 { @apply mx-0 mt-0 mb-4 text-[1rem] text-dust; }
