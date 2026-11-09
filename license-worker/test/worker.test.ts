@@ -708,6 +708,8 @@ test('outgrown and the seats email: only clearly over (more than 2x and 5+ over)
   const base = await buy(2, { licensee: 'Busy Co', email: 'lead@busy.test' });
   const more = await buy(1, { key: base.page.key, email: 'it@busy.test' });   // 3 seats now
   await Promise.all(waits);
+  // Both keys in the same millisecond, as back-to-back purchases can be: the later one is still the latest buyer.
+  env.DB.raw.prepare('UPDATE licenses SET issued_at = (SELECT issued_at FROM licenses WHERE id = ?) WHERE id = ?').run(base.page.id, more.page.id);
   emails.length = 0;
   const check = async (n: number, from = 0) => {
     for (let i = from; i < from + n; i++) await call('GET', `/v1/keys/${base.page.id}?install=busy-install-${i}`);
