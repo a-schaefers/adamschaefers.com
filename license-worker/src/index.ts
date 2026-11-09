@@ -279,7 +279,7 @@ async function seatsCheck(env: Env, fam: Family) {
     if (now - root.over_since < OVER_FOR || now - root.nudged_at < NUDGE_EVERY) return;
     const claim = await env.DB.prepare('UPDATE licenses SET nudged_at = ? WHERE id = ? AND nudged_at = ?').bind(now, root.id, root.nudged_at).run();
     if (claim.meta.changes !== 1) return;
-    const latest = (await env.DB.prepare('SELECT email, licensee, product FROM licenses WHERE root_id = ? AND revoked_at = 0 ORDER BY issued_at DESC LIMIT 1').bind(root.id).first<Pick<License, 'email' | 'licensee' | 'product'>>())!;
+    const latest = (await env.DB.prepare('SELECT email, licensee, product FROM licenses WHERE root_id = ? AND revoked_at = 0 ORDER BY issued_at DESC, rowid DESC LIMIT 1').bind(root.id).first<Pick<License, 'email' | 'licensee' | 'product'>>())!;
     try {
       await sendEmail(env, latest.email, seatsEmail({ product: latest.product, licensee: latest.licensee, seats: fam.seats, installs: fam.installs }),
         `seats/${root.id}/${new Date(now).toISOString().slice(0, 10)}`);
