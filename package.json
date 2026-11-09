@@ -9,18 +9,18 @@
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "5.3.0",
     "country-flag-emoji-polyfill": "0.1.10",
-    "hls.js": "1.7.3",
+    "hls.js": "1.7.4",
     "lit-html": "3.3.3",
-    "mediabunny": "1.61.3"
+    "mediabunny": "1.65.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "5.20261011.1",
+    "@cloudflare/workers-types": "5.20261101.1",
     "@tailwindcss/cli": "4.3.3",
     "@types/cloudflare-turnstile": "0.2.2",
     "@types/node": "24.19.2",
     "esbuild": "0.28.2",
     "tailwindcss": "4.3.3",
     "typescript": "7.0.2",
-    "wrangler": "4.149.0"
+    "wrangler": "4.156.0"
   }
 }
