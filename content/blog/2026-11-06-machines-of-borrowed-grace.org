@@ -45,6 +45,9 @@ This work is dedicated to the public domain ([[https://creativecommons.org/publi
 22. [[#accounts][What the healed man is for]]
 23. [[#seas][Black seas]]
 
+
+- [[#wonder][Epilogue. Wonder]]
+
 *Appendices*
 
 - [[#replies][Appendix A. Six replies to Ross]]
@@ -1483,6 +1486,31 @@ There was never any loving grace in the machines.
 [fn:vta712] /Van Til's Apologetic/, p. 712, from Van Til's /The Case for Calvinism/.
 [fn:st104] /Summa Theologiae/ I q.104 a.1 ([[https://www.newadvent.org/summa/1104.htm#article1][New Advent]]), where the being of every creature "would fall into nothingness were it not kept in being by the operation of the Divine power," and where a man who guards a child from the fire preserves it in another way. On creation as no change, see [[#give][chapter 8]].
 [fn:luke15] KJV.
+
+* Epilogue. Wonder
+:PROPERTIES:
+:CUSTOM_ID: wonder
+:END:
+
+Every parent knows the game. Why is the sky blue? Because the air scatters sunlight. Why? Because it scatters blue light more than red. Why? By the fifth why you're out of physics, and by the tenth you're saying, "Go ask your mother."
+
+The machine never runs out. Ask it the tenth why, or the fortieth, at three in the morning, and it answers every one without a sigh. A kid with a question has never had a better partner for the game.
+
+The kid's part of the game is the asking. Aristotle put the start of all philosophy there. "For it is owing to their wonder that men both now begin and at first began to philosophize."[fn:ep-meta1] A man who wonders knows he doesn't know, and wants to, for nothing but the knowing. Aristotle calls that the only free kind of knowing, since "it alone exists for its own sake." The best of what we fed the machine began with somebody wanting to know like that. The machine has all of our questions and all of our answers, and nobody in there wondering.
+
+Wittgenstein wrote, "We feel that even if /all possible/ scientific questions be answered, the problems of life have still not been touched at all."[fn:ep-tlp]
+
+Picture the day the machine has answered every scientific question there is. The problems of life are right where they were. Whom to love, what to forgive, what you'd die for, what any of it is for. The machine will have plenty to say about those too. They get answered by a life, though.
+
+Wittgenstein went quiet there, at what can't be said. Aquinas kept asking. A man who sees an eclipse, and knows it has a cause, wants to know what the cause is, and "this desire is one of wonder." On Aquinas's account it rests only when a man sees God, and only then is he perfectly happy.[fn:ep-st3a8]
+
+Follow the whys far enough, and the kid stops asking why the sky is blue.
+
+He asks why there's a sky.
+
+[fn:ep-meta1] Aristotle, /Metaphysics/ I.2, 982b, trans. W. D. Ross ([[https://classics.mit.edu/Aristotle/metaphysics.1.i.html][MIT]]).
+[fn:ep-tlp] Ludwig Wittgenstein, [[https://www.gutenberg.org/ebooks/5740][Tractatus Logico-Philosophicus]], 6.52, trans. C. K. Ogden (1922). Herbert McCabe sets it beside Aquinas in /God Still Matters/ (Continuum, 2005), p. 24, and goes on, "St Thomas does not give up so easily."
+[fn:ep-st3a8] /Summa Theologiae/ I-II q.3 a.8 ([[https://www.newadvent.org/summa/2003.htm#article8][New Advent]]), where "Final and perfect happiness can consist in nothing else than the vision of the Divine Essence," and the asking, from the eclipse to its cause, does not "cease until he arrive at a knowledge of the essence of the cause."
 
 * Appendix A. Six replies to Ross
 :PROPERTIES:
