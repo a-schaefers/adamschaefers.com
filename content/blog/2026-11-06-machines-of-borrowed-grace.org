@@ -7,7 +7,7 @@
 
 Whether a machine can think is a question about what it is for anything to mean something.
 
-@@html:<a href="/blog/machines-of-borrowed-grace.pdf">Read it as a PDF</a>@@.
+@@html:<a href="/blog/machines-of-borrowed-grace.pdf">Read it as a PDF</a>@@, or get it [[https://press.merecatholicity.com/titles/machines-of-borrowed-grace/][in print from Lérins Press]].
 This work is dedicated to the public domain ([[https://creativecommons.org/publicdomain/zero/1.0/][Creative Commons CC0 1.0]]). No rights reserved. The quotations from other authors remain theirs.
 
 - [[#preface][Preface]]
