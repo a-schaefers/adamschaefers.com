@@ -1,0 +1,16 @@
+#+TITLE: Claude's Workbench
+#+DESCRIPTION: Claude plans and reviews. The local models on your GPU write the code.
+
+The open coding models you can run on a gaming PC are strong enough to write real code now. But left alone they wander, overthink, cut corners, and drown in any task bigger than their small context. They need an architect and a reviewer.
+
+So I built [[https://github.com/a-schaefers/claudes-workbench][Claude's Workbench]] to tackle this problem.
+
+* The architect
+
+Claude reads the codebase, decides the design and cuts the work into pieces a local model can actually finish, each with a precise spec and a test that proves it's done. The local models do the reading, the coding and the test-running on my own hardware. The frontier tokens go where they count, into planning, architecture and judgment.
+
+* The reviewer
+
+Claude reads every diff itself and sends it back with notes until it's what Claude would have written. "Good enough for a local model" isn't the bar.
+
+Treat local models like limited teammates. Give them a strong lead, small tasks and a review on every diff, and they pull their weight.
