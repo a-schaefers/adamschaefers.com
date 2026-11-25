@@ -74,6 +74,10 @@
 
 *TL;DR:* Linux nerd → DevOps wrangler → indie gamedev. 🐧 → ☁️ → 🎮
 
+#+BEGIN_EXPORT html
+<a class="sponsor" href="https://github.com/sponsors/a-schaefers" target="_blank" rel="noopener"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.5 2 4.5 5.8 4c2.3-.3 4.4 1 6.2 3.2C13.8 5 15.9 3.7 18.2 4 22 4.5 23.6 8.5 22 11.7 19.5 16.4 12 21 12 21z"/></svg>Sponsor me on GitHub</a>
+#+END_EXPORT
+
 -----
 
 ** 🗺️ The Quest Log :view:

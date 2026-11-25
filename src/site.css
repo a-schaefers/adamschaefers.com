@@ -207,6 +207,10 @@
   #text-about p { @apply m-0 text-[clamp(2rem,4.6vw,3.25rem)] leading-[1.08] font-[750] font-stretch-80% tracking-[-.02em]; }
   #text-about p b { @apply mb-3 block text-[1rem] font-medium font-stretch-100% tracking-[0] text-dust; }
   #outline-container-about { @apply mb-18; }
+  /* The sponsor button under the TL;DR: GitHub Sponsors' pill, in the site's colors. */
+  .sponsor { @apply mt-6 inline-flex items-center gap-2 rounded-full bg-mesa px-[1.1rem] py-[.55rem] text-[.95rem] font-semibold text-sand no-underline inset-ring inset-ring-ridge; }
+  .sponsor svg { @apply text-chile; }
+  .sponsor:hover { @apply text-turq inset-ring-turq; }
   #text-quest-log > ul { @apply m-0 list-none p-0; }
   #text-quest-log > ul > li { @apply relative ml-[.45rem] border-l-2 border-l-ridge pt-0 pr-0 pb-10 pl-8; }
   #text-quest-log > ul > li:last-child { @apply border-l-transparent pb-0; }
